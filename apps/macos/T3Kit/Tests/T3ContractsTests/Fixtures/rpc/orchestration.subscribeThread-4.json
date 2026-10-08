@@ -1,0 +1,50 @@
+[
+  {
+    "_tag": "Chunk",
+    "requestId": "1",
+    "values": [
+      {
+        "kind": "snapshot",
+        "snapshot": {
+          "snapshotSequence": 38226,
+          "thread": {
+            "id": "80139df1-454e-4632-b1fc-a2e5abfd273f",
+            "projectId": "da5ee52c-4b37-4ac4-9ce0-aa7481bdb66e",
+            "title": "redacted",
+            "modelSelection": {
+              "instanceId": "codex",
+              "model": "redacted"
+            },
+            "runtimeMode": "full-access",
+            "interactionMode": "default",
+            "branch": null,
+            "worktreePath": null,
+            "pullRequests": [],
+            "branchPullRequest": null,
+            "latestTurn": null,
+            "createdAt": "2026-10-08T11:42:11.063Z",
+            "updatedAt": "2026-10-08T11:42:11.063Z",
+            "archivedAt": null,
+            "settledOverride": null,
+            "settledAt": null,
+            "unsettledAt": null,
+            "snoozedUntil": null,
+            "snoozedAt": null,
+            "pinnedAt": null,
+            "pinOrderKey": null,
+            "activeOrderKey": null,
+            "autoSettleDisabledAt": null,
+            "titleRegeneration": null,
+            "titleState": null,
+            "deletedAt": null,
+            "messages": [],
+            "proposedPlans": [],
+            "activities": [],
+            "checkpoints": [],
+            "session": null
+          }
+        }
+      }
+    ]
+  }
+]

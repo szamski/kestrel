@@ -1,0 +1,122 @@
+[
+  {
+    "_tag": "Chunk",
+    "requestId": "1",
+    "values": [
+      {
+        "kind": "snapshot",
+        "snapshot": {
+          "snapshotSequence": 38226,
+          "thread": {
+            "id": "fae0284c-50be-4d55-91f5-831a54f30d58",
+            "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+            "title": "redacted",
+            "modelSelection": {
+              "instanceId": "grok",
+              "model": "redacted"
+            },
+            "runtimeMode": "full-access",
+            "interactionMode": "default",
+            "branch": "redacted",
+            "worktreePath": null,
+            "pullRequests": [],
+            "branchPullRequest": null,
+            "latestTurn": {
+              "turnId": "e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+              "state": "completed",
+              "requestedAt": "2026-10-06T13:51:11.744Z",
+              "startedAt": "2026-10-06T13:51:11.744Z",
+              "completedAt": "2026-10-06T13:51:39.920Z",
+              "assistantMessageId": "assistant:assistant:01a1117b-8c5e-7721-b039-16fda8c15f48:runtime:40c2f02e-dedb-4dbd-a009-41e32ab79a83:segment:0"
+            },
+            "createdAt": "2026-10-06T13:51:11.744Z",
+            "updatedAt": "2026-10-06T13:54:47.579Z",
+            "archivedAt": null,
+            "settledOverride": "settled",
+            "settledAt": "2026-10-06T13:54:47.400Z",
+            "unsettledAt": null,
+            "snoozedUntil": null,
+            "snoozedAt": null,
+            "pinnedAt": null,
+            "pinOrderKey": null,
+            "activeOrderKey": null,
+            "autoSettleDisabledAt": null,
+            "titleRegeneration": null,
+            "titleState": {
+              "source": "generated",
+              "version": "server:thread-title-rename:1bad9011-3fe9-4bf7-a23d-6abc25a7ec04",
+              "needsRefinement": false
+            },
+            "deletedAt": null,
+            "messages": [
+              {
+                "id": "63b0b7bf-453c-432f-b076-433404d12aac",
+                "role": "user",
+                "text": "redacted",
+                "attachments": [],
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-10-06T13:51:11.744Z",
+                "updatedAt": "2026-10-06T13:51:11.744Z"
+              },
+              {
+                "id": "reasoning:raw:e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+                "role": "reasoning",
+                "text": "redacted",
+                "turnId": "e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+                "streaming": false,
+                "createdAt": "2026-10-06T13:51:16.640Z",
+                "updatedAt": "2026-10-06T13:51:34.382Z"
+              },
+              {
+                "id": "assistant:assistant:01a1117b-8c5e-7721-b039-16fda8c15f48:runtime:40c2f02e-dedb-4dbd-a009-41e32ab79a83:segment:0",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": "e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+                "streaming": false,
+                "createdAt": "2026-10-06T13:51:34.383Z",
+                "updatedAt": "2026-10-06T13:51:39.920Z"
+              }
+            ],
+            "proposedPlans": [],
+            "activities": [
+              {
+                "id": "931fc75c-ea13-4bca-82bb-8b5054a7aa31",
+                "tone": "info",
+                "kind": "checkpoint.captured",
+                "summary": "redacted",
+                "payload": {
+                  "turnCount": 1,
+                  "status": "redacted"
+                },
+                "turnId": "e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+                "createdAt": "2026-10-06T13:51:39.920Z"
+              }
+            ],
+            "checkpoints": [
+              {
+                "turnId": "e19366b6-8a39-4849-ac2d-0fcb4a9bc167",
+                "checkpointTurnCount": 1,
+                "checkpointRef": "refs/t3/checkpoints/ZmFlMDI4NGMtNTBiZS00ZDU1LTkxZjUtODMxYTU0ZjMwZDU4/turn/1",
+                "status": "ready",
+                "files": [],
+                "assistantMessageId": "assistant:assistant:01a1117b-8c5e-7721-b039-16fda8c15f48:runtime:40c2f02e-dedb-4dbd-a009-41e32ab79a83:segment:0",
+                "completedAt": "2026-10-06T13:51:39.920Z"
+              }
+            ],
+            "session": {
+              "threadId": "fae0284c-50be-4d55-91f5-831a54f30d58",
+              "status": "stopped",
+              "providerName": "redacted",
+              "providerInstanceId": "grok",
+              "runtimeMode": "full-access",
+              "activeTurnId": null,
+              "lastError": null,
+              "updatedAt": "2026-10-06T13:54:47.579Z"
+            }
+          }
+        }
+      }
+    ]
+  }
+]

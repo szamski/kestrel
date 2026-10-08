@@ -1,0 +1,124 @@
+[
+  {
+    "_tag": "Exit",
+    "requestId": "1",
+    "exit": {
+      "_tag": "Success",
+      "value": {
+        "worktreeCleanup": null,
+        "storageCleanup": {
+          "worktreeAfterDays": null,
+          "worktreeOnMerge": false,
+          "worktreeOnDelete": false,
+          "worktreeUnchanged": false,
+          "browserArtifactsAfterDays": null,
+          "logsAfterDays": null
+        },
+        "responseStreamingMode": "paragraph",
+        "enableProviderUpdateChecks": true,
+        "continueThreadsAfterServerUpdate": false,
+        "enableAgentBrowserAccess": true,
+        "projectAgentBrowserAccessOverrides": {},
+        "defaultAutoPull": false,
+        "defaultProjectScripts": [],
+        "projectScriptOverrides": {},
+        "projectAutoPullOverrides": {},
+        "defaultModelSelection": null,
+        "defaultRuntimeMode": "full-access",
+        "projectSettingsOverrides": {},
+        "projectSettingsFolded": true,
+        "enableAgentDeviceAccess": false,
+        "enableDeviceSupport": false,
+        "deviceOnboardingCompleted": false,
+        "deviceHosts": [],
+        "sidebarAutoSettleAfterDays": 3,
+        "sidebarAutoSettleOnMerge": true,
+        "backgroundActivity": {
+          "schemaVersion": 1,
+          "profile": "balanced",
+          "overrides": {}
+        },
+        "automaticGitFetchInterval": 30000,
+        "providerHealthRefreshInterval": 300000,
+        "backgroundActivityProfile": "balanced",
+        "defaultTheme": "redacted",
+        "defaultThemeSetAt": "redacted",
+        "environmentIcon": null,
+        "newWorktreesStartFromOrigin": true,
+        "worktreeSubmodules": null,
+        "addProjectBaseDirectory": "redacted",
+        "textGenerationModelSelection": {
+          "instanceId": "codex",
+          "model": "redacted",
+          "options": [
+            {
+              "id": "redacted",
+              "value": "redacted"
+            }
+          ]
+        },
+        "sourceControlWritingStyle": {
+          "mode": "repo_conventions",
+          "customInstructions": "redacted",
+          "followChangeRequestTemplates": true
+        },
+        "sourceControlWriterModelSelection": null,
+        "pullRequestMergeMethod": null,
+        "providers": {
+          "codex": {
+            "enabled": true,
+            "binaryPath": "redacted",
+            "homePath": "redacted",
+            "shadowHomePath": "redacted",
+            "launchArgs": "redacted",
+            "customModels": []
+          },
+          "claudeAgent": {
+            "enabled": true,
+            "binaryPath": "redacted",
+            "homePath": "redacted",
+            "customModels": [],
+            "launchArgs": "redacted",
+            "autoCompactWindow": "redacted"
+          },
+          "cursor": {
+            "enabled": false,
+            "binaryPath": "redacted",
+            "apiEndpoint": "redacted",
+            "customModels": []
+          },
+          "grok": {
+            "enabled": true,
+            "binaryPath": "redacted",
+            "customModels": []
+          },
+          "opencode": {
+            "enabled": false,
+            "binaryPath": "redacted",
+            "serverUrl": "redacted",
+            "serverPassword": "redacted",
+            "customModels": []
+          },
+          "antigravity": {
+            "enabled": false,
+            "authMethod": "oauth-personal",
+            "apiKey": "redacted",
+            "gcpProject": "redacted",
+            "gcpLocation": "redacted",
+            "binaryPath": "redacted",
+            "customModels": []
+          }
+        },
+        "providerInstances": {},
+        "observability": {
+          "otlpTracesUrl": "redacted",
+          "otlpMetricsUrl": "redacted",
+          "otlpLogsUrl": "redacted"
+        },
+        "usageLimitSources": {},
+        "cursorKeychainUsageEnabled": false,
+        "usagePriceOverrides": {}
+      }
+    }
+  }
+]

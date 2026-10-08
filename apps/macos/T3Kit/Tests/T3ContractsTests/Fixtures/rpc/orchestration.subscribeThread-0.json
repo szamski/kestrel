@@ -1,0 +1,226 @@
+[
+  {
+    "_tag": "Chunk",
+    "requestId": "1",
+    "values": [
+      {
+        "kind": "snapshot",
+        "snapshot": {
+          "snapshotSequence": 38226,
+          "thread": {
+            "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9",
+            "projectId": "2dd167b9-90cd-4a3b-8b60-e760eafc972d",
+            "title": "redacted",
+            "modelSelection": {
+              "instanceId": "codex",
+              "model": "redacted"
+            },
+            "runtimeMode": "full-access",
+            "interactionMode": "default",
+            "branch": null,
+            "worktreePath": null,
+            "pullRequests": [],
+            "branchPullRequest": null,
+            "latestTurn": null,
+            "createdAt": "2026-09-24T15:15:24.337Z",
+            "updatedAt": "2026-09-30T07:53:48.198Z",
+            "archivedAt": null,
+            "settledOverride": "settled",
+            "settledAt": "2026-09-24T15:30:58.216Z",
+            "unsettledAt": null,
+            "snoozedUntil": null,
+            "snoozedAt": null,
+            "pinnedAt": null,
+            "pinOrderKey": null,
+            "activeOrderKey": null,
+            "autoSettleDisabledAt": null,
+            "titleRegeneration": null,
+            "titleState": {
+              "source": "generated",
+              "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+              "needsRefinement": false
+            },
+            "deletedAt": null,
+            "messages": [
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000000",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:15:24.337Z",
+                "updatedAt": "2026-09-24T15:15:24.337Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000001",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:15:24.657Z",
+                "updatedAt": "2026-09-24T15:15:24.657Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000002",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:15:29.541Z",
+                "updatedAt": "2026-09-24T15:15:29.541Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000003",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:15:44.634Z",
+                "updatedAt": "2026-09-24T15:15:44.634Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000004",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:17:22.282Z",
+                "updatedAt": "2026-09-24T15:17:22.282Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000005",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:18:03.194Z",
+                "updatedAt": "2026-09-24T15:18:03.194Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000006",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:18:09.148Z",
+                "updatedAt": "2026-09-24T15:18:09.148Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000007",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:18:12.882Z",
+                "updatedAt": "2026-09-24T15:18:12.882Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000008",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:18:59.687Z",
+                "updatedAt": "2026-09-24T15:18:59.687Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000009",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:19:28.528Z",
+                "updatedAt": "2026-09-24T15:19:28.528Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000010",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:20:34.503Z",
+                "updatedAt": "2026-09-24T15:20:34.503Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000011",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:21:41.199Z",
+                "updatedAt": "2026-09-24T15:21:41.199Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000012",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:24:42.738Z",
+                "updatedAt": "2026-09-24T15:24:42.738Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000013",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:27:15.881Z",
+                "updatedAt": "2026-09-24T15:27:15.881Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000014",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:29:37.391Z",
+                "updatedAt": "2026-09-24T15:29:37.391Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000015",
+                "role": "user",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:29:44.336Z",
+                "updatedAt": "2026-09-24T15:29:44.336Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000016",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:29:56.443Z",
+                "updatedAt": "2026-09-24T15:29:56.443Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000017",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:30:25.094Z",
+                "updatedAt": "2026-09-24T15:30:25.094Z"
+              },
+              {
+                "id": "import:codex:01a0d3fb-51c5-78a2-aeb5-bcb07fc4bdf9:000018",
+                "role": "assistant",
+                "text": "redacted",
+                "turnId": null,
+                "streaming": false,
+                "createdAt": "2026-09-24T15:30:58.216Z",
+                "updatedAt": "2026-09-24T15:30:58.216Z"
+              }
+            ],
+            "proposedPlans": [],
+            "activities": [],
+            "checkpoints": [],
+            "session": null
+          }
+        }
+      }
+    ]
+  }
+]

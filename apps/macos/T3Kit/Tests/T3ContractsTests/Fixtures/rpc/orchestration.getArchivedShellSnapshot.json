@@ -1,0 +1,15 @@
+[
+  {
+    "_tag": "Exit",
+    "requestId": "1",
+    "exit": {
+      "_tag": "Success",
+      "value": {
+        "snapshotSequence": 38226,
+        "projects": [],
+        "threads": [],
+        "updatedAt": "2026-10-08T11:42:11.063Z"
+      }
+    }
+  }
+]

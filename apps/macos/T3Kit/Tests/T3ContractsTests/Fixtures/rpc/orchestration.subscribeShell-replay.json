@@ -1,0 +1,248 @@
+[
+  {
+    "_tag": "Chunk",
+    "requestId": "1",
+    "values": [
+      {
+        "kind": "thread-upserted",
+        "sequence": 37869,
+        "thread": {
+          "id": "47544d56-90cf-41ab-bc94-0e0c8f558356",
+          "projectId": "667a0e70-f5b7-49d5-b054-c9b0607ac157",
+          "title": "redacted",
+          "modelSelection": {
+            "instanceId": "claudeAgent",
+            "model": "redacted",
+            "options": [
+              {
+                "id": "redacted",
+                "value": false
+              }
+            ]
+          },
+          "runtimeMode": "full-access",
+          "interactionMode": "default",
+          "branch": null,
+          "worktreePath": "redacted",
+          "pullRequests": [],
+          "branchPullRequest": null,
+          "latestTurn": {
+            "turnId": "fc78c194-8e4f-4ef7-8beb-3beb7321c8ed",
+            "state": "completed",
+            "requestedAt": "2026-10-08T11:31:37.181Z",
+            "startedAt": "2026-10-08T11:31:37.181Z",
+            "completedAt": "2026-10-08T11:31:47.862Z",
+            "assistantMessageId": "assistant:815a0d60-c493-4a40-bc35-7be036ed2f24"
+          },
+          "createdAt": "2026-10-08T11:29:30.346Z",
+          "updatedAt": "2026-10-08T11:32:02.645Z",
+          "archivedAt": null,
+          "settledOverride": "settled",
+          "settledAt": "2026-10-08T11:32:01.638Z",
+          "unsettledAt": null,
+          "snoozedUntil": null,
+          "snoozedAt": null,
+          "pinnedAt": null,
+          "pinOrderKey": null,
+          "activeOrderKey": null,
+          "autoSettleDisabledAt": null,
+          "titleRegeneration": null,
+          "titleState": {
+            "source": "generated",
+            "version": "server:thread-title-rename:84f8ba8f-6cc5-46e3-9726-afa467291e74",
+            "needsRefinement": false
+          },
+          "session": {
+            "threadId": "47544d56-90cf-41ab-bc94-0e0c8f558356",
+            "status": "stopped",
+            "providerName": "redacted",
+            "providerInstanceId": "claudeAgent",
+            "runtimeMode": "full-access",
+            "activeTurnId": null,
+            "lastError": null,
+            "updatedAt": "2026-10-08T11:32:02.645Z"
+          },
+          "latestUserMessageAt": "2026-10-08T11:31:37.181Z",
+          "hasPendingApprovals": false,
+          "hasPendingUserInput": false,
+          "hasActionableProposedPlan": false,
+          "backgroundLiveness": null,
+          "planProgress": null
+        }
+      },
+      {
+        "kind": "thread-upserted",
+        "sequence": 38205,
+        "thread": {
+          "id": "faea998e-7d7d-4c0e-9ae0-14214f7f4fe7",
+          "projectId": "54a94210-7759-471c-b13c-27626a0131e8",
+          "title": "redacted",
+          "modelSelection": {
+            "instanceId": "claudeAgent",
+            "model": "redacted",
+            "options": [
+              {
+                "id": "redacted",
+                "value": false
+              }
+            ]
+          },
+          "runtimeMode": "full-access",
+          "interactionMode": "default",
+          "branch": "redacted",
+          "worktreePath": null,
+          "pullRequests": [],
+          "branchPullRequest": null,
+          "latestTurn": {
+            "turnId": "eaad3dd7-b214-4b31-bb49-133d36454c45",
+            "state": "completed",
+            "requestedAt": "2026-10-08T11:37:20.430Z",
+            "startedAt": "2026-10-08T11:37:20.430Z",
+            "completedAt": "2026-10-08T11:37:26.791Z",
+            "assistantMessageId": "assistant:7d2bc46b-3593-48c2-8240-93943a5874a0"
+          },
+          "createdAt": "2026-10-08T10:09:44.486Z",
+          "updatedAt": "2026-10-08T11:40:22.190Z",
+          "archivedAt": null,
+          "settledOverride": null,
+          "settledAt": null,
+          "unsettledAt": null,
+          "snoozedUntil": null,
+          "snoozedAt": null,
+          "pinnedAt": null,
+          "pinOrderKey": null,
+          "activeOrderKey": null,
+          "autoSettleDisabledAt": null,
+          "titleRegeneration": null,
+          "titleState": {
+            "source": "generated",
+            "version": "server:thread-title-rename:7bb6a432-2e63-497a-9ac3-28b10e7ae538",
+            "needsRefinement": false
+          },
+          "session": {
+            "threadId": "faea998e-7d7d-4c0e-9ae0-14214f7f4fe7",
+            "status": "ready",
+            "providerName": "redacted",
+            "providerInstanceId": "claudeAgent",
+            "runtimeMode": "full-access",
+            "activeTurnId": null,
+            "lastError": null,
+            "updatedAt": "2026-10-08T11:37:26.791Z"
+          },
+          "latestUserMessageAt": "2026-10-08T11:15:33.291Z",
+          "hasPendingApprovals": false,
+          "hasPendingUserInput": false,
+          "hasActionableProposedPlan": false,
+          "backgroundLiveness": null,
+          "planProgress": null
+        }
+      },
+      {
+        "kind": "thread-upserted",
+        "sequence": 38224,
+        "thread": {
+          "id": "f653d058-cbc2-4106-a894-b23b7cc4b31f",
+          "projectId": "8e51a9ef-a35e-4196-8893-f963048dff97",
+          "title": "redacted",
+          "modelSelection": {
+            "instanceId": "claudeAgent",
+            "model": "redacted",
+            "options": [
+              {
+                "id": "redacted",
+                "value": false
+              }
+            ]
+          },
+          "runtimeMode": "full-access",
+          "interactionMode": "default",
+          "branch": "redacted",
+          "worktreePath": null,
+          "pullRequests": [],
+          "branchPullRequest": null,
+          "latestTurn": {
+            "turnId": "c7baedf8-8187-41e6-80ab-fdaf3687c801",
+            "state": "error",
+            "requestedAt": "2026-10-08T11:38:47.579Z",
+            "startedAt": "2026-10-08T11:38:47.579Z",
+            "completedAt": "2026-10-08T11:42:10.478Z",
+            "assistantMessageId": "assistant:6e196fa4-2362-4980-b875-8e9c2222525c"
+          },
+          "createdAt": "2026-10-08T11:24:19.788Z",
+          "updatedAt": "2026-10-08T11:42:10.478Z",
+          "archivedAt": null,
+          "settledOverride": null,
+          "settledAt": null,
+          "unsettledAt": null,
+          "snoozedUntil": null,
+          "snoozedAt": null,
+          "pinnedAt": null,
+          "pinOrderKey": null,
+          "activeOrderKey": null,
+          "autoSettleDisabledAt": null,
+          "titleRegeneration": null,
+          "titleState": {
+            "source": "generated",
+            "version": "server:thread-title-rename:91addf01-41f9-497e-80b5-649aeff7775f",
+            "needsRefinement": false
+          },
+          "session": {
+            "threadId": "f653d058-cbc2-4106-a894-b23b7cc4b31f",
+            "status": "error",
+            "providerName": "redacted",
+            "providerInstanceId": "claudeAgent",
+            "runtimeMode": "full-access",
+            "activeTurnId": null,
+            "lastError": "redacted",
+            "updatedAt": "2026-10-08T11:42:10.478Z"
+          },
+          "latestUserMessageAt": "2026-10-08T11:38:47.579Z",
+          "hasPendingApprovals": false,
+          "hasPendingUserInput": false,
+          "hasActionableProposedPlan": false,
+          "backgroundLiveness": null,
+          "planProgress": null
+        }
+      },
+      {
+        "kind": "project-upserted",
+        "sequence": 38225,
+        "project": {
+          "id": "da5ee52c-4b37-4ac4-9ce0-aa7481bdb66e",
+          "title": "redacted",
+          "workspaceRoot": "redacted",
+          "repositoryIdentity": {
+            "canonicalKey": "redacted",
+            "locator": {
+              "source": "git-remote",
+              "remoteName": "redacted",
+              "remoteUrl": "redacted"
+            },
+            "rootPath": "redacted",
+            "displayName": "redacted",
+            "provider": "redacted",
+            "owner": "redacted",
+            "name": "redacted"
+          },
+          "defaultModelSelection": null,
+          "defaultThreadEnvMode": null,
+          "autoPull": false,
+          "faviconPath": null,
+          "projectIcon": null,
+          "scripts": [],
+          "createdAt": "2026-10-08T11:42:11.018Z",
+          "updatedAt": "2026-10-08T11:42:11.018Z"
+        }
+      }
+    ]
+  },
+  {
+    "_tag": "Chunk",
+    "requestId": "1",
+    "values": [
+      {
+        "kind": "synchronized"
+      }
+    ]
+  }
+]

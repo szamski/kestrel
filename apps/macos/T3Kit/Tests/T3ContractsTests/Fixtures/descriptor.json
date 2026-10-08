@@ -1,0 +1,44 @@
+{
+  "environmentId": "efcbce6a-6aa2-4779-905b-dd2cc3874e6a",
+  "label": "redacted",
+  "platform": {
+    "os": "darwin",
+    "arch": "arm64",
+    "machine": "laptop"
+  },
+  "serverVersion": "redacted",
+  "orchestrationProtocolVersion": 1,
+  "capabilities": {
+    "repositoryIdentity": true,
+    "connectionProbe": true,
+    "attachmentUploads": true,
+    "questionAttachments": true,
+    "fileAttachments": {
+      "maxUploadBytes": 52428800
+    },
+    "pullRequests": true,
+    "inlineMessageContext": true,
+    "requiredWorktreeBootstrap": true,
+    "threadSettlement": true,
+    "threadAutoSettlement": true,
+    "storageCleanup": true,
+    "projectWorktreeCleanup": true,
+    "threadRestartContinuation": true,
+    "projectSettingsOverrides": true,
+    "threadSnooze": true,
+    "environmentThemes": true,
+    "usageLimitSources": true,
+    "usagePriceOverrides": true,
+    "threadPinning": true,
+    "threadPinReorder": true,
+    "threadActiveReorder": true,
+    "threadAutoSettleOptOut": true,
+    "threadTitleRegeneration": true,
+    "threadPullRequestLinking": true,
+    "threadPullRequests": true,
+    "pullRequestStackActions": true,
+    "agentActivityPublishing": false,
+    "projectCloneTracking": true,
+    "environmentIcon": true
+  }
+}
