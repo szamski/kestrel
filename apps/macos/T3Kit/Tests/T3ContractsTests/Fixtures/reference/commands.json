@@ -1,196 +1,196 @@
 [
-  {
-    "name": "projectCreate",
-    "input": {
-      "type": "project.create",
-      "commandId": "cmd-1",
-      "projectId": "proj-1",
-      "title": "Project",
-      "workspaceRoot": "/tmp/project",
-      "createWorkspaceRootIfMissing": true,
-      "defaultModelSelection": {
-        "instanceId": "codex",
-        "model": "gpt-5",
-        "options": [
-          {
-            "id": "effort",
-            "value": "high"
-          }
-        ]
-      },
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    "canonical": {
-      "type": "project.create",
-      "commandId": "cmd-1",
-      "projectId": "proj-1",
-      "title": "Project",
-      "workspaceRoot": "/tmp/project",
-      "createWorkspaceRootIfMissing": true,
-      "defaultModelSelection": {
-        "instanceId": "codex",
-        "model": "gpt-5",
-        "options": [
-          {
-            "id": "effort",
-            "value": "high"
-          }
-        ]
-      },
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    }
+ {
+  "name": "projectCreate",
+  "input": {
+   "type": "project.create",
+   "commandId": "cmd-1",
+   "projectId": "proj-1",
+   "title": "Project",
+   "workspaceRoot": "/tmp/project",
+   "createWorkspaceRootIfMissing": true,
+   "defaultModelSelection": {
+    "instanceId": "codex",
+    "model": "gpt-5",
+    "options": [
+     {
+      "id": "effort",
+      "value": "high"
+     }
+    ]
+   },
+   "createdAt": "2026-01-01T00:00:00.000Z"
   },
-  {
-    "name": "projectMetaUpdateClearsModel",
-    "input": {
-      "type": "project.meta.update",
-      "commandId": "cmd-2",
-      "projectId": "proj-1",
-      "title": "Renamed",
-      "defaultModelSelection": null,
-      "faviconPath": null
-    },
-    "canonical": {
-      "type": "project.meta.update",
-      "commandId": "cmd-2",
-      "projectId": "proj-1",
-      "title": "Renamed",
-      "defaultModelSelection": null,
-      "faviconPath": null
-    }
-  },
-  {
-    "name": "threadCreate",
-    "input": {
-      "type": "thread.create",
-      "commandId": "cmd-3",
-      "threadId": "thread-1",
-      "projectId": "proj-1",
-      "title": "Thread",
-      "modelSelection": {
-        "instanceId": "claudeAgent",
-        "model": "opus"
-      },
-      "runtimeMode": "approval-required",
-      "branch": null,
-      "worktreePath": null,
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    "canonical": {
-      "type": "thread.create",
-      "commandId": "cmd-3",
-      "threadId": "thread-1",
-      "projectId": "proj-1",
-      "title": "Thread",
-      "modelSelection": {
-        "instanceId": "claudeAgent",
-        "model": "opus"
-      },
-      "runtimeMode": "approval-required",
-      "interactionMode": "default",
-      "branch": null,
-      "worktreePath": null,
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    }
-  },
-  {
-    "name": "threadTurnStart",
-    "input": {
-      "type": "thread.turn.start",
-      "commandId": "cmd-4",
-      "threadId": "thread-1",
-      "message": {
-        "messageId": "msg-1",
-        "role": "user",
-        "text": "Hello",
-        "attachments": [
-          {
-            "type": "image",
-            "name": "a.png",
-            "mimeType": "image/png",
-            "sizeBytes": 3,
-            "dataUrl": "data:image/png;base64,AAAA"
-          }
-        ]
-      },
-      "runtimeMode": "full-access",
-      "interactionMode": "plan",
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    "canonical": {
-      "type": "thread.turn.start",
-      "commandId": "cmd-4",
-      "threadId": "thread-1",
-      "message": {
-        "messageId": "msg-1",
-        "role": "user",
-        "text": "Hello",
-        "attachments": [
-          {
-            "type": "image",
-            "name": "a.png",
-            "mimeType": "image/png",
-            "sizeBytes": 3,
-            "dataUrl": "data:image/png;base64,AAAA"
-          }
-        ]
-      },
-      "runtimeMode": "full-access",
-      "interactionMode": "plan",
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    }
-  },
-  {
-    "name": "threadMetaUpdateTriState",
-    "input": {
-      "type": "thread.meta.update",
-      "commandId": "cmd-5",
-      "threadId": "thread-1",
-      "title": "New title",
-      "branch": null,
-      "worktreePath": "/tmp/wt"
-    },
-    "canonical": {
-      "type": "thread.meta.update",
-      "commandId": "cmd-5",
-      "threadId": "thread-1",
-      "title": "New title",
-      "branch": null,
-      "worktreePath": "/tmp/wt"
-    }
-  },
-  {
-    "name": "threadApprovalRespond",
-    "input": {
-      "type": "thread.approval.respond",
-      "commandId": "cmd-6",
-      "threadId": "thread-1",
-      "requestId": "req-1",
-      "decision": "acceptForSession",
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    "canonical": {
-      "type": "thread.approval.respond",
-      "commandId": "cmd-6",
-      "threadId": "thread-1",
-      "requestId": "req-1",
-      "decision": "acceptForSession",
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    }
-  },
-  {
-    "name": "threadSnooze",
-    "input": {
-      "type": "thread.snooze",
-      "commandId": "cmd-7",
-      "threadId": "thread-1",
-      "snoozedUntil": "2026-01-01T00:00:00.000Z"
-    },
-    "canonical": {
-      "type": "thread.snooze",
-      "commandId": "cmd-7",
-      "threadId": "thread-1",
-      "snoozedUntil": "2026-01-01T00:00:00.000Z"
-    }
+  "canonical": {
+   "type": "project.create",
+   "commandId": "cmd-1",
+   "projectId": "proj-1",
+   "title": "Project",
+   "workspaceRoot": "/tmp/project",
+   "createWorkspaceRootIfMissing": true,
+   "defaultModelSelection": {
+    "instanceId": "codex",
+    "model": "gpt-5",
+    "options": [
+     {
+      "id": "effort",
+      "value": "high"
+     }
+    ]
+   },
+   "createdAt": "2026-01-01T00:00:00.000Z"
   }
+ },
+ {
+  "name": "projectMetaUpdateClearsModel",
+  "input": {
+   "type": "project.meta.update",
+   "commandId": "cmd-2",
+   "projectId": "proj-1",
+   "title": "Renamed",
+   "defaultModelSelection": null,
+   "faviconPath": null
+  },
+  "canonical": {
+   "type": "project.meta.update",
+   "commandId": "cmd-2",
+   "projectId": "proj-1",
+   "title": "Renamed",
+   "defaultModelSelection": null,
+   "faviconPath": null
+  }
+ },
+ {
+  "name": "threadCreate",
+  "input": {
+   "type": "thread.create",
+   "commandId": "cmd-3",
+   "threadId": "thread-1",
+   "projectId": "proj-1",
+   "title": "Thread",
+   "modelSelection": {
+    "instanceId": "claudeAgent",
+    "model": "opus"
+   },
+   "runtimeMode": "approval-required",
+   "branch": null,
+   "worktreePath": null,
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  "canonical": {
+   "type": "thread.create",
+   "commandId": "cmd-3",
+   "threadId": "thread-1",
+   "projectId": "proj-1",
+   "title": "Thread",
+   "modelSelection": {
+    "instanceId": "claudeAgent",
+    "model": "opus"
+   },
+   "runtimeMode": "approval-required",
+   "interactionMode": "default",
+   "branch": null,
+   "worktreePath": null,
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+ },
+ {
+  "name": "threadTurnStart",
+  "input": {
+   "type": "thread.turn.start",
+   "commandId": "cmd-4",
+   "threadId": "thread-1",
+   "message": {
+    "messageId": "msg-1",
+    "role": "user",
+    "text": "Hello",
+    "attachments": [
+     {
+      "type": "image",
+      "name": "a.png",
+      "mimeType": "image/png",
+      "sizeBytes": 3,
+      "dataUrl": "data:image/png;base64,AAAA"
+     }
+    ]
+   },
+   "runtimeMode": "full-access",
+   "interactionMode": "plan",
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  "canonical": {
+   "type": "thread.turn.start",
+   "commandId": "cmd-4",
+   "threadId": "thread-1",
+   "message": {
+    "messageId": "msg-1",
+    "role": "user",
+    "text": "Hello",
+    "attachments": [
+     {
+      "type": "image",
+      "name": "a.png",
+      "mimeType": "image/png",
+      "sizeBytes": 3,
+      "dataUrl": "data:image/png;base64,AAAA"
+     }
+    ]
+   },
+   "runtimeMode": "full-access",
+   "interactionMode": "plan",
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+ },
+ {
+  "name": "threadMetaUpdateTriState",
+  "input": {
+   "type": "thread.meta.update",
+   "commandId": "cmd-5",
+   "threadId": "thread-1",
+   "title": "New title",
+   "branch": null,
+   "worktreePath": "/tmp/wt"
+  },
+  "canonical": {
+   "type": "thread.meta.update",
+   "commandId": "cmd-5",
+   "threadId": "thread-1",
+   "title": "New title",
+   "branch": null,
+   "worktreePath": "/tmp/wt"
+  }
+ },
+ {
+  "name": "threadApprovalRespond",
+  "input": {
+   "type": "thread.approval.respond",
+   "commandId": "cmd-6",
+   "threadId": "thread-1",
+   "requestId": "req-1",
+   "decision": "acceptForSession",
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  "canonical": {
+   "type": "thread.approval.respond",
+   "commandId": "cmd-6",
+   "threadId": "thread-1",
+   "requestId": "req-1",
+   "decision": "acceptForSession",
+   "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+ },
+ {
+  "name": "threadSnooze",
+  "input": {
+   "type": "thread.snooze",
+   "commandId": "cmd-7",
+   "threadId": "thread-1",
+   "snoozedUntil": "2026-01-01T00:00:00.000Z"
+  },
+  "canonical": {
+   "type": "thread.snooze",
+   "commandId": "cmd-7",
+   "threadId": "thread-1",
+   "snoozedUntil": "2026-01-01T00:00:00.000Z"
+  }
+ }
 ]

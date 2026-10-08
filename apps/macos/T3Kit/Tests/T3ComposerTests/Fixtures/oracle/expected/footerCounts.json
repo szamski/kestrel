@@ -1,7 +1,1 @@
-[
-  { "input": { "imageCount": 0 }, "output": { "visibleCount": 0, "overflowCount": 0 } },
-  { "input": { "imageCount": 1 }, "output": { "visibleCount": 1, "overflowCount": 0 } },
-  { "input": { "imageCount": 3 }, "output": { "visibleCount": 3, "overflowCount": 0 } },
-  { "input": { "imageCount": 4 }, "output": { "visibleCount": 3, "overflowCount": 1 } },
-  { "input": { "imageCount": 10 }, "output": { "visibleCount": 3, "overflowCount": 7 } }
-]
+[{"input":{"imageCount":0},"output":{"visibleCount":0,"overflowCount":0}},{"input":{"imageCount":1},"output":{"visibleCount":1,"overflowCount":0}},{"input":{"imageCount":3},"output":{"visibleCount":3,"overflowCount":0}},{"input":{"imageCount":4},"output":{"visibleCount":3,"overflowCount":1}},{"input":{"imageCount":10},"output":{"visibleCount":3,"overflowCount":7}}]

@@ -1,8 +1,1 @@
-[
-  { "input": { "text": "" }, "output": "" },
-  { "input": { "text": "\n\nabc\n\n" }, "output": "abc" },
-  { "input": { "text": "a\r\nb\r\n" }, "output": "a\nb" },
-  { "input": { "text": "\r\n\r\nx" }, "output": "x" },
-  { "input": { "text": "  keep  " }, "output": "  keep  " },
-  { "input": { "text": "\n \n" }, "output": " " }
-]
+[{"input":{"text":""},"output":""},{"input":{"text":"\n\nabc\n\n"},"output":"abc"},{"input":{"text":"a\r\nb\r\n"},"output":"a\nb"},{"input":{"text":"\r\n\r\nx"},"output":"x"},{"input":{"text":"  keep  "},"output":"  keep  "},{"input":{"text":"\n \n"},"output":" "}]

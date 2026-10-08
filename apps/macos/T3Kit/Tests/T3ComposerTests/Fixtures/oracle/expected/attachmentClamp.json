@@ -1,5 +1,1 @@
-[
-  { "input": { "bytes": 10 }, "output": 10 },
-  { "input": { "bytes": 52428800 }, "output": 52428800 },
-  { "input": { "bytes": 104857600 }, "output": 52428800 }
-]
+[{"input":{"bytes":10},"output":10},{"input":{"bytes":52428800},"output":52428800},{"input":{"bytes":104857600},"output":52428800}]

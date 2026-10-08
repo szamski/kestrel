@@ -1,11 +1,1 @@
-[
-  { "input": { "text": "ultrathink about this" }, "output": true },
-  { "input": { "text": "Ultrathink" }, "output": true },
-  { "input": { "text": "xultrathink" }, "output": false },
-  { "input": { "text": "ultrathinkx" }, "output": false },
-  { "input": { "text": "no" }, "output": false },
-  { "input": { "text": "think ULTRATHINK!" }, "output": true },
-  { "input": { "text": "_ultrathink_" }, "output": false },
-  { "input": { "text": "ultra think" }, "output": false },
-  { "input": { "text": "" }, "output": false }
-]
+[{"input":{"text":"ultrathink about this"},"output":true},{"input":{"text":"Ultrathink"},"output":true},{"input":{"text":"xultrathink"},"output":false},{"input":{"text":"ultrathinkx"},"output":false},{"input":{"text":"no"},"output":false},{"input":{"text":"think ULTRATHINK!"},"output":true},{"input":{"text":"_ultrathink_"},"output":false},{"input":{"text":"ultra think"},"output":false},{"input":{"text":""},"output":false}]

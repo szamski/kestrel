@@ -1,14 +1,1 @@
-[
-  { "input": { "currentInset": 0, "overlayHeight": 60, "isResting": false }, "output": 60 },
-  { "input": { "currentInset": 0, "overlayHeight": 60, "isResting": true }, "output": 154 },
-  { "input": { "currentInset": 0, "overlayHeight": 300, "isResting": false }, "output": 300 },
-  { "input": { "currentInset": 0, "overlayHeight": 300, "isResting": true }, "output": 394 },
-  { "input": { "currentInset": 100, "overlayHeight": 60, "isResting": false }, "output": 60 },
-  { "input": { "currentInset": 100, "overlayHeight": 60, "isResting": true }, "output": 154 },
-  { "input": { "currentInset": 100, "overlayHeight": 300, "isResting": false }, "output": 300 },
-  { "input": { "currentInset": 100, "overlayHeight": 300, "isResting": true }, "output": 394 },
-  { "input": { "currentInset": 500, "overlayHeight": 60, "isResting": false }, "output": 60 },
-  { "input": { "currentInset": 500, "overlayHeight": 60, "isResting": true }, "output": 500 },
-  { "input": { "currentInset": 500, "overlayHeight": 300, "isResting": false }, "output": 300 },
-  { "input": { "currentInset": 500, "overlayHeight": 300, "isResting": true }, "output": 500 }
-]
+[{"input":{"currentInset":0,"overlayHeight":60,"isResting":false},"output":60},{"input":{"currentInset":0,"overlayHeight":60,"isResting":true},"output":154},{"input":{"currentInset":0,"overlayHeight":300,"isResting":false},"output":300},{"input":{"currentInset":0,"overlayHeight":300,"isResting":true},"output":394},{"input":{"currentInset":100,"overlayHeight":60,"isResting":false},"output":60},{"input":{"currentInset":100,"overlayHeight":60,"isResting":true},"output":154},{"input":{"currentInset":100,"overlayHeight":300,"isResting":false},"output":300},{"input":{"currentInset":100,"overlayHeight":300,"isResting":true},"output":394},{"input":{"currentInset":500,"overlayHeight":60,"isResting":false},"output":60},{"input":{"currentInset":500,"overlayHeight":60,"isResting":true},"output":500},{"input":{"currentInset":500,"overlayHeight":300,"isResting":false},"output":300},{"input":{"currentInset":500,"overlayHeight":300,"isResting":true},"output":500}]

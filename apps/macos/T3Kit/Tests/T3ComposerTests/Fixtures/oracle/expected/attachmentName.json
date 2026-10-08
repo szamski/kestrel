@@ -1,16 +1,1 @@
-[
-  { "input": { "name": "short.txt" }, "output": "short.txt" },
-  {
-    "input": { "name": "a-very-long-attachment-name-with-extension.final.png", "max": 36 },
-    "output": "a-very-long-attachmen…sion.final.png"
-  },
-  { "input": { "name": "abcdefghij", "max": 5 }, "output": "ab…ij" },
-  { "input": { "name": "abc", "max": 0 }, "output": "" },
-  { "input": { "name": "abc", "max": 1 }, "output": "…" },
-  { "input": { "name": "😀😀😀😀😀😀😀😀", "max": 4 }, "output": "😀…😀😀" },
-  {
-    "input": { "name": "abcdefghijklmnopqrstuvwxyz0123456789", "max": 20 },
-    "output": "abcde…wxyz0123456789"
-  },
-  { "input": { "name": "abcdefghijklmnopqrstuvwxyz", "max": 17 }, "output": "abcdefgh…stuvwxyz" }
-]
+[{"input":{"name":"short.txt"},"output":"short.txt"},{"input":{"name":"a-very-long-attachment-name-with-extension.final.png","max":36},"output":"a-very-long-attachmen…sion.final.png"},{"input":{"name":"abcdefghij","max":5},"output":"ab…ij"},{"input":{"name":"abc","max":0},"output":""},{"input":{"name":"abc","max":1},"output":"…"},{"input":{"name":"😀😀😀😀😀😀😀😀","max":4},"output":"😀…😀😀"},{"input":{"name":"abcdefghijklmnopqrstuvwxyz0123456789","max":20},"output":"abcde…wxyz0123456789"},{"input":{"name":"abcdefghijklmnopqrstuvwxyz","max":17},"output":"abcdefgh…stuvwxyz"}]

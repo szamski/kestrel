@@ -1,13 +1,1 @@
-[
-  { "input": { "query": "" }, "output": ["frontend-design", "plugin-skill"] },
-  { "input": { "query": "front" }, "output": ["frontend-design"] },
-  { "input": { "query": "$front" }, "output": ["frontend-design"] },
-  { "input": { "query": "€plug" }, "output": ["plugin-skill"] },
-  { "input": { "query": "design" }, "output": ["frontend-design"] },
-  { "input": { "query": "FRONT-design" }, "output": ["frontend-design"] },
-  { "input": { "query": "ui" }, "output": ["frontend-design", "plugin-skill"] },
-  { "input": { "query": "user" }, "output": ["frontend-design"] },
-  { "input": { "query": "repo" }, "output": ["plugin-skill"] },
-  { "input": { "query": "zzz" }, "output": [] },
-  { "input": { "query": "a" }, "output": ["plugin-skill"] }
-]
+[{"input":{"query":""},"output":["frontend-design","plugin-skill"]},{"input":{"query":"front"},"output":["frontend-design"]},{"input":{"query":"$front"},"output":["frontend-design"]},{"input":{"query":"€plug"},"output":["plugin-skill"]},{"input":{"query":"design"},"output":["frontend-design"]},{"input":{"query":"FRONT-design"},"output":["frontend-design"]},{"input":{"query":"ui"},"output":["frontend-design","plugin-skill"]},{"input":{"query":"user"},"output":["frontend-design"]},{"input":{"query":"repo"},"output":["plugin-skill"]},{"input":{"query":"zzz"},"output":[]},{"input":{"query":"a"},"output":["plugin-skill"]}]

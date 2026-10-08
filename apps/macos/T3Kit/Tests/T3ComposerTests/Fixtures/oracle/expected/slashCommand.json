@@ -1,12 +1,1 @@
-[
-  { "input": { "text": "/plan" }, "output": "plan" },
-  { "input": { "text": "/default" }, "output": "default" },
-  { "input": { "text": " /plan \n" }, "output": "plan" },
-  { "input": { "text": "/PLAN" }, "output": "plan" },
-  { "input": { "text": "/Default" }, "output": "default" },
-  { "input": { "text": "/model" }, "output": null },
-  { "input": { "text": "plan" }, "output": null },
-  { "input": { "text": "/plan x" }, "output": null },
-  { "input": { "text": "" }, "output": null },
-  { "input": { "text": "/plan " }, "output": "plan" }
-]
+[{"input":{"text":"/plan"},"output":"plan"},{"input":{"text":"/default"},"output":"default"},{"input":{"text":" /plan \n"},"output":"plan"},{"input":{"text":"/PLAN"},"output":"plan"},{"input":{"text":"/Default"},"output":"default"},{"input":{"text":"/model"},"output":null},{"input":{"text":"plan"},"output":null},{"input":{"text":"/plan x"},"output":null},{"input":{"text":""},"output":null},{"input":{"text":"/plan "},"output":"plan"}]
