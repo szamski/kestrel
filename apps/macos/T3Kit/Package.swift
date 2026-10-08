@@ -10,7 +10,11 @@ let package = Package(
     .library(name: "T3Contracts", targets: ["T3Contracts"]),
     .library(name: "T3Protocol", targets: ["T3Protocol"]),
     .library(name: "T3ClientRuntime", targets: ["T3ClientRuntime"]),
+    .library(name: "T3Markdown", targets: ["T3Markdown"]),
     .library(name: "T3Timeline", targets: ["T3Timeline"]),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.9.0"),
   ],
   targets: [
     // Generated from packages/contracts. Do not edit Generated/*.swift by hand.
@@ -19,11 +23,16 @@ let package = Package(
     .target(name: "T3Protocol", dependencies: ["T3Contracts"]),
     // Connection supervisor, sync engine, reducers and derived state.
     .target(name: "T3ClientRuntime", dependencies: ["T3Contracts", "T3Protocol"]),
+    .target(
+      name: "T3Markdown",
+      dependencies: [.product(name: "Markdown", package: "swift-markdown")]
+    ),
     // Pure timeline derivation: messages, work log, tool presentation, plans.
     .target(name: "T3Timeline", dependencies: ["T3Contracts"]),
     .testTarget(name: "T3ContractsTests", dependencies: ["T3Contracts"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3ProtocolTests", dependencies: ["T3Protocol"]),
     .testTarget(name: "T3ClientRuntimeTests", dependencies: ["T3ClientRuntime"], resources: [.copy("Fixtures")]),
+    .testTarget(name: "T3MarkdownTests", dependencies: ["T3Markdown"]),
     .testTarget(name: "T3TimelineTests", dependencies: ["T3Timeline"], resources: [.copy("Fixtures")]),
   ],
   swiftLanguageModes: [.v6]
