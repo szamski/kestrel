@@ -1,0 +1,1168 @@
+{
+  "kind": "thread",
+  "snapshot": {
+    "snapshotSequence": 38226,
+    "thread": {
+      "id": "af5109e6-3889-4a8e-859a-d473e404c375",
+      "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+      "title": "redacted",
+      "modelSelection": {
+        "instanceId": "codex",
+        "model": "redacted",
+        "options": [
+          { "id": "redacted", "value": "redacted" },
+          { "id": "redacted", "value": "redacted" }
+        ]
+      },
+      "runtimeMode": "full-access",
+      "interactionMode": "default",
+      "branch": "redacted",
+      "worktreePath": null,
+      "pullRequests": [],
+      "branchPullRequest": null,
+      "latestTurn": {
+        "turnId": "01a11551-2819-7eb1-bc9e-d4b72f5f0b72",
+        "state": "completed",
+        "requestedAt": "2026-10-07T07:43:22.574Z",
+        "startedAt": "2026-10-07T07:43:22.574Z",
+        "completedAt": "2026-10-07T07:43:27.398Z",
+        "assistantMessageId": "assistant:msg_0fb52b0141df48c4016ac5f81e550487d2b660ffa1485fef36"
+      },
+      "createdAt": "2026-10-06T16:51:07.150Z",
+      "updatedAt": "2026-10-08T09:36:30.108Z",
+      "archivedAt": null,
+      "settledOverride": "settled",
+      "settledAt": "2026-10-08T09:36:30.108Z",
+      "unsettledAt": null,
+      "snoozedUntil": null,
+      "snoozedAt": null,
+      "pinnedAt": null,
+      "pinOrderKey": null,
+      "activeOrderKey": null,
+      "autoSettleDisabledAt": null,
+      "titleRegeneration": null,
+      "titleState": {
+        "source": "generated",
+        "version": "server:thread-title-rename:95490e76-a572-4aff-8deb-2c09c205701d",
+        "needsRefinement": false
+      },
+      "deletedAt": null,
+      "messages": [
+        {
+          "id": "4d295535-abcf-4d62-b89a-166aefc00ee4",
+          "role": "user",
+          "text": "redacted",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-10-06T16:51:07.150Z",
+          "updatedAt": "2026-10-06T16:51:07.150Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac527012b1087d288e7b09d9f7e3a9b",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11220-47d0-7c13-90de-862069ad8d8e",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:51:14.709Z",
+          "updatedAt": "2026-10-06T16:51:14.709Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac5270a944887d2b66238344c1f183c",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11220-47d0-7c13-90de-862069ad8d8e",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:51:23.712Z",
+          "updatedAt": "2026-10-06T16:51:23.712Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac527436c0087d2b29ea5f73b5e9640",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11220-47d0-7c13-90de-862069ad8d8e",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:52:21.211Z",
+          "updatedAt": "2026-10-06T16:52:21.211Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac5279841f487d29327b51c022dfd9f",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11220-47d0-7c13-90de-862069ad8d8e",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:53:44.969Z",
+          "updatedAt": "2026-10-06T16:53:54.376Z"
+        },
+        {
+          "id": "async-answer:codex-async:af5109e6-3889-4a8e-859a-d473e404c375:call_CjGE3BTrRJPKWarPWr35DyJz",
+          "role": "user",
+          "text": "redacted",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-10-06T16:55:56.016Z",
+          "updatedAt": "2026-10-06T16:55:56.016Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52823be8887d28bb7ba25a25d07c9",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11224-adbd-7061-ba0d-71ca822b50c9",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:56:05.141Z",
+          "updatedAt": "2026-10-06T16:56:05.141Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac5282f7d9087d28353cb7cd76067b9",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11224-adbd-7061-ba0d-71ca822b50c9",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:56:16.827Z",
+          "updatedAt": "2026-10-06T16:56:16.827Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac528499e7487d2a67f116f3baceecb",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11224-adbd-7061-ba0d-71ca822b50c9",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:56:42.486Z",
+          "updatedAt": "2026-10-06T16:57:01.071Z"
+        },
+        {
+          "id": "11c96fdf-48ac-44fd-8933-f417fdf02a0d",
+          "role": "user",
+          "text": "redacted",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-10-06T16:58:41.661Z",
+          "updatedAt": "2026-10-06T16:58:41.661Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac528c50a1c87d2bc4dbc31b15a51ce",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11227-34b2-73e2-bfde-f0a95aa70689",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:58:46.573Z",
+          "updatedAt": "2026-10-06T16:58:46.573Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac528e7b60487d2974bb6b8c3d36abf",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11227-34b2-73e2-bfde-f0a95aa70689",
+          "streaming": false,
+          "createdAt": "2026-10-06T16:59:20.678Z",
+          "updatedAt": "2026-10-06T16:59:20.678Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52932da3887d298c009d2dbc6280b",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a11227-34b2-73e2-bfde-f0a95aa70689",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:00:35.720Z",
+          "updatedAt": "2026-10-06T17:00:37.851Z"
+        },
+        {
+          "id": "f3eaadf2-8030-4436-a911-388da3184a9a",
+          "role": "user",
+          "text": "redacted",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-10-06T17:02:52.562Z",
+          "updatedAt": "2026-10-06T17:02:52.562Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac529bf1f1c87d2b5c871f07cae6579",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:02:56.835Z",
+          "updatedAt": "2026-10-06T17:02:56.835Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac529f389ec87d290f258a8cc22c2a3",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:03:50.254Z",
+          "updatedAt": "2026-10-06T17:03:50.254Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52a63328487d2ae6959c497280e27",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:05:41.754Z",
+          "updatedAt": "2026-10-06T17:05:41.754Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52be6085487d29c84e5e4e9887b77",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:12:08.860Z",
+          "updatedAt": "2026-10-06T17:12:08.860Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52d8be29887d2957392f6e35a9c94",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:19:09.451Z",
+          "updatedAt": "2026-10-06T17:19:09.451Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52dc0ee4887d2a7755c757028c0a0",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:20:02.906Z",
+          "updatedAt": "2026-10-06T17:20:02.906Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52e81864887d29c6666fd6c3695a0",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:23:15.721Z",
+          "updatedAt": "2026-10-06T17:23:15.721Z"
+        },
+        {
+          "id": "b74d84d1-51f7-44cd-a727-14f8c75eff4d",
+          "role": "user",
+          "text": "redacted",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-10-06T17:27:06.823Z",
+          "updatedAt": "2026-10-06T17:27:06.823Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52f69d36487d2bd1e4f667d58d560",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:27:07.591Z",
+          "updatedAt": "2026-10-06T17:27:07.591Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac52f9e411887d2afb66b18a689eb62",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:28:00.105Z",
+          "updatedAt": "2026-10-06T17:28:00.105Z"
+        },
+        {
+          "id": "assistant:msg_0d0a86f81c97d85f016ac5304b975887d2a481622f4c683afb",
+          "role": "assistant",
+          "text": "redacted",
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "streaming": false,
+          "createdAt": "2026-10-06T17:30:53.344Z",
+          "updatedAt": "2026-10-06T17:30:53.344Z"
+        }
+      ],
+      "proposedPlans": [],
+      "activities": [
+        {
+          "id": "4584a482-254c-42a7-b0fc-f3b4e2a6c7ef",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": { "libraryName": "redacted", "query": "redacted" },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 2007,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:00:50.122Z"
+        },
+        {
+          "id": "d73e645e-c0ad-47ef-b9d1-05d3e1bc040e",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": { "query": "redacted", "wing": "redacted", "limit": 2 },
+                "appContext": null,
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:00:57.134Z"
+        },
+        {
+          "id": "df5ca979-8ca9-44bd-8f8c-d5d874517ec4",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": { "query": "redacted", "wing": "redacted", "limit": 2 },
+                "appContext": null,
+                "error": null,
+                "durationMs": 456,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:00:57.591Z"
+        },
+        {
+          "id": "1a3c0a38-dd8b-46fc-a60b-7ee6a0cd1af6",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:00:57.745Z"
+        },
+        {
+          "id": "682d3823-4e68-47d3-8ecc-6fb7d7114fe8",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted", "aggregatedOutput": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:01.384Z"
+        },
+        {
+          "id": "c141b7f8-5910-4df3-a5dc-5c6fb7069762",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:01.387Z"
+        },
+        {
+          "id": "7e103ee6-8bf7-4d8a-9289-da1753d65844",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 778,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:02.169Z"
+        },
+        {
+          "id": "f0a87688-1600-4a45-8d96-c7340aede768",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": { "libraryId": "redacted", "query": "redacted" },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:02.172Z"
+        },
+        {
+          "id": "eee9dd99-f569-49c1-a913-5fab5e7d9a7a",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": { "libraryId": "redacted", "query": "redacted" },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 2403,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:04.575Z"
+        },
+        {
+          "id": "57c425a5-3710-4c8b-998c-68d18c202a75",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:12.463Z"
+        },
+        {
+          "id": "e7977776-da69-4d42-91f0-55d3a1858312",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 666,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:13.135Z"
+        },
+        {
+          "id": "ec2742e7-289b-4723-a480-408c8217c395",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:13.214Z"
+        },
+        {
+          "id": "5e169610-32b1-4f12-aedd-2f2fe60031fc",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted", "aggregatedOutput": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:13.217Z"
+        },
+        {
+          "id": "46de6602-ccb2-4b04-a343-eb283521079a",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:19.714Z"
+        },
+        {
+          "id": "8953c765-722b-42c3-9ea1-701c4089e29e",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 812,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:20.533Z"
+        },
+        {
+          "id": "17238b87-469a-401a-8948-161f4907ab6b",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:20.610Z"
+        },
+        {
+          "id": "08d86878-e469-4b69-8192-f459a1cc08f1",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted", "aggregatedOutput": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:20.613Z"
+        },
+        {
+          "id": "12a0df10-bff0-44ef-853a-94c373080062",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:27.921Z"
+        },
+        {
+          "id": "a96b2c24-824d-478e-89f0-a4dfacfb32b5",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 11217,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:39.140Z"
+        },
+        {
+          "id": "7fc6fad7-e2f8-4020-b920-95c1b0bfaa44",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:39.143Z"
+        },
+        {
+          "id": "7472ac88-2533-4df1-81ae-8991a97b3a1c",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 8876,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:48.021Z"
+        },
+        {
+          "id": "a6718ea5-7e4b-4333-94a8-5eaf11125ad8",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:57.892Z"
+        },
+        {
+          "id": "b2f66329-53c2-42e0-adc6-87248b745495",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "detail": "redacted",
+            "data": { "item": { "command": "redacted", "aggregatedOutput": "redacted" } }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:57.895Z"
+        },
+        {
+          "id": "7f1b7523-1cb3-4ee0-9205-11b2596795cb",
+          "tone": "tool",
+          "kind": "tool.started",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": null
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:01:57.899Z"
+        },
+        {
+          "id": "ad453952-c1fb-4611-956b-9b3165bd301e",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "redacted",
+          "payload": {
+            "itemType": "redacted",
+            "toolCallId": "redacted",
+            "status": "redacted",
+            "title": "redacted",
+            "data": {
+              "item": {
+                "type": "redacted",
+                "id": "redacted",
+                "tool": "redacted",
+                "server": "redacted",
+                "status": "redacted",
+                "arguments": {
+                  "command": "redacted",
+                  "context": "redacted",
+                  "llm_model": "redacted",
+                  "conversation_id": "redacted"
+                },
+                "appContext": {
+                  "actionName": "redacted",
+                  "appName": "redacted",
+                  "connectorId": "redacted",
+                  "linkId": "redacted",
+                  "resourceUri": null
+                },
+                "error": null,
+                "durationMs": 4576,
+                "result": { "content": "redacted" }
+              }
+            }
+          },
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "createdAt": "2026-10-07T07:02:02.475Z"
+        }
+      ],
+      "checkpoints": [
+        {
+          "turnId": "01a11220-47d0-7c13-90de-862069ad8d8e",
+          "checkpointTurnCount": 1,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/1",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0d0a86f81c97d85f016ac5279841f487d29327b51c022dfd9f",
+          "completedAt": "2026-10-06T16:53:54.481Z"
+        },
+        {
+          "turnId": "01a11224-adbd-7061-ba0d-71ca822b50c9",
+          "checkpointTurnCount": 2,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/2",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0d0a86f81c97d85f016ac528499e7487d2a67f116f3baceecb",
+          "completedAt": "2026-10-06T16:57:01.397Z"
+        },
+        {
+          "turnId": "01a11227-34b2-73e2-bfde-f0a95aa70689",
+          "checkpointTurnCount": 3,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/3",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0d0a86f81c97d85f016ac52932da3887d298c009d2dbc6280b",
+          "completedAt": "2026-10-06T17:00:37.973Z"
+        },
+        {
+          "turnId": "01a1122b-08c7-7392-8f03-68119f68fa8b",
+          "checkpointTurnCount": 4,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/4",
+          "status": "ready",
+          "files": [
+            { "path": "redacted", "kind": "modified", "additions": 9, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 38, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 69, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 103, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 56, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 145, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 22, "deletions": 5 },
+            { "path": "redacted", "kind": "modified", "additions": 8, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 18, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 6, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 75, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 11, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 205, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 131, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 34, "deletions": 6 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 102, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 145, "deletions": 0 }
+          ],
+          "assistantMessageId": "assistant:msg_0d0a86f81c97d85f016ac531b2166887d2a04dba9019501db8",
+          "completedAt": "2026-10-06T17:36:57.210Z"
+        },
+        {
+          "turnId": "01a1124a-615a-7f73-affd-cd2a53d037ce",
+          "checkpointTurnCount": 5,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/5",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0d0a86f81c97d85f016ac53208abcc87d2ab342b51a1169b37",
+          "completedAt": "2026-10-06T17:38:17.457Z"
+        },
+        {
+          "turnId": "01a11524-ad56-7713-9a33-b16852470a57",
+          "checkpointTurnCount": 6,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/6",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0fb52b0141df48c4016ac5ed0a6eb887d2a5f5022e597f15da",
+          "completedAt": "2026-10-07T06:56:14.980Z"
+        },
+        {
+          "turnId": "01a11527-1857-7ba0-adfd-f0865779a9a3",
+          "checkpointTurnCount": 7,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/7",
+          "status": "ready",
+          "files": [
+            { "path": "redacted", "kind": "modified", "additions": 4, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 16, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 217, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 23, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 4, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 28, "deletions": 0 },
+            { "path": "redacted", "kind": "modified", "additions": 54, "deletions": 4 },
+            { "path": "redacted", "kind": "modified", "additions": 120, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 15, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 19, "deletions": 9 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 25, "deletions": 165 },
+            { "path": "redacted", "kind": "modified", "additions": 1, "deletions": 1 },
+            { "path": "redacted", "kind": "modified", "additions": 25, "deletions": 0 }
+          ],
+          "assistantMessageId": "assistant:msg_0fb52b0141df48c4016ac5f56be31087d2a805510087f18d23",
+          "completedAt": "2026-10-07T07:32:01.996Z"
+        },
+        {
+          "turnId": "01a11549-a2c9-7d01-a1ed-23e964725fb3",
+          "checkpointTurnCount": 8,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/8",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0fb52b0141df48c4016ac5f7b1214c87d2b50f08e8ec9f511c",
+          "completedAt": "2026-10-07T07:41:43.352Z"
+        },
+        {
+          "turnId": "01a11551-2819-7eb1-bc9e-d4b72f5f0b72",
+          "checkpointTurnCount": 9,
+          "checkpointRef": "refs/t3/checkpoints/YWY1MTA5ZTYtMzg4OS00YThlLTg1OWEtZDQ3M2U0MDRjMzc1/turn/9",
+          "status": "ready",
+          "files": [],
+          "assistantMessageId": "assistant:msg_0fb52b0141df48c4016ac5f81e550487d2b660ffa1485fef36",
+          "completedAt": "2026-10-07T07:43:27.398Z"
+        }
+      ],
+      "session": {
+        "threadId": "af5109e6-3889-4a8e-859a-d473e404c375",
+        "status": "stopped",
+        "providerName": "redacted",
+        "providerInstanceId": "codex",
+        "runtimeMode": "full-access",
+        "activeTurnId": null,
+        "lastError": null,
+        "updatedAt": "2026-10-08T09:36:30.108Z"
+      }
+    }
+  },
+  "events": []
+}

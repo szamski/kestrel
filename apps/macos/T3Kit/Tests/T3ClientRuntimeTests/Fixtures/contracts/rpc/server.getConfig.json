@@ -1,0 +1,2724 @@
+[
+  {
+    "_tag": "Exit",
+    "requestId": "1",
+    "exit": {
+      "_tag": "Success",
+      "value": {
+        "environment": {
+          "environmentId": "efcbce6a-6aa2-4779-905b-dd2cc3874e6a",
+          "label": "redacted",
+          "platform": {
+            "os": "darwin",
+            "arch": "arm64",
+            "machine": "laptop"
+          },
+          "serverVersion": "redacted",
+          "orchestrationProtocolVersion": 1,
+          "capabilities": {
+            "repositoryIdentity": true,
+            "connectionProbe": true,
+            "attachmentUploads": true,
+            "questionAttachments": true,
+            "fileAttachments": {
+              "maxUploadBytes": 52428800
+            },
+            "pullRequests": true,
+            "inlineMessageContext": true,
+            "requiredWorktreeBootstrap": true,
+            "threadSettlement": true,
+            "threadAutoSettlement": true,
+            "storageCleanup": true,
+            "projectWorktreeCleanup": true,
+            "threadRestartContinuation": true,
+            "projectSettingsOverrides": true,
+            "threadSnooze": true,
+            "environmentThemes": true,
+            "usageLimitSources": true,
+            "usagePriceOverrides": true,
+            "threadPinning": true,
+            "threadPinReorder": true,
+            "threadActiveReorder": true,
+            "threadAutoSettleOptOut": true,
+            "threadTitleRegeneration": true,
+            "threadPullRequestLinking": true,
+            "threadPullRequests": true,
+            "pullRequestStackActions": true,
+            "agentActivityPublishing": false,
+            "projectCloneTracking": true,
+            "environmentIcon": true
+          }
+        },
+        "auth": {
+          "policy": "loopback-browser",
+          "bootstrapMethods": ["one-time-token"],
+          "sessionMethods": ["browser-session-cookie", "bearer-access-token", "dpop-access-token"],
+          "sessionCookieName": "redacted"
+        },
+        "cwd": "redacted",
+        "keybindingsConfigPath": "redacted",
+        "keybindings": [
+          {
+            "command": "sidebar.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            }
+          },
+          {
+            "command": "navigation.back",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "navigation.forward",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "terminal.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            }
+          },
+          {
+            "command": "rightPanel.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": true,
+              "modKey": true
+            }
+          },
+          {
+            "command": "terminal.split",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "terminal.splitVertical",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": true,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "terminal.new",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "terminal.close",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "rightPanel.close",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "diff.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "preview.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": true,
+              "altKey": false,
+              "modKey": true
+            }
+          },
+          {
+            "command": "preview.refresh",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "preview.focusUrl",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "preview.zoomIn",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "preview.zoomIn",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "preview.zoomOut",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "preview.resetZoom",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "identifier",
+              "name": "redacted"
+            }
+          },
+          {
+            "command": "commandPalette.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "filePicker.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "projectSearch.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": true,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "usage.open",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": false,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "theme.select",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": false,
+              "altKey": true,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "appearance.cycle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": true,
+              "altKey": true,
+              "modKey": true
+            },
+            "whenAst": {
+              "type": "not",
+              "node": {
+                "type": "identifier",
+                "name": "redacted"
+              }
+            }
+          },
+          {
+            "command": "themeEditor.toggle",
+            "shortcut": {
+              "key": "redacted",
+              "metaKey": false,
+              "ctrlKey": false,
+              "shiftKey": true,
+              "altKey": true,
+              "modKey": true
+            }
+          }
+        ],
+        "issues": [],
+        "providers": [
+          {
+            "instanceId": "codex",
+            "driver": "codex",
+            "displayName": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": true,
+            "reportsContextWindow": true,
+            "enabled": true,
+            "installed": true,
+            "version": "redacted",
+            "status": "ready",
+            "auth": {
+              "status": "authenticated",
+              "type": "chatgpt",
+              "label": "redacted",
+              "email": "redacted"
+            },
+            "checkedAt": "2026-10-08T11:42:36.393Z",
+            "models": [
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isDefault": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              }
+            ],
+            "slashCommands": [
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              }
+            ],
+            "skills": [
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true,
+                "displayName": "redacted",
+                "shortDescription": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true,
+                "displayName": "redacted",
+                "shortDescription": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              }
+            ],
+            "usageLimits": {
+              "checkedAt": "2026-10-08T11:42:36.393Z",
+              "windows": [
+                {
+                  "id": "redacted",
+                  "kind": "weekly",
+                  "label": "redacted",
+                  "usedPercent": 54,
+                  "resetsAt": "2026-10-14T06:34:29.000Z",
+                  "windowDurationMins": 10080
+                }
+              ],
+              "resetCredits": {
+                "availableCount": 3,
+                "nextExpiresAt": "2026-10-22T20:53:04.000Z"
+              }
+            },
+            "versionAdvisory": {
+              "status": "current",
+              "currentVersion": "redacted",
+              "latestVersion": "redacted",
+              "updateCommand": "redacted",
+              "canUpdate": true,
+              "canInstallVersion": false,
+              "checkedAt": "2026-10-08T11:42:38.611Z",
+              "message": null
+            },
+            "compatibilityAdvisory": {
+              "status": "supported",
+              "latestVersionStatus": "supported",
+              "message": null,
+              "recommendedVersion": null,
+              "recommendedRange": "redacted"
+            }
+          },
+          {
+            "instanceId": "claudeAgent",
+            "driver": "claudeAgent",
+            "displayName": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": true,
+            "reportsContextWindow": true,
+            "enabled": true,
+            "installed": true,
+            "version": "redacted",
+            "status": "ready",
+            "auth": {
+              "status": "authenticated",
+              "type": "redacted",
+              "label": "redacted",
+              "email": "redacted"
+            },
+            "checkedAt": "2026-10-08T11:42:36.394Z",
+            "models": [
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "badge": "new",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "badge": "new",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isDefault": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    },
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "badge": "new",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted"
+                        }
+                      ],
+                      "promptInjectedValues": ["redacted"]
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "aliases": ["redacted", "redacted", "redacted"],
+                "isCustom": false,
+                "isLegacy": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              }
+            ],
+            "slashCommands": [
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              }
+            ],
+            "skills": [
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true,
+                "userInvocationOnly": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true,
+                "userInvocationOnly": true
+              }
+            ],
+            "usageLimits": {
+              "checkedAt": "2026-10-08T11:42:36.394Z",
+              "windows": [
+                {
+                  "id": "redacted",
+                  "kind": "session",
+                  "label": "redacted",
+                  "usedPercent": 32,
+                  "resetsAt": "2026-10-08T15:30:00.079Z",
+                  "windowDurationMins": 300
+                },
+                {
+                  "id": "redacted",
+                  "kind": "weekly",
+                  "label": "redacted",
+                  "usedPercent": 4,
+                  "resetsAt": "2026-10-14T10:00:00.079Z",
+                  "windowDurationMins": 10080
+                }
+              ]
+            },
+            "versionAdvisory": {
+              "status": "current",
+              "currentVersion": "redacted",
+              "latestVersion": "redacted",
+              "updateCommand": "redacted",
+              "canUpdate": true,
+              "canInstallVersion": false,
+              "checkedAt": "2026-10-08T11:42:37.813Z",
+              "message": null
+            },
+            "compatibilityAdvisory": {
+              "status": "supported",
+              "latestVersionStatus": "supported",
+              "message": null,
+              "recommendedVersion": null,
+              "recommendedRange": "redacted"
+            }
+          },
+          {
+            "instanceId": "cursor",
+            "driver": "cursor",
+            "displayName": "redacted",
+            "badgeLabel": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": true,
+            "supportsConversationRollback": false,
+            "enabled": false,
+            "installed": false,
+            "version": null,
+            "status": "disabled",
+            "auth": {
+              "status": "unknown"
+            },
+            "checkedAt": "2026-10-08T11:42:36.395Z",
+            "message": "redacted",
+            "models": [],
+            "slashCommands": [],
+            "skills": []
+          },
+          {
+            "instanceId": "grok",
+            "driver": "grok",
+            "displayName": "redacted",
+            "badgeLabel": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": false,
+            "supportsConversationRollback": false,
+            "enabled": true,
+            "installed": true,
+            "version": "redacted",
+            "status": "ready",
+            "auth": {
+              "status": "authenticated",
+              "type": "cached_token",
+              "label": "redacted",
+              "email": "redacted"
+            },
+            "checkedAt": "2026-10-08T11:42:36.395Z",
+            "models": [
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "isDefault": true,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": [
+                    {
+                      "id": "redacted",
+                      "label": "redacted",
+                      "type": "select",
+                      "options": [
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted",
+                          "isDefault": true
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        },
+                        {
+                          "id": "redacted",
+                          "label": "redacted",
+                          "description": "redacted"
+                        }
+                      ],
+                      "currentValue": "redacted"
+                    }
+                  ]
+                }
+              },
+              {
+                "slug": "redacted",
+                "name": "redacted",
+                "isCustom": false,
+                "capabilities": {
+                  "optionDescriptors": []
+                }
+              }
+            ],
+            "slashCommands": [
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted"
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "input": {
+                  "hint": "redacted"
+                }
+              }
+            ],
+            "skills": [
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              },
+              {
+                "name": "redacted",
+                "description": "redacted",
+                "path": "redacted",
+                "scope": "redacted",
+                "enabled": true
+              }
+            ],
+            "usageLimits": {
+              "checkedAt": "2026-10-08T11:42:37.868Z",
+              "windows": [
+                {
+                  "id": "redacted",
+                  "kind": "weekly",
+                  "label": "redacted",
+                  "usedPercent": 1,
+                  "resetsAt": "2026-10-12T16:54:54.254Z"
+                }
+              ]
+            },
+            "versionAdvisory": {
+              "status": "current",
+              "currentVersion": "redacted",
+              "latestVersion": "redacted",
+              "updateCommand": "redacted",
+              "canUpdate": true,
+              "canInstallVersion": false,
+              "checkedAt": "2026-10-08T11:42:38.473Z",
+              "message": null
+            },
+            "compatibilityAdvisory": {
+              "status": "supported",
+              "latestVersionStatus": "supported",
+              "message": null,
+              "recommendedVersion": null,
+              "recommendedRange": "redacted"
+            }
+          },
+          {
+            "instanceId": "opencode",
+            "driver": "opencode",
+            "displayName": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": false,
+            "enabled": false,
+            "installed": false,
+            "version": null,
+            "status": "disabled",
+            "auth": {
+              "status": "unknown"
+            },
+            "checkedAt": "2026-10-08T11:42:36.400Z",
+            "message": "redacted",
+            "models": [],
+            "slashCommands": [],
+            "skills": [],
+            "usageLimits": {
+              "checkedAt": "2026-10-08T11:42:36.400Z",
+              "windows": [],
+              "unavailable": {
+                "reason": "unsupported"
+              }
+            },
+            "versionAdvisory": {
+              "status": "unknown",
+              "currentVersion": null,
+              "latestVersion": null,
+              "updateCommand": null,
+              "canUpdate": false,
+              "canInstallVersion": false,
+              "checkedAt": "2026-10-08T11:42:36.400Z",
+              "message": null
+            }
+          },
+          {
+            "instanceId": "antigravity",
+            "driver": "antigravity",
+            "displayName": "redacted",
+            "continuation": {
+              "groupKey": "redacted"
+            },
+            "showInteractionModeToggle": false,
+            "supportsConversationRollback": false,
+            "supportsTextGeneration": false,
+            "setup": {
+              "canAuthenticate": true,
+              "canInstall": true
+            },
+            "enabled": false,
+            "installed": false,
+            "version": null,
+            "status": "disabled",
+            "auth": {
+              "status": "unknown",
+              "type": "oauth-personal"
+            },
+            "checkedAt": "2026-10-08T11:42:36.416Z",
+            "message": "redacted",
+            "models": [],
+            "slashCommands": [],
+            "skills": [],
+            "workspaceSnapshots": []
+          }
+        ],
+        "availableEditors": ["vscode", "file-manager"],
+        "remoteOpenTargets": [],
+        "observability": {
+          "logsDirectoryPath": "redacted",
+          "localTracingEnabled": true,
+          "otlpTracesEnabled": false,
+          "otlpMetricsEnabled": false,
+          "otlpLogsEnabled": false
+        },
+        "settings": {
+          "worktreeCleanup": null,
+          "storageCleanup": {
+            "worktreeAfterDays": null,
+            "worktreeOnMerge": false,
+            "worktreeOnDelete": false,
+            "worktreeUnchanged": false,
+            "browserArtifactsAfterDays": null,
+            "logsAfterDays": null
+          },
+          "responseStreamingMode": "paragraph",
+          "enableProviderUpdateChecks": true,
+          "continueThreadsAfterServerUpdate": false,
+          "enableAgentBrowserAccess": true,
+          "projectAgentBrowserAccessOverrides": {},
+          "defaultAutoPull": false,
+          "defaultProjectScripts": [],
+          "projectScriptOverrides": {},
+          "projectAutoPullOverrides": {},
+          "defaultModelSelection": null,
+          "defaultRuntimeMode": "full-access",
+          "projectSettingsOverrides": {},
+          "projectSettingsFolded": true,
+          "enableAgentDeviceAccess": false,
+          "enableDeviceSupport": false,
+          "deviceOnboardingCompleted": false,
+          "deviceHosts": [],
+          "sidebarAutoSettleAfterDays": 3,
+          "sidebarAutoSettleOnMerge": true,
+          "backgroundActivity": {
+            "schemaVersion": 1,
+            "profile": "balanced",
+            "overrides": {}
+          },
+          "automaticGitFetchInterval": 30000,
+          "providerHealthRefreshInterval": 300000,
+          "backgroundActivityProfile": "balanced",
+          "defaultTheme": "redacted",
+          "defaultThemeSetAt": "redacted",
+          "environmentIcon": null,
+          "newWorktreesStartFromOrigin": true,
+          "worktreeSubmodules": null,
+          "addProjectBaseDirectory": "redacted",
+          "textGenerationModelSelection": {
+            "instanceId": "codex",
+            "model": "redacted",
+            "options": [
+              {
+                "id": "redacted",
+                "value": "redacted"
+              }
+            ]
+          },
+          "sourceControlWritingStyle": {
+            "mode": "repo_conventions",
+            "customInstructions": "redacted",
+            "followChangeRequestTemplates": true
+          },
+          "sourceControlWriterModelSelection": null,
+          "pullRequestMergeMethod": null,
+          "providers": {
+            "codex": {
+              "enabled": true,
+              "binaryPath": "redacted",
+              "homePath": "redacted",
+              "shadowHomePath": "redacted",
+              "launchArgs": "redacted",
+              "customModels": []
+            },
+            "claudeAgent": {
+              "enabled": true,
+              "binaryPath": "redacted",
+              "homePath": "redacted",
+              "customModels": [],
+              "launchArgs": "redacted",
+              "autoCompactWindow": "redacted"
+            },
+            "cursor": {
+              "enabled": false,
+              "binaryPath": "redacted",
+              "apiEndpoint": "redacted",
+              "customModels": []
+            },
+            "grok": {
+              "enabled": true,
+              "binaryPath": "redacted",
+              "customModels": []
+            },
+            "opencode": {
+              "enabled": false,
+              "binaryPath": "redacted",
+              "serverUrl": "redacted",
+              "serverPassword": "redacted",
+              "customModels": []
+            },
+            "antigravity": {
+              "enabled": false,
+              "authMethod": "oauth-personal",
+              "apiKey": "redacted",
+              "gcpProject": "redacted",
+              "gcpLocation": "redacted",
+              "binaryPath": "redacted",
+              "customModels": []
+            }
+          },
+          "providerInstances": {},
+          "observability": {
+            "otlpTracesUrl": "redacted",
+            "otlpMetricsUrl": "redacted",
+            "otlpLogsUrl": "redacted"
+          },
+          "usageLimitSources": {},
+          "cursorKeychainUsageEnabled": false,
+          "usagePriceOverrides": {}
+        },
+        "shellResumeCompletionMarker": true,
+        "shellRevealInFileManager": true,
+        "shellRevealInFileManagerKind": "finder",
+        "threadResumeCompletionMarker": true,
+        "threadSnapshotPagination": true,
+        "reasoningMessages": true
+      }
+    }
+  }
+]

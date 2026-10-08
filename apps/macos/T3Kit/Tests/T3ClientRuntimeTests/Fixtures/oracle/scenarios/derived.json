@@ -1,0 +1,3925 @@
+{
+  "kind": "derived",
+  "shared": {
+    "threads": [
+      {
+        "id": "pin-b",
+        "projectId": "p1",
+        "title": "Thread pin-b",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-08T03:40:00.000Z",
+        "pinOrderKey": "b",
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "pin-a",
+        "projectId": "p1",
+        "title": "Thread pin-a",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-08T05:20:00.000Z",
+        "pinOrderKey": "a",
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "pin-a",
+        "projectId": "p1",
+        "title": "Thread pin-a",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-08T05:20:00.000Z",
+        "pinOrderKey": "a",
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "pin-new",
+        "projectId": "p1",
+        "title": "Thread pin-new",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-20T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-08T07:00:00.000Z",
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "pin-old",
+        "projectId": "p1",
+        "title": "Thread pin-old",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-10T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-08T07:00:00.000Z",
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "act-m",
+        "projectId": "p1",
+        "title": "Thread act-m",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": "m",
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "act-c",
+        "projectId": "p1",
+        "title": "Thread act-c",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": "c",
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "act-new",
+        "projectId": "p1",
+        "title": "Needs foo fix",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-25T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "act-reopened",
+        "projectId": "p1",
+        "title": "Thread act-reopened",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-02T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "active",
+        "settledAt": null,
+        "unsettledAt": "2026-09-28T10:00:00.000Z",
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "act-old",
+        "projectId": "p1",
+        "title": "Thread act-old",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-08-02T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "act-pr",
+        "projectId": "p1",
+        "title": "Thread act-pr",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [
+          {
+            "host": "github.com",
+            "repository": "o/r",
+            "number": 42,
+            "url": "https://github.com/o/r/pull/42",
+            "source": "manual",
+            "linkedAt": "2026-10-08T11:50:00.000Z",
+            "snapshot": null,
+            "stack": null
+          },
+          {
+            "host": "github.com",
+            "repository": "o/r",
+            "number": 43,
+            "url": "https://github.com/o/r/pull/43",
+            "source": "stack-dismissed",
+            "linkedAt": "2026-10-08T11:50:00.000Z",
+            "snapshot": null,
+            "stack": null
+          }
+        ],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "act-legacy-pr",
+        "projectId": "p1",
+        "title": "Thread act-legacy-pr",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a",
+        "linkedPullRequest": {
+          "projectId": "p1",
+          "repository": "o/legacy",
+          "number": 5,
+          "url": "https://github.com/o/legacy/pull/5"
+        }
+      },
+      {
+        "id": "set-1",
+        "projectId": "p1",
+        "title": "Thread set-1",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-07T19:20:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "set-2",
+        "projectId": "p1",
+        "title": "Thread set-2",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-07T02:40:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "set-nostamp",
+        "projectId": "p1",
+        "title": "Thread set-nostamp",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": {
+          "turnId": "tt",
+          "state": "completed",
+          "requestedAt": "2026-10-08T10:00:00.000Z",
+          "startedAt": "2026-10-08T10:01:00.000Z",
+          "completedAt": "2026-10-07T12:40:00.000Z",
+          "assistantMessageId": null
+        },
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": "2026-10-07T11:00:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "set-turnonly",
+        "projectId": "p1",
+        "title": "Thread set-turnonly",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": {
+          "turnId": "tt",
+          "state": "completed",
+          "requestedAt": "2026-10-08T10:00:00.000Z",
+          "startedAt": "2026-10-08T10:01:00.000Z",
+          "completedAt": "2026-10-06T10:00:00.000Z",
+          "assistantMessageId": null
+        },
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "set-updated",
+        "projectId": "p1",
+        "title": "Thread set-updated",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-10-05T17:20:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "set-tie-x",
+        "projectId": "p1",
+        "title": "Thread set-tie-x",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-05T00:40:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "set-tie-X",
+        "projectId": "p1",
+        "title": "Thread set-tie-X",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-05T00:40:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "set-pinned",
+        "projectId": "p1",
+        "title": "Thread set-pinned",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-04T08:00:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": "2026-10-03T15:20:00.000Z",
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "set-queued",
+        "projectId": "p1",
+        "title": "Thread set-queued",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": "2026-10-04T08:00:00.000Z",
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-future",
+        "projectId": "p1",
+        "title": "Thread snz-future",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-soon",
+        "projectId": "p1",
+        "title": "Thread snz-soon",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": "settled",
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T12:30:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": "2026-10-08T11:10:00.000Z",
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "snz-approval",
+        "projectId": "p1",
+        "title": "Thread snz-approval",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": true,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-input",
+        "projectId": "p1",
+        "title": "Thread snz-input",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": true,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-completed-after",
+        "projectId": "p1",
+        "title": "Thread snz-completed-after",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": {
+          "turnId": "tt",
+          "state": "completed",
+          "requestedAt": "2026-10-08T10:00:00.000Z",
+          "startedAt": "2026-10-08T10:01:00.000Z",
+          "completedAt": "2026-10-08T11:55:00.000Z",
+          "assistantMessageId": null
+        },
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-completed-before",
+        "projectId": "p1",
+        "title": "Thread snz-completed-before",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": {
+          "turnId": "tt",
+          "state": "completed",
+          "requestedAt": "2026-10-08T10:00:00.000Z",
+          "startedAt": "2026-10-08T10:01:00.000Z",
+          "completedAt": "2026-10-08T11:10:00.000Z",
+          "assistantMessageId": null
+        },
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-failed-fresh",
+        "projectId": "p1",
+        "title": "Thread snz-failed-fresh",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "error",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:50:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-failed-old",
+        "projectId": "p1",
+        "title": "Thread snz-failed-old",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T14:00:00.000Z",
+        "snoozedAt": "2026-10-08T11:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "error",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:00:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-elapsed",
+        "projectId": "p1",
+        "title": "Thread snz-elapsed",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T11:55:00.000Z",
+        "snoozedAt": "2026-10-08T10:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-malformed",
+        "projectId": "p1",
+        "title": "Thread snz-malformed",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "not-a-date",
+        "snoozedAt": "2026-10-08T10:30:00.000Z",
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-noat",
+        "projectId": "p1",
+        "title": "Thread snz-noat",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T13:00:00.000Z",
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "snz-failed-noat",
+        "projectId": "p1",
+        "title": "Thread snz-failed-noat",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": "2026-10-08T13:00:00.000Z",
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "error",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:50:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "queued-user-msg",
+        "projectId": "p1",
+        "title": "Thread queued-user-msg",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": "2026-10-08T11:59:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "queued-adopted",
+        "projectId": "p1",
+        "title": "Thread queued-adopted",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": {
+          "turnId": "t",
+          "state": "running",
+          "requestedAt": "2026-10-08T11:59:00.000Z",
+          "startedAt": "2026-10-08T11:59:00.000Z",
+          "completedAt": null,
+          "assistantMessageId": null
+        },
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": "2026-10-08T11:59:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "queued-old",
+        "projectId": "p1",
+        "title": "Thread queued-old",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": "2026-10-08T11:50:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "queued-failed",
+        "projectId": "p1",
+        "title": "Thread queued-failed",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "error",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:59:00.000Z"
+        },
+        "latestUserMessageAt": "2026-10-08T11:59:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "queued-future",
+        "projectId": "p1",
+        "title": "Thread queued-future",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": "2026-10-08T12:05:00.000Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      },
+      {
+        "id": "run-approval",
+        "projectId": "p1",
+        "title": "Thread run-approval",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "running",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:57:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": true,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "run-input",
+        "projectId": "p1",
+        "title": "Thread run-input",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": true,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "run-working",
+        "projectId": "p1",
+        "title": "Thread run-working",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "starting",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:57:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "run-failed",
+        "projectId": "p1",
+        "title": "Thread run-failed",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": {
+          "threadId": "x",
+          "status": "error",
+          "providerName": "codex",
+          "providerInstanceId": "codex",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-10-08T11:57:00.000Z"
+        },
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "run-bg",
+        "projectId": "p1",
+        "title": "Thread run-bg",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": "monitoring",
+        "planProgress": null,
+        "environmentId": "env-b"
+      },
+      {
+        "id": "other-project",
+        "projectId": "p2",
+        "title": "Thread other-project",
+        "modelSelection": { "instanceId": "codex", "model": "redacted" },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "branch": null,
+        "worktreePath": null,
+        "pullRequests": [],
+        "branchPullRequest": null,
+        "latestTurn": null,
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "archivedAt": null,
+        "settledOverride": null,
+        "settledAt": null,
+        "unsettledAt": null,
+        "snoozedUntil": null,
+        "snoozedAt": null,
+        "pinnedAt": null,
+        "pinOrderKey": null,
+        "activeOrderKey": null,
+        "autoSettleDisabledAt": null,
+        "titleRegeneration": null,
+        "titleState": {
+          "source": "generated",
+          "version": "15256ac7-e83f-4f18-9766-9eb6aadca3f1",
+          "needsRefinement": false
+        },
+        "session": null,
+        "latestUserMessageAt": null,
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "hasActionableProposedPlan": false,
+        "backgroundLiveness": null,
+        "planProgress": null,
+        "environmentId": "env-a"
+      }
+    ],
+    "projects": [
+      {
+        "id": "a1",
+        "title": "Project a1",
+        "workspaceRoot": "/work/repo",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/repo",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/repo.git"
+          },
+          "rootPath": "/work/repo",
+          "displayName": "o/repo",
+          "name": "repo",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-a"
+      },
+      {
+        "id": "a2",
+        "title": "web",
+        "workspaceRoot": "/work/repo/packages/web/",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/repo",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/repo.git"
+          },
+          "rootPath": "/work/repo",
+          "displayName": "o/repo",
+          "name": "repo",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-a"
+      },
+      {
+        "id": "b1",
+        "title": "repo",
+        "workspaceRoot": "/home/me/repo",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/repo",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/repo.git"
+          },
+          "rootPath": "/home/me/repo",
+          "displayName": "o/repo",
+          "name": "repo",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-05T10:00:00.000Z",
+        "environmentId": "env-b"
+      },
+      {
+        "id": "b2",
+        "title": "repo copy",
+        "workspaceRoot": "/home/me/repo",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/repo",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/repo.git"
+          },
+          "rootPath": "/home/me/repo",
+          "displayName": "o/repo",
+          "name": "repo",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-03T10:00:00.000Z",
+        "environmentId": "env-b"
+      },
+      {
+        "id": "b3",
+        "title": "Other",
+        "workspaceRoot": "/srv/other",
+        "repositoryIdentity": null,
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-b"
+      },
+      {
+        "id": "b4",
+        "title": "Other",
+        "workspaceRoot": "/srv/other",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/other",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/other.git"
+          },
+          "rootPath": "/srv/other",
+          "name": "other",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-02T10:00:00.000Z",
+        "environmentId": "env-b"
+      },
+      {
+        "id": "a3",
+        "title": "Win",
+        "workspaceRoot": "C:\\Work\\Win\\",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/win",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/win.git"
+          },
+          "rootPath": "C:\\Work\\Win",
+          "displayName": "o/win",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-a"
+      },
+      {
+        "id": "a4",
+        "title": "Sub",
+        "workspaceRoot": "c:/work/win/sub",
+        "repositoryIdentity": {
+          "canonicalKey": "github.com/o/win",
+          "locator": {
+            "source": "git-remote",
+            "remoteName": "origin",
+            "remoteUrl": "git@x:github.com/o/win.git"
+          },
+          "rootPath": "C:\\Work\\Win",
+          "displayName": "o/win",
+          "provider": "github"
+        },
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-a"
+      },
+      {
+        "id": "a5",
+        "title": "Solo",
+        "workspaceRoot": "/solo",
+        "repositoryIdentity": null,
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-a"
+      },
+      {
+        "id": "b5",
+        "title": "Solo",
+        "workspaceRoot": "/solo",
+        "repositoryIdentity": null,
+        "defaultModelSelection": null,
+        "defaultThreadEnvMode": null,
+        "autoPull": false,
+        "faviconPath": "redacted",
+        "projectIcon": null,
+        "scripts": [],
+        "createdAt": "2026-09-01T10:00:00.000Z",
+        "updatedAt": "2026-09-01T10:00:00.000Z",
+        "environmentId": "env-b"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T11:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T11:30:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T12:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:00:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T12:01:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T12:01:00.001Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:01:00.001Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T12:30:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:30:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T12:45:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T12:45:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T14:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T14:00:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/plain/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/envA/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "environmentId": "env-a" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/project/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "projectRefs": [
+            { "environmentId": "env-a", "projectId": "p1" },
+            { "environmentId": "env-b", "projectId": "p1" }
+          ]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchTitle/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": " FOO " }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchPr/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "o/r#42" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchLegacyPr/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "#5" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/searchMatched/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "zzzz", "matchedThreadKeys": ["[\"env-a\",\"pin-a\"]"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2 }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/limit2Selected/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "settledLimit": 2, "selectedThreadKey": "env-a:set-tie-x" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSettled/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settledShelfExpanded": false,
+          "selectedThreadKey": "env-a:set-1"
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/expandedSnoozed/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "snoozedShelfExpanded": true }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/collapsedSnoozedSelected/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "selectedThreadKey": "env-a:snz-future" }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/queued/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "queuedThreadKeys": ["env-a:set-queued", "env-a:set-1"] }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedA/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": {
+          "searchQuery": "",
+          "settlementEnvironmentIds": ["env-a"],
+          "snoozeEnvironmentIds": ["env-a"]
+        }
+      }
+    },
+    {
+      "op": "list",
+      "name": "list/gatedNone/2026-10-08T15:00:00.000Z",
+      "input": {
+        "threadsRef": "threads",
+        "now": "2026-10-08T15:00:00.000Z",
+        "options": { "searchQuery": "", "settlementEnvironmentIds": [], "snoozeEnvironmentIds": [] }
+      }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T11:30:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T11:30:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T12:00:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T12:00:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T12:01:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T12:01:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T12:01:00.001Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T12:01:00.001Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T12:30:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T12:30:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T12:45:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T12:45:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T14:00:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T14:00:00.000Z" }
+    },
+    {
+      "op": "lifecycle",
+      "name": "lifecycle/2026-10-08T15:00:00.000Z",
+      "input": { "threadsRef": "threads", "now": "2026-10-08T15:00:00.000Z" }
+    },
+    { "op": "sorts", "name": "sorts/all", "input": { "threadsRef": "threads" } },
+    {
+      "op": "groups",
+      "name": "groups/repository/null",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": null
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/repository/env-b",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": "env-b"
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/repositoryPath/null",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository_path",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": null
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/repositoryPath/env-b",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository_path",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": "env-b"
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/separate/null",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "separate",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": null
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/separate/env-b",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "separate",
+          "sidebarProjectGroupingOverrides": {}
+        },
+        "preferredEnvironmentId": "env-b"
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/override/null",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository",
+          "sidebarProjectGroupingOverrides": {
+            "env-a:/work/repo/packages/web": "separate",
+            "env-b:/home/me/repo": "repository_path"
+          }
+        },
+        "preferredEnvironmentId": null
+      }
+    },
+    {
+      "op": "groups",
+      "name": "groups/override/env-b",
+      "input": {
+        "projectsRef": "projects",
+        "settings": {
+          "sidebarProjectGroupingMode": "repository",
+          "sidebarProjectGroupingOverrides": {
+            "env-a:/work/repo/packages/web": "separate",
+            "env-b:/home/me/repo": "repository_path"
+          }
+        },
+        "preferredEnvironmentId": "env-b"
+      }
+    },
+    {
+      "op": "pending",
+      "name": "pending/synthetic",
+      "input": {
+        "activities": [
+          {
+            "id": "a-01",
+            "tone": "info",
+            "kind": "tool.started",
+            "summary": "tool.started a-01",
+            "payload": {},
+            "turnId": "turn-1",
+            "sequence": 1,
+            "createdAt": "2026-10-01T12:00:13.000Z"
+          },
+          {
+            "id": "a-02",
+            "tone": "info",
+            "kind": "tool.completed",
+            "summary": "tool.completed a-02",
+            "payload": {},
+            "turnId": "turn-1",
+            "sequence": 2,
+            "createdAt": "2026-10-01T12:00:14.000Z"
+          },
+          {
+            "id": "a-03",
+            "tone": "info",
+            "kind": "tool.started",
+            "summary": "tool.started a-03",
+            "payload": {},
+            "turnId": "turn-1",
+            "sequence": 3,
+            "createdAt": "2026-10-01T12:00:12.000Z"
+          },
+          {
+            "id": "a-tie-a",
+            "tone": "info",
+            "kind": "info",
+            "summary": "info a-tie-a",
+            "payload": {},
+            "turnId": "turn-1",
+            "sequence": 5,
+            "createdAt": "2026-10-01T12:00:16.000Z"
+          },
+          {
+            "id": "a-tie-b",
+            "tone": "info",
+            "kind": "info",
+            "summary": "info a-tie-b",
+            "payload": {},
+            "turnId": "turn-1",
+            "sequence": 5,
+            "createdAt": "2026-10-01T12:00:16.000Z"
+          },
+          {
+            "id": "cw-bad",
+            "tone": "info",
+            "kind": "context-window.updated",
+            "summary": "context-window.updated cw-bad",
+            "payload": { "usedTokens": -1 },
+            "turnId": "turn-1",
+            "sequence": 8,
+            "createdAt": "2026-10-01T12:00:19.000Z"
+          },
+          {
+            "id": "cw-other",
+            "tone": "info",
+            "kind": "context-window.updated",
+            "summary": "context-window.updated cw-other",
+            "payload": { "usedTokens": 5 },
+            "turnId": "turn-2",
+            "sequence": 9,
+            "createdAt": "2026-10-01T12:00:20.000Z"
+          },
+          {
+            "id": "cw-3",
+            "tone": "info",
+            "kind": "context-window.updated",
+            "summary": "context-window.updated cw-3",
+            "payload": { "usedTokens": 300 },
+            "turnId": "turn-1",
+            "sequence": 10,
+            "createdAt": "2026-10-01T12:00:21.000Z"
+          },
+          {
+            "id": "ap-1",
+            "tone": "info",
+            "kind": "approval.requested",
+            "summary": "approval.requested ap-1",
+            "payload": { "requestId": "req-1", "requestKind": "command", "detail": "rm -rf" },
+            "turnId": "turn-1",
+            "sequence": 11,
+            "createdAt": "2026-10-01T12:00:22.000Z"
+          },
+          {
+            "id": "ap-2",
+            "tone": "info",
+            "kind": "approval.requested",
+            "summary": "approval.requested ap-2",
+            "payload": {
+              "requestId": "req-2",
+              "requestType": "apply_patch_approval",
+              "appName": "Codex",
+              "options": [
+                { "decision": "accept", "label": "Allow" },
+                { "decision": "decline", "label": "Deny", "warning": "careful" }
+              ]
+            },
+            "turnId": "turn-1",
+            "sequence": 12,
+            "createdAt": "2026-10-01T12:00:23.000Z"
+          },
+          {
+            "id": "ui-1",
+            "tone": "info",
+            "kind": "user-input.requested",
+            "summary": "user-input.requested ui-1",
+            "payload": {
+              "requestId": "req-3",
+              "responseMode": "message",
+              "questions": [
+                {
+                  "id": "q1",
+                  "header": "H",
+                  "question": "Which?",
+                  "options": [
+                    { "label": "A", "description": "a" },
+                    { "label": "B", "description": "b", "value": "bee" }
+                  ],
+                  "multiSelect": true
+                }
+              ]
+            },
+            "turnId": "turn-1",
+            "sequence": 13,
+            "createdAt": "2026-10-01T12:00:24.000Z"
+          },
+          {
+            "id": "ui-2",
+            "tone": "info",
+            "kind": "user-input.requested",
+            "summary": "user-input.requested ui-2",
+            "payload": {
+              "requestId": "req-4",
+              "questions": [
+                {
+                  "id": "q2",
+                  "header": "H2",
+                  "question": "Name?",
+                  "options": [],
+                  "allowCustomAnswer": true
+                }
+              ]
+            },
+            "turnId": "turn-1",
+            "sequence": 14,
+            "createdAt": "2026-10-01T12:00:25.000Z"
+          },
+          {
+            "id": "ap-1-res",
+            "tone": "info",
+            "kind": "approval.resolved",
+            "summary": "approval.resolved ap-1-res",
+            "payload": { "requestId": "req-1" },
+            "turnId": "turn-1",
+            "sequence": 15,
+            "createdAt": "2026-10-01T12:00:26.000Z"
+          },
+          {
+            "id": "ap-1-again",
+            "tone": "info",
+            "kind": "approval.requested",
+            "summary": "approval.requested ap-1-again",
+            "payload": { "requestId": "req-1", "requestKind": "permission" },
+            "turnId": "turn-1",
+            "sequence": 16,
+            "createdAt": "2026-10-01T12:00:27.000Z"
+          },
+          {
+            "id": "ap-2-fail",
+            "tone": "info",
+            "kind": "provider.approval.respond.failed",
+            "summary": "provider.approval.respond.failed ap-2-fail",
+            "payload": { "requestId": "req-2", "detail": "Stale pending approval request: req-2" },
+            "turnId": "turn-1",
+            "sequence": 17,
+            "createdAt": "2026-10-01T12:00:28.000Z"
+          },
+          {
+            "id": "ui-2-fail",
+            "tone": "info",
+            "kind": "provider.user-input.respond.failed",
+            "summary": "provider.user-input.respond.failed ui-2-fail",
+            "payload": { "requestId": "req-4", "detail": "network down" },
+            "turnId": "turn-1",
+            "sequence": 18,
+            "createdAt": "2026-10-01T12:00:29.000Z"
+          },
+          {
+            "id": "a-nosq",
+            "tone": "info",
+            "kind": "info",
+            "summary": "info a-nosq",
+            "payload": {},
+            "turnId": "turn-1",
+            "createdAt": "2026-10-01T12:00:15.000Z"
+          },
+          {
+            "id": "945022e2-d7bf-4a5c-a00e-ed8fc2dcf670",
+            "tone": "info",
+            "kind": "runtime.warning",
+            "summary": "redacted",
+            "payload": {
+              "message": "redacted",
+              "detail": {
+                "type": "redacted",
+                "subtype": "redacted",
+                "kind": "redacted",
+                "trigger": "redacted",
+                "uuid": "redacted",
+                "session_id": "redacted"
+              }
+            },
+            "turnId": "26452822-b866-4098-8569-193a0c83a428",
+            "createdAt": "2026-10-08T09:33:40.520Z"
+          },
+          {
+            "id": "a8fc51a0-f936-4f3e-b2e1-c118be1b731c",
+            "tone": "tool",
+            "kind": "tool.started",
+            "summary": "redacted",
+            "payload": {
+              "itemType": "redacted",
+              "toolCallId": "redacted",
+              "status": "redacted",
+              "title": "redacted",
+              "detail": "redacted",
+              "data": { "toolName": "redacted" }
+            },
+            "turnId": "26452822-b866-4098-8569-193a0c83a428",
+            "createdAt": "2026-10-08T09:33:47.166Z"
+          },
+          {
+            "id": "fac10314-ff23-49e2-a5d1-80285369a5c2",
+            "tone": "tool",
+            "kind": "tool.completed",
+            "summary": "redacted",
+            "payload": {
+              "itemType": "redacted",
+              "toolCallId": "redacted",
+              "status": "redacted",
+              "title": "redacted",
+              "detail": "redacted",
+              "data": {
+                "command": "redacted",
+                "toolName": "redacted",
+                "rawOutput": { "content": "redacted" }
+              }
+            },
+            "turnId": "26452822-b866-4098-8569-193a0c83a428",
+            "createdAt": "2026-10-08T09:33:51.605Z"
+          }
+        ]
+      }
+    },
+    {
+      "op": "pinKeys",
+      "name": "pinKeys/all",
+      "input": {
+        "keys": [null, "a", "b", "n", "z", "ab", "aab", "zz", "mm", "bb"],
+        "planCases": [
+          {
+            "name": "between-keyed",
+            "ordered": ["a", "x", "b"],
+            "keys": [
+              ["a", "c"],
+              ["x", null],
+              ["b", "m"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "keyless-neighbour",
+            "ordered": ["a", "x", "b"],
+            "keys": [
+              ["a", null],
+              ["x", "k"],
+              ["b", "m"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "to-top",
+            "ordered": ["x", "a", "b"],
+            "keys": [
+              ["a", "c"],
+              ["x", "m"],
+              ["b", "q"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "to-bottom",
+            "ordered": ["a", "b", "x"],
+            "keys": [
+              ["a", "c"],
+              ["x", "a"],
+              ["b", "q"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "hidden-reserved",
+            "ordered": ["a", "x"],
+            "keys": [
+              ["a", "c"],
+              ["x", "z"],
+              ["h", "g"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "corrupt",
+            "ordered": ["a", "x", "b"],
+            "keys": [
+              ["a", "q"],
+              ["x", "k"],
+              ["b", "c"]
+            ],
+            "moved": "x"
+          },
+          {
+            "name": "unknown-moved",
+            "ordered": ["a", "b"],
+            "keys": [
+              ["a", "c"],
+              ["b", "q"]
+            ],
+            "moved": "nope"
+          }
+        ]
+      }
+    },
+    {
+      "op": "snooze",
+      "name": "snooze/all",
+      "input": {
+        "zones": ["UTC", "Europe/Warsaw", "America/New_York", "Pacific/Auckland"],
+        "instants": [
+          "2026-10-08T05:30:00.000Z",
+          "2026-10-08T16:45:00.000Z",
+          "2026-10-11T08:00:00.000Z",
+          "2026-10-25T00:30:00.000Z",
+          "2026-03-28T22:30:00.000Z",
+          "2026-03-29T09:00:00.000Z"
+        ],
+        "custom": [
+          { "mode": "date", "date": "2026-10-09", "time": "09:30" },
+          { "mode": "date", "date": "2026-10-08", "time": "00:01" },
+          { "mode": "date", "date": "2026-02-30", "time": "09:00" },
+          { "mode": "date", "date": "2026-03-29", "time": "02:30" },
+          { "mode": "date", "date": "bad", "time": "09:00" },
+          { "mode": "date", "date": "2026-10-09", "time": "9:00" },
+          { "mode": "duration", "amount": "90", "unit": "minutes" },
+          { "mode": "duration", "amount": "2.5", "unit": "hours" },
+          { "mode": "duration", "amount": "3", "unit": "days" },
+          { "mode": "duration", "amount": "0", "unit": "hours" },
+          { "mode": "duration", "amount": "-1", "unit": "hours" },
+          { "mode": "duration", "amount": "abc", "unit": "days" }
+        ],
+        "wake": [
+          ["2026-10-08T12:00:00.000Z", "2026-10-08T12:00:30.000Z"],
+          ["2026-10-08T12:30:00.000Z", "2026-10-08T12:00:00.000Z"],
+          ["2026-10-08T14:00:00.000Z", "2026-10-08T12:00:00.000Z"],
+          ["2026-10-09T12:00:01.000Z", "2026-10-08T12:00:00.000Z"],
+          ["2026-10-20T12:00:00.000Z", "2026-10-08T12:00:00.000Z"],
+          ["bad", "2026-10-08T12:00:00.000Z"]
+        ]
+      }
+    },
+    {
+      "op": "commands",
+      "name": "commands/all",
+      "input": {
+        "meta": { "commandId": "cmd-1", "createdAt": "2026-10-08T12:00:00.000Z" },
+        "specs": [
+          {
+            "name": "create",
+            "args": {
+              "threadId": "thread-1",
+              "projectId": "proj-1",
+              "title": "New",
+              "model": {
+                "instanceId": "codex",
+                "model": "gpt-5",
+                "options": [{ "id": "effort", "value": "high" }]
+              },
+              "runtimeMode": "full-access",
+              "interactionMode": "plan",
+              "branch": "main",
+              "worktreePath": "/tmp/wt"
+            }
+          },
+          {
+            "name": "create-minimal",
+            "args": {
+              "threadId": "thread-1",
+              "projectId": "proj-1",
+              "title": "New",
+              "model": {
+                "instanceId": "codex",
+                "model": "gpt-5",
+                "options": [{ "id": "effort", "value": "high" }]
+              },
+              "runtimeMode": "approval-required"
+            }
+          },
+          { "name": "delete", "args": { "threadId": "thread-1" } },
+          { "name": "archive", "args": { "threadId": "thread-1" } },
+          { "name": "unarchive", "args": { "threadId": "thread-1" } },
+          { "name": "settle", "args": { "threadId": "thread-1" } },
+          { "name": "unsettle", "args": { "threadId": "thread-1" } },
+          {
+            "name": "snooze",
+            "args": { "threadId": "thread-1", "until": "2026-10-09T09:00:00.000Z" }
+          },
+          { "name": "unsnooze", "args": { "threadId": "thread-1" } },
+          { "name": "pin", "args": { "threadId": "thread-1" } },
+          { "name": "pin-key", "args": { "threadId": "thread-1", "orderKey": "mm" } },
+          { "name": "unpin", "args": { "threadId": "thread-1" } },
+          { "name": "reorderPinned", "args": { "threadId": "thread-1", "orderKey": "n" } },
+          { "name": "reorderActive", "args": { "threadId": "thread-1", "orderKey": "q" } },
+          { "name": "autoSettleOn", "args": { "threadId": "thread-1", "enabled": true } },
+          { "name": "autoSettleOff", "args": { "threadId": "thread-1", "enabled": false } },
+          { "name": "rename", "args": { "threadId": "thread-1", "title": "Renamed" } },
+          {
+            "name": "regenerateTitle",
+            "args": { "threadId": "thread-1", "regenerateTitle": true }
+          },
+          {
+            "name": "runtimeMode",
+            "args": { "threadId": "thread-1", "mode": "auto-accept-edits" }
+          },
+          { "name": "interactionMode", "args": { "threadId": "thread-1", "mode": "plan" } },
+          {
+            "name": "startTurn",
+            "args": {
+              "threadId": "thread-1",
+              "messageId": "msg-1",
+              "text": "Hello",
+              "runtimeMode": "full-access",
+              "interactionMode": "default"
+            }
+          },
+          {
+            "name": "startTurnAttachments",
+            "args": {
+              "threadId": "thread-1",
+              "messageId": "msg-2",
+              "text": "See",
+              "runtimeMode": "full-access",
+              "interactionMode": "plan",
+              "model": {
+                "instanceId": "codex",
+                "model": "gpt-5",
+                "options": [{ "id": "effort", "value": "high" }]
+              },
+              "titleSeed": "See",
+              "attachments": [
+                {
+                  "kind": "image",
+                  "id": "att-1",
+                  "name": "a.png",
+                  "mimeType": "image/png",
+                  "sizeBytes": 3
+                },
+                {
+                  "kind": "file",
+                  "id": "att-2",
+                  "name": "b.txt",
+                  "mimeType": "text/plain",
+                  "sizeBytes": 5
+                }
+              ]
+            }
+          },
+          { "name": "interrupt", "args": { "threadId": "thread-1" } },
+          { "name": "interruptTurn", "args": { "threadId": "thread-1", "turnId": "turn-1" } },
+          {
+            "name": "approval",
+            "args": { "threadId": "thread-1", "requestId": "req-1", "decision": "acceptForSession" }
+          },
+          {
+            "name": "userInput",
+            "args": {
+              "threadId": "thread-1",
+              "requestId": "req-2",
+              "answers": { "q1": "A", "q2": ["B", "C"], "q3": { "custom": true }, "q4": 3 }
+            }
+          },
+          { "name": "dismissUserInput", "args": { "threadId": "thread-1", "requestId": "req-2" } },
+          {
+            "name": "revertFiles",
+            "args": { "threadId": "thread-1", "turnCount": 2, "restoreFiles": true }
+          },
+          {
+            "name": "revertConversation",
+            "args": { "threadId": "thread-1", "turnCount": 2, "restoreFiles": false }
+          },
+          { "name": "stopSession", "args": { "threadId": "thread-1" } }
+        ]
+      }
+    }
+  ]
+}

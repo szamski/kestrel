@@ -9,14 +9,18 @@ let package = Package(
   products: [
     .library(name: "T3Contracts", targets: ["T3Contracts"]),
     .library(name: "T3Protocol", targets: ["T3Protocol"]),
+    .library(name: "T3ClientRuntime", targets: ["T3ClientRuntime"]),
   ],
   targets: [
     // Generated from packages/contracts. Do not edit Generated/*.swift by hand.
     .target(name: "T3Contracts"),
     // Effect RPC over WebSocket, environment HTTP, auth and credential storage.
     .target(name: "T3Protocol", dependencies: ["T3Contracts"]),
+    // Connection supervisor, sync engine, reducers and derived state.
+    .target(name: "T3ClientRuntime", dependencies: ["T3Contracts", "T3Protocol"]),
     .testTarget(name: "T3ContractsTests", dependencies: ["T3Contracts"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3ProtocolTests", dependencies: ["T3Protocol"]),
+    .testTarget(name: "T3ClientRuntimeTests", dependencies: ["T3ClientRuntime"], resources: [.copy("Fixtures")]),
   ],
   swiftLanguageModes: [.v6]
 )
