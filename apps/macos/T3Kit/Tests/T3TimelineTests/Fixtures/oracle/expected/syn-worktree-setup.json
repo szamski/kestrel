@@ -1,0 +1,1008 @@
+{
+  "variants": {
+    "none": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "running": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "worktree-setup",
+          "id": "worktree-setup-row",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "snapshot": {
+            "threadId": "syn-worktree",
+            "phase": "running",
+            "startedAt": "2026-10-01T12:00:02.000Z",
+            "sequence": 2,
+            "stages": [
+              { "id": "fetch", "status": "done" },
+              { "id": "checkout", "status": "running" }
+            ]
+          },
+          "embedded": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "handed-off-running": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "failed": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "worktree-setup",
+          "id": "worktree-setup-row",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "snapshot": {
+            "threadId": "syn-worktree",
+            "phase": "failed",
+            "startedAt": "2026-10-01T12:00:02.000Z",
+            "sequence": 5,
+            "stages": [{ "id": "fetch", "status": "failed" }]
+          },
+          "embedded": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "done": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "worktree-setup",
+          "id": "worktree-setup-row",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "snapshot": {
+            "threadId": "syn-worktree",
+            "phase": "done",
+            "startedAt": "2026-10-01T12:00:02.000Z",
+            "sequence": 6,
+            "stages": [
+              { "id": "fetch", "status": "done" },
+              { "id": "agent", "status": "done" }
+            ]
+          },
+          "embedded": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "ready",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "ready",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": null,
+          "label": "Setup script failed",
+          "tone": "error",
+          "detail": "exit 1",
+          "sourceActivityKind": "setup-script.failed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": null,
+            "label": "Setup script failed",
+            "tone": "error",
+            "detail": "exit 1",
+            "sourceActivityKind": "setup-script.failed"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": null,
+              "label": "Setup script failed",
+              "tone": "error",
+              "detail": "exit 1",
+              "sourceActivityKind": "setup-script.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:06.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T11:59:00.000Z",
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Set up a worktree and go",
+          "assistantText": "Ready."
+        }
+      ]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [],
+  "labels": [
+    {
+      "id": "act-0004",
+      "labels": [
+        { "root": null, "display": "exit 1", "live": "exit 1", "settled": "exit 1" },
+        { "root": "/w", "display": "exit 1", "live": "exit 1", "settled": "exit 1" },
+        { "root": "C:\\work\\proj", "display": "exit 1", "live": "exit 1", "settled": "exit 1" }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

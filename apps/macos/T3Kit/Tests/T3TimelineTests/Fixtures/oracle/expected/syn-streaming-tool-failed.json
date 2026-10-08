@@ -1,0 +1,746 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "npm run build",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "npm run build"
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "npm run build",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "npm run build"
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "npm run build",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "npm run build"
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "npm run build",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "npm run build"
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "npm run build",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "npm run build"
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "npm run build",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c2",
+          "command": "npm test",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "npm run build",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c2",
+            "command": "npm test",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "groupId": "work-group:tool:turn-1:c1",
+          "hiddenCount": 2,
+          "expanded": false,
+          "summary": "Ran 2 commands",
+          "summaryKind": "command",
+          "hasFailure": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Run tests", "assistantText": null }]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [],
+  "labels": [
+    {
+      "id": "act-0002",
+      "labels": [
+        { "root": null, "display": "npm run build", "live": "Running npm", "settled": "Ran npm" },
+        { "root": "/w", "display": "npm run build", "live": "Running npm", "settled": "Ran npm" },
+        {
+          "root": "C:\\work\\proj",
+          "display": "npm run build",
+          "live": "Running npm",
+          "settled": "Ran npm"
+        }
+      ]
+    },
+    {
+      "id": "act-0004",
+      "labels": [
+        { "root": null, "display": "npm test", "live": "Failed npm", "settled": "Failed npm" },
+        { "root": "/w", "display": "npm test", "live": "Failed npm", "settled": "Failed npm" },
+        {
+          "root": "C:\\work\\proj",
+          "display": "npm test",
+          "live": "Failed npm",
+          "settled": "Failed npm"
+        }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

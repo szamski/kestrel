@@ -1,0 +1,389 @@
+{
+  "thread": {
+    "id": "syn-user-input",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-1",
+      "state": "running",
+      "requestedAt": "2026-10-01T12:00:14.000Z",
+      "startedAt": "2026-10-01T12:00:01.000Z",
+      "completedAt": null,
+      "assistantMessageId": null
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "Ask me something",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      },
+      {
+        "id": "async-answer:codex-async:t:1",
+        "role": "user",
+        "text": "Beta",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:09.000Z",
+        "updatedAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "id": "a1",
+        "role": "assistant",
+        "text": "Thanks.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:14.000Z",
+        "updatedAt": "2026-10-01T12:00:15.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "info",
+        "kind": "user-input.requested",
+        "summary": "User input requested",
+        "payload": {
+          "requestId": "ui1",
+          "questions": [
+            {
+              "id": "q1",
+              "header": "Question",
+              "question": "Pick one",
+              "options": [
+                { "label": "Alpha", "description": "first", "value": "alpha" },
+                { "label": "Beta", "description": "second" }
+              ],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            },
+            {
+              "id": "q2",
+              "header": "Question",
+              "question": "Why?",
+              "options": [],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            }
+          ]
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:02.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "AskUserQuestion started",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "qt1",
+          "status": "inProgress",
+          "title": "AskUserQuestion",
+          "data": {
+            "toolName": "AskUserQuestion",
+            "input": { "questions": [{ "question": "Pick one" }, { "question": "Why?" }] }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "AskUserQuestion",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "qt1",
+          "status": "completed",
+          "title": "AskUserQuestion",
+          "data": {
+            "toolName": "AskUserQuestion",
+            "input": { "questions": [{ "question": "Pick one" }, { "question": "Why?" }] }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "act-0004",
+        "tone": "info",
+        "kind": "user-input.answer-submitted",
+        "summary": "User input submitted",
+        "payload": {
+          "requestId": "ui1",
+          "answers": { "q1": "alpha", "q2": "because" },
+          "questionTextById": { "q1": "Pick one", "q2": "Why?" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "act-0005",
+        "tone": "info",
+        "kind": "user-input.resolved",
+        "summary": "User input resolved",
+        "payload": { "requestId": "ui1", "answers": { "q1": "alpha", "q2": "because" } },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "act-0006",
+        "tone": "info",
+        "kind": "user-input.requested",
+        "summary": "User input requested",
+        "payload": {
+          "requestId": "codex-async:t:1",
+          "questions": [
+            {
+              "id": "0",
+              "header": "Question",
+              "question": "Which build?",
+              "options": [
+                { "label": "Alpha", "description": "first", "value": "alpha" },
+                { "label": "Beta", "description": "second" }
+              ],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            }
+          ],
+          "responseMode": "message"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:07.000Z"
+      },
+      {
+        "id": "act-0007",
+        "tone": "info",
+        "kind": "user-input.resolved",
+        "summary": "User input submitted",
+        "payload": {
+          "requestId": "codex-async:t:1",
+          "responseMode": "message",
+          "answers": { "0": "Beta" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:08.000Z"
+      },
+      {
+        "id": "act-0008",
+        "tone": "info",
+        "kind": "user-input.requested",
+        "summary": "User input requested",
+        "payload": {
+          "requestId": "ui3",
+          "questions": [
+            {
+              "id": "a",
+              "header": "Question",
+              "question": "Dismiss me?",
+              "options": [],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            }
+          ],
+          "responseMode": "message"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:10.000Z"
+      },
+      {
+        "id": "act-0009",
+        "tone": "info",
+        "kind": "user-input.resolved",
+        "summary": "User input dismissed",
+        "payload": { "requestId": "ui3" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:11.000Z"
+      },
+      {
+        "id": "act-0010",
+        "tone": "info",
+        "kind": "user-input.requested",
+        "summary": "User input requested",
+        "payload": {
+          "requestId": "ui4",
+          "questions": [
+            {
+              "id": "z",
+              "header": "Question",
+              "question": "Still open",
+              "options": [
+                { "label": "Alpha", "description": "first", "value": "alpha" },
+                { "label": "Beta", "description": "second" }
+              ],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            },
+            {
+              "id": "y",
+              "header": "Question",
+              "question": "Multi",
+              "options": [
+                { "label": "Alpha", "description": "first", "value": "alpha" },
+                { "label": "Beta", "description": "second" }
+              ],
+              "allowCustomAnswer": true,
+              "multiSelect": false
+            }
+          ]
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "act-0011",
+        "tone": "info",
+        "kind": "user-input.requested",
+        "summary": "User input requested",
+        "payload": {
+          "requestId": "ui5",
+          "questions": [
+            { "id": "n", "header": "h", "question": "q", "options": [], "allowCustomAnswer": false }
+          ]
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:13.000Z"
+      }
+    ],
+    "checkpoints": [],
+    "session": {
+      "threadId": "syn-user-input",
+      "status": "running",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": "turn-1",
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:14.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "settled",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

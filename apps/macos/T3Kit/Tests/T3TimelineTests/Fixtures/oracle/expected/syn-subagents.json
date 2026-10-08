@@ -1,0 +1,2199 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": false,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "live-agents": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": false,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "settled": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-2",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "Worked for 4.0s",
+          "expanded": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": false,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": true,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "work-group:act-0014:details",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0014",
+              "createdAt": "2026-10-01T12:00:16.000Z",
+              "turnId": "turn-2",
+              "label": "export docs",
+              "tone": "info",
+              "detail": "export docs",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "bg-1"
+            }
+          ],
+          "isExpandedToolGroup": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": false,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "groupId": "work-group:act-0014",
+          "hiddenCount": 1,
+          "expanded": true,
+          "summary": "export docs",
+          "summaryKind": "update",
+          "hasFailure": false
+        },
+        {
+          "kind": "work",
+          "id": "work-group:act-0014:details",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0014",
+              "createdAt": "2026-10-01T12:00:16.000Z",
+              "turnId": "turn-2",
+              "label": "export docs",
+              "tone": "info",
+              "detail": "export docs",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "bg-1"
+            }
+          ],
+          "isExpandedToolGroup": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Subagent started",
+          "tone": "info",
+          "detail": "reading files",
+          "toolTitle": "B",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "t-a",
+          "agentRole": "coder",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+        },
+        {
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "turnId": "turn-2",
+          "label": "Workflow started",
+          "tone": "thinking",
+          "toolTitle": "m1",
+          "sourceActivityKind": "task.progress",
+          "taskId": "wf-1",
+          "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+        },
+        {
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "export docs",
+          "tone": "info",
+          "detail": "export docs",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "bg-1"
+        },
+        {
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "turnId": "turn-3",
+          "label": "child",
+          "tone": "info",
+          "toolTitle": "child",
+          "toolLifecycleStatus": "stopped",
+          "sourceActivityKind": "task.completed",
+          "taskId": "cx-1",
+          "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Subagent started",
+            "tone": "info",
+            "detail": "reading files",
+            "toolTitle": "B",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "t-a",
+            "agentRole": "coder",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "entry": {
+            "id": "act-0010",
+            "createdAt": "2026-10-01T12:00:12.000Z",
+            "turnId": "turn-2",
+            "label": "Workflow started",
+            "tone": "thinking",
+            "toolTitle": "m1",
+            "sourceActivityKind": "task.progress",
+            "taskId": "wf-1",
+            "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0014",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "entry": {
+            "id": "act-0014",
+            "createdAt": "2026-10-01T12:00:16.000Z",
+            "turnId": "turn-2",
+            "label": "export docs",
+            "tone": "info",
+            "detail": "export docs",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "bg-1"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "entry": {
+            "id": "act-0015",
+            "createdAt": "2026-10-01T12:00:17.000Z",
+            "turnId": "turn-3",
+            "label": "child",
+            "tone": "info",
+            "toolTitle": "child",
+            "toolLifecycleStatus": "stopped",
+            "sourceActivityKind": "task.completed",
+            "taskId": "cx-1",
+            "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "message",
+          "id": "a1-pre",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "message": { "id": "a1-pre", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:04.000Z",
+              "turnId": "turn-1",
+              "label": "Subagent started",
+              "tone": "info",
+              "detail": "reading files",
+              "toolTitle": "B",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "t-a",
+              "agentRole": "coder",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["t-a", "t-b"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0010",
+          "createdAt": "2026-10-01T12:00:12.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0010",
+              "createdAt": "2026-10-01T12:00:12.000Z",
+              "turnId": "turn-2",
+              "label": "Workflow started",
+              "tone": "thinking",
+              "toolTitle": "m1",
+              "sourceActivityKind": "task.progress",
+              "taskId": "wf-1",
+              "agentSpawn": { "workflowId": "wf-1", "agentTaskIds": ["wf-1", "wf-1:wf:m1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-2",
+          "createdAt": "2026-10-01T12:00:16.000Z",
+          "turnId": "turn-2",
+          "label": "Worked for 4.0s",
+          "expanded": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0015",
+          "createdAt": "2026-10-01T12:00:17.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0015",
+              "createdAt": "2026-10-01T12:00:17.000Z",
+              "turnId": "turn-3",
+              "label": "child",
+              "tone": "info",
+              "toolTitle": "child",
+              "toolLifecycleStatus": "stopped",
+              "sourceActivityKind": "task.completed",
+              "taskId": "cx-1",
+              "agentSpawn": { "workflowId": null, "agentTaskIds": ["cx-1"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "message",
+          "id": "a3",
+          "createdAt": "2026-10-01T12:00:20.000Z",
+          "message": { "id": "a3", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:03.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-3",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        {
+          "id": "u1",
+          "rowIndex": 0,
+          "userText": "Spawn some agents",
+          "assistantText": "Agents running."
+        }
+      ]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": ["t-b", "wf-1", "wf-1:wf:m1"],
+  "labels": [
+    {
+      "id": "act-0002",
+      "labels": [
+        {
+          "root": null,
+          "display": "reading files",
+          "live": "reading files",
+          "settled": "reading files"
+        },
+        {
+          "root": "/w",
+          "display": "reading files",
+          "live": "reading files",
+          "settled": "reading files"
+        },
+        {
+          "root": "C:\\work\\proj",
+          "display": "reading files",
+          "live": "reading files",
+          "settled": "reading files"
+        }
+      ]
+    },
+    {
+      "id": "act-0010",
+      "labels": [
+        { "root": null, "display": "M1", "live": "M1", "settled": "M1" },
+        { "root": "/w", "display": "M1", "live": "M1", "settled": "M1" },
+        { "root": "C:\\work\\proj", "display": "M1", "live": "M1", "settled": "M1" }
+      ]
+    },
+    {
+      "id": "act-0014",
+      "labels": [
+        { "root": null, "display": "export docs", "live": "export docs", "settled": "export docs" },
+        { "root": "/w", "display": "export docs", "live": "export docs", "settled": "export docs" },
+        {
+          "root": "C:\\work\\proj",
+          "display": "export docs",
+          "live": "export docs",
+          "settled": "export docs"
+        }
+      ]
+    },
+    {
+      "id": "act-0015",
+      "labels": [
+        { "root": null, "display": "Child", "live": "Child", "settled": "Child" },
+        { "root": "/w", "display": "Child", "live": "Child", "settled": "Child" },
+        { "root": "C:\\work\\proj", "display": "Child", "live": "Child", "settled": "Child" }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

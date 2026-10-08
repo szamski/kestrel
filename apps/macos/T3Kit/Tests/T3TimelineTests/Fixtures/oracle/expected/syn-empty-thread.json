@@ -1,0 +1,87 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    },
+    "auto-default": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    },
+    "auto-expanded": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    },
+    "auto-working": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "disconnected",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    },
+    "auto-working-expanded": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "disconnected",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    },
+    "auto-idle": {
+      "workEntries": [],
+      "timelineEntries": [],
+      "rows": [],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T11:59:00.000Z",
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": []
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [],
+  "labels": [],
+  "turnDiffs": []
+}

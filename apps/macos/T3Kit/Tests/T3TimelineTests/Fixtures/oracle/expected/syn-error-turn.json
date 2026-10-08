@@ -1,0 +1,908 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        }
+      ],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "working": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "disconnected",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        }
+      ],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": true
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "Runtime error",
+              "tone": "error",
+              "sourceActivityKind": "runtime.error"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "Provider failed",
+              "tone": "error",
+              "detail": "boom",
+              "sourceActivityKind": "provider.turn.start.failed"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0004",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "c1",
+              "command": "x",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "x"
+        }
+      ],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "disconnected",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": null }
+      ],
+      "phase": "disconnected",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Runtime error",
+          "tone": "error",
+          "sourceActivityKind": "runtime.error"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "Provider failed",
+          "tone": "error",
+          "detail": "boom",
+          "sourceActivityKind": "provider.turn.start.failed"
+        },
+        {
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "c1",
+          "command": "x",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "Runtime error",
+            "tone": "error",
+            "sourceActivityKind": "runtime.error"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "Provider failed",
+            "tone": "error",
+            "detail": "boom",
+            "sourceActivityKind": "provider.turn.start.failed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0004",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0004",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "c1",
+            "command": "x",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 3.0s",
+          "expanded": false
+        }
+      ],
+      "phase": "disconnected",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T11:59:00.000Z",
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [{ "id": "u1", "rowIndex": 0, "userText": "Crash please", "assistantText": null }]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [],
+  "labels": [
+    {
+      "id": "act-0001",
+      "labels": [
+        {
+          "root": null,
+          "display": "Runtime error",
+          "live": "Runtime error",
+          "settled": "Runtime error"
+        },
+        {
+          "root": "/w",
+          "display": "Runtime error",
+          "live": "Runtime error",
+          "settled": "Runtime error"
+        },
+        {
+          "root": "C:\\work\\proj",
+          "display": "Runtime error",
+          "live": "Runtime error",
+          "settled": "Runtime error"
+        }
+      ]
+    },
+    {
+      "id": "act-0002",
+      "labels": [
+        { "root": null, "display": "boom", "live": "boom", "settled": "boom" },
+        { "root": "/w", "display": "boom", "live": "boom", "settled": "boom" },
+        { "root": "C:\\work\\proj", "display": "boom", "live": "boom", "settled": "boom" }
+      ]
+    },
+    {
+      "id": "act-0004",
+      "labels": [
+        { "root": null, "display": "x", "live": "Failed x", "settled": "Failed x" },
+        { "root": "/w", "display": "x", "live": "Failed x", "settled": "Failed x" },
+        { "root": "C:\\work\\proj", "display": "x", "live": "Failed x", "settled": "Failed x" }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

@@ -1,0 +1,429 @@
+{
+  "thread": {
+    "id": "syn-folds",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-3",
+      "state": "completed",
+      "requestedAt": "2026-10-01T12:00:50.000Z",
+      "startedAt": "2026-10-01T12:00:40.000Z",
+      "completedAt": "2026-10-01T12:01:00.000Z",
+      "assistantMessageId": "a3"
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "First",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:00.000Z",
+        "updatedAt": "2026-10-01T12:00:00.000Z"
+      },
+      {
+        "id": "a1-c",
+        "role": "assistant",
+        "text": "Looking.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:02.000Z"
+      },
+      {
+        "id": "f1r",
+        "role": "reasoning",
+        "text": "hmm",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:04.000Z",
+        "updatedAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "a1",
+        "role": "assistant",
+        "text": "Final one.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:10.000Z",
+        "updatedAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "u2",
+        "role": "user",
+        "text": "Second",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:20.000Z",
+        "updatedAt": "2026-10-01T12:00:20.000Z"
+      },
+      {
+        "id": "a2-c",
+        "role": "assistant",
+        "text": "Partial thought.",
+        "turnId": "turn-2",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:21.000Z",
+        "updatedAt": "2026-10-01T12:00:22.000Z"
+      },
+      {
+        "id": "u3",
+        "role": "user",
+        "text": "Third",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:40.000Z",
+        "updatedAt": "2026-10-01T12:00:40.000Z"
+      },
+      {
+        "id": "a3",
+        "role": "assistant",
+        "text": "Answer three.",
+        "turnId": "turn-3",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:45.000Z",
+        "updatedAt": "2026-10-01T12:00:46.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f1c1",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "ls" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:02.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f1c1",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "ls" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f1c2",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "git log" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:11.000Z"
+      },
+      {
+        "id": "act-0004",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f1c2",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "git log" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "act-0005",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f2c1",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "sleep 100" } }
+        },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:22.000Z"
+      },
+      {
+        "id": "act-0006",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f2c1",
+          "status": "stopped",
+          "title": "Ran command",
+          "data": { "item": { "command": "sleep 100" } }
+        },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:23.000Z"
+      },
+      {
+        "id": "act-0007",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c1",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "make" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:41.000Z"
+      },
+      {
+        "id": "act-0008",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c1",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "make" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:42.000Z"
+      },
+      {
+        "id": "act-0009",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c2",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "make test" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:46.000Z"
+      },
+      {
+        "id": "act-0010",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c2",
+          "status": "failed",
+          "title": "Ran command",
+          "data": { "item": { "command": "make test" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:47.000Z"
+      },
+      {
+        "id": "act-0011",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c3",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "make lint" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:48.000Z"
+      },
+      {
+        "id": "act-0012",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "f3c3",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "make lint" } }
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:49.000Z"
+      }
+    ],
+    "checkpoints": [
+      {
+        "turnId": "turn-3",
+        "checkpointTurnCount": 3,
+        "checkpointRef": "refs/t3/checkpoints/x/turn/3",
+        "status": "ready",
+        "files": [{ "path": "Makefile", "kind": "modified", "additions": 1, "deletions": 1 }],
+        "assistantMessageId": "a3",
+        "completedAt": "2026-10-01T12:00:50.000Z"
+      }
+    ],
+    "session": {
+      "threadId": "syn-folds",
+      "status": "ready",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": null,
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:50.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "rollback",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "open-all",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1", "turn-2", "turn-3"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1", "turn-2", "turn-3"],
+        "expandedWorkGroupIds": ["work-group:tool:turn-3:f3c2"],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": ["work-group:tool:turn-3:f3c2"],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

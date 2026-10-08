@@ -1,0 +1,420 @@
+{
+  "thread": {
+    "id": "syn-subagents",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-3",
+      "state": "running",
+      "requestedAt": "2026-10-01T12:00:20.000Z",
+      "startedAt": "2026-10-01T12:00:01.000Z",
+      "completedAt": null,
+      "assistantMessageId": null
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "Spawn some agents",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      },
+      {
+        "id": "a1-pre",
+        "role": "assistant",
+        "text": "Launching.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:02.000Z",
+        "updatedAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "a3",
+        "role": "assistant",
+        "text": "Agents running.",
+        "turnId": "turn-3",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:20.000Z",
+        "updatedAt": "2026-10-01T12:00:21.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "tool",
+        "kind": "tool.updated",
+        "summary": "Subagent task",
+        "payload": {
+          "itemType": "collab_agent_tool_call",
+          "toolCallId": "toolu-launch-1",
+          "status": "inProgress",
+          "title": "Subagent task",
+          "detail": "Code: do a thing",
+          "data": { "toolName": "Agent" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "Subagent started",
+        "payload": {
+          "taskId": "t-a",
+          "agentKind": "agent",
+          "title": "A",
+          "role": "coder",
+          "toolUseId": "toolu-launch-1"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "Subagent started",
+        "payload": { "taskId": "t-b", "agentKind": "agent", "title": "B", "role": "reviewer" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "act-0004",
+        "tone": "info",
+        "kind": "task.progress",
+        "summary": "A",
+        "payload": {
+          "taskId": "t-a",
+          "agentKind": "agent",
+          "summary": "reading",
+          "detail": "reading files",
+          "role": "coder"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "act-0005",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "Task running",
+        "payload": { "taskId": "t-a", "agentKind": "agent", "status": "running" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:07.000Z"
+      },
+      {
+        "id": "act-0006",
+        "tone": "info",
+        "kind": "task.progress",
+        "summary": "B",
+        "payload": { "taskId": "t-b", "agentKind": "agent", "summary": "reviewing" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:08.000Z"
+      },
+      {
+        "id": "act-0007",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "inner",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "ls" } },
+          "agentId": "t-a"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "id": "act-0008",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "inner",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "ls" } },
+          "agentId": "t-a"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:10.000Z"
+      },
+      {
+        "id": "act-0009",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "Task completed",
+        "payload": {
+          "taskId": "t-a",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "A done"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:11.000Z"
+      },
+      {
+        "id": "act-0010",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "Workflow started",
+        "payload": {
+          "taskId": "wf-1",
+          "agentKind": "agent",
+          "taskType": "local_workflow",
+          "workflowName": "audit",
+          "title": "audit"
+        },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "act-0011",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "member",
+        "payload": { "taskId": "wf-1:wf:m1", "agentKind": "agent", "title": "m1" },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:13.000Z"
+      },
+      {
+        "id": "act-0012",
+        "tone": "info",
+        "kind": "task.progress",
+        "summary": "member",
+        "payload": { "taskId": "wf-1:wf:m1", "agentKind": "agent", "summary": "step" },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:14.000Z"
+      },
+      {
+        "id": "act-0013",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "local_bash task started",
+        "payload": {
+          "taskId": "bg-1",
+          "taskType": "local_bash",
+          "detail": "export docs",
+          "agentKind": "background",
+          "title": "export docs",
+          "toolUseId": "toolu-bg"
+        },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:15.000Z"
+      },
+      {
+        "id": "act-0014",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "Task completed",
+        "payload": {
+          "taskId": "bg-1",
+          "status": "completed",
+          "summary": "export docs",
+          "detail": "export docs",
+          "agentKind": "background",
+          "taskType": "local_bash"
+        },
+        "turnId": "turn-2",
+        "createdAt": "2026-10-01T12:00:16.000Z"
+      },
+      {
+        "id": "act-0015",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "child",
+        "payload": {
+          "taskId": "cx-1",
+          "agentKind": "agent",
+          "timelineBypass": true,
+          "title": "child"
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:17.000Z"
+      },
+      {
+        "id": "act-0016",
+        "tone": "info",
+        "kind": "task.progress",
+        "summary": "child",
+        "payload": {
+          "taskId": "cx-1",
+          "agentKind": "agent",
+          "timelineBypass": true,
+          "summary": "assistant message"
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:18.000Z"
+      },
+      {
+        "id": "act-0017",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "child",
+        "payload": {
+          "taskId": "cx-1",
+          "agentKind": "agent",
+          "timelineBypass": true,
+          "status": "stopped"
+        },
+        "turnId": "turn-3",
+        "createdAt": "2026-10-01T12:00:19.000Z"
+      }
+    ],
+    "checkpoints": [],
+    "session": {
+      "threadId": "syn-subagents",
+      "status": "running",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": "turn-3",
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:20.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "live-agents",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": ["t-b", "wf-1"],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "settled",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1", "turn-3", "turn-2"],
+        "expandedWorkGroupIds": ["work-group:act-0014"],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": ["t-a", "t-b"],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": ["work-group:act-0014"],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": ["t-a", "t-b", "wf-1", "wf-1:wf:m1", "bg-1", "cx-1"],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

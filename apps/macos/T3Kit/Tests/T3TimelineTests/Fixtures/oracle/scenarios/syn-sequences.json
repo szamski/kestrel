@@ -1,0 +1,252 @@
+{
+  "thread": {
+    "id": "syn-sequences",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-1",
+      "state": "completed",
+      "requestedAt": "2026-10-01T12:00:05.000Z",
+      "startedAt": "2026-10-01T12:00:01.000Z",
+      "completedAt": "2026-10-01T12:00:20.000Z",
+      "assistantMessageId": "a1"
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "Order me",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      },
+      {
+        "id": "a1",
+        "role": "assistant",
+        "text": "Ordered.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:05.000Z",
+        "updatedAt": "2026-10-01T12:00:06.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "s1",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "echo one" } }
+        },
+        "turnId": "turn-1",
+        "sequence": 3,
+        "createdAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "s1",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "echo one" } }
+        },
+        "turnId": "turn-1",
+        "sequence": 2,
+        "createdAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "tool",
+        "kind": "tool.updated",
+        "summary": "Tool updated",
+        "payload": { "itemType": "command_execution", "toolCallId": "s2", "data": {} },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "z-late",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Ran command",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "s2",
+          "status": "completed",
+          "title": "Ran command",
+          "data": { "item": { "command": "echo two" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "a-early",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Ran command started",
+        "payload": {
+          "itemType": "command_execution",
+          "toolCallId": "s2",
+          "status": "inProgress",
+          "title": "Ran command",
+          "data": { "item": { "command": "echo two" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "m-mid",
+        "tone": "info",
+        "kind": "runtime.warning",
+        "summary": "same time warning",
+        "payload": { "message": "w" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      }
+    ],
+    "checkpoints": [],
+    "session": {
+      "threadId": "syn-sequences",
+      "status": "ready",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": null,
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:05.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "open",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": ["work-group:tool:turn-1:s1"],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

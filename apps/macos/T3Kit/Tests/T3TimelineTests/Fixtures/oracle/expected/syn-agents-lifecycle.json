@@ -1,0 +1,1493 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            },
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "groupId": "work-group:act-0030",
+          "expanded": false,
+          "active": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            },
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "groupId": "work-group:act-0030",
+          "expanded": false,
+          "active": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            },
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "groupId": "work-group:act-0030",
+          "expanded": true,
+          "active": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-live",
+          "id": "work-live:act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            },
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "groupId": "work-group:act-0030",
+          "expanded": false,
+          "active": false
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            },
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "groupId": "work-group:act-0030",
+          "expanded": true,
+          "active": true
+        }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "task.started",
+          "taskId": "a-running",
+          "agentSpawn": {
+            "workflowId": null,
+            "agentTaskIds": [
+              "a-running",
+              "a-waiting",
+              "a-idle",
+              "a-reactivated",
+              "a-failed",
+              "a-stopped",
+              "a-cancelled",
+              "a-late-start",
+              "a-first-terminal",
+              "a-progress-first",
+              "a-usage-snapshot",
+              "a-idle-progress",
+              "a-idle-start",
+              "a-pending",
+              "batch-1"
+            ]
+          }
+        },
+        {
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "toolLifecycleStatus": "failed",
+          "sourceActivityKind": "task.completed",
+          "taskId": "wf-9",
+          "agentSpawn": {
+            "workflowId": "wf-9",
+            "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+          }
+        },
+        {
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "turnId": "turn-1",
+          "label": "start",
+          "tone": "info",
+          "sourceActivityKind": "task.started",
+          "taskId": "wf-10",
+          "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "task.started",
+            "taskId": "a-running",
+            "agentSpawn": {
+              "workflowId": null,
+              "agentTaskIds": [
+                "a-running",
+                "a-waiting",
+                "a-idle",
+                "a-reactivated",
+                "a-failed",
+                "a-stopped",
+                "a-cancelled",
+                "a-late-start",
+                "a-first-terminal",
+                "a-progress-first",
+                "a-usage-snapshot",
+                "a-idle-progress",
+                "a-idle-start",
+                "a-pending",
+                "batch-1"
+              ]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "entry": {
+            "id": "act-0030",
+            "createdAt": "2026-10-01T12:00:31.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "toolLifecycleStatus": "failed",
+            "sourceActivityKind": "task.completed",
+            "taskId": "wf-9",
+            "agentSpawn": {
+              "workflowId": "wf-9",
+              "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+            }
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "entry": {
+            "id": "act-0037",
+            "createdAt": "2026-10-01T12:00:38.000Z",
+            "turnId": "turn-1",
+            "label": "start",
+            "tone": "info",
+            "sourceActivityKind": "task.started",
+            "taskId": "wf-10",
+            "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "task.started",
+              "taskId": "a-running",
+              "agentSpawn": {
+                "workflowId": null,
+                "agentTaskIds": [
+                  "a-running",
+                  "a-waiting",
+                  "a-idle",
+                  "a-reactivated",
+                  "a-failed",
+                  "a-stopped",
+                  "a-cancelled",
+                  "a-late-start",
+                  "a-first-terminal",
+                  "a-progress-first",
+                  "a-usage-snapshot",
+                  "a-idle-progress",
+                  "a-idle-start",
+                  "a-pending",
+                  "batch-1"
+                ]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0030",
+          "createdAt": "2026-10-01T12:00:31.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0030",
+              "createdAt": "2026-10-01T12:00:31.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "toolLifecycleStatus": "failed",
+              "sourceActivityKind": "task.completed",
+              "taskId": "wf-9",
+              "agentSpawn": {
+                "workflowId": "wf-9",
+                "agentTaskIds": ["wf-9", "wf-9:wf:one", "wf-9:wf:two", "wf-9:wf:three"]
+              }
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0037",
+          "createdAt": "2026-10-01T12:00:38.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0037",
+              "createdAt": "2026-10-01T12:00:38.000Z",
+              "turnId": "turn-1",
+              "label": "start",
+              "tone": "info",
+              "sourceActivityKind": "task.started",
+              "taskId": "wf-10",
+              "agentSpawn": { "workflowId": "wf-10", "agentTaskIds": ["wf-10", "wf-10:wf:one"] }
+            }
+          ],
+          "isExpandedToolGroup": false
+        }
+      ],
+      "phase": "running",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Lots of agents", "assistantText": null }
+      ]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [
+    "a-idle-start",
+    "a-pending",
+    "a-progress-first",
+    "a-reactivated",
+    "a-running",
+    "a-usage-snapshot",
+    "a-waiting",
+    "wf-10",
+    "wf-10:wf:one"
+  ],
+  "labels": [
+    {
+      "id": "act-0001",
+      "labels": [
+        { "root": null, "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "/w", "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "C:\\work\\proj", "display": "Start", "live": "Start", "settled": "Start" }
+      ]
+    },
+    {
+      "id": "act-0030",
+      "labels": [
+        { "root": null, "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "/w", "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "C:\\work\\proj", "display": "Start", "live": "Start", "settled": "Start" }
+      ]
+    },
+    {
+      "id": "act-0037",
+      "labels": [
+        { "root": null, "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "/w", "display": "Start", "live": "Start", "settled": "Start" },
+        { "root": "C:\\work\\proj", "display": "Start", "live": "Start", "settled": "Start" }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

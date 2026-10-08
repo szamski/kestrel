@@ -1,0 +1,2175 @@
+{
+  "thread": {
+    "id": "syn-agents-many",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-1",
+      "state": "running",
+      "requestedAt": "2026-10-01T12:03:07.000Z",
+      "startedAt": "2026-10-01T12:00:01.000Z",
+      "completedAt": null,
+      "assistantMessageId": null
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "A fleet",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-000", "agentKind": "agent", "title": "fleet-000" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:02.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-000",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-001", "agentKind": "agent", "title": "fleet-001" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "act-0004",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-002", "agentKind": "agent", "title": "fleet-002" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "act-0005",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-003", "agentKind": "agent", "title": "fleet-003" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "act-0006",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-003",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:07.000Z"
+      },
+      {
+        "id": "act-0007",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-004", "agentKind": "agent", "title": "fleet-004" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:08.000Z"
+      },
+      {
+        "id": "act-0008",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-005", "agentKind": "agent", "title": "fleet-005" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "id": "act-0009",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-006", "agentKind": "agent", "title": "fleet-006" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:10.000Z"
+      },
+      {
+        "id": "act-0010",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-006",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:11.000Z"
+      },
+      {
+        "id": "act-0011",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-007", "agentKind": "agent", "title": "fleet-007" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "act-0012",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-007", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:13.000Z"
+      },
+      {
+        "id": "act-0013",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-008", "agentKind": "agent", "title": "fleet-008" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:14.000Z"
+      },
+      {
+        "id": "act-0014",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-009", "agentKind": "agent", "title": "fleet-009" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:15.000Z"
+      },
+      {
+        "id": "act-0015",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-009",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:16.000Z"
+      },
+      {
+        "id": "act-0016",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-010", "agentKind": "agent", "title": "fleet-010" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:17.000Z"
+      },
+      {
+        "id": "act-0017",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-011", "agentKind": "agent", "title": "fleet-011" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:18.000Z"
+      },
+      {
+        "id": "act-0018",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-012", "agentKind": "agent", "title": "fleet-012" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:19.000Z"
+      },
+      {
+        "id": "act-0019",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-012",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:20.000Z"
+      },
+      {
+        "id": "act-0020",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-013", "agentKind": "agent", "title": "fleet-013" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:21.000Z"
+      },
+      {
+        "id": "act-0021",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-014", "agentKind": "agent", "title": "fleet-014" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:22.000Z"
+      },
+      {
+        "id": "act-0022",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-014", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:23.000Z"
+      },
+      {
+        "id": "act-0023",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-015", "agentKind": "agent", "title": "fleet-015" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:24.000Z"
+      },
+      {
+        "id": "act-0024",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-015",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:25.000Z"
+      },
+      {
+        "id": "act-0025",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-016", "agentKind": "agent", "title": "fleet-016" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:26.000Z"
+      },
+      {
+        "id": "act-0026",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-017", "agentKind": "agent", "title": "fleet-017" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:27.000Z"
+      },
+      {
+        "id": "act-0027",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-018", "agentKind": "agent", "title": "fleet-018" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:28.000Z"
+      },
+      {
+        "id": "act-0028",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-018",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:29.000Z"
+      },
+      {
+        "id": "act-0029",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-019", "agentKind": "agent", "title": "fleet-019" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:30.000Z"
+      },
+      {
+        "id": "act-0030",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-020", "agentKind": "agent", "title": "fleet-020" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:31.000Z"
+      },
+      {
+        "id": "act-0031",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-021", "agentKind": "agent", "title": "fleet-021" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:32.000Z"
+      },
+      {
+        "id": "act-0032",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-021",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:33.000Z"
+      },
+      {
+        "id": "act-0033",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-022", "agentKind": "agent", "title": "fleet-022" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:34.000Z"
+      },
+      {
+        "id": "act-0034",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-023", "agentKind": "agent", "title": "fleet-023" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:35.000Z"
+      },
+      {
+        "id": "act-0035",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-024", "agentKind": "agent", "title": "fleet-024" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:36.000Z"
+      },
+      {
+        "id": "act-0036",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-024",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:37.000Z"
+      },
+      {
+        "id": "act-0037",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-025", "agentKind": "agent", "title": "fleet-025" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:38.000Z"
+      },
+      {
+        "id": "act-0038",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-026", "agentKind": "agent", "title": "fleet-026" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:39.000Z"
+      },
+      {
+        "id": "act-0039",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-027", "agentKind": "agent", "title": "fleet-027" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:40.000Z"
+      },
+      {
+        "id": "act-0040",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-027",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:41.000Z"
+      },
+      {
+        "id": "act-0041",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-028", "agentKind": "agent", "title": "fleet-028" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:42.000Z"
+      },
+      {
+        "id": "act-0042",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-028", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:43.000Z"
+      },
+      {
+        "id": "act-0043",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-029", "agentKind": "agent", "title": "fleet-029" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:44.000Z"
+      },
+      {
+        "id": "act-0044",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-030", "agentKind": "agent", "title": "fleet-030" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:45.000Z"
+      },
+      {
+        "id": "act-0045",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-030",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:46.000Z"
+      },
+      {
+        "id": "act-0046",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-031", "agentKind": "agent", "title": "fleet-031" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:47.000Z"
+      },
+      {
+        "id": "act-0047",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-032", "agentKind": "agent", "title": "fleet-032" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:48.000Z"
+      },
+      {
+        "id": "act-0048",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-033", "agentKind": "agent", "title": "fleet-033" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:49.000Z"
+      },
+      {
+        "id": "act-0049",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-033",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:50.000Z"
+      },
+      {
+        "id": "act-0050",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-034", "agentKind": "agent", "title": "fleet-034" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:51.000Z"
+      },
+      {
+        "id": "act-0051",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-035", "agentKind": "agent", "title": "fleet-035" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:52.000Z"
+      },
+      {
+        "id": "act-0052",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-035", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:53.000Z"
+      },
+      {
+        "id": "act-0053",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-036", "agentKind": "agent", "title": "fleet-036" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:54.000Z"
+      },
+      {
+        "id": "act-0054",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-036",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:55.000Z"
+      },
+      {
+        "id": "act-0055",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-037", "agentKind": "agent", "title": "fleet-037" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:56.000Z"
+      },
+      {
+        "id": "act-0056",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-038", "agentKind": "agent", "title": "fleet-038" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:57.000Z"
+      },
+      {
+        "id": "act-0057",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-039", "agentKind": "agent", "title": "fleet-039" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:58.000Z"
+      },
+      {
+        "id": "act-0058",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-039",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:59.000Z"
+      },
+      {
+        "id": "act-0059",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-040", "agentKind": "agent", "title": "fleet-040" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:00.000Z"
+      },
+      {
+        "id": "act-0060",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-041", "agentKind": "agent", "title": "fleet-041" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:01.000Z"
+      },
+      {
+        "id": "act-0061",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-042", "agentKind": "agent", "title": "fleet-042" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:02.000Z"
+      },
+      {
+        "id": "act-0062",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-042",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:03.000Z"
+      },
+      {
+        "id": "act-0063",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-043", "agentKind": "agent", "title": "fleet-043" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:04.000Z"
+      },
+      {
+        "id": "act-0064",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-044", "agentKind": "agent", "title": "fleet-044" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:05.000Z"
+      },
+      {
+        "id": "act-0065",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-045", "agentKind": "agent", "title": "fleet-045" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:06.000Z"
+      },
+      {
+        "id": "act-0066",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-045",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:07.000Z"
+      },
+      {
+        "id": "act-0067",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-046", "agentKind": "agent", "title": "fleet-046" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:08.000Z"
+      },
+      {
+        "id": "act-0068",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-047", "agentKind": "agent", "title": "fleet-047" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:09.000Z"
+      },
+      {
+        "id": "act-0069",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-048", "agentKind": "agent", "title": "fleet-048" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:10.000Z"
+      },
+      {
+        "id": "act-0070",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-048",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:11.000Z"
+      },
+      {
+        "id": "act-0071",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-049", "agentKind": "agent", "title": "fleet-049" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:12.000Z"
+      },
+      {
+        "id": "act-0072",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-049", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:13.000Z"
+      },
+      {
+        "id": "act-0073",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-050", "agentKind": "agent", "title": "fleet-050" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:14.000Z"
+      },
+      {
+        "id": "act-0074",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-051", "agentKind": "agent", "title": "fleet-051" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:15.000Z"
+      },
+      {
+        "id": "act-0075",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-051",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:16.000Z"
+      },
+      {
+        "id": "act-0076",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-052", "agentKind": "agent", "title": "fleet-052" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:17.000Z"
+      },
+      {
+        "id": "act-0077",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-053", "agentKind": "agent", "title": "fleet-053" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:18.000Z"
+      },
+      {
+        "id": "act-0078",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-054", "agentKind": "agent", "title": "fleet-054" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:19.000Z"
+      },
+      {
+        "id": "act-0079",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-054",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:20.000Z"
+      },
+      {
+        "id": "act-0080",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-055", "agentKind": "agent", "title": "fleet-055" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:21.000Z"
+      },
+      {
+        "id": "act-0081",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-056", "agentKind": "agent", "title": "fleet-056" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:22.000Z"
+      },
+      {
+        "id": "act-0082",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-056", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:23.000Z"
+      },
+      {
+        "id": "act-0083",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-057", "agentKind": "agent", "title": "fleet-057" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:24.000Z"
+      },
+      {
+        "id": "act-0084",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-057",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:25.000Z"
+      },
+      {
+        "id": "act-0085",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-058", "agentKind": "agent", "title": "fleet-058" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:26.000Z"
+      },
+      {
+        "id": "act-0086",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-059", "agentKind": "agent", "title": "fleet-059" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:27.000Z"
+      },
+      {
+        "id": "act-0087",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-060", "agentKind": "agent", "title": "fleet-060" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:28.000Z"
+      },
+      {
+        "id": "act-0088",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-060",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:29.000Z"
+      },
+      {
+        "id": "act-0089",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-061", "agentKind": "agent", "title": "fleet-061" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:30.000Z"
+      },
+      {
+        "id": "act-0090",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-062", "agentKind": "agent", "title": "fleet-062" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:31.000Z"
+      },
+      {
+        "id": "act-0091",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-063", "agentKind": "agent", "title": "fleet-063" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:32.000Z"
+      },
+      {
+        "id": "act-0092",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-063",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:33.000Z"
+      },
+      {
+        "id": "act-0093",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-064", "agentKind": "agent", "title": "fleet-064" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:34.000Z"
+      },
+      {
+        "id": "act-0094",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-065", "agentKind": "agent", "title": "fleet-065" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:35.000Z"
+      },
+      {
+        "id": "act-0095",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-066", "agentKind": "agent", "title": "fleet-066" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:36.000Z"
+      },
+      {
+        "id": "act-0096",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-066",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:37.000Z"
+      },
+      {
+        "id": "act-0097",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-067", "agentKind": "agent", "title": "fleet-067" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:38.000Z"
+      },
+      {
+        "id": "act-0098",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-068", "agentKind": "agent", "title": "fleet-068" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:39.000Z"
+      },
+      {
+        "id": "act-0099",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-069", "agentKind": "agent", "title": "fleet-069" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:40.000Z"
+      },
+      {
+        "id": "act-0100",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-069",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:41.000Z"
+      },
+      {
+        "id": "act-0101",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-070", "agentKind": "agent", "title": "fleet-070" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:42.000Z"
+      },
+      {
+        "id": "act-0102",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-070", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:43.000Z"
+      },
+      {
+        "id": "act-0103",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-071", "agentKind": "agent", "title": "fleet-071" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:44.000Z"
+      },
+      {
+        "id": "act-0104",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-072", "agentKind": "agent", "title": "fleet-072" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:45.000Z"
+      },
+      {
+        "id": "act-0105",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-072",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:46.000Z"
+      },
+      {
+        "id": "act-0106",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-073", "agentKind": "agent", "title": "fleet-073" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:47.000Z"
+      },
+      {
+        "id": "act-0107",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-074", "agentKind": "agent", "title": "fleet-074" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:48.000Z"
+      },
+      {
+        "id": "act-0108",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-075", "agentKind": "agent", "title": "fleet-075" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:49.000Z"
+      },
+      {
+        "id": "act-0109",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-075",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:50.000Z"
+      },
+      {
+        "id": "act-0110",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-076", "agentKind": "agent", "title": "fleet-076" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:51.000Z"
+      },
+      {
+        "id": "act-0111",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-077", "agentKind": "agent", "title": "fleet-077" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:52.000Z"
+      },
+      {
+        "id": "act-0112",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-077", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:53.000Z"
+      },
+      {
+        "id": "act-0113",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-078", "agentKind": "agent", "title": "fleet-078" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:54.000Z"
+      },
+      {
+        "id": "act-0114",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-078",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:55.000Z"
+      },
+      {
+        "id": "act-0115",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-079", "agentKind": "agent", "title": "fleet-079" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:56.000Z"
+      },
+      {
+        "id": "act-0116",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-080", "agentKind": "agent", "title": "fleet-080" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:57.000Z"
+      },
+      {
+        "id": "act-0117",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-081", "agentKind": "agent", "title": "fleet-081" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:58.000Z"
+      },
+      {
+        "id": "act-0118",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-081",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:01:59.000Z"
+      },
+      {
+        "id": "act-0119",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-082", "agentKind": "agent", "title": "fleet-082" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:00.000Z"
+      },
+      {
+        "id": "act-0120",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-083", "agentKind": "agent", "title": "fleet-083" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:01.000Z"
+      },
+      {
+        "id": "act-0121",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-084", "agentKind": "agent", "title": "fleet-084" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:02.000Z"
+      },
+      {
+        "id": "act-0122",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-084",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:03.000Z"
+      },
+      {
+        "id": "act-0123",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-085", "agentKind": "agent", "title": "fleet-085" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:04.000Z"
+      },
+      {
+        "id": "act-0124",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-086", "agentKind": "agent", "title": "fleet-086" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:05.000Z"
+      },
+      {
+        "id": "act-0125",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-087", "agentKind": "agent", "title": "fleet-087" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:06.000Z"
+      },
+      {
+        "id": "act-0126",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-087",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:07.000Z"
+      },
+      {
+        "id": "act-0127",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-088", "agentKind": "agent", "title": "fleet-088" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:08.000Z"
+      },
+      {
+        "id": "act-0128",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-089", "agentKind": "agent", "title": "fleet-089" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:09.000Z"
+      },
+      {
+        "id": "act-0129",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-090", "agentKind": "agent", "title": "fleet-090" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:10.000Z"
+      },
+      {
+        "id": "act-0130",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-090",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:11.000Z"
+      },
+      {
+        "id": "act-0131",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-091", "agentKind": "agent", "title": "fleet-091" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:12.000Z"
+      },
+      {
+        "id": "act-0132",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-091", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:13.000Z"
+      },
+      {
+        "id": "act-0133",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-092", "agentKind": "agent", "title": "fleet-092" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:14.000Z"
+      },
+      {
+        "id": "act-0134",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-093", "agentKind": "agent", "title": "fleet-093" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:15.000Z"
+      },
+      {
+        "id": "act-0135",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-093",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:16.000Z"
+      },
+      {
+        "id": "act-0136",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-094", "agentKind": "agent", "title": "fleet-094" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:17.000Z"
+      },
+      {
+        "id": "act-0137",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-095", "agentKind": "agent", "title": "fleet-095" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:18.000Z"
+      },
+      {
+        "id": "act-0138",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-096", "agentKind": "agent", "title": "fleet-096" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:19.000Z"
+      },
+      {
+        "id": "act-0139",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-096",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:20.000Z"
+      },
+      {
+        "id": "act-0140",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-097", "agentKind": "agent", "title": "fleet-097" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:21.000Z"
+      },
+      {
+        "id": "act-0141",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-098", "agentKind": "agent", "title": "fleet-098" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:22.000Z"
+      },
+      {
+        "id": "act-0142",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-098", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:23.000Z"
+      },
+      {
+        "id": "act-0143",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-099", "agentKind": "agent", "title": "fleet-099" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:24.000Z"
+      },
+      {
+        "id": "act-0144",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-099",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:25.000Z"
+      },
+      {
+        "id": "act-0145",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-100", "agentKind": "agent", "title": "fleet-100" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:26.000Z"
+      },
+      {
+        "id": "act-0146",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-101", "agentKind": "agent", "title": "fleet-101" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:27.000Z"
+      },
+      {
+        "id": "act-0147",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-102", "agentKind": "agent", "title": "fleet-102" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:28.000Z"
+      },
+      {
+        "id": "act-0148",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-102",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:29.000Z"
+      },
+      {
+        "id": "act-0149",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-103", "agentKind": "agent", "title": "fleet-103" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:30.000Z"
+      },
+      {
+        "id": "act-0150",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-104", "agentKind": "agent", "title": "fleet-104" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:31.000Z"
+      },
+      {
+        "id": "act-0151",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-105", "agentKind": "agent", "title": "fleet-105" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:32.000Z"
+      },
+      {
+        "id": "act-0152",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-105",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:33.000Z"
+      },
+      {
+        "id": "act-0153",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-106", "agentKind": "agent", "title": "fleet-106" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:34.000Z"
+      },
+      {
+        "id": "act-0154",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-107", "agentKind": "agent", "title": "fleet-107" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:35.000Z"
+      },
+      {
+        "id": "act-0155",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-108", "agentKind": "agent", "title": "fleet-108" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:36.000Z"
+      },
+      {
+        "id": "act-0156",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-108",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:37.000Z"
+      },
+      {
+        "id": "act-0157",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-109", "agentKind": "agent", "title": "fleet-109" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:38.000Z"
+      },
+      {
+        "id": "act-0158",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-110", "agentKind": "agent", "title": "fleet-110" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:39.000Z"
+      },
+      {
+        "id": "act-0159",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-111", "agentKind": "agent", "title": "fleet-111" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:40.000Z"
+      },
+      {
+        "id": "act-0160",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-111",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:41.000Z"
+      },
+      {
+        "id": "act-0161",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-112", "agentKind": "agent", "title": "fleet-112" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:42.000Z"
+      },
+      {
+        "id": "act-0162",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-112", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:43.000Z"
+      },
+      {
+        "id": "act-0163",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-113", "agentKind": "agent", "title": "fleet-113" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:44.000Z"
+      },
+      {
+        "id": "act-0164",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-114", "agentKind": "agent", "title": "fleet-114" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:45.000Z"
+      },
+      {
+        "id": "act-0165",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-114",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:46.000Z"
+      },
+      {
+        "id": "act-0166",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-115", "agentKind": "agent", "title": "fleet-115" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:47.000Z"
+      },
+      {
+        "id": "act-0167",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-116", "agentKind": "agent", "title": "fleet-116" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:48.000Z"
+      },
+      {
+        "id": "act-0168",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-117", "agentKind": "agent", "title": "fleet-117" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:49.000Z"
+      },
+      {
+        "id": "act-0169",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-117",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:50.000Z"
+      },
+      {
+        "id": "act-0170",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-118", "agentKind": "agent", "title": "fleet-118" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:51.000Z"
+      },
+      {
+        "id": "act-0171",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-119", "agentKind": "agent", "title": "fleet-119" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:52.000Z"
+      },
+      {
+        "id": "act-0172",
+        "tone": "info",
+        "kind": "task.updated",
+        "summary": "idle",
+        "payload": { "taskId": "fleet-119", "agentKind": "agent", "status": "idle" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:53.000Z"
+      },
+      {
+        "id": "act-0173",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-120", "agentKind": "agent", "title": "fleet-120" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:54.000Z"
+      },
+      {
+        "id": "act-0174",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-120",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:55.000Z"
+      },
+      {
+        "id": "act-0175",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-121", "agentKind": "agent", "title": "fleet-121" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:56.000Z"
+      },
+      {
+        "id": "act-0176",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-122", "agentKind": "agent", "title": "fleet-122" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:57.000Z"
+      },
+      {
+        "id": "act-0177",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-123", "agentKind": "agent", "title": "fleet-123" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:58.000Z"
+      },
+      {
+        "id": "act-0178",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-123",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:02:59.000Z"
+      },
+      {
+        "id": "act-0179",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-124", "agentKind": "agent", "title": "fleet-124" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:00.000Z"
+      },
+      {
+        "id": "act-0180",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-125", "agentKind": "agent", "title": "fleet-125" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:01.000Z"
+      },
+      {
+        "id": "act-0181",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-126", "agentKind": "agent", "title": "fleet-126" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:02.000Z"
+      },
+      {
+        "id": "act-0182",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-126",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:03.000Z"
+      },
+      {
+        "id": "act-0183",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-127", "agentKind": "agent", "title": "fleet-127" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:04.000Z"
+      },
+      {
+        "id": "act-0184",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-128", "agentKind": "agent", "title": "fleet-128" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:05.000Z"
+      },
+      {
+        "id": "act-0185",
+        "tone": "info",
+        "kind": "task.started",
+        "summary": "start",
+        "payload": { "taskId": "fleet-129", "agentKind": "agent", "title": "fleet-129" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:06.000Z"
+      },
+      {
+        "id": "act-0186",
+        "tone": "info",
+        "kind": "task.completed",
+        "summary": "done",
+        "payload": {
+          "taskId": "fleet-129",
+          "agentKind": "agent",
+          "status": "completed",
+          "summary": "ok"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:03:07.000Z"
+      }
+    ],
+    "checkpoints": [],
+    "session": {
+      "threadId": "syn-agents-many",
+      "status": "running",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": "turn-1",
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:03:07.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": ["work-group:act-0001"],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": ["fleet-000", "fleet-001"],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": ["work-group:act-0001"],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [
+          "fleet-000",
+          "fleet-001",
+          "fleet-002",
+          "fleet-003",
+          "fleet-004",
+          "fleet-005",
+          "fleet-006",
+          "fleet-007",
+          "fleet-008",
+          "fleet-009",
+          "fleet-010",
+          "fleet-011",
+          "fleet-012",
+          "fleet-013",
+          "fleet-014",
+          "fleet-015",
+          "fleet-016",
+          "fleet-017",
+          "fleet-018",
+          "fleet-019",
+          "fleet-020",
+          "fleet-021",
+          "fleet-022",
+          "fleet-023",
+          "fleet-024",
+          "fleet-025",
+          "fleet-026",
+          "fleet-027",
+          "fleet-028",
+          "fleet-029",
+          "fleet-030",
+          "fleet-031",
+          "fleet-032",
+          "fleet-033",
+          "fleet-034",
+          "fleet-035",
+          "fleet-036",
+          "fleet-037",
+          "fleet-038",
+          "fleet-039",
+          "fleet-040",
+          "fleet-041",
+          "fleet-042",
+          "fleet-043",
+          "fleet-044",
+          "fleet-045",
+          "fleet-046",
+          "fleet-047",
+          "fleet-048",
+          "fleet-049",
+          "fleet-050",
+          "fleet-051",
+          "fleet-052",
+          "fleet-053",
+          "fleet-054",
+          "fleet-055",
+          "fleet-056",
+          "fleet-057",
+          "fleet-058",
+          "fleet-059",
+          "fleet-060",
+          "fleet-061",
+          "fleet-062",
+          "fleet-063",
+          "fleet-064",
+          "fleet-065",
+          "fleet-066",
+          "fleet-067",
+          "fleet-068",
+          "fleet-069",
+          "fleet-070",
+          "fleet-071",
+          "fleet-072",
+          "fleet-073",
+          "fleet-074",
+          "fleet-075",
+          "fleet-076",
+          "fleet-077",
+          "fleet-078",
+          "fleet-079",
+          "fleet-080",
+          "fleet-081",
+          "fleet-082",
+          "fleet-083",
+          "fleet-084",
+          "fleet-085",
+          "fleet-086",
+          "fleet-087",
+          "fleet-088",
+          "fleet-089",
+          "fleet-090",
+          "fleet-091",
+          "fleet-092",
+          "fleet-093",
+          "fleet-094",
+          "fleet-095",
+          "fleet-096",
+          "fleet-097",
+          "fleet-098",
+          "fleet-099",
+          "fleet-100",
+          "fleet-101",
+          "fleet-102",
+          "fleet-103",
+          "fleet-104",
+          "fleet-105",
+          "fleet-106",
+          "fleet-107",
+          "fleet-108",
+          "fleet-109",
+          "fleet-110",
+          "fleet-111",
+          "fleet-112",
+          "fleet-113",
+          "fleet-114",
+          "fleet-115",
+          "fleet-116",
+          "fleet-117",
+          "fleet-118",
+          "fleet-119",
+          "fleet-120",
+          "fleet-121",
+          "fleet-122",
+          "fleet-123",
+          "fleet-124",
+          "fleet-125",
+          "fleet-126",
+          "fleet-127",
+          "fleet-128",
+          "fleet-129"
+        ],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

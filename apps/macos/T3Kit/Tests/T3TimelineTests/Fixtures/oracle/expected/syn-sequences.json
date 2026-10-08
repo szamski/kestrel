@@ -1,0 +1,1217 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "open": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": true
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "groupId": "work-group:tool:turn-1:s2",
+          "hiddenCount": 2,
+          "expanded": false,
+          "summary": "Ran 1 command and received 1 update",
+          "summaryKind": "mixed",
+          "hasFailure": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "s1",
+              "command": "echo one",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "echo one"
+        },
+        {
+          "kind": "assistant-meta",
+          "id": "assistant-meta:a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": true
+        },
+        {
+          "kind": "work-toggle",
+          "id": "work-toggle:z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "groupId": "work-group:tool:turn-1:s2",
+          "hiddenCount": 2,
+          "expanded": false,
+          "summary": "Ran 1 command and received 1 update",
+          "summaryKind": "mixed",
+          "hasFailure": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "s1",
+              "command": "echo one",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": false,
+          "displayLabel": "echo one"
+        },
+        {
+          "kind": "assistant-meta",
+          "id": "assistant-meta:a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "s1",
+              "command": "echo one",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "groupId": "work-group:tool:turn-1:s1",
+          "expanded": false,
+          "active": true
+        }
+      ],
+      "phase": "ready",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        { "kind": "working", "id": "working-indicator-row", "createdAt": null },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work-live",
+          "id": "live-activity-row",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          },
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "s1",
+              "command": "echo one",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "groupId": "work-group:tool:turn-1:s1",
+          "expanded": true,
+          "active": true
+        },
+        {
+          "kind": "work",
+          "id": "work-group:tool:turn-1:s1:details",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:05.000Z",
+              "turnId": "turn-1",
+              "label": "Ran command",
+              "tone": "tool",
+              "toolCallId": "s1",
+              "command": "echo one",
+              "toolTitle": "Ran command",
+              "itemType": "command_execution",
+              "toolLifecycleStatus": "completed",
+              "sourceActivityKind": "tool.completed"
+            }
+          ],
+          "isExpandedToolGroup": true
+        }
+      ],
+      "phase": "ready",
+      "isWorking": true,
+      "activeTurnStartedAt": null,
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s2",
+          "command": "echo two",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        },
+        {
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "same time warning",
+          "tone": "info",
+          "detail": "w",
+          "sourceActivityKind": "runtime.warning"
+        },
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "turnId": "turn-1",
+          "label": "Ran command",
+          "tone": "tool",
+          "toolCallId": "s1",
+          "command": "echo one",
+          "toolTitle": "Ran command",
+          "itemType": "command_execution",
+          "toolLifecycleStatus": "completed",
+          "sourceActivityKind": "tool.completed"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "z-late",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "z-late",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s2",
+            "command": "echo two",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "m-mid",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "entry": {
+            "id": "m-mid",
+            "createdAt": "2026-10-01T12:00:04.000Z",
+            "turnId": "turn-1",
+            "label": "same time warning",
+            "tone": "info",
+            "detail": "w",
+            "sourceActivityKind": "runtime.warning"
+          }
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:05.000Z",
+            "turnId": "turn-1",
+            "label": "Ran command",
+            "tone": "tool",
+            "toolCallId": "s1",
+            "command": "echo one",
+            "toolTitle": "Ran command",
+            "itemType": "command_execution",
+            "toolLifecycleStatus": "completed",
+            "sourceActivityKind": "tool.completed"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "turn-fold",
+          "id": "turn-fold:turn-1",
+          "createdAt": "2026-10-01T12:00:04.000Z",
+          "turnId": "turn-1",
+          "label": "Worked for 19s",
+          "expanded": false
+        },
+        {
+          "kind": "message",
+          "id": "a1",
+          "createdAt": "2026-10-01T12:00:05.000Z",
+          "message": { "id": "a1", "role": "assistant", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": true,
+          "showAssistantCopyButton": true,
+          "assistantCopyStreaming": false
+        }
+      ],
+      "phase": "ready",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T11:59:00.000Z",
+      "runningTurnId": null,
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Order me", "assistantText": "Ordered." }
+      ]
+    }
+  },
+  "pending": { "approvals": [], "userInputs": [] },
+  "answerCases": [],
+  "liveAgentTaskIds": [],
+  "labels": [
+    {
+      "id": "z-late",
+      "labels": [
+        { "root": null, "display": "echo two", "live": "Running echo", "settled": "Ran echo" },
+        { "root": "/w", "display": "echo two", "live": "Running echo", "settled": "Ran echo" },
+        {
+          "root": "C:\\work\\proj",
+          "display": "echo two",
+          "live": "Running echo",
+          "settled": "Ran echo"
+        }
+      ]
+    },
+    {
+      "id": "m-mid",
+      "labels": [
+        { "root": null, "display": "w", "live": "w", "settled": "w" },
+        { "root": "/w", "display": "w", "live": "w", "settled": "w" },
+        { "root": "C:\\work\\proj", "display": "w", "live": "w", "settled": "w" }
+      ]
+    },
+    {
+      "id": "act-0001",
+      "labels": [
+        { "root": null, "display": "echo one", "live": "Running echo", "settled": "Ran echo" },
+        { "root": "/w", "display": "echo one", "live": "Running echo", "settled": "Ran echo" },
+        {
+          "root": "C:\\work\\proj",
+          "display": "echo one",
+          "live": "Running echo",
+          "settled": "Ran echo"
+        }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}

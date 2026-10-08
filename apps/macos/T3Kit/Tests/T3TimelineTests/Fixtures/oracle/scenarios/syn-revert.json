@@ -1,0 +1,289 @@
+{
+  "thread": {
+    "id": "syn-revert",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "rv-5",
+      "state": "completed",
+      "requestedAt": "2026-10-01T12:00:15.000Z",
+      "startedAt": "2026-10-01T12:00:20.000Z",
+      "completedAt": "2026-10-01T12:00:25.000Z",
+      "assistantMessageId": "a5"
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "Request 1",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      },
+      {
+        "id": "a1",
+        "role": "assistant",
+        "text": "Answer 1",
+        "turnId": "rv-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:02.000Z",
+        "updatedAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "u2",
+        "role": "user",
+        "text": "Request 2",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:04.000Z",
+        "updatedAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "a2",
+        "role": "assistant",
+        "text": "Answer 2",
+        "turnId": "rv-2",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:05.000Z",
+        "updatedAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "u3",
+        "role": "user",
+        "text": "Request 3",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:07.000Z",
+        "updatedAt": "2026-10-01T12:00:07.000Z"
+      },
+      {
+        "id": "a3",
+        "role": "assistant",
+        "text": "Answer 3",
+        "turnId": "rv-3",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:08.000Z",
+        "updatedAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "id": "u4",
+        "role": "user",
+        "text": "Request 4",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:10.000Z",
+        "updatedAt": "2026-10-01T12:00:10.000Z"
+      },
+      {
+        "id": "a4",
+        "role": "assistant",
+        "text": "Answer 4",
+        "turnId": "rv-4",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:11.000Z",
+        "updatedAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "u5",
+        "role": "user",
+        "text": "No checkpoint",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:13.000Z",
+        "updatedAt": "2026-10-01T12:00:13.000Z"
+      },
+      {
+        "id": "a5",
+        "role": "assistant",
+        "text": "No summary",
+        "turnId": "rv-5",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:14.000Z",
+        "updatedAt": "2026-10-01T12:00:15.000Z"
+      },
+      {
+        "id": "u6",
+        "role": "user",
+        "text": "Pending",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:15.000Z",
+        "updatedAt": "2026-10-01T12:00:15.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [],
+    "checkpoints": [
+      {
+        "turnId": "rv-1",
+        "checkpointTurnCount": 1,
+        "checkpointRef": "refs/t3/checkpoints/x/turn/1",
+        "status": "ready",
+        "files": [],
+        "assistantMessageId": "a1",
+        "completedAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "turnId": "rv-2",
+        "checkpointTurnCount": 2,
+        "checkpointRef": "refs/t3/checkpoints/x/turn/2",
+        "status": "ready",
+        "files": [{ "path": "f2.ts", "kind": "modified", "additions": 2, "deletions": 0 }],
+        "assistantMessageId": "a2",
+        "completedAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "turnId": "rv-3",
+        "checkpointTurnCount": 3,
+        "checkpointRef": "refs/t3/checkpoints/x/turn/3",
+        "status": "ready",
+        "files": [],
+        "assistantMessageId": "a3",
+        "completedAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "turnId": "rv-4",
+        "checkpointTurnCount": 4,
+        "checkpointRef": "refs/t3/checkpoints/x/turn/4",
+        "status": "ready",
+        "files": [{ "path": "f4.ts", "kind": "modified", "additions": 4, "deletions": 0 }],
+        "assistantMessageId": "a4",
+        "completedAt": "2026-10-01T12:00:12.000Z"
+      }
+    ],
+    "session": {
+      "threadId": "syn-revert",
+      "status": "ready",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": null,
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:15.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "rollback",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["rv-1", "rv-2", "rv-3", "rv-4", "rv-5"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

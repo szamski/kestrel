@@ -1,0 +1,834 @@
+{
+  "thread": {
+    "id": "syn-mixed-tools",
+    "projectId": "336c4da9-e686-42fd-9d0e-592f8251772c",
+    "title": "redacted",
+    "modelSelection": {
+      "instanceId": "claudeAgent",
+      "model": "redacted",
+      "options": [{ "id": "redacted", "value": "redacted" }]
+    },
+    "runtimeMode": "full-access",
+    "interactionMode": "default",
+    "branch": "redacted",
+    "worktreePath": null,
+    "pullRequests": [],
+    "branchPullRequest": null,
+    "latestTurn": {
+      "turnId": "turn-1",
+      "state": "completed",
+      "requestedAt": "2026-10-01T12:00:43.000Z",
+      "startedAt": "2026-10-01T12:00:01.000Z",
+      "completedAt": "2026-10-01T12:01:00.000Z",
+      "assistantMessageId": "a1"
+    },
+    "createdAt": "2026-10-08T09:33:39.378Z",
+    "updatedAt": "2026-10-08T10:19:03.333Z",
+    "archivedAt": null,
+    "settledOverride": null,
+    "settledAt": null,
+    "unsettledAt": null,
+    "snoozedUntil": null,
+    "snoozedAt": null,
+    "pinnedAt": null,
+    "pinOrderKey": null,
+    "activeOrderKey": null,
+    "autoSettleDisabledAt": null,
+    "titleRegeneration": null,
+    "titleState": {
+      "source": "generated",
+      "version": "server:thread-title-rename:fdf24ce0-aef9-4f02-91d6-761e6667832f",
+      "needsRefinement": false
+    },
+    "deletedAt": null,
+    "messages": [
+      {
+        "id": "u1",
+        "role": "user",
+        "text": "Use every tool",
+        "turnId": null,
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:01.000Z",
+        "updatedAt": "2026-10-01T12:00:01.000Z"
+      },
+      {
+        "id": "a1",
+        "role": "assistant",
+        "text": "Tried them all.",
+        "turnId": "turn-1",
+        "streaming": false,
+        "createdAt": "2026-10-01T12:00:43.000Z",
+        "updatedAt": "2026-10-01T12:00:44.000Z"
+      }
+    ],
+    "proposedPlans": [],
+    "activities": [
+      {
+        "id": "act-0001",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "File change started",
+        "payload": {
+          "itemType": "file_change",
+          "toolCallId": "fc1",
+          "status": "inProgress",
+          "title": "File change",
+          "data": {
+            "files": [{ "path": "/w/src/a.ts" }, { "path": "/w/src/b.ts" }],
+            "changes": [
+              { "path": "/w/src/a.ts" },
+              { "newPath": "/w/src/c.ts", "oldPath": "/w/src/old.ts" }
+            ]
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:02.000Z"
+      },
+      {
+        "id": "act-0002",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "File change",
+        "payload": {
+          "itemType": "file_change",
+          "toolCallId": "fc1",
+          "status": "completed",
+          "title": "File change",
+          "data": {
+            "files": [{ "path": "/w/src/a.ts" }, { "path": "/w/src/b.ts" }],
+            "changes": [
+              { "path": "/w/src/a.ts" },
+              { "newPath": "/w/src/c.ts", "oldPath": "/w/src/old.ts" }
+            ]
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:03.000Z"
+      },
+      {
+        "id": "act-0003",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "File change started",
+        "payload": {
+          "itemType": "file_change",
+          "toolCallId": "fc2",
+          "status": "inProgress",
+          "title": "File change",
+          "detail": "Edit: {\"file_path\":\"/w/README.md\"}",
+          "data": { "toolName": "Edit", "input": { "file_path": "/w/README.md" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:04.000Z"
+      },
+      {
+        "id": "act-0004",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "File change",
+        "payload": {
+          "itemType": "file_change",
+          "toolCallId": "fc2",
+          "status": "completed",
+          "title": "File change",
+          "detail": "Edit: {\"file_path\":\"/w/README.md\"}",
+          "data": { "toolName": "Edit", "input": { "file_path": "/w/README.md" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:05.000Z"
+      },
+      {
+        "id": "act-0005",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "mempalace · mempalace_status started",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m1",
+          "status": "inProgress",
+          "title": "mempalace · mempalace_status",
+          "data": {
+            "item": {
+              "type": "mcpToolCall",
+              "tool": "mempalace_status",
+              "server": "mempalace",
+              "status": "completed",
+              "arguments": {},
+              "error": null
+            }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:06.000Z"
+      },
+      {
+        "id": "act-0006",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "mempalace · mempalace_status",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m1",
+          "status": "completed",
+          "title": "mempalace · mempalace_status",
+          "data": {
+            "item": {
+              "type": "mcpToolCall",
+              "tool": "mempalace_status",
+              "server": "mempalace",
+              "status": "completed",
+              "arguments": {},
+              "error": null
+            }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:07.000Z"
+      },
+      {
+        "id": "act-0007",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "t3-code · link_pull_request started",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m2",
+          "status": "inProgress",
+          "title": "t3-code · link_pull_request",
+          "data": {
+            "item": {
+              "tool": "link_pull_request",
+              "server": "t3-code",
+              "arguments": { "url": "https://github.com/acme/app/pull/42" }
+            }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:08.000Z"
+      },
+      {
+        "id": "act-0008",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "t3-code · link_pull_request",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m2",
+          "status": "completed",
+          "title": "t3-code · link_pull_request",
+          "data": {
+            "item": {
+              "tool": "link_pull_request",
+              "server": "t3-code",
+              "arguments": { "url": "https://github.com/acme/app/pull/42" }
+            }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:09.000Z"
+      },
+      {
+        "id": "act-0009",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "mcp__t3-code__list_thread_pull_requests started",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m3",
+          "status": "inProgress",
+          "title": "mcp__t3-code__list_thread_pull_requests",
+          "data": { "toolName": "mcp__t3-code__list_thread_pull_requests", "input": {} }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:10.000Z"
+      },
+      {
+        "id": "act-0010",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "mcp__t3-code__list_thread_pull_requests",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m3",
+          "status": "completed",
+          "title": "mcp__t3-code__list_thread_pull_requests",
+          "data": { "toolName": "mcp__t3-code__list_thread_pull_requests", "input": {} }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:11.000Z"
+      },
+      {
+        "id": "act-0011",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "mcp__t3-code__preview_open started",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m4",
+          "status": "inProgress",
+          "title": "mcp__t3-code__preview_open",
+          "data": {
+            "toolName": "mcp__t3-code__preview_open",
+            "input": { "url": "http://localhost:3000" }
+          },
+          "toolSurface": "browser",
+          "toolIcon": {
+            "_tag": "website",
+            "pageUrl": "http://Localhost:3000",
+            "faviconUrl": "http://localhost:3000/favicon.ico"
+          },
+          "toolSource": {
+            "key": "t3-preview",
+            "name": "Preview",
+            "kind": "browser",
+            "icon": { "_tag": "themed-logo", "logoUrl": "https://example.com/logo.png" }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:12.000Z"
+      },
+      {
+        "id": "act-0012",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "mcp__t3-code__preview_open",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m4",
+          "status": "completed",
+          "title": "mcp__t3-code__preview_open",
+          "data": {
+            "toolName": "mcp__t3-code__preview_open",
+            "input": { "url": "http://localhost:3000" }
+          },
+          "toolSurface": "browser",
+          "toolIcon": {
+            "_tag": "website",
+            "pageUrl": "http://Localhost:3000",
+            "faviconUrl": "http://localhost:3000/favicon.ico"
+          },
+          "toolSource": {
+            "key": "t3-preview",
+            "name": "Preview",
+            "kind": "browser",
+            "icon": { "_tag": "themed-logo", "logoUrl": "https://example.com/logo.png" }
+          }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:13.000Z"
+      },
+      {
+        "id": "act-0013",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "device_list started",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m5",
+          "status": "inProgress",
+          "title": "device_list",
+          "data": { "toolName": "device_list" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:14.000Z"
+      },
+      {
+        "id": "act-0014",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "device_list",
+        "payload": {
+          "itemType": "mcp_tool_call",
+          "toolCallId": "m5",
+          "status": "completed",
+          "title": "device_list",
+          "data": { "toolName": "device_list" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:15.000Z"
+      },
+      {
+        "id": "act-0015",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Read file started",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "d1",
+          "status": "inProgress",
+          "title": "Read file",
+          "detail": "src/a.ts",
+          "data": { "toolName": "Read" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:16.000Z"
+      },
+      {
+        "id": "act-0016",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Read file",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "d1",
+          "status": "completed",
+          "title": "Read file",
+          "detail": "src/a.ts",
+          "data": { "toolName": "Read" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:17.000Z"
+      },
+      {
+        "id": "act-0017",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Tool call started",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "d2",
+          "status": "inProgress",
+          "title": "Tool call",
+          "detail": "ToolSearch: {\"query\":\"select\"}",
+          "data": { "toolName": "ToolSearch" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:18.000Z"
+      },
+      {
+        "id": "act-0018",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Tool call",
+        "payload": {
+          "itemType": "dynamic_tool_call",
+          "toolCallId": "d2",
+          "status": "completed",
+          "title": "Tool call",
+          "detail": "ToolSearch: {\"query\":\"select\"}",
+          "data": { "toolName": "ToolSearch" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:19.000Z"
+      },
+      {
+        "id": "act-0019",
+        "tone": "tool",
+        "kind": "tool.updated",
+        "summary": "Subagent task",
+        "payload": {
+          "itemType": "collab_agent_tool_call",
+          "toolCallId": "ca1",
+          "status": "inProgress",
+          "title": "Subagent task",
+          "detail": "Timeline iOS parity",
+          "data": { "toolName": "Agent" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:20.000Z"
+      },
+      {
+        "id": "act-0020",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Subagent task",
+        "payload": {
+          "itemType": "collab_agent_tool_call",
+          "toolCallId": "ca1",
+          "status": "completed",
+          "title": "Subagent task",
+          "detail": "Timeline iOS parity",
+          "data": { "toolName": "Agent" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:21.000Z"
+      },
+      {
+        "id": "act-0021",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Web search started",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w1",
+          "status": "inProgress",
+          "title": "Web search",
+          "detail": "'swift concurrency'",
+          "data": {}
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:22.000Z"
+      },
+      {
+        "id": "act-0022",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Web search",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w1",
+          "status": "completed",
+          "title": "Web search",
+          "detail": "'swift concurrency'",
+          "data": {}
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:23.000Z"
+      },
+      {
+        "id": "act-0023",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "grep started",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w2",
+          "status": "inProgress",
+          "title": "grep",
+          "detail": "TODO",
+          "data": { "rawInput": { "pattern": "TODO" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:24.000Z"
+      },
+      {
+        "id": "act-0024",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "grep",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w2",
+          "status": "completed",
+          "title": "grep",
+          "detail": "TODO",
+          "data": { "rawInput": { "pattern": "TODO" } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:25.000Z"
+      },
+      {
+        "id": "act-0025",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Find started",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w3",
+          "status": "inProgress",
+          "title": "Find",
+          "data": { "rawOutput": { "totalFiles": 1234, "truncated": true } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:26.000Z"
+      },
+      {
+        "id": "act-0026",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Find",
+        "payload": {
+          "itemType": "web_search",
+          "toolCallId": "w3",
+          "status": "completed",
+          "title": "Find",
+          "data": { "rawOutput": { "totalFiles": 1234, "truncated": true } }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:27.000Z"
+      },
+      {
+        "id": "act-0027",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Image view started",
+        "payload": {
+          "itemType": "image_view",
+          "toolCallId": "iv1",
+          "status": "inProgress",
+          "title": "Image view",
+          "detail": "/w/shots/one.png",
+          "data": { "imagePath": "/w/shots/one.png", "toolName": "Read" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:28.000Z"
+      },
+      {
+        "id": "act-0028",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Image view",
+        "payload": {
+          "itemType": "image_view",
+          "toolCallId": "iv1",
+          "status": "completed",
+          "title": "Image view",
+          "detail": "/w/shots/one.png",
+          "data": { "imagePath": "/w/shots/one.png", "toolName": "Read" }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:29.000Z"
+      },
+      {
+        "id": "act-0029",
+        "tone": "tool",
+        "kind": "tool.started",
+        "summary": "Image view started",
+        "payload": {
+          "itemType": "image_view",
+          "toolCallId": "iv2",
+          "status": "inProgress",
+          "title": "Image view",
+          "detail": "docs/two.jpeg",
+          "data": { "files": [{ "path": "docs/two.jpeg" }] }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:30.000Z"
+      },
+      {
+        "id": "act-0030",
+        "tone": "tool",
+        "kind": "tool.completed",
+        "summary": "Image view",
+        "payload": {
+          "itemType": "image_view",
+          "toolCallId": "iv2",
+          "status": "completed",
+          "title": "Image view",
+          "detail": "docs/two.jpeg",
+          "data": { "files": [{ "path": "docs/two.jpeg" }] }
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:31.000Z"
+      },
+      {
+        "id": "act-0031",
+        "tone": "info",
+        "kind": "tool.started",
+        "summary": "Code review started started",
+        "payload": {
+          "itemType": "review_entered",
+          "toolCallId": "re1",
+          "status": "inProgress",
+          "title": "Code review started"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:32.000Z"
+      },
+      {
+        "id": "act-0032",
+        "tone": "info",
+        "kind": "tool.completed",
+        "summary": "Code review started",
+        "payload": {
+          "itemType": "review_entered",
+          "toolCallId": "re1",
+          "status": "completed",
+          "title": "Code review started"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:33.000Z"
+      },
+      {
+        "id": "act-0033",
+        "tone": "info",
+        "kind": "tool.started",
+        "summary": "Code review finished started",
+        "payload": {
+          "itemType": "review_exited",
+          "toolCallId": "re2",
+          "status": "inProgress",
+          "title": "Code review finished"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:34.000Z"
+      },
+      {
+        "id": "act-0034",
+        "tone": "info",
+        "kind": "tool.completed",
+        "summary": "Code review finished",
+        "payload": {
+          "itemType": "review_exited",
+          "toolCallId": "re2",
+          "status": "completed",
+          "title": "Code review finished"
+        },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:35.000Z"
+      },
+      {
+        "id": "act-0035",
+        "tone": "error",
+        "kind": "runtime.error",
+        "summary": "Runtime error",
+        "payload": { "message": "Provider crashed unexpectedly" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:36.000Z"
+      },
+      {
+        "id": "act-0036",
+        "tone": "info",
+        "kind": "runtime.warning",
+        "summary": "Heads up",
+        "payload": { "message": "Something looks odd", "detail": { "x": 1 } },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:37.000Z"
+      },
+      {
+        "id": "act-0037",
+        "tone": "info",
+        "kind": "runtime.warning",
+        "summary": "Unknown message (no displayable text content)",
+        "payload": { "message": "x" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:38.000Z"
+      },
+      {
+        "id": "act-0038",
+        "tone": "error",
+        "kind": "tool.denied",
+        "summary": "Tool denied: Bash",
+        "payload": { "toolName": "Bash", "detail": "blocked by policy" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:39.000Z"
+      },
+      {
+        "id": "act-0039",
+        "tone": "error",
+        "kind": "provider.turn.start.failed",
+        "summary": "Failed to start",
+        "payload": { "detail": "no session" },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:40.000Z"
+      },
+      {
+        "id": "act-0040",
+        "tone": "info",
+        "kind": "checkpoint.captured",
+        "summary": "Checkpoint captured",
+        "payload": { "turnCount": 1 },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:41.000Z"
+      },
+      {
+        "id": "act-0041",
+        "tone": "info",
+        "kind": "context-window.updated",
+        "summary": "Context window updated",
+        "payload": { "usedTokens": 1 },
+        "turnId": "turn-1",
+        "createdAt": "2026-10-01T12:00:42.000Z"
+      }
+    ],
+    "checkpoints": [],
+    "session": {
+      "threadId": "syn-mixed-tools",
+      "status": "ready",
+      "providerName": "codex",
+      "providerInstanceId": "codex",
+      "runtimeMode": "full-access",
+      "activeTurnId": null,
+      "lastError": null,
+      "updatedAt": "2026-10-01T12:00:43.000Z"
+    }
+  },
+  "variants": [
+    {
+      "name": "default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "open",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": [
+          "work-group:tool:turn-1:fc1",
+          "work-group:tool:turn-1:m1",
+          "work-group:tool:turn-1:m4",
+          "work-group:tool:turn-1:w1"
+        ],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-default",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-expanded",
+      "context": {
+        "isWorking": null,
+        "sendStartedAt": null,
+        "expandedTurnIds": ["turn-1"],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": true,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-working-expanded",
+      "context": {
+        "isWorking": true,
+        "sendStartedAt": null,
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": [],
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    },
+    {
+      "name": "auto-idle",
+      "context": {
+        "isWorking": false,
+        "sendStartedAt": "2026-10-01T11:59:00.000Z",
+        "expandedTurnIds": [],
+        "expandedWorkGroupIds": [],
+        "supportsConversationRollback": false,
+        "liveAgentTaskIds": null,
+        "worktreeSetup": null,
+        "queuedMessages": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,2861 @@
+{
+  "variants": {
+    "default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    },
+    "auto-default": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    },
+    "auto-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    },
+    "auto-working": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    },
+    "auto-working-expanded": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "working",
+          "id": "working-indicator-row",
+          "createdAt": "2026-10-01T12:00:01.000Z"
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        { "kind": "thinking", "id": "live-activity-row", "createdAt": "2026-10-01T12:00:01.000Z" }
+      ],
+      "phase": "running",
+      "isWorking": true,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    },
+    "auto-idle": {
+      "workEntries": [
+        {
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "multi",
+            "questionTextById": {
+              "m1": "Which ones?",
+              "m2": "Choose one",
+              "m3": "Anything else?",
+              " m4 ": "Spacey"
+            },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        },
+        {
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "turnId": "turn-1",
+          "label": "User input requested",
+          "tone": "tool",
+          "questionAnswer": {
+            "requestId": "single",
+            "questionTextById": { "s1": "Only one" },
+            "answers": {},
+            "attachmentsByQuestionId": {}
+          },
+          "sourceActivityKind": "user-input.answer-submitted"
+        }
+      ],
+      "timelineEntries": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false }
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "entry": {
+            "id": "act-0001",
+            "createdAt": "2026-10-01T12:00:02.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "multi",
+              "questionTextById": {
+                "m1": "Which ones?",
+                "m2": "Choose one",
+                "m3": "Anything else?",
+                " m4 ": "Spacey"
+              },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "entry": {
+            "id": "act-0002",
+            "createdAt": "2026-10-01T12:00:03.000Z",
+            "turnId": "turn-1",
+            "label": "User input requested",
+            "tone": "tool",
+            "questionAnswer": {
+              "requestId": "single",
+              "questionTextById": { "s1": "Only one" },
+              "answers": {},
+              "attachmentsByQuestionId": {}
+            },
+            "sourceActivityKind": "user-input.answer-submitted"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "kind": "message",
+          "id": "u1",
+          "createdAt": "2026-10-01T12:00:01.000Z",
+          "message": { "id": "u1", "role": "user", "streaming": false },
+          "durationStart": "2026-10-01T12:00:01.000Z",
+          "showAssistantMeta": false,
+          "showAssistantCopyButton": false,
+          "assistantCopyStreaming": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0001",
+          "createdAt": "2026-10-01T12:00:02.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0001",
+              "createdAt": "2026-10-01T12:00:02.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "multi",
+                "questionTextById": {
+                  "m1": "Which ones?",
+                  "m2": "Choose one",
+                  "m3": "Anything else?",
+                  " m4 ": "Spacey"
+                },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        },
+        {
+          "kind": "work",
+          "id": "act-0002",
+          "createdAt": "2026-10-01T12:00:03.000Z",
+          "groupedEntries": [
+            {
+              "id": "act-0002",
+              "createdAt": "2026-10-01T12:00:03.000Z",
+              "turnId": "turn-1",
+              "label": "User input requested",
+              "tone": "tool",
+              "questionAnswer": {
+                "requestId": "single",
+                "questionTextById": { "s1": "Only one" },
+                "answers": {},
+                "attachmentsByQuestionId": {}
+              },
+              "sourceActivityKind": "user-input.answer-submitted"
+            }
+          ],
+          "isExpandedToolGroup": false
+        }
+      ],
+      "phase": "running",
+      "isWorking": false,
+      "activeTurnStartedAt": "2026-10-01T12:00:01.000Z",
+      "runningTurnId": "turn-1",
+      "activePlan": null,
+      "activeProposedPlan": null,
+      "minimap": [
+        { "id": "u1", "rowIndex": 0, "userText": "Questions of every shape", "assistantText": null }
+      ]
+    }
+  },
+  "pending": {
+    "approvals": [],
+    "userInputs": [
+      {
+        "requestId": "multi",
+        "createdAt": "2026-10-01T12:00:02.000Z",
+        "questions": [
+          {
+            "id": "m1",
+            "header": "Pick several",
+            "question": "Which ones?",
+            "options": [
+              { "label": "Alpha", "description": "first", "value": "alpha" },
+              { "label": "Beta", "description": "second" },
+              { "label": " Gamma ", "description": "" }
+            ],
+            "allowCustomAnswer": true,
+            "multiSelect": true
+          },
+          {
+            "id": "m2",
+            "header": "Required",
+            "question": "Choose one",
+            "options": [
+              { "label": "Alpha", "description": "first", "value": "alpha" },
+              { "label": "Beta", "description": "second" },
+              { "label": " Gamma ", "description": "" }
+            ],
+            "allowCustomAnswer": false,
+            "multiSelect": false
+          },
+          {
+            "id": "m3",
+            "header": "Free text",
+            "question": "Anything else?",
+            "options": [],
+            "allowCustomAnswer": true,
+            "multiSelect": false
+          },
+          {
+            "id": " m4 ",
+            "header": "Keys stay raw",
+            "question": "Spacey",
+            "options": [{ "label": "x", "description": "", "value": " raw " }],
+            "multiSelect": false
+          }
+        ],
+        "dismissible": true
+      },
+      {
+        "requestId": "single",
+        "createdAt": "2026-10-01T12:00:03.000Z",
+        "questions": [
+          {
+            "id": "s1",
+            "header": "One",
+            "question": "Only one",
+            "options": [
+              { "label": "Alpha", "description": "first", "value": "alpha" },
+              { "label": "Beta", "description": "second" },
+              { "label": " Gamma ", "description": "" }
+            ],
+            "multiSelect": false
+          }
+        ],
+        "dismissible": false
+      }
+    ]
+  },
+  "answerCases": [
+    {
+      "requestId": "multi",
+      "shapeIndex": 0,
+      "questionIndex": -1,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 0,
+      "questionIndex": 0,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 0,
+      "questionIndex": 1,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 0,
+      "questionIndex": 5,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 1,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "customAnswer": "  typed answer " },
+        "m2": { "customAnswer": "  typed answer " },
+        "m3": { "customAnswer": "  typed answer " },
+        " m4 ": { "customAnswer": "  typed answer " }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 1,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "customAnswer": "  typed answer " },
+        "m2": { "customAnswer": "  typed answer " },
+        "m3": { "customAnswer": "  typed answer " },
+        " m4 ": { "customAnswer": "  typed answer " }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "typed answer"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 1,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "customAnswer": "  typed answer " },
+        "m2": { "customAnswer": "  typed answer " },
+        "m3": { "customAnswer": "  typed answer " },
+        " m4 ": { "customAnswer": "  typed answer " }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 1,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "customAnswer": "  typed answer " },
+        "m2": { "customAnswer": "  typed answer " },
+        "m3": { "customAnswer": "  typed answer " },
+        " m4 ": { "customAnswer": "  typed answer " }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 2,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha"] },
+        "m2": { "selectedOptionValues": ["alpha"] },
+        "m3": { "selectedOptionValues": ["none"] },
+        " m4 ": { "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": ["alpha"],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 2,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha"] },
+        "m2": { "selectedOptionValues": ["alpha"] },
+        "m3": { "selectedOptionValues": ["none"] },
+        " m4 ": { "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": ["alpha"],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 2,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha"] },
+        "m2": { "selectedOptionValues": ["alpha"] },
+        "m3": { "selectedOptionValues": ["none"] },
+        " m4 ": { "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 2,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha"] },
+        "m2": { "selectedOptionValues": ["alpha"] },
+        "m3": { "selectedOptionValues": ["none"] },
+        " m4 ": { "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [" raw "],
+        "customAnswer": "",
+        "resolvedAnswer": " raw ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 3,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m2": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m3": { "selectedOptionValues": [null, "bogus"] },
+        " m4 ": { "selectedOptionValues": [" raw ", " raw ", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": ["alpha", "Beta", " Gamma "],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["Beta", " Gamma ", "bogus"] },
+      "customSet": {
+        "customAnswer": "",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"]
+      },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 3,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m2": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m3": { "selectedOptionValues": [null, "bogus"] },
+        " m4 ": { "selectedOptionValues": [" raw ", " raw ", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": ["alpha", "Beta", " Gamma "],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["Beta", " Gamma ", "bogus"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 3,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m2": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m3": { "selectedOptionValues": [null, "bogus"] },
+        " m4 ": { "selectedOptionValues": [" raw ", " raw ", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["Beta", " Gamma ", "bogus"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 3,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m2": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] },
+        "m3": { "selectedOptionValues": [null, "bogus"] },
+        " m4 ": { "selectedOptionValues": [" raw ", " raw ", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [" raw ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": " raw ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["Beta", " Gamma ", "bogus"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 4,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "attachmentCount": 2 },
+        "m2": { "attachmentCount": 2 },
+        "m3": { "attachmentCount": 2 },
+        " m4 ": { "attachmentCount": 2 }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 4,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "attachmentCount": 2 },
+        "m2": { "attachmentCount": 2 },
+        "m3": { "attachmentCount": 2 },
+        " m4 ": { "attachmentCount": 2 }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 4,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "attachmentCount": 2 },
+        "m2": { "attachmentCount": 2 },
+        "m3": { "attachmentCount": 2 },
+        " m4 ": { "attachmentCount": 2 }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 4,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "attachmentCount": 2 },
+        "m2": { "attachmentCount": 2 },
+        "m3": { "attachmentCount": 2 },
+        " m4 ": { "attachmentCount": 2 }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 3,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": true
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 5,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m2": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m3": { "attachmentsBlocked": true, "customAnswer": "x" },
+        " m4 ": { "attachmentsBlocked": true, "customAnswer": "x" }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 5,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m2": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m3": { "attachmentsBlocked": true, "customAnswer": "x" },
+        " m4 ": { "attachmentsBlocked": true, "customAnswer": "x" }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "x"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 5,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m2": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m3": { "attachmentsBlocked": true, "customAnswer": "x" },
+        " m4 ": { "attachmentsBlocked": true, "customAnswer": "x" }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 5,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m2": { "attachmentsBlocked": true, "customAnswer": "x" },
+        "m3": { "attachmentsBlocked": true, "customAnswer": "x" },
+        " m4 ": { "attachmentsBlocked": true, "customAnswer": "x" }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 6,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m2": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m3": { "customAnswer": "y", "selectedOptionValues": ["none"] },
+        " m4 ": { "customAnswer": "y", "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": "y", "m2": "alpha", "m3": "y", " m4 ": "y" },
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 6,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m2": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m3": { "customAnswer": "y", "selectedOptionValues": ["none"] },
+        " m4 ": { "customAnswer": "y", "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": "y", "m2": "alpha", "m3": "y", " m4 ": "y" },
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "y"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 6,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m2": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m3": { "customAnswer": "y", "selectedOptionValues": ["none"] },
+        " m4 ": { "customAnswer": "y", "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": "y", "m2": "alpha", "m3": "y", " m4 ": "y" },
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 6,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m2": { "customAnswer": "y", "selectedOptionValues": ["alpha"] },
+        "m3": { "customAnswer": "y", "selectedOptionValues": ["none"] },
+        " m4 ": { "customAnswer": "y", "selectedOptionValues": [" raw "] }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [" raw "],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": "y", "m2": "alpha", "m3": "y", " m4 ": "y" },
+      "toggled": { "customAnswer": "" },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 7,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "customAnswer": "   " },
+        "m2": { "customAnswer": "   " },
+        "m3": { "customAnswer": "   " },
+        " m4 ": { "customAnswer": "   " }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 7,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "customAnswer": "   " },
+        "m2": { "customAnswer": "   " },
+        "m3": { "customAnswer": "   " },
+        " m4 ": { "customAnswer": "   " }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 7,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "customAnswer": "   " },
+        "m2": { "customAnswer": "   " },
+        "m3": { "customAnswer": "   " },
+        " m4 ": { "customAnswer": "   " }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": false,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 7,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "customAnswer": "   " },
+        "m2": { "customAnswer": "   " },
+        "m3": { "customAnswer": "   " },
+        " m4 ": { "customAnswer": "   " }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 8,
+      "questionIndex": -1,
+      "drafts": {
+        "m1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m2": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m3": { "selectedOptionValues": [null], "attachmentCount": 1 },
+        " m4 ": { "selectedOptionValues": [" raw "], "attachmentCount": 1 }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": [" Gamma "],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": [" Gamma "], "m2": " Gamma ", "m3": "", " m4 ": " raw " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": [" Gamma ", "alpha"] },
+      "customSet": { "customAnswer": "", "selectedOptionValues": [" Gamma "] },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 8,
+      "questionIndex": 0,
+      "drafts": {
+        "m1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m2": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m3": { "selectedOptionValues": [null], "attachmentCount": 1 },
+        " m4 ": { "selectedOptionValues": [" raw "], "attachmentCount": 1 }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "m1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": [" Gamma "],
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": [" Gamma "], "m2": " Gamma ", "m3": "", " m4 ": " raw " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": [" Gamma ", "alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 8,
+      "questionIndex": 1,
+      "drafts": {
+        "m1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m2": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m3": { "selectedOptionValues": [null], "attachmentCount": 1 },
+        " m4 ": { "selectedOptionValues": [" raw "], "attachmentCount": 1 }
+      },
+      "progress": {
+        "questionIndex": 1,
+        "activeQuestionId": "m2",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": " Gamma ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": false,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": [" Gamma "], "m2": " Gamma ", "m3": "", " m4 ": " raw " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": [" Gamma ", "alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "multi",
+      "shapeIndex": 8,
+      "questionIndex": 5,
+      "drafts": {
+        "m1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m2": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 },
+        "m3": { "selectedOptionValues": [null], "attachmentCount": 1 },
+        " m4 ": { "selectedOptionValues": [" raw "], "attachmentCount": 1 }
+      },
+      "progress": {
+        "questionIndex": 3,
+        "activeQuestionId": " m4 ",
+        "selectedOptionValues": [" raw "],
+        "customAnswer": "",
+        "resolvedAnswer": " raw ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 4,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "m1": [" Gamma "], "m2": " Gamma ", "m3": "", " m4 ": " raw " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": [" Gamma ", "alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 0,
+      "questionIndex": -1,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 0,
+      "questionIndex": 0,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 0,
+      "questionIndex": 1,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 0,
+      "questionIndex": 5,
+      "drafts": {},
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 1,
+      "questionIndex": -1,
+      "drafts": { "s1": { "customAnswer": "  typed answer " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "typed answer" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 1,
+      "questionIndex": 0,
+      "drafts": { "s1": { "customAnswer": "  typed answer " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "typed answer" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "typed answer"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 1,
+      "questionIndex": 1,
+      "drafts": { "s1": { "customAnswer": "  typed answer " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "typed answer" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 1,
+      "questionIndex": 5,
+      "drafts": { "s1": { "customAnswer": "  typed answer " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "  typed answer ",
+        "resolvedAnswer": "typed answer",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "typed answer" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ntyped answer"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 2,
+      "questionIndex": -1,
+      "drafts": { "s1": { "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 2,
+      "questionIndex": 0,
+      "drafts": { "s1": { "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 2,
+      "questionIndex": 1,
+      "drafts": { "s1": { "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 2,
+      "questionIndex": 5,
+      "drafts": { "s1": { "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 3,
+      "questionIndex": -1,
+      "drafts": {
+        "s1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": {
+        "customAnswer": "",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"]
+      },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 3,
+      "questionIndex": 0,
+      "drafts": {
+        "s1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 3,
+      "questionIndex": 1,
+      "drafts": {
+        "s1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 3,
+      "questionIndex": 5,
+      "drafts": {
+        "s1": { "selectedOptionValues": ["alpha", "Beta", " Gamma ", "alpha", "bogus"] }
+      },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha", "Beta", " Gamma ", "bogus"],
+        "customAnswer": "",
+        "resolvedAnswer": "alpha",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "alpha" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 4,
+      "questionIndex": -1,
+      "drafts": { "s1": { "attachmentCount": 2 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 4,
+      "questionIndex": 0,
+      "drafts": { "s1": { "attachmentCount": 2 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 4,
+      "questionIndex": 1,
+      "drafts": { "s1": { "attachmentCount": 2 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 4,
+      "questionIndex": 5,
+      "drafts": { "s1": { "attachmentCount": 2 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "",
+        "resolvedAnswer": "",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 5,
+      "questionIndex": -1,
+      "drafts": { "s1": { "attachmentsBlocked": true, "customAnswer": "x" } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 5,
+      "questionIndex": 0,
+      "drafts": { "s1": { "attachmentsBlocked": true, "customAnswer": "x" } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "x"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 5,
+      "questionIndex": 1,
+      "drafts": { "s1": { "attachmentsBlocked": true, "customAnswer": "x" } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 5,
+      "questionIndex": 5,
+      "drafts": { "s1": { "attachmentsBlocked": true, "customAnswer": "x" } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "x",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\nx"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 6,
+      "questionIndex": -1,
+      "drafts": { "s1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "y" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 6,
+      "questionIndex": 0,
+      "drafts": { "s1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "y" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "y"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 6,
+      "questionIndex": 1,
+      "drafts": { "s1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "y" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 6,
+      "questionIndex": 5,
+      "drafts": { "s1": { "customAnswer": "y", "selectedOptionValues": ["alpha"] } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": ["alpha"],
+        "customAnswer": "y",
+        "resolvedAnswer": "y",
+        "usingCustomAnswer": true,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": "y" },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft\n\ny"
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 7,
+      "questionIndex": -1,
+      "drafts": { "s1": { "customAnswer": "   " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "" },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 7,
+      "questionIndex": 0,
+      "drafts": { "s1": { "customAnswer": "   " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 7,
+      "questionIndex": 1,
+      "drafts": { "s1": { "customAnswer": "   " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 7,
+      "questionIndex": 5,
+      "drafts": { "s1": { "customAnswer": "   " } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [],
+        "customAnswer": "   ",
+        "resolvedAnswer": null,
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 0,
+        "isLastQuestion": true,
+        "isComplete": false,
+        "canAdvance": false
+      },
+      "answers": null,
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 8,
+      "questionIndex": -1,
+      "drafts": { "s1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": " Gamma ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": " Gamma " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": "", "selectedOptionValues": [" Gamma "] },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 8,
+      "questionIndex": 0,
+      "drafts": { "s1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": " Gamma ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": " Gamma " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": ""
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 8,
+      "questionIndex": 1,
+      "drafts": { "s1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": " Gamma ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": " Gamma " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    },
+    {
+      "requestId": "single",
+      "shapeIndex": 8,
+      "questionIndex": 5,
+      "drafts": { "s1": { "selectedOptionValues": [" Gamma "], "attachmentCount": 1 } },
+      "progress": {
+        "questionIndex": 0,
+        "activeQuestionId": "s1",
+        "selectedOptionValues": [" Gamma "],
+        "customAnswer": "",
+        "resolvedAnswer": " Gamma ",
+        "usingCustomAnswer": false,
+        "answeredQuestionCount": 1,
+        "isLastQuestion": true,
+        "isComplete": true,
+        "canAdvance": true
+      },
+      "answers": { "s1": " Gamma " },
+      "toggled": { "customAnswer": "", "selectedOptionValues": ["alpha"] },
+      "customSet": { "customAnswer": " custom " },
+      "carried": "draft  "
+    }
+  ],
+  "liveAgentTaskIds": [],
+  "labels": [
+    {
+      "id": "act-0001",
+      "labels": [
+        {
+          "root": null,
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        },
+        {
+          "root": "/w",
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        },
+        {
+          "root": "C:\\work\\proj",
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        }
+      ]
+    },
+    {
+      "id": "act-0002",
+      "labels": [
+        {
+          "root": null,
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        },
+        {
+          "root": "/w",
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        },
+        {
+          "root": "C:\\work\\proj",
+          "display": "User input requested",
+          "live": "User input requested",
+          "settled": "User input requested"
+        }
+      ]
+    }
+  ],
+  "turnDiffs": []
+}
