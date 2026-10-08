@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- ATS: users enter the address of their own T3 Code server, which is usually plain http/ws on a
+	     LAN, loopback or Tailscale host. Arbitrary loads stay on for that reason; NSAllowsLocalNetworking
+	     covers .local and unqualified hosts explicitly. Tighten once the app can classify hosts itself. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>T3 Code connects to T3 Code servers on your local network.</string>
+</dict>
+</plist>

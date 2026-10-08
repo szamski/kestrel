@@ -1,0 +1,335 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* T3Contracts in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000001 /* T3Contracts */; };
+		A10000000000000000000002 /* T3Protocol in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000002 /* T3Protocol */; };
+		A10000000000000000000003 /* T3ClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000003 /* T3ClientRuntime */; };
+		A10000000000000000000004 /* T3Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000004 /* T3Markdown */; };
+		A10000000000000000000005 /* T3Timeline in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000005 /* T3Timeline */; };
+		A10000000000000000000006 /* T3Composer in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000006 /* T3Composer */; };
+		B00000000000000000000001 /* app-icon-dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* app-icon-dev.icon */; };
+		B00000000000000000000002 /* app-icon-prod.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* app-icon-prod.icon */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* T3 Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "T3 Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000002 /* T3Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = T3Kit; sourceTree = "<group>"; };
+		A20000000000000000000003 /* App/Support/Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App/Support/Debug.xcconfig; sourceTree = "<group>"; };
+		A20000000000000000000004 /* App/Support/Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App/Support/Release.xcconfig; sourceTree = "<group>"; };
+		B00000000000000000000003 /* app-icon-dev.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "app-icon-dev.icon"; path = "../../assets/dev/app-icon.icon"; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000004 /* app-icon-prod.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "app-icon-prod.icon"; path = "../../assets/prod/app-icon.icon"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A60000000000000000000001 /* Exceptions for "App" folder in "T3 Code" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Support/Debug.xcconfig,
+				Support/Info.plist,
+				Support/Release.xcconfig,
+			);
+			target = A50000000000000000000001 /* T3 Code */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A30000000000000000000002 /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A60000000000000000000001 /* Exceptions for "App" folder in "T3 Code" target */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A70000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* T3Contracts in Frameworks */,
+				A10000000000000000000002 /* T3Protocol in Frameworks */,
+				A10000000000000000000003 /* T3ClientRuntime in Frameworks */,
+				A10000000000000000000004 /* T3Markdown in Frameworks */,
+				A10000000000000000000005 /* T3Timeline in Frameworks */,
+				A10000000000000000000006 /* T3Composer in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A30000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A30000000000000000000002 /* App */,
+				A20000000000000000000002 /* T3Kit */,
+				A20000000000000000000003 /* App/Support/Debug.xcconfig */,
+				A20000000000000000000004 /* App/Support/Release.xcconfig */,
+				A80000000000000000000005 /* Brand Icons */,
+				A30000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A30000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* T3 Code.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A80000000000000000000005 /* Brand Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000003 /* app-icon-dev.icon */,
+				B00000000000000000000004 /* app-icon-prod.icon */,
+			);
+			name = "Brand Icons";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* T3 Code */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A90000000000000000000002 /* Build configuration list for PBXNativeTarget "T3 Code" */;
+			buildPhases = (
+				A70000000000000000000002 /* Sources */,
+				A70000000000000000000001 /* Frameworks */,
+				A70000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A30000000000000000000002 /* App */,
+			);
+			name = "T3 Code";
+			packageProductDependencies = (
+				A40000000000000000000001 /* T3Contracts */,
+				A40000000000000000000002 /* T3Protocol */,
+				A40000000000000000000003 /* T3ClientRuntime */,
+				A40000000000000000000004 /* T3Markdown */,
+				A40000000000000000000005 /* T3Timeline */,
+				A40000000000000000000006 /* T3Composer */,
+			);
+			productName = "T3 Code";
+			productReference = A20000000000000000000001 /* T3 Code.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A80000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
+				TargetAttributes = {
+					A50000000000000000000001 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "T3Code" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A30000000000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A40000000000000000000010 /* XCLocalSwiftPackageReference "T3Kit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A30000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000000000000000000001 /* T3 Code */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000001 /* app-icon-dev.icon in Resources */,
+				B00000000000000000000002 /* app-icon-prod.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A70000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A00000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		A00000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		A00000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20000000000000000000003 /* App/Support/Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "app-icon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "*/prod/app-icon.icon";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.t3.macos.dev;
+				PRODUCT_NAME = "T3 Code";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		A00000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20000000000000000000004 /* App/Support/Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "app-icon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "*/dev/app-icon.icon";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.t3.macos;
+				PRODUCT_NAME = "T3 Code";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A90000000000000000000001 /* Build configuration list for PBXProject "T3Code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A00000000000000000000001 /* Debug */,
+				A00000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A90000000000000000000002 /* Build configuration list for PBXNativeTarget "T3 Code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A00000000000000000000003 /* Debug */,
+				A00000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A40000000000000000000010 /* XCLocalSwiftPackageReference "T3Kit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = T3Kit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A40000000000000000000001 /* T3Contracts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Contracts;
+		};
+		A40000000000000000000002 /* T3Protocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Protocol;
+		};
+		A40000000000000000000003 /* T3ClientRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3ClientRuntime;
+		};
+		A40000000000000000000004 /* T3Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Markdown;
+		};
+		A40000000000000000000005 /* T3Timeline */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Timeline;
+		};
+		A40000000000000000000006 /* T3Composer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Composer;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A80000000000000000000001 /* Project object */;
+}

@@ -1,0 +1,2 @@
+// Debug build settings. Machine-specific signing lives in the untracked Signing.local.xcconfig.
+#include? "Signing.local.xcconfig"
