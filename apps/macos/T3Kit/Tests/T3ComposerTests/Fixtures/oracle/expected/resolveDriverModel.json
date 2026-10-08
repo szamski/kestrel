@@ -1,0 +1,1082 @@
+[
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "five-four" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "5.4" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "my-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "legacy-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "codex", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": null },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "gpt-6-astra" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "GPT-6 ASTRA" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "five-four" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "gpt-5-codex" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "5.4" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "my-custom" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "legacy-custom" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "mine" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "personal-only" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "fable" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "openai/gpt-5-mini" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "unknown-model" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "  gpt-5.4  " },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": {
+      "settingsIndex": 0,
+      "driver": "claudeAgent",
+      "selectedModel": "antigravity-default"
+    },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "grok-build" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "claudeAgent", "selectedModel": "auto" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": null },
+    "output": "openai/gpt-5"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "" },
+    "output": "openai/gpt-5"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "GPT-6 ASTRA" },
+    "output": "GPT-6 ASTRA"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "five-four" },
+    "output": "five-four"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5-codex"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "5.4" },
+    "output": "5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "mine" },
+    "output": "mine"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "personal-only" },
+    "output": "personal-only"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "fable" },
+    "output": "fable"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "openai/gpt-5-mini" },
+    "output": "openai/gpt-5-mini"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "unknown-model" },
+    "output": "unknown-model"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "antigravity-default" },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "opencode", "selectedModel": "auto" },
+    "output": "auto"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "five-four" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "5.4" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "my-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "legacy-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "cursor", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": null },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "" },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "GPT-6 ASTRA" },
+    "output": "GPT-6 ASTRA"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "five-four" },
+    "output": "five-four"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5-codex"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "5.4" },
+    "output": "5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "mine" },
+    "output": "mine"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "personal-only" },
+    "output": "personal-only"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "fable" },
+    "output": "fable"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "openai/gpt-5-mini" },
+    "output": "openai/gpt-5-mini"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "unknown-model" },
+    "output": "unknown-model"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": {
+      "settingsIndex": 0,
+      "driver": "antigravity",
+      "selectedModel": "antigravity-default"
+    },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "antigravity", "selectedModel": "auto" },
+    "output": "auto"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": null },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "gpt-6-astra" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "GPT-6 ASTRA" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "five-four" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "gpt-5-codex" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "5.4" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "my-custom" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "legacy-custom" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "mine" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "personal-only" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "fable" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "claude-haiku-4-5" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "openai/gpt-5-mini" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "unknown-model" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "  gpt-5.4  " },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "antigravity-default" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "grok", "selectedModel": "auto" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "five-four" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "5.4" },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "my-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "legacy-custom" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 0, "driver": "missing", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "five-four" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "5.4" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "codex", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": null },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "gpt-6-astra" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "GPT-6 ASTRA" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "five-four" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "gpt-5-codex" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "5.4" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "my-custom" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "legacy-custom" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "mine" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "personal-only" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "fable" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "openai/gpt-5-mini" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "unknown-model" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "  gpt-5.4  " },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": {
+      "settingsIndex": 1,
+      "driver": "claudeAgent",
+      "selectedModel": "antigravity-default"
+    },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "grok-build" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "claudeAgent", "selectedModel": "auto" },
+    "output": "claude-fable-5-1"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": null },
+    "output": "openai/gpt-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "" },
+    "output": "openai/gpt-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "GPT-6 ASTRA" },
+    "output": "GPT-6 ASTRA"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "five-four" },
+    "output": "five-four"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5-codex"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "5.4" },
+    "output": "5.4"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "mine" },
+    "output": "mine"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "personal-only" },
+    "output": "personal-only"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "fable" },
+    "output": "fable"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "openai/gpt-5-mini" },
+    "output": "openai/gpt-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "unknown-model" },
+    "output": "unknown-model"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "antigravity-default" },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "opencode", "selectedModel": "auto" },
+    "output": "auto"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "five-four" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "5.4" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "cursor", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": null },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "" },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "GPT-6 ASTRA" },
+    "output": "GPT-6 ASTRA"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "five-four" },
+    "output": "five-four"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-5-codex"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "5.4" },
+    "output": "5.4"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "mine" },
+    "output": "mine"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "personal-only" },
+    "output": "personal-only"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "fable" },
+    "output": "fable"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "claude-haiku-4-5" },
+    "output": "claude-haiku-4-5"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "openai/gpt-5-mini" },
+    "output": "openai/gpt-5-mini"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "unknown-model" },
+    "output": "unknown-model"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-5.4"
+  },
+  {
+    "input": {
+      "settingsIndex": 1,
+      "driver": "antigravity",
+      "selectedModel": "antigravity-default"
+    },
+    "output": "antigravity-default"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "antigravity", "selectedModel": "auto" },
+    "output": "auto"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": null },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "gpt-6-astra" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "GPT-6 ASTRA" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "five-four" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "gpt-5-codex" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "5.4" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "my-custom" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "legacy-custom" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "mine" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "personal-only" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "fable" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "claude-haiku-4-5" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "openai/gpt-5-mini" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "unknown-model" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "  gpt-5.4  " },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "antigravity-default" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "grok-build" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "grok", "selectedModel": "auto" },
+    "output": "grok-build"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": null },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "gpt-6-astra" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "GPT-6 ASTRA" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "five-four" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "gpt-5-codex" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "5.4" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "my-custom" },
+    "output": "my-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "legacy-custom" },
+    "output": "legacy-custom"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "mine" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "personal-only" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "fable" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "claude-haiku-4-5" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "openai/gpt-5-mini" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "unknown-model" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "  gpt-5.4  " },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "antigravity-default" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "grok-build" },
+    "output": "gpt-6-astra"
+  },
+  {
+    "input": { "settingsIndex": 1, "driver": "missing", "selectedModel": "auto" },
+    "output": "gpt-6-astra"
+  }
+]

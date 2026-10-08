@@ -1,0 +1,1510 @@
+[
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex", "selected": null },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "GPT-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": "5.4",
+        "badge": null
+      },
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "GPT-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": "5.4",
+        "badge": null
+      },
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "GPT-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": "5.4",
+        "badge": null
+      },
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "GPT-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": "5.4",
+        "badge": null
+      },
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex_personal", "selected": null },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex_personal", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "codex_personal", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": {
+      "settingsIndex": 0,
+      "instanceId": "codex_personal",
+      "selected": "openai/gpt-5-mini"
+    },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "claudeAgent", "selected": null },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "claudeAgent", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "claudeAgent", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "claudeAgent", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "opencode", "selected": null },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "GPT-5 mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "opencode", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "GPT-5 mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "gpt-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "opencode", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "GPT-5 mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "unknown-model",
+        "name": "unknown-model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "opencode", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "GPT-5 mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "cursor", "selected": null },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "cursor", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "cursor", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "cursor", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "antigravity", "selected": null },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "antigravity", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "gpt-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "antigravity", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "unknown-model",
+        "name": "unknown-model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "antigravity", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "openai/gpt-5-mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "grok", "selected": null },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "grok", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "grok", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 0, "instanceId": "grok", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex", "selected": null },
+    "output": [
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "legacy-custom",
+        "name": "legacy-custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "my-custom",
+        "name": "My Custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "legacy-custom",
+        "name": "legacy-custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "my-custom",
+        "name": "My Custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "legacy-custom",
+        "name": "legacy-custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "my-custom",
+        "name": "My Custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "legacy-1",
+        "name": "Legacy One",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": true,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": "new"
+      },
+      {
+        "slug": "legacy-custom",
+        "name": "legacy-custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "my-custom",
+        "name": "My Custom",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex_personal", "selected": null },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine",
+        "name": "mine",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine-2",
+        "name": "Mine Two",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex_personal", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine",
+        "name": "mine",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine-2",
+        "name": "Mine Two",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "codex_personal", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine",
+        "name": "mine",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine-2",
+        "name": "Mine Two",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": {
+      "settingsIndex": 1,
+      "instanceId": "codex_personal",
+      "selected": "openai/gpt-5-mini"
+    },
+    "output": [
+      {
+        "slug": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "personal-only",
+        "name": "Personal Only",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine",
+        "name": "mine",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "mine-2",
+        "name": "Mine Two",
+        "isCustom": true,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "claudeAgent", "selected": null },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "claudeAgent", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "claudeAgent", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "claudeAgent", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "claude-fable-5-1",
+        "name": "Claude Fable 5.1",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "claude-haiku-4-5",
+        "name": "Claude Haiku 4.5",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "plain",
+        "name": "Plain Model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "opencode", "selected": null },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "opencode", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "gpt-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "opencode", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "unknown-model",
+        "name": "unknown-model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "opencode", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "openai/gpt-5",
+        "name": "GPT-5",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "cursor", "selected": null },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "cursor", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "cursor", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "cursor", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "auto",
+        "name": "Auto",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "antigravity", "selected": null },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "antigravity", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "gpt-5.4",
+        "name": "gpt-5.4",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "antigravity", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "unknown-model",
+        "name": "unknown-model",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "antigravity", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "antigravity-default",
+        "name": "Default",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      },
+      {
+        "slug": "openai/gpt-5-mini",
+        "name": "openai/gpt-5-mini",
+        "isCustom": false,
+        "isDefault": false,
+        "isLegacy": false,
+        "isUnavailable": true,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "grok", "selected": null },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "grok", "selected": "gpt-5.4" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "grok", "selected": "unknown-model" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  },
+  {
+    "input": { "settingsIndex": 1, "instanceId": "grok", "selected": "openai/gpt-5-mini" },
+    "output": [
+      {
+        "slug": "grok-build",
+        "name": "Grok Build",
+        "isCustom": false,
+        "isDefault": true,
+        "isLegacy": false,
+        "isUnavailable": false,
+        "shortName": null,
+        "badge": null
+      }
+    ]
+  }
+]

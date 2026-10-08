@@ -1,0 +1,879 @@
+[
+  {
+    "input": { "name": "photo.jpg", "type": "" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "image/tiff" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "image/svg+xml" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "video/quicktime; codecs=x" },
+    "output": {
+      "kind": "file",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": "video/quicktime"
+    }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "photo.jpg", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "image/tiff" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "image/svg+xml" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "video/quicktime; codecs=x" },
+    "output": {
+      "kind": "file",
+      "inferred": "image/jpeg",
+      "heic": false,
+      "video": "video/quicktime"
+    }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "PHOTO.JPEG", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/jpeg", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "a.png", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "a.png", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.png", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "image/tiff" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/webp",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "b.webp", "type": "image/svg+xml" },
+    "output": {
+      "kind": "unsupported-image",
+      "inferred": "image/webp",
+      "heic": false,
+      "video": null
+    }
+  },
+  {
+    "input": { "name": "b.webp", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/webp", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "b.webp", "type": "video/quicktime; codecs=x" },
+    "output": {
+      "kind": "file",
+      "inferred": "image/webp",
+      "heic": false,
+      "video": "video/quicktime"
+    }
+  },
+  {
+    "input": { "name": "b.webp", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "b.webp", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/webp", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/gif", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "c.gif", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": "image/gif", "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "c.gif", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "c.gif", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/gif", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "d.heic", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "d.heic", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "d.heic", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "D.HEIF", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "e.tiff", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "noext", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "noext", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "noext", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": ".hidden", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": ".hidden", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": ".hidden", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.mp4", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "clip.MOV", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "doc.pdf", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "archive.tar.gz", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "application/octet-stream" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "image/png" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "a.b.c.png", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": "image/png", "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "application/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "image/png" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "image/heic" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "image/HEIF" },
+    "output": { "kind": "image", "inferred": null, "heic": true, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "image/tiff" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "image/svg+xml" },
+    "output": { "kind": "unsupported-image", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "video/mp4" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/mp4" }
+  },
+  {
+    "input": { "name": "", "type": "video/quicktime; codecs=x" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": "video/quicktime" }
+  },
+  {
+    "input": { "name": "", "type": "text/plain" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "binary/octet-stream" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "application/pdf" },
+    "output": { "kind": "file", "inferred": null, "heic": false, "video": null }
+  },
+  {
+    "input": { "name": "", "type": "IMAGE/JPEG" },
+    "output": { "kind": "image", "inferred": null, "heic": false, "video": null }
+  }
+]

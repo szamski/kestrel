@@ -1,0 +1,191 @@
+[
+  {
+    "input": { "path": "src/main.ts" },
+    "output": {
+      "link": "[main.ts](src/main.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "src/main.ts",
+          "source": "[main.ts](src/main.ts)",
+          "start": 0,
+          "end": 22
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "a b/c d.ts" },
+    "output": {
+      "link": "[c d.ts](a%20b/c%20d.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "a b/c d.ts",
+          "source": "[c d.ts](a%20b/c%20d.ts)",
+          "start": 0,
+          "end": 24
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "dir (1)/file[2].md" },
+    "output": {
+      "link": "[file\\[2\\].md](dir%20%281%29/file%5B2%5D.md)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "dir (1)/file[2].md",
+          "source": "[file\\[2\\].md](dir%20%281%29/file%5B2%5D.md)",
+          "start": 0,
+          "end": 44
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "ünï/çödé.ts" },
+    "output": {
+      "link": "[çödé.ts](%C3%BCn%C3%AF/%C3%A7%C3%B6d%C3%A9.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "ünï/çödé.ts",
+          "source": "[çödé.ts](%C3%BCn%C3%AF/%C3%A7%C3%B6d%C3%A9.ts)",
+          "start": 0,
+          "end": 47
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "back\\slash\\file.txt" },
+    "output": {
+      "link": "[file.txt](back%5Cslash%5Cfile.txt)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "back\\slash\\file.txt",
+          "source": "[file.txt](back%5Cslash%5Cfile.txt)",
+          "start": 0,
+          "end": 35
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "x#y?z.ts" },
+    "output": {
+      "link": "[x#y?z.ts](x%23y%3Fz.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "x#y?z.ts",
+          "source": "[x#y?z.ts](x%23y%3Fz.ts)",
+          "start": 0,
+          "end": 24
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "100%/done.ts" },
+    "output": {
+      "link": "[done.ts](100%25/done.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "100%/done.ts",
+          "source": "[done.ts](100%25/done.ts)",
+          "start": 0,
+          "end": 25
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "😀/emoji.png" },
+    "output": {
+      "link": "[emoji.png](%F0%9F%98%80/emoji.png)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "😀/emoji.png",
+          "source": "[emoji.png](%F0%9F%98%80/emoji.png)",
+          "start": 0,
+          "end": 35
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "/abs/path/to/file" },
+    "output": {
+      "link": "[file](/abs/path/to/file)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "/abs/path/to/file",
+          "source": "[file](/abs/path/to/file)",
+          "start": 0,
+          "end": 25
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "plain" },
+    "output": {
+      "link": "[plain](plain)",
+      "tokens": [
+        { "type": "mention", "value": "plain", "source": "[plain](plain)", "start": 0, "end": 14 }
+      ]
+    }
+  },
+  {
+    "input": { "path": "trailing/" },
+    "output": {
+      "link": "[](trailing/)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "trailing/",
+          "source": "[](trailing/)",
+          "start": 0,
+          "end": 13
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "weird'quote\"s/a*b.ts" },
+    "output": {
+      "link": "[a*b.ts](weird'quote%22s/a*b.ts)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "weird'quote\"s/a*b.ts",
+          "source": "[a*b.ts](weird'quote%22s/a*b.ts)",
+          "start": 0,
+          "end": 32
+        }
+      ]
+    }
+  },
+  {
+    "input": { "path": "~/home/@scope/pkg" },
+    "output": {
+      "link": "[pkg](~/home/@scope/pkg)",
+      "tokens": [
+        {
+          "type": "mention",
+          "value": "~/home/@scope/pkg",
+          "source": "[pkg](~/home/@scope/pkg)",
+          "start": 0,
+          "end": 24
+        }
+      ]
+    }
+  }
+]

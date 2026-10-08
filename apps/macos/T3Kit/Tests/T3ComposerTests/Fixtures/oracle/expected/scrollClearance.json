@@ -1,0 +1,122 @@
+[
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [{ "top": 20, "left": 0, "right": 50 }]
+    },
+    "output": 80
+  },
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [
+        { "top": 60, "left": 100, "right": 200 },
+        { "top": 10, "left": 300, "right": 400 }
+      ]
+    },
+    "output": 70
+  },
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": []
+    },
+    "output": 100
+  },
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [{ "top": 20, "left": 0, "right": 50 }]
+    },
+    "output": 40
+  },
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [
+        { "top": 60, "left": 100, "right": 200 },
+        { "top": 10, "left": 300, "right": 400 }
+      ]
+    },
+    "output": 50
+  },
+  {
+    "input": {
+      "overlayHeight": 100,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": []
+    },
+    "output": 100
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [{ "top": 20, "left": 0, "right": 50 }]
+    },
+    "output": 230
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [
+        { "top": 60, "left": 100, "right": 200 },
+        { "top": 10, "left": 300, "right": 400 }
+      ]
+    },
+    "output": 220
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 40,
+      "button": { "left": 120, "right": 160 },
+      "attachments": []
+    },
+    "output": 250
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [{ "top": 20, "left": 0, "right": 50 }]
+    },
+    "output": 190
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": [
+        { "top": 60, "left": 100, "right": 200 },
+        { "top": 10, "left": 300, "right": 400 }
+      ]
+    },
+    "output": 200
+  },
+  {
+    "input": {
+      "overlayHeight": 250,
+      "mainSurfaceTop": 80,
+      "button": { "left": 120, "right": 160 },
+      "attachments": []
+    },
+    "output": 250
+  }
+]

@@ -1,0 +1,26 @@
+[
+  { "input": { "label": "hello", "kind": "file" }, "output": "hello" },
+  { "input": { "label": "a [b] c", "kind": "file" }, "output": "a b c" },
+  { "input": { "label": "  spaced   out  ", "kind": "terminal" }, "output": "spaced out" },
+  { "input": { "label": "", "kind": "image" }, "output": "image" },
+  { "input": { "label": "   ", "kind": "skill" }, "output": "skill" },
+  { "input": { "label": "line\nbreak\r\nx", "kind": "file" }, "output": "line break x" },
+  { "input": { "label": "back\\slash", "kind": "file" }, "output": "back slash" },
+  {
+    "input": {
+      "label": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "kind": "file"
+    },
+    "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  { "input": { "label": "tab\there", "kind": "file" }, "output": "tab here" },
+  { "input": { "label": "émoji 😀 end", "kind": "file" }, "output": "émoji 😀 end" },
+  { "input": { "label": "a b c", "kind": "file" }, "output": "a b c" },
+  {
+    "input": {
+      "label": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "kind": "file"
+    },
+    "output": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+  }
+]

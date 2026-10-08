@@ -1,0 +1,1302 @@
+[
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "", "direction": "backward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "", "direction": "forward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "typed", "direction": "backward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "typed", "direction": "forward" },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "", "direction": "backward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "", "direction": "forward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "typed", "direction": "backward" },
+    "output": null
+  },
+  {
+    "input": { "entries": [], "position": null, "currentPrompt": "typed", "direction": "forward" },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [],
+      "position": { "entryId": "gone", "recalled": "none" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "one",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "one",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "two",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": null,
+      "currentPrompt": "two",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "one",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "one",
+      "direction": "forward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "two",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "1", "recalled": "one" },
+      "currentPrompt": "two",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "one",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "one",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "two",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "1", "recalled": "one" }, "prompt": "one" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "3", "recalled": "two" },
+      "currentPrompt": "two",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "one",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "one",
+      "direction": "forward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "two" }, "prompt": "two" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "two",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "1", "prompt": "one" },
+        { "id": "3", "prompt": "two" }
+      ],
+      "position": { "entryId": "gone", "recalled": "one" },
+      "currentPrompt": "two",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "other",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "other",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": null,
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "2", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "other",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "2", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "other",
+      "direction": "forward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "3", "recalled": "other" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "4", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "4", "recalled": "same" }, "prompt": "same" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "other",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "3", "recalled": "other" }, "prompt": "other" }
+  },
+  {
+    "input": {
+      "entries": [
+        { "id": "2", "prompt": "same" },
+        { "id": "3", "prompt": "other" },
+        { "id": "4", "prompt": "same" }
+      ],
+      "position": { "entryId": "gone", "recalled": "same" },
+      "currentPrompt": "same",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "2", "recalled": "real" }, "prompt": "real" }
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "real",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": null,
+      "currentPrompt": "real",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "2", "recalled": "real" }, "prompt": "real" }
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "real",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "2", "recalled": "real" },
+      "currentPrompt": "real",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "",
+      "direction": "backward"
+    },
+    "output": { "position": { "entryId": "2", "recalled": "real" }, "prompt": "real" }
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "typed",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "typed",
+      "direction": "forward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "real",
+      "direction": "backward"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "entries": [{ "id": "2", "prompt": "real" }],
+      "position": { "entryId": "gone", "recalled": "real" },
+      "currentPrompt": "real",
+      "direction": "forward"
+    },
+    "output": { "position": null, "prompt": "" }
+  }
+]

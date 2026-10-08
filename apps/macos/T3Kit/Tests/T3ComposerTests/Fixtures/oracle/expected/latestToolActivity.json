@@ -1,0 +1,43 @@
+[
+  { "input": { "activities": [] }, "output": null },
+  {
+    "input": { "activities": [{ "id": "a", "kind": "tool.started", "createdAt": "2026-01-01" }] },
+    "output": null
+  },
+  {
+    "input": {
+      "activities": [
+        { "id": "a", "kind": "tool.completed", "createdAt": "2026-01-01" },
+        { "id": "b", "kind": "tool.completed", "createdAt": "2026-01-02" }
+      ]
+    },
+    "output": "b"
+  },
+  {
+    "input": {
+      "activities": [
+        { "id": "a", "kind": "tool.completed", "sequence": 5, "createdAt": "2026-01-01" },
+        { "id": "b", "kind": "tool.completed", "sequence": 2, "createdAt": "2026-01-09" }
+      ]
+    },
+    "output": "a"
+  },
+  {
+    "input": {
+      "activities": [
+        { "id": "a", "kind": "tool.completed", "sequence": 5, "createdAt": "2026-01-02" },
+        { "id": "b", "kind": "tool.completed", "sequence": 5, "createdAt": "2026-01-01" }
+      ]
+    },
+    "output": "a"
+  },
+  {
+    "input": {
+      "activities": [
+        { "id": "a", "kind": "tool.completed", "createdAt": "2026-01-02" },
+        { "id": "b", "kind": "tool.completed", "sequence": 0, "createdAt": "2026-01-01" }
+      ]
+    },
+    "output": "b"
+  }
+]

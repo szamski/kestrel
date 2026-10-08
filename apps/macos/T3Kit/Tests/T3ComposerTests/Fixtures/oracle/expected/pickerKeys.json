@@ -1,0 +1,48 @@
+[
+  {
+    "input": { "instanceId": "codex", "slug": "gpt-6" },
+    "output": {
+      "key": "model:5:codexgpt-6",
+      "parsed": { "instanceId": "codex", "slug": "gpt-6" },
+      "legacy": "legacy-models:codex",
+      "parsedLegacy": "codex"
+    }
+  },
+  {
+    "input": { "instanceId": "codex_personal", "slug": "x:y" },
+    "output": {
+      "key": "model:14:codex_personalx:y",
+      "parsed": { "instanceId": "codex_personal", "slug": "x:y" },
+      "legacy": "legacy-models:codex_personal",
+      "parsedLegacy": "codex_personal"
+    }
+  },
+  {
+    "input": { "instanceId": "", "slug": "x" },
+    "output": {
+      "key": "model:0:x",
+      "parsed": { "instanceId": "", "slug": "x" },
+      "legacy": "legacy-models:",
+      "parsedLegacy": ""
+    }
+  },
+  {
+    "input": { "instanceId": "é", "slug": "ü" },
+    "output": {
+      "key": "model:1:éü",
+      "parsed": { "instanceId": "é", "slug": "ü" },
+      "legacy": "legacy-models:é",
+      "parsedLegacy": "é"
+    }
+  },
+  { "input": { "key": "model:" }, "output": { "parsed": null, "parsedLegacy": null } },
+  { "input": { "key": "model:x" }, "output": { "parsed": null, "parsedLegacy": null } },
+  { "input": { "key": "model:3:ab" }, "output": { "parsed": null, "parsedLegacy": null } },
+  {
+    "input": { "key": "model:2:abcd" },
+    "output": { "parsed": { "instanceId": "ab", "slug": "cd" }, "parsedLegacy": null }
+  },
+  { "input": { "key": "model:a:b" }, "output": { "parsed": null, "parsedLegacy": null } },
+  { "input": { "key": "legacy-models:" }, "output": { "parsed": null, "parsedLegacy": "" } },
+  { "input": { "key": "other" }, "output": { "parsed": null, "parsedLegacy": null } }
+]

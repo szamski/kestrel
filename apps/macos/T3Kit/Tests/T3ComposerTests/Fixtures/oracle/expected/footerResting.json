@@ -1,0 +1,706 @@
+[
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": false,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": false,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": false,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": false,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": false,
+      "timelineOverflows": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "isExistingThread": true,
+      "isMobileViewport": true,
+      "isScrollCollapsed": true,
+      "hasExpandedChrome": true,
+      "hasMultilinePrompt": true,
+      "timelineOverflows": true
+    },
+    "output": false
+  }
+]

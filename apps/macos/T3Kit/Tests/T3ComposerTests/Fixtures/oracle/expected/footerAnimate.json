@@ -1,0 +1,66 @@
+[
+  {
+    "input": {
+      "hasCompletedInitialLayout": false,
+      "stateChanged": false,
+      "hasInterruptedAnimation": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": false,
+      "stateChanged": false,
+      "hasInterruptedAnimation": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": false,
+      "stateChanged": true,
+      "hasInterruptedAnimation": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": false,
+      "stateChanged": true,
+      "hasInterruptedAnimation": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": true,
+      "stateChanged": false,
+      "hasInterruptedAnimation": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": true,
+      "stateChanged": false,
+      "hasInterruptedAnimation": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": true,
+      "stateChanged": true,
+      "hasInterruptedAnimation": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "hasCompletedInitialLayout": true,
+      "stateChanged": true,
+      "hasInterruptedAnimation": true
+    },
+    "output": true
+  }
+]

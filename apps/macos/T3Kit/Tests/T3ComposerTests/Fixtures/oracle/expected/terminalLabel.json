@@ -1,0 +1,7 @@
+[
+  {
+    "input": { "label": "Terminal 1", "lineStart": 3, "lineEnd": 4 },
+    "output": "Terminal 1 lines 3-4"
+  },
+  { "input": { "label": "T", "lineStart": 5, "lineEnd": 5 }, "output": "T line 5" }
+]

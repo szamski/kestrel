@@ -1,0 +1,20 @@
+[
+  {
+    "input": {},
+    "output": {
+      "names": [
+        "Frontend Design",
+        "Disabled Skill",
+        "Agent Only",
+        "Frontend Design",
+        "Plugin Skill"
+      ],
+      "invocable": [true, false, false, true, true],
+      "deduped": ["frontend-design", "disabled-skill", "agent-only", "plugin-skill"],
+      "sourceKinds": ["personal", "other", "other", "other", "app"],
+      "slashMenuOn": ["frontend-design", "plugin-skill"],
+      "slashMenuOff": [],
+      "commands": ["compact", "review"]
+    }
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "input": { "id": "abc" },
+    "output": {
+      "id": "abc",
+      "scopedTerminal": "terminal_abc",
+      "producerTerminal": "abc",
+      "producerImage": "abc"
+    }
+  },
+  {
+    "input": { "id": "ABC_def-1" },
+    "output": {
+      "id": "ABC_def-1",
+      "scopedTerminal": "terminal_ABC_def-1",
+      "producerTerminal": "ABC_def-1",
+      "producerImage": "ABC_def-1"
+    }
+  },
+  {
+    "input": { "id": "pull-request-finding:42" },
+    "output": {
+      "id": "pull-request-finding-42-bc35b97a14ae7309",
+      "scopedTerminal": "terminal_pull-request-finding-42-de0d43b3ba051462",
+      "producerTerminal": "pull-request-finding:42",
+      "producerImage": "pull-request-finding:42"
+    }
+  },
+  {
+    "input": { "id": "file-comment-123-4" },
+    "output": {
+      "id": "file-comment-123-4",
+      "scopedTerminal": "terminal_file-comment-123-4",
+      "producerTerminal": "file-comment-123-4",
+      "producerImage": "file-comment-123-4"
+    }
+  },
+  {
+    "input": { "id": "a b c" },
+    "output": {
+      "id": "a-b-c-76f420af61057b54",
+      "scopedTerminal": "terminal_a-b-c-bf614e5e99dbc6e5",
+      "producerTerminal": "a b c",
+      "producerImage": "a b c"
+    }
+  },
+  {
+    "input": { "id": "" },
+    "output": {
+      "id": "ctx-811c9dc59dc5811c",
+      "scopedTerminal": "terminal_",
+      "producerTerminal": "",
+      "producerImage": ""
+    }
+  },
+  {
+    "input": { "id": "---" },
+    "output": {
+      "id": "---",
+      "scopedTerminal": "terminal_---",
+      "producerTerminal": "---",
+      "producerImage": "---"
+    }
+  },
+  {
+    "input": { "id": "é" },
+    "output": {
+      "id": "ctx-6c0b6c4452eb94af",
+      "scopedTerminal": "terminal_-7529457922c6bef8",
+      "producerTerminal": "é",
+      "producerImage": "é"
+    }
+  },
+  {
+    "input": {
+      "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "output": {
+      "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-b3e4b6e50192479c",
+      "scopedTerminal": "terminal_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-84f3c4aa3e6d5fcd",
+      "producerTerminal": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "producerImage": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  },
+  {
+    "input": { "id": "terminal_1" },
+    "output": {
+      "id": "terminal_1",
+      "scopedTerminal": "terminal_terminal_1",
+      "producerTerminal": "1",
+      "producerImage": "terminal_1"
+    }
+  },
+  {
+    "input": { "id": "a/b\\c" },
+    "output": {
+      "id": "a-b-c-3eb53d0cf444e64f",
+      "scopedTerminal": "terminal_a-b-c-947c642d94c95358",
+      "producerTerminal": "a/b\\c",
+      "producerImage": "a/b\\c"
+    }
+  },
+  {
+    "input": { "id": "😀" },
+    "output": {
+      "id": "ctx-cb31c4b8bff4f38b",
+      "scopedTerminal": "terminal_-2a2599ef65dc2b1c",
+      "producerTerminal": "😀",
+      "producerImage": "😀"
+    }
+  },
+  {
+    "input": { "id": "ctx:💥:x" },
+    "output": {
+      "id": "ctx-x-8a663c00b7d7545b",
+      "scopedTerminal": "terminal_ctx-x-0731874319a4d6ec",
+      "producerTerminal": "ctx:💥:x",
+      "producerImage": "ctx:💥:x"
+    }
+  }
+]

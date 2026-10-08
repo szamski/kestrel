@@ -1,0 +1,4598 @@
+[
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1188 },
+        {
+          "kind": "record",
+          "now": 1346,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1473,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 1693 },
+        {
+          "kind": "record",
+          "now": 1811,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1988,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2431,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2476,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2648 },
+        { "kind": "suppress", "now": 2727 },
+        {
+          "kind": "record",
+          "now": 2913,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3003,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3253,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3517,
+          "deltaPx": 56,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 1
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 58, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 85, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 35, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 25, "suppressed": false },
+      { "accumulated": 25, "suppressed": true },
+      { "accumulated": 25, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1220,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1369,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1496,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1787 },
+        { "kind": "suppress", "now": 2061 },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2101,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2241,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2529,
+          "deltaPx": 0,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 2890 },
+        {
+          "kind": "record",
+          "now": 3123,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3337,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3591,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3725,
+          "deltaPx": 1,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3964,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 2
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 64, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 99, "suppressed": false },
+      { "accumulated": 99, "suppressed": false },
+      { "accumulated": 99, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 55, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1216 },
+        { "kind": "suppress", "now": 1352 },
+        {
+          "kind": "record",
+          "now": 1580,
+          "deltaPx": 29,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1638 },
+        {
+          "kind": "record",
+          "now": 1852,
+          "deltaPx": 48,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1938,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2201,
+          "deltaPx": 56,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2247,
+          "deltaPx": 43,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2505,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2526,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2675,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2881,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3084,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3343,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3516,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3741,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 3
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 29, "suppressed": false },
+      { "accumulated": 29, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1277,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1300,
+          "deltaPx": 37,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1519,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1739,
+          "deltaPx": 59,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1819,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1964,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2062,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2106,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2303,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2447,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2677,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2828,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3121,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3407,
+          "deltaPx": 11,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3686,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 3886 }
+      ],
+      "seed": 4
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 13, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 50, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 82, "suppressed": false },
+      { "collapsed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 46, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 50, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 28, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 79, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 96, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1206,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1422,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1620 },
+        {
+          "kind": "record",
+          "now": 1759,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1835 },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 2154 },
+        {
+          "kind": "record",
+          "now": 2295,
+          "deltaPx": 15,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2417,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2633,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2823,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3102,
+          "deltaPx": 21,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3352,
+          "deltaPx": 60,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3446,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3522,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3681,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 5
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 13, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 67, "suppressed": false },
+      { "accumulated": 67, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 15, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 60, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 65, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1157 },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 1517 },
+        {
+          "kind": "record",
+          "now": 1518,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1524 },
+        {
+          "kind": "record",
+          "now": 1659,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1955,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2164,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2225,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2398,
+          "deltaPx": 34,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2479,
+          "deltaPx": 49,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2676 },
+        {
+          "kind": "record",
+          "now": 2775,
+          "deltaPx": 15,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2802,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2948,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3034,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 6
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1003 },
+        {
+          "kind": "record",
+          "now": 1296,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1461,
+          "deltaPx": 15,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1520,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1594,
+          "deltaPx": 11,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1758,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1962,
+          "deltaPx": 37,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2014,
+          "deltaPx": 26,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2124,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2223,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2280,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2444,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2638,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2928,
+          "deltaPx": 49,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3145,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3273,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 7
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 46, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 64, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 75, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 26, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 20, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 58, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 107, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 44, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1046,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1291,
+          "deltaPx": 30,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1461,
+          "deltaPx": 10,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1499 },
+        {
+          "kind": "record",
+          "now": 1665,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1772,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1869,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2063,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2233,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2307,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 2428 },
+        {
+          "kind": "record",
+          "now": 2460,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2641,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2731,
+          "deltaPx": 0,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3025,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3118 }
+      ],
+      "seed": 8
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 18, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1059,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1137,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1222,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1382,
+          "deltaPx": 52,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1585,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1733 },
+        {
+          "kind": "record",
+          "now": 1983,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2180,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2335,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2495,
+          "deltaPx": 30,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2687,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 2906 },
+        {
+          "kind": "record",
+          "now": 3105,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3174,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3411,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3431,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 9
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 9, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 34, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1150,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1210 },
+        {
+          "kind": "record",
+          "now": 1220,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1353,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1469,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1584,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1645 },
+        { "kind": "suppress", "now": 1670 },
+        {
+          "kind": "record",
+          "now": 1900,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2033,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2212,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2397,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2433,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2829,
+          "deltaPx": 52,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2919,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 10
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 41, "suppressed": false },
+      { "accumulated": 41, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 57, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1153,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1177,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1302,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1420,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1545,
+          "deltaPx": 48,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1620 },
+        {
+          "kind": "record",
+          "now": 1842,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2008,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2123 },
+        {
+          "kind": "record",
+          "now": 2146,
+          "deltaPx": 30,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2366 },
+        { "kind": "suppress", "now": 2559 },
+        {
+          "kind": "record",
+          "now": 2692,
+          "deltaPx": 59,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2706,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2810,
+          "deltaPx": 10,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2847,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 11
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 36, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 72, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 113, "suppressed": false },
+      { "collapsed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 48, "suppressed": false },
+      { "accumulated": 48, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1086 },
+        {
+          "kind": "record",
+          "now": 1260,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1426,
+          "deltaPx": 2,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1650,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1741,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1860 },
+        {
+          "kind": "record",
+          "now": 1941,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2025,
+          "deltaPx": 21,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2076 },
+        {
+          "kind": "record",
+          "now": 2248,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2292,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2408,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2416,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2429,
+          "deltaPx": 34,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2608,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2651,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 12
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 9, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1169,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1196,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1451,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1581,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1607,
+          "deltaPx": 2,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1716,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1721,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1772,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1820 },
+        {
+          "kind": "record",
+          "now": 1898,
+          "deltaPx": 60,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1911,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2160,
+          "deltaPx": 22,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2352,
+          "deltaPx": 43,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2512,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2699,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        }
+      ],
+      "seed": 13
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 35, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 55, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 57, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 70, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 55, "suppressed": false },
+      { "accumulated": 55, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1134,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1335 },
+        {
+          "kind": "record",
+          "now": 1615,
+          "deltaPx": 22,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1663,
+          "deltaPx": 26,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1739,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1816,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1992,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2224,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2344,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 2523 },
+        {
+          "kind": "record",
+          "now": 2641,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2881,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3097,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3263 },
+        {
+          "kind": "record",
+          "now": 3324,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3606,
+          "deltaPx": 29,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 14
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1071,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1352,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1358,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1645,
+          "deltaPx": 21,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 1992 },
+        {
+          "kind": "record",
+          "now": 2171,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 2414 },
+        {
+          "kind": "record",
+          "now": 2681,
+          "deltaPx": 37,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2945,
+          "deltaPx": 42,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3050,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3324,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 3697,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 15
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 24, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 28, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 42, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 38, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 42, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 53, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1189 },
+        {
+          "kind": "record",
+          "now": 1414,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1470,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1643,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1853,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2096,
+          "deltaPx": 10,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2369,
+          "deltaPx": 43,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2605,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2906,
+          "deltaPx": 6,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 3280 },
+        {
+          "kind": "record",
+          "now": 3367,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3420,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3697,
+          "deltaPx": 11,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3875,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 16
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 27, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 39, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 43, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 98, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 6, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 9, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 20, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 32, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "reset" },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1388,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1626,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1714,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1883,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2010,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2041,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2158,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2434,
+          "deltaPx": 11,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2644 },
+        {
+          "kind": "record",
+          "now": 2786,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3071,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3298,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3428 },
+        {
+          "kind": "record",
+          "now": 3625,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        }
+      ],
+      "seed": 17
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 72, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 76, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 112, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 5, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 16, "suppressed": false },
+      { "accumulated": 16, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 51, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 56, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 89, "suppressed": false },
+      { "accumulated": 89, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1119,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1375,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1563 },
+        {
+          "kind": "record",
+          "now": 1845,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1919,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2161,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2408,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2563 },
+        {
+          "kind": "record",
+          "now": 2711,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2993 },
+        {
+          "kind": "record",
+          "now": 3275,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3483,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3757,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 4029,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 4129 }
+      ],
+      "seed": 18
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 32, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 23, "suppressed": false },
+      { "accumulated": 23, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1017,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1213,
+          "deltaPx": 32,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1386,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1600,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1782,
+          "deltaPx": 10,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2064,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2064,
+          "deltaPx": 56,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2123,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2279,
+          "deltaPx": 30,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2460,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2503,
+          "deltaPx": 49,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2512,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2706,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2956,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3121,
+          "deltaPx": 5,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3252,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        }
+      ],
+      "seed": 19
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 32, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 67, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 51, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 81, "suppressed": false },
+      { "collapsed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 39, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 5, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1225,
+          "deltaPx": 36,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1443,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1526,
+          "deltaPx": 13,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1569,
+          "deltaPx": 6,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1847,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1917,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2166,
+          "deltaPx": 48,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2353,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2515,
+          "deltaPx": 1,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2784,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2994 },
+        {
+          "kind": "record",
+          "now": 3013,
+          "deltaPx": 43,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3230,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3274,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3519,
+          "deltaPx": 49,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3570,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 20
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 6, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 63, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 48, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 60, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 61, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 89, "suppressed": false },
+      { "accumulated": 89, "suppressed": false },
+      { "collapsed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 14, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 63, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 70, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1129,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1390,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1573,
+          "deltaPx": 6,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1819 },
+        {
+          "kind": "record",
+          "now": 1965,
+          "deltaPx": 33,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2206,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2320,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2494,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2686 },
+        { "kind": "suppress", "now": 2827 },
+        {
+          "kind": "record",
+          "now": 2857,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3054,
+          "deltaPx": 2,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3234,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3525,
+          "deltaPx": 15,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3771,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 4006,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 21
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 44, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 33, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 72, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 110, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1186,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1319,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1373,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1607,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1608 },
+        {
+          "kind": "record",
+          "now": 1796,
+          "deltaPx": 10,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1884 },
+        {
+          "kind": "record",
+          "now": 1971,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1971,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2006,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2206,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2334,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2439,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2582,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2749,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2802,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 22
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 14, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 9, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 55, "suppressed": false },
+      { "accumulated": 55, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1027 },
+        {
+          "kind": "record",
+          "now": 1216,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1463 },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1700,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1835,
+          "deltaPx": 59,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1892,
+          "deltaPx": 9,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2175,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2480,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2575,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2779,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3004,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3198 },
+        {
+          "kind": "record",
+          "now": 3370,
+          "deltaPx": 42,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3535,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 23
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 19, "suppressed": false },
+      { "accumulated": 19, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 59, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 68, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 47, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 65, "suppressed": false },
+      { "accumulated": 65, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1099,
+          "deltaPx": 18,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1180,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1207,
+          "deltaPx": 40,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1359,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1556 },
+        {
+          "kind": "record",
+          "now": 1612,
+          "deltaPx": 56,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1827,
+          "deltaPx": 24,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2080,
+          "deltaPx": 29,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2279,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2442,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2739,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3016,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3131,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3255,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3376,
+          "deltaPx": 29,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 3610 }
+      ],
+      "seed": 24
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 53, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1179,
+          "deltaPx": 34,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1307,
+          "deltaPx": 20,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1687,
+          "deltaPx": 14,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1952,
+          "deltaPx": 48,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2038,
+          "deltaPx": 7,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2327,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2736,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2921,
+          "deltaPx": 47,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2992 },
+        { "kind": "suppress", "now": 3204 },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 3406,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3597 },
+        { "kind": "suppress", "now": 3709 }
+      ],
+      "seed": 25
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 14, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 50, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 47, "suppressed": false },
+      { "accumulated": 47, "suppressed": true },
+      { "accumulated": 47, "suppressed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 46, "suppressed": false },
+      { "accumulated": 46, "suppressed": true },
+      { "accumulated": 46, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1153,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1450,
+          "deltaPx": 50,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1706,
+          "deltaPx": 52,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1912 },
+        {
+          "kind": "record",
+          "now": 2089,
+          "deltaPx": 39,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2297,
+          "deltaPx": 38,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2311 },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2649,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 3025,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3098,
+          "deltaPx": 56,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3109,
+          "deltaPx": 31,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3170,
+          "deltaPx": 1,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3467,
+          "deltaPx": 25,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3704,
+          "deltaPx": 42,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 26
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 31, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 52, "suppressed": false },
+      { "accumulated": 52, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 38, "suppressed": false },
+      { "accumulated": 38, "suppressed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 17, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 56, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 87, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 88, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 113, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "suppress", "now": 1120 },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1375,
+          "deltaPx": 16,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1492,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1669,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1909,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1966 },
+        {
+          "kind": "record",
+          "now": 2153,
+          "deltaPx": 19,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2350,
+          "deltaPx": 28,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2376,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2440,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 2698,
+          "deltaPx": 22,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 2779 },
+        {
+          "kind": "record",
+          "now": 3016,
+          "deltaPx": 21,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 3092 },
+        {
+          "kind": "record",
+          "now": 3309,
+          "deltaPx": 27,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 27
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 16, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1128,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1257 },
+        {
+          "kind": "record",
+          "now": 1546,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1643,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1695,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1954,
+          "deltaPx": 46,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2160,
+          "deltaPx": 3,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2480,
+          "deltaPx": 41,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2560,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2719,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2967,
+          "deltaPx": 57,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3255,
+          "deltaPx": 4,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3394,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3568,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 3640,
+          "deltaPx": 0,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 28
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 44, "suppressed": false },
+      { "accumulated": 44, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 41, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 49, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 4, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 1157,
+          "deltaPx": 23,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 1231 },
+        { "kind": "suppress", "now": 1425 },
+        {
+          "kind": "record",
+          "now": 1608,
+          "deltaPx": 58,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        {
+          "kind": "record",
+          "now": 1884,
+          "deltaPx": 45,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 1969 },
+        {
+          "kind": "record",
+          "now": 1990,
+          "deltaPx": 15,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2177,
+          "deltaPx": 53,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2425,
+          "deltaPx": 49,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 2512 },
+        {
+          "kind": "record",
+          "now": 2736,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2811,
+          "deltaPx": 35,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2952,
+          "deltaPx": 12,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3042,
+          "deltaPx": 17,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3181,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        }
+      ],
+      "seed": 29
+    },
+    "output": [
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 23, "suppressed": false },
+      { "accumulated": 23, "suppressed": true },
+      { "accumulated": 23, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  },
+  {
+    "input": {
+      "events": [
+        {
+          "kind": "record",
+          "now": 1258,
+          "deltaPx": 26,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1518,
+          "deltaPx": 55,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 1778,
+          "deltaPx": 48,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        {
+          "kind": "record",
+          "now": 2050,
+          "deltaPx": 0,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2228,
+          "deltaPx": 29,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 2508,
+          "deltaPx": 40,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "reset" },
+        { "kind": "suppress", "now": 2928 },
+        {
+          "kind": "record",
+          "now": 2933,
+          "deltaPx": 34,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": true
+        },
+        { "kind": "suppress", "now": 3072 },
+        {
+          "kind": "record",
+          "now": 3347,
+          "deltaPx": 51,
+          "collapseThresholdPx": 120,
+          "collapseEligible": false,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        { "kind": "suppress", "now": 3466 },
+        {
+          "kind": "record",
+          "now": 3704,
+          "deltaPx": 44,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 3852,
+          "deltaPx": 54,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": false,
+          "scrollsTowardLogicalEnd": false
+        },
+        {
+          "kind": "record",
+          "now": 4130,
+          "deltaPx": 8,
+          "collapseThresholdPx": 120,
+          "collapseEligible": true,
+          "canScrollInGestureDirection": true,
+          "scrollsTowardLogicalEnd": false
+        }
+      ],
+      "seed": 30
+    },
+    "output": [
+      { "collapsed": false },
+      { "accumulated": 26, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 81, "suppressed": false },
+      { "collapsed": true },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 40, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true },
+      { "collapsed": false },
+      { "accumulated": 0, "suppressed": true }
+    ]
+  }
+]

@@ -1,0 +1,482 @@
+[
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageUp",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "Home",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "PageDown",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "key": "End",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "ArrowDown",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 0,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 1,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 2,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": false
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "key": "a",
+      "scrollTop": 500,
+      "scrollHeight": 1000,
+      "clientHeight": 400,
+      "isAtLogicalEnd": true
+    },
+    "output": false
+  }
+]

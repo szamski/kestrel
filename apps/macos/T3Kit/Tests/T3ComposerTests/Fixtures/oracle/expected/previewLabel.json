@@ -1,0 +1,20 @@
+[
+  { "input": { "comment": "  Make   it blue ", "pageTitle": null }, "output": "Make it blue" },
+  { "input": { "comment": "", "pageTitle": "Title" }, "output": "Title" },
+  { "input": { "comment": "   ", "pageTitle": "  " }, "output": "Preview annotation" },
+  {
+    "input": {
+      "comment": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "pageTitle": null
+    },
+    "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…"
+  },
+  {
+    "input": {
+      "comment": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+      "pageTitle": "t"
+    },
+    "output": "ééééééééééééééééééééééééééééééééééééééééééééééé…"
+  },
+  { "input": { "comment": "", "pageTitle": null }, "output": "Preview annotation" }
+]

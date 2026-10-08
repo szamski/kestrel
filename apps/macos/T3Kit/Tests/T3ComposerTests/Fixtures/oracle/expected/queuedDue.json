@@ -1,0 +1,434 @@
+[
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": false,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": true
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "connecting",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "running",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "ready",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": null,
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": null
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-1"
+    },
+    "output": false
+  },
+  {
+    "input": {
+      "holdUntilUserAction": true,
+      "phase": "disconnected",
+      "queuedAfterToolActivityId": "t-1",
+      "latestToolActivityId": "t-2"
+    },
+    "output": false
+  }
+]

@@ -1,0 +1,450 @@
+[
+  { "input": { "text": "" }, "output": [] },
+  { "input": { "text": " " }, "output": [] },
+  { "input": { "text": "\n" }, "output": [] },
+  { "input": { "text": "hello" }, "output": [] },
+  { "input": { "text": "hello world" }, "output": [] },
+  { "input": { "text": "  leading and trailing  " }, "output": [] },
+  { "input": { "text": "a\nb" }, "output": [] },
+  { "input": { "text": "a\r\nb" }, "output": [] },
+  { "input": { "text": "line1\n\nline3\n" }, "output": [] },
+  { "input": { "text": "\n\ntrailing newlines\n\n" }, "output": [] },
+  { "input": { "text": "tab\tseparated\ttext" }, "output": [] },
+  {
+    "input": { "text": "Look at @src/lib/util.ts and @\"my dir/a b.ts\" please" },
+    "output": [
+      {
+        "type": "mention",
+        "value": "my dir/a b.ts",
+        "source": "@\"my dir/a b.ts\"",
+        "start": 29,
+        "end": 45
+      }
+    ]
+  },
+  { "input": { "text": "@src/lib/util.ts " }, "output": [] },
+  { "input": { "text": "@src/lib/util.ts" }, "output": [] },
+  {
+    "input": { "text": "see [main.ts](src/main.ts) now" },
+    "output": [
+      {
+        "type": "mention",
+        "value": "src/main.ts",
+        "source": "[main.ts](src/main.ts)",
+        "start": 4,
+        "end": 26
+      }
+    ]
+  },
+  {
+    "input": { "text": "see [my file (1).ts](src/my%20file%20%281%29.ts) now" },
+    "output": [
+      {
+        "type": "mention",
+        "value": "src/my file (1).ts",
+        "source": "[my file (1).ts](src/my%20file%20%281%29.ts)",
+        "start": 4,
+        "end": 48
+      }
+    ]
+  },
+  {
+    "input": { "text": "[a.ts](a.ts) [b.ts](b.ts) " },
+    "output": [
+      { "type": "mention", "value": "a.ts", "source": "[a.ts](a.ts)", "start": 0, "end": 12 },
+      { "type": "mention", "value": "b.ts", "source": "[b.ts](b.ts)", "start": 13, "end": 25 }
+    ]
+  },
+  { "input": { "text": "@scope/package and @org/name/sub path" }, "output": [] },
+  { "input": { "text": "@ alone and @@double and @\"unterminated" }, "output": [] },
+  { "input": { "text": "email me at a@b.com now" }, "output": [] },
+  {
+    "input": { "text": "use $frontend-design please" },
+    "output": [
+      {
+        "type": "skill",
+        "value": "frontend-design",
+        "source": "$frontend-design",
+        "start": 4,
+        "end": 20
+      }
+    ]
+  },
+  {
+    "input": { "text": "use $a1 and $x:y and $_bad and $-bad " },
+    "output": [
+      { "type": "skill", "value": "a1", "source": "$a1", "start": 4, "end": 7 },
+      { "type": "skill", "value": "x:y", "source": "$x:y", "start": 12, "end": 16 }
+    ]
+  },
+  {
+    "input": { "text": "prices $20 $20k $100M $1e6 $3 and $5x " },
+    "output": [{ "type": "skill", "value": "5x", "source": "$5x", "start": 34, "end": 37 }]
+  },
+  {
+    "input": { "text": "€skill £skill ¥skill ₹skill ₿skill 𑿝skill " },
+    "output": [
+      { "type": "skill", "value": "skill", "source": "€skill", "start": 0, "end": 6 },
+      { "type": "skill", "value": "skill", "source": "£skill", "start": 7, "end": 13 },
+      { "type": "skill", "value": "skill", "source": "¥skill", "start": 14, "end": 20 },
+      { "type": "skill", "value": "skill", "source": "₹skill", "start": 21, "end": 27 },
+      { "type": "skill", "value": "skill", "source": "₿skill", "start": 28, "end": 34 },
+      { "type": "skill", "value": "skill", "source": "𑿝skill", "start": 35, "end": 42 }
+    ]
+  },
+  {
+    "input": { "text": "Use €my-skill for €20 please" },
+    "output": [
+      { "type": "skill", "value": "my-skill", "source": "€my-skill", "start": 4, "end": 13 }
+    ]
+  },
+  {
+    "input": { "text": "$ alone $1 $999 $12abc $abc12 end" },
+    "output": [
+      { "type": "skill", "value": "12abc", "source": "$12abc", "start": 16, "end": 22 },
+      { "type": "skill", "value": "abc12", "source": "$abc12", "start": 23, "end": 29 }
+    ]
+  },
+  {
+    "input": { "text": "hi ![shot.png](t3-context://v1/image/image_abc123) there" },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "image_abc123",
+        "label": "shot.png",
+        "source": "![shot.png](t3-context://v1/image/image_abc123)",
+        "start": 3,
+        "end": 50,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "![shot.png](t3-context://v1/image/image_abc123)[notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "image_abc123",
+        "label": "shot.png",
+        "source": "![shot.png](t3-context://v1/image/image_abc123)",
+        "start": 0,
+        "end": 47,
+        "type": "context-reference"
+      },
+      {
+        "kind": "file",
+        "contextId": "file_notes",
+        "label": "notes.md",
+        "source": "[notes.md](t3-context://v1/file/file_notes)",
+        "start": 47,
+        "end": 90,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "[Terminal 1 lines 3-4](t3-context://v1/terminal/terminal_1) then [#42](t3-context://v1/review-comment/review-comment_42) then [Make it blue](t3-context://v1/preview-annotation/preview-annotation_a)"
+    },
+    "output": [
+      {
+        "kind": "terminal",
+        "contextId": "terminal_1",
+        "label": "Terminal 1 lines 3-4",
+        "source": "[Terminal 1 lines 3-4](t3-context://v1/terminal/terminal_1)",
+        "start": 0,
+        "end": 59,
+        "type": "context-reference"
+      },
+      {
+        "kind": "review-comment",
+        "contextId": "review-comment_42",
+        "label": "#42",
+        "source": "[#42](t3-context://v1/review-comment/review-comment_42)",
+        "start": 65,
+        "end": 120,
+        "type": "context-reference"
+      },
+      {
+        "kind": "preview-annotation",
+        "contextId": "preview-annotation_a",
+        "label": "Make it blue",
+        "source": "[Make it blue](t3-context://v1/preview-annotation/preview-annotation_a)",
+        "start": 126,
+        "end": 197,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "[Thing](t3-context://v1/future-kind/ctx-1) and [notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": [
+      {
+        "kind": "future-kind",
+        "contextId": "ctx-1",
+        "label": "Thing",
+        "source": "[Thing](t3-context://v1/future-kind/ctx-1)",
+        "start": 0,
+        "end": 42,
+        "type": "context-reference"
+      },
+      {
+        "kind": "file",
+        "contextId": "file_notes",
+        "label": "notes.md",
+        "source": "[notes.md](t3-context://v1/file/file_notes)",
+        "start": 47,
+        "end": 90,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "quote [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after) and [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that) end"
+    },
+    "output": [
+      {
+        "citation": {
+          "version": 1,
+          "environmentId": "env-1",
+          "threadId": "thread/with slash",
+          "messageId": "msg:1 (a)",
+          "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+          "start": 3,
+          "end": 41,
+          "prefix": "before ",
+          "suffix": " after"
+        },
+        "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+        "start": 6,
+        "end": 221,
+        "type": "citation"
+      },
+      {
+        "citation": {
+          "version": 1,
+          "environmentId": "env-1",
+          "threadId": "thread/with slash",
+          "messageId": "msg:1 (a)",
+          "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+          "comment": "Please check this + that",
+          "start": 3,
+          "end": 41,
+          "prefix": "before ",
+          "suffix": " after"
+        },
+        "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that)",
+        "start": 226,
+        "end": 476,
+        "type": "citation"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)"
+    },
+    "output": [
+      {
+        "citation": {
+          "version": 1,
+          "environmentId": "env-1",
+          "threadId": "thread/with slash",
+          "messageId": "msg:1 (a)",
+          "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+          "start": 3,
+          "end": 41,
+          "prefix": "before ",
+          "suffix": " after"
+        },
+        "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+        "start": 0,
+        "end": 215,
+        "type": "citation"
+      }
+    ]
+  },
+  {
+    "input": { "text": "@unfinished [notes.md](t3-context://v1/file/file_notes)" },
+    "output": [
+      { "type": "mention", "value": "unfinished", "source": "@unfinished", "start": 0, "end": 11 },
+      {
+        "kind": "file",
+        "contextId": "file_notes",
+        "label": "notes.md",
+        "source": "[notes.md](t3-context://v1/file/file_notes)",
+        "start": 12,
+        "end": 55,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": { "text": "@ab[x](t3-context://v1/file/f1) " },
+    "output": [
+      {
+        "kind": "file",
+        "contextId": "f1",
+        "label": "x",
+        "source": "[x](t3-context://v1/file/f1)",
+        "start": 3,
+        "end": 31,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": {
+      "text": "[bad label](t3-context://v2/file/f1) [bad](t3-context://v1/File/f1/extra) [ok](t3-context://v1/file/F_1)"
+    },
+    "output": [
+      {
+        "kind": "file",
+        "contextId": "F_1",
+        "label": "ok",
+        "source": "[ok](t3-context://v1/file/F_1)",
+        "start": 74,
+        "end": 104,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": { "text": "![i](t3-context://v1/image/i1) ![j](t3-context://v1/file/j1)" },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "i1",
+        "label": "i",
+        "source": "![i](t3-context://v1/image/i1)",
+        "start": 0,
+        "end": 30,
+        "type": "context-reference"
+      },
+      {
+        "kind": "file",
+        "contextId": "j1",
+        "label": "j",
+        "source": "![j](t3-context://v1/file/j1)",
+        "start": 31,
+        "end": 60,
+        "type": "context-reference"
+      }
+    ]
+  },
+  {
+    "input": { "text": "😀 @a.ts x" },
+    "output": [{ "type": "mention", "value": "a.ts", "source": "@a.ts", "start": 3, "end": 8 }]
+  },
+  { "input": { "text": "👍🏽 **bold** 🧑‍💻" }, "output": [] },
+  {
+    "input": { "text": "a😀b $frontend-design 😀" },
+    "output": [
+      {
+        "type": "skill",
+        "value": "frontend-design",
+        "source": "$frontend-design",
+        "start": 5,
+        "end": 21
+      }
+    ]
+  },
+  {
+    "input": { "text": "😀![shot.png](t3-context://v1/image/image_abc123)😀" },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "image_abc123",
+        "label": "shot.png",
+        "source": "![shot.png](t3-context://v1/image/image_abc123)",
+        "start": 2,
+        "end": 49,
+        "type": "context-reference"
+      }
+    ]
+  },
+  { "input": { "text": "日本語 **太字** と `コード`" }, "output": [] },
+  { "input": { "text": "**bold** and *it* and ~~s~~ and `code`" }, "output": [] },
+  { "input": { "text": "***both*** and **a *b* c**" }, "output": [] },
+  { "input": { "text": "__u__ and _i_ and snake_case_word and 2 * 3 * 4" }, "output": [] },
+  { "input": { "text": "*unclosed and **unclosed and ~~unclosed and `unclosed" }, "output": [] },
+  { "input": { "text": "`a\nb` ``x`` `` `y` ``" }, "output": [] },
+  { "input": { "text": "\\*escaped\\* and \\**x**" }, "output": [] },
+  { "input": { "text": "**bold with trailing space **and more" }, "output": [] },
+  {
+    "input": {
+      "text": "**see ![shot.png](t3-context://v1/image/image_abc123) here** and *[notes.md](t3-context://v1/file/file_notes)*"
+    },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "image_abc123",
+        "label": "shot.png",
+        "source": "![shot.png](t3-context://v1/image/image_abc123)",
+        "start": 6,
+        "end": 53,
+        "type": "context-reference"
+      },
+      {
+        "kind": "file",
+        "contextId": "file_notes",
+        "label": "notes.md",
+        "source": "[notes.md](t3-context://v1/file/file_notes)",
+        "start": 66,
+        "end": 109,
+        "type": "context-reference"
+      }
+    ]
+  },
+  { "input": { "text": "**@src/lib/util.ts **" }, "output": [] },
+  { "input": { "text": "**bold**text *a*b ~~x~~y" }, "output": [] },
+  { "input": { "text": "~single~ and ~~~triple~~~" }, "output": [] },
+  { "input": { "text": "**a** **b** *c* *d*" }, "output": [] },
+  { "input": { "text": "*a **b** c*" }, "output": [] },
+  { "input": { "text": "**a *b ** c*" }, "output": [] },
+  { "input": { "text": "`code **not bold**` **bold `code` bold**" }, "output": [] },
+  {
+    "input": { "text": "- [ ] a\n- [x] b\n  - [ ] nested\n    - [X] deep\n- [ ] c" },
+    "output": []
+  },
+  { "input": { "text": "- [ ]\n" }, "output": [] },
+  { "input": { "text": "- [ ]" }, "output": [] },
+  { "input": { "text": "- [ ]x" }, "output": [] },
+  { "input": { "text": "- [ ]  two" }, "output": [] },
+  { "input": { "text": "-\t[ ]\ttab" }, "output": [] },
+  { "input": { "text": "  - [ ] indented first\n- [ ] second" }, "output": [] },
+  { "input": { "text": "text\n- [ ] a\ntext\n- [x] b" }, "output": [] },
+  {
+    "input": {
+      "text": "- [ ] with ![shot.png](t3-context://v1/image/image_abc123) chip\n- [x] **bold** item"
+    },
+    "output": [
+      {
+        "kind": "image",
+        "contextId": "image_abc123",
+        "label": "shot.png",
+        "source": "![shot.png](t3-context://v1/image/image_abc123)",
+        "start": 11,
+        "end": 58,
+        "type": "context-reference"
+      }
+    ]
+  },
+  { "input": { "text": "- [ ] a\n    - [ ] deep\n  - [ ] shallow\n- [ ] top" }, "output": [] },
+  { "input": { "text": "  - [ ] a\n - [ ] b" }, "output": [] },
+  { "input": { "text": "- a\n  - b\n1. x\n2) y\n+ z\n* w" }, "output": [] },
+  { "input": { "text": "# heading\n> quote\n```js\ncode\n```" }, "output": [] },
+  { "input": { "text": "1. one\n2. two\n3." }, "output": [] },
+  { "input": { "text": "- \n- x" }, "output": [] },
+  { "input": { "text": "09. nine\n99999999999999999999. big" }, "output": [] },
+  { "input": { "text": " nbsp start emspace" }, "output": [] },
+  {
+    "input": { "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
+    "output": []
+  }
+]

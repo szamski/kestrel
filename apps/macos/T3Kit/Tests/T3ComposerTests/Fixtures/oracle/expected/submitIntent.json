@@ -1,0 +1,6018 @@
+[
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "foreground"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "background"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": false,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": "alternate"
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": false,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": false,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": false,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": false,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter-multiline",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": ""
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "one line"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "two\nlines"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "isMobileViewport": true,
+      "shiftKey": true,
+      "modifierKey": true,
+      "isDraftThread": true,
+      "isRunning": true,
+      "sendShortcut": "mod-enter",
+      "prompt": "cr\rline"
+    },
+    "output": null
+  }
+]

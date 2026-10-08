@@ -1,0 +1,200 @@
+[
+  { "input": { "text": "" }, "output": { "cursor": 0, "trigger": null } },
+  { "input": { "text": " " }, "output": { "cursor": 1, "trigger": null } },
+  { "input": { "text": "\n" }, "output": { "cursor": 1, "trigger": null } },
+  { "input": { "text": "hello" }, "output": { "cursor": 5, "trigger": null } },
+  { "input": { "text": "hello world" }, "output": { "cursor": 11, "trigger": null } },
+  { "input": { "text": "  leading and trailing  " }, "output": { "cursor": 24, "trigger": null } },
+  { "input": { "text": "a\nb" }, "output": { "cursor": 3, "trigger": null } },
+  { "input": { "text": "a\r\nb" }, "output": { "cursor": 4, "trigger": null } },
+  { "input": { "text": "line1\n\nline3\n" }, "output": { "cursor": 13, "trigger": null } },
+  { "input": { "text": "\n\ntrailing newlines\n\n" }, "output": { "cursor": 21, "trigger": null } },
+  { "input": { "text": "tab\tseparated\ttext" }, "output": { "cursor": 18, "trigger": null } },
+  {
+    "input": { "text": "Look at @src/lib/util.ts and @\"my dir/a b.ts\" please" },
+    "output": { "cursor": 37, "trigger": null }
+  },
+  { "input": { "text": "@src/lib/util.ts " }, "output": { "cursor": 17, "trigger": null } },
+  {
+    "input": { "text": "@src/lib/util.ts" },
+    "output": {
+      "cursor": 16,
+      "trigger": { "kind": "path", "query": "src/lib/util.ts", "rangeStart": 0, "rangeEnd": 16 }
+    }
+  },
+  {
+    "input": { "text": "see [main.ts](src/main.ts) now" },
+    "output": { "cursor": 9, "trigger": null }
+  },
+  {
+    "input": { "text": "see [my file (1).ts](src/my%20file%20%281%29.ts) now" },
+    "output": { "cursor": 9, "trigger": null }
+  },
+  { "input": { "text": "[a.ts](a.ts) [b.ts](b.ts) " }, "output": { "cursor": 4, "trigger": null } },
+  {
+    "input": { "text": "@scope/package and @org/name/sub path" },
+    "output": { "cursor": 37, "trigger": null }
+  },
+  {
+    "input": { "text": "@ alone and @@double and @\"unterminated" },
+    "output": {
+      "cursor": 39,
+      "trigger": { "kind": "path", "query": "\"unterminated", "rangeStart": 25, "rangeEnd": 39 }
+    }
+  },
+  { "input": { "text": "email me at a@b.com now" }, "output": { "cursor": 23, "trigger": null } },
+  {
+    "input": { "text": "use $frontend-design please" },
+    "output": { "cursor": 12, "trigger": null }
+  },
+  {
+    "input": { "text": "use $a1 and $x:y and $_bad and $-bad " },
+    "output": { "cursor": 32, "trigger": null }
+  },
+  {
+    "input": { "text": "prices $20 $20k $100M $1e6 $3 and $5x " },
+    "output": { "cursor": 36, "trigger": null }
+  },
+  {
+    "input": { "text": "€skill £skill ¥skill ₹skill ₿skill 𑿝skill " },
+    "output": { "cursor": 12, "trigger": null }
+  },
+  {
+    "input": { "text": "Use €my-skill for €20 please" },
+    "output": { "cursor": 20, "trigger": null }
+  },
+  {
+    "input": { "text": "$ alone $1 $999 $12abc $abc12 end" },
+    "output": { "cursor": 23, "trigger": null }
+  },
+  {
+    "input": { "text": "hi ![shot.png](t3-context://v1/image/image_abc123) there" },
+    "output": { "cursor": 10, "trigger": null }
+  },
+  {
+    "input": {
+      "text": "![shot.png](t3-context://v1/image/image_abc123)[notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": { "cursor": 2, "trigger": null }
+  },
+  {
+    "input": {
+      "text": "[Thing](t3-context://v1/future-kind/ctx-1) and [notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": { "cursor": 7, "trigger": null }
+  },
+  {
+    "input": { "text": "@unfinished [notes.md](t3-context://v1/file/file_notes)" },
+    "output": { "cursor": 3, "trigger": null }
+  },
+  {
+    "input": { "text": "@ab[x](t3-context://v1/file/f1) " },
+    "output": { "cursor": 5, "trigger": null }
+  },
+  {
+    "input": {
+      "text": "[bad label](t3-context://v2/file/f1) [bad](t3-context://v1/File/f1/extra) [ok](t3-context://v1/file/F_1)"
+    },
+    "output": { "cursor": 75, "trigger": null }
+  },
+  {
+    "input": { "text": "![i](t3-context://v1/image/i1) ![j](t3-context://v1/file/j1)" },
+    "output": { "cursor": 3, "trigger": null }
+  },
+  { "input": { "text": "😀 @a.ts x" }, "output": { "cursor": 6, "trigger": null } },
+  { "input": { "text": "👍🏽 **bold** 🧑‍💻" }, "output": { "cursor": 19, "trigger": null } },
+  { "input": { "text": "a😀b $frontend-design 😀" }, "output": { "cursor": 9, "trigger": null } },
+  {
+    "input": { "text": "😀![shot.png](t3-context://v1/image/image_abc123)😀" },
+    "output": { "cursor": 5, "trigger": null }
+  },
+  {
+    "input": { "text": "日本語 **太字** と `コード`" },
+    "output": { "cursor": 18, "trigger": null }
+  },
+  {
+    "input": { "text": "**bold** and *it* and ~~s~~ and `code`" },
+    "output": { "cursor": 38, "trigger": null }
+  },
+  {
+    "input": { "text": "***both*** and **a *b* c**" },
+    "output": { "cursor": 26, "trigger": null }
+  },
+  {
+    "input": { "text": "__u__ and _i_ and snake_case_word and 2 * 3 * 4" },
+    "output": { "cursor": 47, "trigger": null }
+  },
+  {
+    "input": { "text": "*unclosed and **unclosed and ~~unclosed and `unclosed" },
+    "output": { "cursor": 53, "trigger": null }
+  },
+  { "input": { "text": "`a\nb` ``x`` `` `y` ``" }, "output": { "cursor": 21, "trigger": null } },
+  { "input": { "text": "\\*escaped\\* and \\**x**" }, "output": { "cursor": 22, "trigger": null } },
+  {
+    "input": { "text": "**bold with trailing space **and more" },
+    "output": { "cursor": 37, "trigger": null }
+  },
+  {
+    "input": {
+      "text": "**see ![shot.png](t3-context://v1/image/image_abc123) here** and *[notes.md](t3-context://v1/file/file_notes)*"
+    },
+    "output": { "cursor": 22, "trigger": null }
+  },
+  { "input": { "text": "**@src/lib/util.ts **" }, "output": { "cursor": 21, "trigger": null } },
+  { "input": { "text": "**bold**text *a*b ~~x~~y" }, "output": { "cursor": 24, "trigger": null } },
+  { "input": { "text": "~single~ and ~~~triple~~~" }, "output": { "cursor": 25, "trigger": null } },
+  { "input": { "text": "**a** **b** *c* *d*" }, "output": { "cursor": 19, "trigger": null } },
+  { "input": { "text": "*a **b** c*" }, "output": { "cursor": 11, "trigger": null } },
+  { "input": { "text": "**a *b ** c*" }, "output": { "cursor": 12, "trigger": null } },
+  {
+    "input": { "text": "`code **not bold**` **bold `code` bold**" },
+    "output": { "cursor": 40, "trigger": null }
+  },
+  {
+    "input": { "text": "- [ ] a\n- [x] b\n  - [ ] nested\n    - [X] deep\n- [ ] c" },
+    "output": { "cursor": 53, "trigger": null }
+  },
+  { "input": { "text": "- [ ]\n" }, "output": { "cursor": 6, "trigger": null } },
+  { "input": { "text": "- [ ]" }, "output": { "cursor": 5, "trigger": null } },
+  { "input": { "text": "- [ ]x" }, "output": { "cursor": 6, "trigger": null } },
+  { "input": { "text": "- [ ]  two" }, "output": { "cursor": 10, "trigger": null } },
+  { "input": { "text": "-\t[ ]\ttab" }, "output": { "cursor": 9, "trigger": null } },
+  {
+    "input": { "text": "  - [ ] indented first\n- [ ] second" },
+    "output": { "cursor": 35, "trigger": null }
+  },
+  {
+    "input": { "text": "text\n- [ ] a\ntext\n- [x] b" },
+    "output": { "cursor": 25, "trigger": null }
+  },
+  {
+    "input": {
+      "text": "- [ ] with ![shot.png](t3-context://v1/image/image_abc123) chip\n- [x] **bold** item"
+    },
+    "output": { "cursor": 37, "trigger": null }
+  },
+  {
+    "input": { "text": "- [ ] a\n    - [ ] deep\n  - [ ] shallow\n- [ ] top" },
+    "output": { "cursor": 48, "trigger": null }
+  },
+  { "input": { "text": "  - [ ] a\n - [ ] b" }, "output": { "cursor": 18, "trigger": null } },
+  {
+    "input": { "text": "- a\n  - b\n1. x\n2) y\n+ z\n* w" },
+    "output": { "cursor": 27, "trigger": null }
+  },
+  {
+    "input": { "text": "# heading\n> quote\n```js\ncode\n```" },
+    "output": { "cursor": 32, "trigger": null }
+  },
+  { "input": { "text": "1. one\n2. two\n3." }, "output": { "cursor": 16, "trigger": null } },
+  { "input": { "text": "- \n- x" }, "output": { "cursor": 6, "trigger": null } },
+  {
+    "input": { "text": "09. nine\n99999999999999999999. big" },
+    "output": { "cursor": 34, "trigger": null }
+  },
+  { "input": { "text": " nbsp start emspace" }, "output": { "cursor": 19, "trigger": null } },
+  {
+    "input": { "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
+    "output": { "cursor": 60, "trigger": null }
+  }
+]

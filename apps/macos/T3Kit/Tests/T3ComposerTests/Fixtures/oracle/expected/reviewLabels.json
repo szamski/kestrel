@@ -1,0 +1,327 @@
+[
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "a.ts L12",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "-3 to -5",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "a.ts L3 to L5 (before)",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+3 to +9",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "a.ts L3 to L9",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+3 to -9",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "a.ts +3 to -9",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "L4",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "a.ts L4",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "C:\\dir\\file.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "x",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "file.ts x",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "pull-request:42",
+        "sectionTitle": "Section",
+        "filePath": "PR #42",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": ""
+      }
+    },
+    "output": { "label": "#42", "isPullRequest": true, "state": null, "kindLabel": "Pull request" }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "other",
+        "sectionTitle": "Section",
+        "filePath": "PR #42",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": ""
+      }
+    },
+    "output": {
+      "label": "PR #42 L12",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "pull-request:42",
+        "sectionTitle": "Section",
+        "filePath": "PR #42",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d"
+      }
+    },
+    "output": {
+      "label": "PR #42 L12",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "pull-request:42",
+        "sectionTitle": "Section",
+        "filePath": "PR #x",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": ""
+      }
+    },
+    "output": {
+      "label": "PR #x L12",
+      "isPullRequest": false,
+      "state": null,
+      "kindLabel": "Pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d",
+        "pullRequest": {
+          "number": 7,
+          "title": "Fix it",
+          "url": "https://x/7",
+          "headBranch": "a",
+          "baseBranch": "main",
+          "state": "open",
+          "isDraft": false
+        }
+      }
+    },
+    "output": {
+      "label": "#7",
+      "isPullRequest": true,
+      "state": "open",
+      "kindLabel": "Open pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d",
+        "pullRequest": {
+          "number": 7,
+          "title": "Fix it",
+          "url": "https://x/7",
+          "headBranch": "a",
+          "baseBranch": "main",
+          "state": "open",
+          "isDraft": true
+        }
+      }
+    },
+    "output": {
+      "label": "#7",
+      "isPullRequest": true,
+      "state": "draft",
+      "kindLabel": "Draft pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d",
+        "pullRequest": {
+          "number": 7,
+          "title": "Fix it",
+          "url": "https://x/7",
+          "headBranch": "a",
+          "baseBranch": "main",
+          "state": "merged",
+          "isDraft": false
+        }
+      }
+    },
+    "output": {
+      "label": "#7",
+      "isPullRequest": true,
+      "state": "merged",
+      "kindLabel": "Merged pull request"
+    }
+  },
+  {
+    "input": {
+      "comment": {
+        "id": "c1",
+        "sectionId": "s",
+        "sectionTitle": "Section",
+        "filePath": "src/a.ts",
+        "startIndex": 0,
+        "endIndex": 3,
+        "rangeLabel": "+12",
+        "text": "t",
+        "diff": "d",
+        "pullRequest": {
+          "number": 7,
+          "title": "Fix it",
+          "url": "https://x/7",
+          "headBranch": "a",
+          "baseBranch": "main",
+          "state": "closed",
+          "isDraft": true
+        }
+      }
+    },
+    "output": {
+      "label": "#7",
+      "isPullRequest": true,
+      "state": "closed",
+      "kindLabel": "Closed pull request"
+    }
+  }
+]

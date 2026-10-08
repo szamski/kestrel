@@ -1,0 +1,674 @@
+[
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": ""
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": ""
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": ""
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": ""
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "  "
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "  "
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "  "
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "  "
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "astra"
+    },
+    "output": 10
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "astra"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "astra"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "astra"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "codex"
+    },
+    "output": 20
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "codex"
+    },
+    "output": -4
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "codex"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "codex"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "codex personal"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "codex personal"
+    },
+    "output": 48
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "codex personal"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "codex personal"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "gpt 5"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "gpt 5"
+    },
+    "output": 0
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "gpt 5"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "gpt 5"
+    },
+    "output": 30
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "5.4"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "5.4"
+    },
+    "output": -8
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "5.4"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "5.4"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "fab"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "fab"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "fab"
+    },
+    "output": 31
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "fab"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "clde"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "clde"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "clde"
+    },
+    "output": 120
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "clde"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "openai mini"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "openai mini"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "openai mini"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "openai mini"
+    },
+    "output": 32
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "zzz"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "zzz"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "zzz"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "zzz"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "c"
+    },
+    "output": 26
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "c"
+    },
+    "output": 2
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "c"
+    },
+    "output": 17
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "c"
+    },
+    "output": 41
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "GPT-6"
+    },
+    "output": 8
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "GPT-6"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "GPT-6"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "GPT-6"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex",
+        "name": "GPT-6 Astra",
+        "shortName": "Astra"
+      },
+      "query": "  claude  fable "
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "codex",
+        "providerDisplayName": "Codex Personal",
+        "name": "GPT-5.4",
+        "subProvider": "OpenAI",
+        "isFavorite": true
+      },
+      "query": "  claude  fable "
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "claudeAgent",
+        "providerDisplayName": "Claude",
+        "name": "Claude Fable 5.1"
+      },
+      "query": "  claude  fable "
+    },
+    "output": 41
+  },
+  {
+    "input": {
+      "model": {
+        "driverKind": "opencode",
+        "providerDisplayName": "OpenCode",
+        "name": "GPT-5 mini",
+        "subProvider": "openai"
+      },
+      "query": "  claude  fable "
+    },
+    "output": null
+  }
+]

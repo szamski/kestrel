@@ -1,0 +1,278 @@
+[
+  { "input": { "text": "" }, "output": { "ids": [], "stripped": "" } },
+  { "input": { "text": " " }, "output": { "ids": [], "stripped": " " } },
+  { "input": { "text": "\n" }, "output": { "ids": [], "stripped": "\n" } },
+  { "input": { "text": "hello" }, "output": { "ids": [], "stripped": "hello" } },
+  { "input": { "text": "hello world" }, "output": { "ids": [], "stripped": "hello world" } },
+  {
+    "input": { "text": "  leading and trailing  " },
+    "output": { "ids": [], "stripped": "  leading and trailing  " }
+  },
+  { "input": { "text": "a\nb" }, "output": { "ids": [], "stripped": "a\nb" } },
+  { "input": { "text": "a\r\nb" }, "output": { "ids": [], "stripped": "a\r\nb" } },
+  {
+    "input": { "text": "line1\n\nline3\n" },
+    "output": { "ids": [], "stripped": "line1\n\nline3\n" }
+  },
+  {
+    "input": { "text": "\n\ntrailing newlines\n\n" },
+    "output": { "ids": [], "stripped": "\n\ntrailing newlines\n\n" }
+  },
+  {
+    "input": { "text": "tab\tseparated\ttext" },
+    "output": { "ids": [], "stripped": "tab\tseparated\ttext" }
+  },
+  {
+    "input": { "text": "Look at @src/lib/util.ts and @\"my dir/a b.ts\" please" },
+    "output": { "ids": [], "stripped": "Look at @src/lib/util.ts and @\"my dir/a b.ts\" please" }
+  },
+  {
+    "input": { "text": "@src/lib/util.ts " },
+    "output": { "ids": [], "stripped": "@src/lib/util.ts " }
+  },
+  {
+    "input": { "text": "@src/lib/util.ts" },
+    "output": { "ids": [], "stripped": "@src/lib/util.ts" }
+  },
+  {
+    "input": { "text": "see [main.ts](src/main.ts) now" },
+    "output": { "ids": [], "stripped": "see [main.ts](src/main.ts) now" }
+  },
+  {
+    "input": { "text": "see [my file (1).ts](src/my%20file%20%281%29.ts) now" },
+    "output": { "ids": [], "stripped": "see [my file (1).ts](src/my%20file%20%281%29.ts) now" }
+  },
+  {
+    "input": { "text": "[a.ts](a.ts) [b.ts](b.ts) " },
+    "output": { "ids": [], "stripped": "[a.ts](a.ts) [b.ts](b.ts) " }
+  },
+  {
+    "input": { "text": "@scope/package and @org/name/sub path" },
+    "output": { "ids": [], "stripped": "@scope/package and @org/name/sub path" }
+  },
+  {
+    "input": { "text": "@ alone and @@double and @\"unterminated" },
+    "output": { "ids": [], "stripped": "@ alone and @@double and @\"unterminated" }
+  },
+  {
+    "input": { "text": "email me at a@b.com now" },
+    "output": { "ids": [], "stripped": "email me at a@b.com now" }
+  },
+  {
+    "input": { "text": "use $frontend-design please" },
+    "output": { "ids": [], "stripped": "use $frontend-design please" }
+  },
+  {
+    "input": { "text": "use $a1 and $x:y and $_bad and $-bad " },
+    "output": { "ids": [], "stripped": "use $a1 and $x:y and $_bad and $-bad " }
+  },
+  {
+    "input": { "text": "prices $20 $20k $100M $1e6 $3 and $5x " },
+    "output": { "ids": [], "stripped": "prices $20 $20k $100M $1e6 $3 and $5x " }
+  },
+  {
+    "input": { "text": "€skill £skill ¥skill ₹skill ₿skill 𑿝skill " },
+    "output": { "ids": [], "stripped": "€skill £skill ¥skill ₹skill ₿skill 𑿝skill " }
+  },
+  {
+    "input": { "text": "Use €my-skill for €20 please" },
+    "output": { "ids": [], "stripped": "Use €my-skill for €20 please" }
+  },
+  {
+    "input": { "text": "$ alone $1 $999 $12abc $abc12 end" },
+    "output": { "ids": [], "stripped": "$ alone $1 $999 $12abc $abc12 end" }
+  },
+  {
+    "input": { "text": "hi ![shot.png](t3-context://v1/image/image_abc123) there" },
+    "output": { "ids": ["image_abc123"], "stripped": "hi  there" }
+  },
+  {
+    "input": {
+      "text": "![shot.png](t3-context://v1/image/image_abc123)[notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": { "ids": ["image_abc123", "file_notes"], "stripped": "" }
+  },
+  {
+    "input": {
+      "text": "[Terminal 1 lines 3-4](t3-context://v1/terminal/terminal_1) then [#42](t3-context://v1/review-comment/review-comment_42) then [Make it blue](t3-context://v1/preview-annotation/preview-annotation_a)"
+    },
+    "output": {
+      "ids": ["terminal_1", "review-comment_42", "preview-annotation_a"],
+      "stripped": " then  then "
+    }
+  },
+  {
+    "input": {
+      "text": "[Thing](t3-context://v1/future-kind/ctx-1) and [notes.md](t3-context://v1/file/file_notes)"
+    },
+    "output": { "ids": ["ctx-1", "file_notes"], "stripped": " and " }
+  },
+  {
+    "input": {
+      "text": "quote [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after) and [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that) end"
+    },
+    "output": {
+      "ids": [],
+      "stripped": "quote [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after) and [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that) end"
+    }
+  },
+  {
+    "input": {
+      "text": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)"
+    },
+    "output": {
+      "ids": [],
+      "stripped": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)"
+    }
+  },
+  {
+    "input": { "text": "@unfinished [notes.md](t3-context://v1/file/file_notes)" },
+    "output": { "ids": ["file_notes"], "stripped": "@unfinished " }
+  },
+  {
+    "input": { "text": "@ab[x](t3-context://v1/file/f1) " },
+    "output": { "ids": ["f1"], "stripped": "@ab " }
+  },
+  {
+    "input": {
+      "text": "[bad label](t3-context://v2/file/f1) [bad](t3-context://v1/File/f1/extra) [ok](t3-context://v1/file/F_1)"
+    },
+    "output": {
+      "ids": ["F_1"],
+      "stripped": "[bad label](t3-context://v2/file/f1) [bad](t3-context://v1/File/f1/extra) "
+    }
+  },
+  {
+    "input": { "text": "![i](t3-context://v1/image/i1) ![j](t3-context://v1/file/j1)" },
+    "output": { "ids": ["i1", "j1"], "stripped": " " }
+  },
+  { "input": { "text": "😀 @a.ts x" }, "output": { "ids": [], "stripped": "😀 @a.ts x" } },
+  { "input": { "text": "👍🏽 **bold** 🧑‍💻" }, "output": { "ids": [], "stripped": "👍🏽 **bold** 🧑‍💻" } },
+  {
+    "input": { "text": "a😀b $frontend-design 😀" },
+    "output": { "ids": [], "stripped": "a😀b $frontend-design 😀" }
+  },
+  {
+    "input": { "text": "😀![shot.png](t3-context://v1/image/image_abc123)😀" },
+    "output": { "ids": ["image_abc123"], "stripped": "😀😀" }
+  },
+  {
+    "input": { "text": "日本語 **太字** と `コード`" },
+    "output": { "ids": [], "stripped": "日本語 **太字** と `コード`" }
+  },
+  {
+    "input": { "text": "**bold** and *it* and ~~s~~ and `code`" },
+    "output": { "ids": [], "stripped": "**bold** and *it* and ~~s~~ and `code`" }
+  },
+  {
+    "input": { "text": "***both*** and **a *b* c**" },
+    "output": { "ids": [], "stripped": "***both*** and **a *b* c**" }
+  },
+  {
+    "input": { "text": "__u__ and _i_ and snake_case_word and 2 * 3 * 4" },
+    "output": { "ids": [], "stripped": "__u__ and _i_ and snake_case_word and 2 * 3 * 4" }
+  },
+  {
+    "input": { "text": "*unclosed and **unclosed and ~~unclosed and `unclosed" },
+    "output": { "ids": [], "stripped": "*unclosed and **unclosed and ~~unclosed and `unclosed" }
+  },
+  {
+    "input": { "text": "`a\nb` ``x`` `` `y` ``" },
+    "output": { "ids": [], "stripped": "`a\nb` ``x`` `` `y` ``" }
+  },
+  {
+    "input": { "text": "\\*escaped\\* and \\**x**" },
+    "output": { "ids": [], "stripped": "\\*escaped\\* and \\**x**" }
+  },
+  {
+    "input": { "text": "**bold with trailing space **and more" },
+    "output": { "ids": [], "stripped": "**bold with trailing space **and more" }
+  },
+  {
+    "input": {
+      "text": "**see ![shot.png](t3-context://v1/image/image_abc123) here** and *[notes.md](t3-context://v1/file/file_notes)*"
+    },
+    "output": { "ids": ["image_abc123", "file_notes"], "stripped": "**see  here** and **" }
+  },
+  {
+    "input": { "text": "**@src/lib/util.ts **" },
+    "output": { "ids": [], "stripped": "**@src/lib/util.ts **" }
+  },
+  {
+    "input": { "text": "**bold**text *a*b ~~x~~y" },
+    "output": { "ids": [], "stripped": "**bold**text *a*b ~~x~~y" }
+  },
+  {
+    "input": { "text": "~single~ and ~~~triple~~~" },
+    "output": { "ids": [], "stripped": "~single~ and ~~~triple~~~" }
+  },
+  {
+    "input": { "text": "**a** **b** *c* *d*" },
+    "output": { "ids": [], "stripped": "**a** **b** *c* *d*" }
+  },
+  { "input": { "text": "*a **b** c*" }, "output": { "ids": [], "stripped": "*a **b** c*" } },
+  { "input": { "text": "**a *b ** c*" }, "output": { "ids": [], "stripped": "**a *b ** c*" } },
+  {
+    "input": { "text": "`code **not bold**` **bold `code` bold**" },
+    "output": { "ids": [], "stripped": "`code **not bold**` **bold `code` bold**" }
+  },
+  {
+    "input": { "text": "- [ ] a\n- [x] b\n  - [ ] nested\n    - [X] deep\n- [ ] c" },
+    "output": { "ids": [], "stripped": "- [ ] a\n- [x] b\n  - [ ] nested\n    - [X] deep\n- [ ] c" }
+  },
+  { "input": { "text": "- [ ]\n" }, "output": { "ids": [], "stripped": "- [ ]\n" } },
+  { "input": { "text": "- [ ]" }, "output": { "ids": [], "stripped": "- [ ]" } },
+  { "input": { "text": "- [ ]x" }, "output": { "ids": [], "stripped": "- [ ]x" } },
+  { "input": { "text": "- [ ]  two" }, "output": { "ids": [], "stripped": "- [ ]  two" } },
+  { "input": { "text": "-\t[ ]\ttab" }, "output": { "ids": [], "stripped": "-\t[ ]\ttab" } },
+  {
+    "input": { "text": "  - [ ] indented first\n- [ ] second" },
+    "output": { "ids": [], "stripped": "  - [ ] indented first\n- [ ] second" }
+  },
+  {
+    "input": { "text": "text\n- [ ] a\ntext\n- [x] b" },
+    "output": { "ids": [], "stripped": "text\n- [ ] a\ntext\n- [x] b" }
+  },
+  {
+    "input": {
+      "text": "- [ ] with ![shot.png](t3-context://v1/image/image_abc123) chip\n- [x] **bold** item"
+    },
+    "output": { "ids": ["image_abc123"], "stripped": "- [ ] with  chip\n- [x] **bold** item" }
+  },
+  {
+    "input": { "text": "- [ ] a\n    - [ ] deep\n  - [ ] shallow\n- [ ] top" },
+    "output": { "ids": [], "stripped": "- [ ] a\n    - [ ] deep\n  - [ ] shallow\n- [ ] top" }
+  },
+  {
+    "input": { "text": "  - [ ] a\n - [ ] b" },
+    "output": { "ids": [], "stripped": "  - [ ] a\n - [ ] b" }
+  },
+  {
+    "input": { "text": "- a\n  - b\n1. x\n2) y\n+ z\n* w" },
+    "output": { "ids": [], "stripped": "- a\n  - b\n1. x\n2) y\n+ z\n* w" }
+  },
+  {
+    "input": { "text": "# heading\n> quote\n```js\ncode\n```" },
+    "output": { "ids": [], "stripped": "# heading\n> quote\n```js\ncode\n```" }
+  },
+  {
+    "input": { "text": "1. one\n2. two\n3." },
+    "output": { "ids": [], "stripped": "1. one\n2. two\n3." }
+  },
+  { "input": { "text": "- \n- x" }, "output": { "ids": [], "stripped": "- \n- x" } },
+  {
+    "input": { "text": "09. nine\n99999999999999999999. big" },
+    "output": { "ids": [], "stripped": "09. nine\n99999999999999999999. big" }
+  },
+  {
+    "input": { "text": " nbsp start emspace" },
+    "output": { "ids": [], "stripped": " nbsp start emspace" }
+  },
+  {
+    "input": { "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
+    "output": {
+      "ids": [],
+      "stripped": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  }
+]

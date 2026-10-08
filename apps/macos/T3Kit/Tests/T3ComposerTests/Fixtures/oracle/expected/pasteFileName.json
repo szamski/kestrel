@@ -1,0 +1,13 @@
+[
+  { "input": { "existing": [] }, "output": "pasted-text.txt" },
+  { "input": { "existing": ["pasted-text.txt"] }, "output": "pasted-text-2.txt" },
+  {
+    "input": { "existing": ["Pasted-Text.TXT", "pasted-text-2.txt"] },
+    "output": "pasted-text-3.txt"
+  },
+  { "input": { "existing": ["pasted-text-2.txt"] }, "output": "pasted-text.txt" },
+  {
+    "input": { "existing": ["a.txt", "pasted-text.txt", "pasted-text-2.txt", "pasted-text-3.txt"] },
+    "output": "pasted-text-4.txt"
+  }
+]

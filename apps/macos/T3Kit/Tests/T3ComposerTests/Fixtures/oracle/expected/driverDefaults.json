@@ -1,0 +1,52 @@
+[
+  {
+    "input": { "driver": "codex" },
+    "output": { "selectable": "codex", "defaultModel": "gpt-6-astra" }
+  },
+  {
+    "input": { "driver": "claudeAgent" },
+    "output": { "selectable": "claudeAgent", "defaultModel": "claude-fable-5-1" }
+  },
+  {
+    "input": { "driver": "opencode" },
+    "output": { "selectable": "opencode", "defaultModel": "openai/gpt-5" }
+  },
+  { "input": { "driver": "cursor" }, "output": { "selectable": "codex", "defaultModel": "auto" } },
+  {
+    "input": { "driver": "antigravity" },
+    "output": { "selectable": "antigravity", "defaultModel": "antigravity-default" }
+  },
+  {
+    "input": { "driver": "grok" },
+    "output": { "selectable": "grok", "defaultModel": "grok-build" }
+  },
+  {
+    "input": { "driver": "missing" },
+    "output": { "selectable": "codex", "defaultModel": "gpt-6-astra" }
+  },
+  {
+    "input": { "driver": "codex" },
+    "output": { "selectable": "codex", "defaultModel": "gpt-6-astra" }
+  },
+  {
+    "input": { "driver": "claudeAgent" },
+    "output": { "selectable": "claudeAgent", "defaultModel": "claude-fable-5-1" }
+  },
+  {
+    "input": { "driver": "opencode" },
+    "output": { "selectable": "opencode", "defaultModel": "openai/gpt-5" }
+  },
+  { "input": { "driver": "cursor" }, "output": { "selectable": "codex", "defaultModel": "auto" } },
+  {
+    "input": { "driver": "antigravity" },
+    "output": { "selectable": "antigravity", "defaultModel": "antigravity-default" }
+  },
+  {
+    "input": { "driver": "grok" },
+    "output": { "selectable": "grok", "defaultModel": "grok-build" }
+  },
+  {
+    "input": { "driver": "missing" },
+    "output": { "selectable": "codex", "defaultModel": "gpt-6-astra" }
+  }
+]

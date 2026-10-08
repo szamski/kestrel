@@ -1,0 +1,32 @@
+[
+  {
+    "input": { "query": "" },
+    "output": [
+      "12:Title 12",
+      "31:Title 31",
+      "123:Title 123",
+      "1:Title 1",
+      "21:Title 21",
+      "121:welcome wizard fix",
+      "40:Title 40"
+    ]
+  },
+  {
+    "input": { "query": "1" },
+    "output": [
+      "1:Title 1",
+      "12:Title 12",
+      "31:Title 31",
+      "123:Title 123",
+      "21:Title 21",
+      "121:welcome wizard fix"
+    ]
+  },
+  {
+    "input": { "query": "12" },
+    "output": ["12:Title 12", "123:Title 123", "121:welcome wizard fix"]
+  },
+  { "input": { "query": "121" }, "output": ["121:welcome wizard fix"] },
+  { "input": { "query": "9" }, "output": [] },
+  { "input": { "query": "99" }, "output": [] }
+]

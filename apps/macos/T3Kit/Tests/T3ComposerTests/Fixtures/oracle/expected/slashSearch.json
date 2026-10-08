@@ -1,0 +1,116 @@
+[
+  {
+    "input": { "query": "", "atStart": true },
+    "output": [
+      "slash:model",
+      "slash:plan",
+      "slash:default",
+      "provider-slash-command:codex:compact",
+      "provider-slash-command:codex:review",
+      "provider-slash-command:codex:frontend-design",
+      "skill:codex:frontend-design",
+      "skill:codex:plugin-skill"
+    ]
+  },
+  {
+    "input": { "query": "", "atStart": false },
+    "output": [
+      "slash:model",
+      "slash:plan",
+      "slash:default",
+      "skill:codex:frontend-design",
+      "skill:codex:plugin-skill"
+    ]
+  },
+  {
+    "input": { "query": "/", "atStart": true },
+    "output": [
+      "slash:model",
+      "slash:plan",
+      "slash:default",
+      "provider-slash-command:codex:compact",
+      "provider-slash-command:codex:review",
+      "provider-slash-command:codex:frontend-design",
+      "skill:codex:frontend-design",
+      "skill:codex:plugin-skill"
+    ]
+  },
+  {
+    "input": { "query": "/", "atStart": false },
+    "output": [
+      "slash:model",
+      "slash:plan",
+      "slash:default",
+      "skill:codex:frontend-design",
+      "skill:codex:plugin-skill"
+    ]
+  },
+  {
+    "input": { "query": "mod", "atStart": true },
+    "output": ["slash:model", "slash:plan", "slash:default"]
+  },
+  {
+    "input": { "query": "mod", "atStart": false },
+    "output": ["slash:model", "slash:plan", "slash:default"]
+  },
+  { "input": { "query": "model", "atStart": true }, "output": ["slash:model"] },
+  { "input": { "query": "model", "atStart": false }, "output": ["slash:model"] },
+  { "input": { "query": "plan", "atStart": true }, "output": ["slash:plan"] },
+  { "input": { "query": "plan", "atStart": false }, "output": ["slash:plan"] },
+  { "input": { "query": "def", "atStart": true }, "output": ["slash:default"] },
+  { "input": { "query": "def", "atStart": false }, "output": ["slash:default"] },
+  {
+    "input": { "query": "co", "atStart": true },
+    "output": [
+      "provider-slash-command:codex:compact",
+      "provider-slash-command:codex:frontend-design"
+    ]
+  },
+  { "input": { "query": "co", "atStart": false }, "output": [] },
+  {
+    "input": { "query": "skill", "atStart": true },
+    "output": ["skill:codex:frontend-design", "skill:codex:plugin-skill"]
+  },
+  {
+    "input": { "query": "skill", "atStart": false },
+    "output": ["skill:codex:frontend-design", "skill:codex:plugin-skill"]
+  },
+  {
+    "input": { "query": "skill:", "atStart": true },
+    "output": ["skill:codex:frontend-design", "skill:codex:plugin-skill"]
+  },
+  {
+    "input": { "query": "skill:", "atStart": false },
+    "output": ["skill:codex:frontend-design", "skill:codex:plugin-skill"]
+  },
+  {
+    "input": { "query": "skill:front", "atStart": true },
+    "output": ["skill:codex:frontend-design"]
+  },
+  {
+    "input": { "query": "skill:front", "atStart": false },
+    "output": ["skill:codex:frontend-design"]
+  },
+  {
+    "input": { "query": "front", "atStart": true },
+    "output": ["provider-slash-command:codex:frontend-design", "skill:codex:frontend-design"]
+  },
+  { "input": { "query": "front", "atStart": false }, "output": ["skill:codex:frontend-design"] },
+  { "input": { "query": "zzz", "atStart": true }, "output": [] },
+  { "input": { "query": "zzz", "atStart": false }, "output": [] },
+  {
+    "input": { "query": "/rev", "atStart": true },
+    "output": ["provider-slash-command:codex:review"]
+  },
+  { "input": { "query": "/rev", "atStart": false }, "output": [] },
+  {
+    "input": { "query": "branch", "atStart": true },
+    "output": ["provider-slash-command:codex:review"]
+  },
+  { "input": { "query": "branch", "atStart": false }, "output": [] },
+  {
+    "input": { "query": "compact", "atStart": true },
+    "output": ["provider-slash-command:codex:compact"]
+  },
+  { "input": { "query": "compact", "atStart": false }, "output": [] }
+]

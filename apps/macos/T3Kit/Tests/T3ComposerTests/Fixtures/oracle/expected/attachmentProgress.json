@@ -1,0 +1,10 @@
+[
+  { "input": { "progress": 0 }, "output": "0%" },
+  { "input": { "progress": 0.5 }, "output": "50%" },
+  { "input": { "progress": 0.999 }, "output": "99%" },
+  { "input": { "progress": 1 }, "output": "100%" },
+  { "input": { "progress": 1.5 }, "output": "100%" },
+  { "input": { "progress": -1 }, "output": "0%" },
+  { "input": { "progress": "nan" }, "output": "0%" },
+  { "input": { "progress": 0.123456 }, "output": "12%" }
+]

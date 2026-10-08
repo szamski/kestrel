@@ -1,0 +1,227 @@
+[
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "env-1",
+      "threadId": "thread/with slash",
+      "messageId": "msg:1 (a)",
+      "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "start": 3,
+      "end": 41,
+      "prefix": "before ",
+      "suffix": " after"
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after#frag"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after#"
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "env-1",
+      "threadId": "thread/with slash",
+      "messageId": "msg:1 (a)",
+      "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "start": 3,
+      "end": 41,
+      "prefix": "before ",
+      "suffix": " after"
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=x&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=3&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=9007199254740992&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&extra=1"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix2=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&text=dup"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=a&comment=b"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment="
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "env-1",
+      "threadId": "thread/with slash",
+      "messageId": "msg:1 (a)",
+      "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "comment": "",
+      "start": 3,
+      "end": 41,
+      "prefix": "before ",
+      "suffix": " after"
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/%20env%20/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "env",
+      "threadId": "thread/with slash",
+      "messageId": "msg:1 (a)",
+      "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "start": 3,
+      "end": 41,
+      "prefix": "before ",
+      "suffix": " after"
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/env-1/bad%zz/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/a/b?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/a/b/c/d?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  { "input": { "href": "t3-citation://v1/a/b/c" }, "output": null },
+  {
+    "input": {
+      "href": "t3-citation://v2/a/b/c?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": { "href": "t3-citation://v1/a/b/c?text=&start=3&end=41&prefix=before+&suffix=+after" },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/a/b/c?text=%20%20&start=3&end=41&prefix=before+&suffix=+after"
+    },
+    "output": null
+  },
+  {
+    "input": { "href": "t3-citation://v1/a/b/c?text=x&start=0&end=1&prefix=&suffix=" },
+    "output": {
+      "version": 1,
+      "environmentId": "a",
+      "threadId": "b",
+      "messageId": "c",
+      "text": "x",
+      "start": 0,
+      "end": 1,
+      "prefix": "",
+      "suffix": ""
+    }
+  },
+  {
+    "input": { "href": "t3-citation://v1/a/b/c?text=x+y%2Bz&start=0&end=1&prefix=&suffix=" },
+    "output": {
+      "version": 1,
+      "environmentId": "a",
+      "threadId": "b",
+      "messageId": "c",
+      "text": "x y+z",
+      "start": 0,
+      "end": 1,
+      "prefix": "",
+      "suffix": ""
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/a/b/c?text=x&start=0&end=1&prefix=ppppppppppppppppppppppppppppppppp&suffix="
+    },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/a/b/c?text=x&start=0&end=1&prefix=pppppppppppppppppppppppppppppppp&suffix="
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "a",
+      "threadId": "b",
+      "messageId": "c",
+      "text": "x",
+      "start": 0,
+      "end": 1,
+      "prefix": "pppppppppppppppppppppppppppppppp",
+      "suffix": ""
+    }
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/%C3%A9/b/c?text=%F0%9F%98%80&start=0&end=1&prefix=&suffix="
+    },
+    "output": {
+      "version": 1,
+      "environmentId": "é",
+      "threadId": "b",
+      "messageId": "c",
+      "text": "😀",
+      "start": 0,
+      "end": 1,
+      "prefix": "",
+      "suffix": ""
+    }
+  },
+  {
+    "input": { "href": "t3-citation://v1/%C0%AF/b/c?text=x&start=0&end=1&prefix=&suffix=" },
+    "output": null
+  },
+  {
+    "input": {
+      "href": "t3-citation://v1/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/b/c?text=x&start=0&end=1&prefix=&suffix="
+    },
+    "output": null
+  },
+  { "input": { "href": "http://nope" }, "output": null }
+]

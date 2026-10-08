@@ -1,0 +1,24 @@
+[
+  {
+    "input": {
+      "prompt": "hello",
+      "reference": {
+        "kind": "terminal",
+        "contextId": "terminal_x",
+        "label": "Terminal 1 lines 1-2"
+      }
+    },
+    "output": "hello [Terminal 1 lines 1-2](t3-context://v1/terminal/terminal_x) "
+  },
+  {
+    "input": {
+      "prompt": "",
+      "reference": {
+        "kind": "terminal",
+        "contextId": "terminal_x",
+        "label": "Terminal 1 lines 1-2"
+      }
+    },
+    "output": "[Terminal 1 lines 1-2](t3-context://v1/terminal/terminal_x) "
+  }
+]

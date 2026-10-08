@@ -1,0 +1,58 @@
+[
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "hello" },
+    "output": "[hello](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "a [b] c" },
+    "output": "[a b c](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "terminal", "contextId": "ctx_1", "label": "  spaced   out  " },
+    "output": "[spaced out](t3-context://v1/terminal/ctx_1)"
+  },
+  {
+    "input": { "kind": "image", "contextId": "ctx_1", "label": "" },
+    "output": "![image](t3-context://v1/image/ctx_1)"
+  },
+  {
+    "input": { "kind": "skill", "contextId": "ctx_1", "label": "   " },
+    "output": "[skill](t3-context://v1/skill/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "line\nbreak\r\nx" },
+    "output": "[line break x](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "back\\slash" },
+    "output": "[back slash](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": {
+      "kind": "file",
+      "contextId": "ctx_1",
+      "label": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "output": "[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "tab\there" },
+    "output": "[tab here](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "émoji 😀 end" },
+    "output": "[émoji 😀 end](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": { "kind": "file", "contextId": "ctx_1", "label": "a b c" },
+    "output": "[a b c](t3-context://v1/file/ctx_1)"
+  },
+  {
+    "input": {
+      "kind": "file",
+      "contextId": "ctx_1",
+      "label": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+    },
+    "output": "[😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀](t3-context://v1/file/ctx_1)"
+  }
+]

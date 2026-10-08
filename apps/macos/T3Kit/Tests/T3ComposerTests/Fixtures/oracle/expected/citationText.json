@@ -1,0 +1,117 @@
+[
+  {
+    "input": {
+      "text": "before [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after) middle [Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that) end [Assistant quote](t3-citation://v1/bad) tail"
+    },
+    "output": {
+      "collect": [
+        {
+          "citation": {
+            "version": 1,
+            "environmentId": "env-1",
+            "threadId": "thread/with slash",
+            "messageId": "msg:1 (a)",
+            "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+            "start": 3,
+            "end": 41,
+            "prefix": "before ",
+            "suffix": " after"
+          },
+          "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+          "start": 7,
+          "end": 222
+        },
+        {
+          "citation": {
+            "version": 1,
+            "environmentId": "env-1",
+            "threadId": "thread/with slash",
+            "messageId": "msg:1 (a)",
+            "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+            "comment": "Please check this + that",
+            "start": 3,
+            "end": 41,
+            "prefix": "before ",
+            "suffix": " after"
+          },
+          "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after&comment=Please+check+this+%2B+that)",
+          "start": 230,
+          "end": 480
+        }
+      ],
+      "plain": "before Quote with *markup*, [brackets], émoji 😀 & symbols? #1 middle Quote with *markup*, [brackets], émoji 😀 & symbols? #1\nComment: Please check this + that end [Assistant quote](t3-citation://v1/bad) tail",
+      "rendered": "before \n\n> Assistant quote:\n> Quote with \\*markup\\*, \\[brackets\\], émoji 😀 &amp; symbols? \\#1\n\n middle \n\n> Assistant quote:\n> Quote with \\*markup\\*, \\[brackets\\], émoji 😀 &amp; symbols? \\#1\n\nComment: Please check this \\+ that\n\n end [Assistant quote](t3-citation://v1/bad) tail"
+    }
+  },
+  {
+    "input": {
+      "text": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)"
+    },
+    "output": {
+      "collect": [
+        {
+          "citation": {
+            "version": 1,
+            "environmentId": "env-1",
+            "threadId": "thread/with slash",
+            "messageId": "msg:1 (a)",
+            "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+            "start": 3,
+            "end": 41,
+            "prefix": "before ",
+            "suffix": " after"
+          },
+          "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+          "start": 0,
+          "end": 215
+        }
+      ],
+      "plain": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "rendered": "\n\n> Assistant quote:\n> Quote with \\*markup\\*, \\[brackets\\], émoji 😀 &amp; symbols? \\#1\n\n"
+    }
+  },
+  { "input": { "text": "none" }, "output": { "collect": [], "plain": "none", "rendered": "none" } },
+  {
+    "input": {
+      "text": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)"
+    },
+    "output": {
+      "collect": [
+        {
+          "citation": {
+            "version": 1,
+            "environmentId": "env-1",
+            "threadId": "thread/with slash",
+            "messageId": "msg:1 (a)",
+            "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+            "start": 3,
+            "end": 41,
+            "prefix": "before ",
+            "suffix": " after"
+          },
+          "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+          "start": 0,
+          "end": 215
+        },
+        {
+          "citation": {
+            "version": 1,
+            "environmentId": "env-1",
+            "threadId": "thread/with slash",
+            "messageId": "msg:1 (a)",
+            "text": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+            "start": 3,
+            "end": 41,
+            "prefix": "before ",
+            "suffix": " after"
+          },
+          "source": "[Assistant quote](t3-citation://v1/env-1/thread%2Fwith%20slash/msg%3A1%20%28a%29?text=Quote+with+*markup*%2C+%5Bbrackets%5D%2C+%C3%A9moji+%F0%9F%98%80+%26+symbols%3F+%231&start=3&end=41&prefix=before+&suffix=+after)",
+          "start": 215,
+          "end": 430
+        }
+      ],
+      "plain": "Quote with *markup*, [brackets], émoji 😀 & symbols? #1Quote with *markup*, [brackets], émoji 😀 & symbols? #1",
+      "rendered": "\n\n> Assistant quote:\n> Quote with \\*markup\\*, \\[brackets\\], émoji 😀 &amp; symbols? \\#1\n\n\n\n> Assistant quote:\n> Quote with \\*markup\\*, \\[brackets\\], émoji 😀 &amp; symbols? \\#1\n\n"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+[
+  { "input": { "lengths": [] }, "output": { "kept": [], "dropped": [] } },
+  { "input": { "lengths": [100] }, "output": { "kept": ["i0"], "dropped": [] } },
+  { "input": { "lengths": [1300000, 1300000] }, "output": { "kept": ["i0", "i1"], "dropped": [] } },
+  {
+    "input": { "lengths": [1300000, 1300000, 1] },
+    "output": { "kept": ["i0", "i1", "i2"], "dropped": [] }
+  },
+  { "input": { "lengths": [2700000] }, "output": { "kept": ["i0"], "dropped": [] } },
+  { "input": { "lengths": [2700001] }, "output": { "kept": [], "dropped": ["i0.png"] } },
+  {
+    "input": { "lengths": [1000000, 2000000, 1500000, 100] },
+    "output": { "kept": ["i0", "i2", "i3"], "dropped": ["i1.png"] }
+  }
+]

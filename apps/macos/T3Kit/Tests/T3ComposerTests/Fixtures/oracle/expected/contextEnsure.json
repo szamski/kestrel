@@ -1,0 +1,23 @@
+[
+  {
+    "input": {
+      "prompt": "hello",
+      "references": [
+        { "kind": "terminal", "contextId": "terminal_x", "label": "Terminal 1 lines 1-2" },
+        { "kind": "image", "contextId": "image_y", "label": "pic.png" },
+        { "kind": "terminal", "contextId": "terminal_x", "label": "Terminal 1 lines 1-2" }
+      ]
+    },
+    "output": "hello [Terminal 1 lines 1-2](t3-context://v1/terminal/terminal_x) ![pic.png](t3-context://v1/image/image_y) "
+  },
+  {
+    "input": {
+      "prompt": "before [Terminal 1 lines 1-2](t3-context://v1/terminal/terminal_x) after",
+      "references": [
+        { "kind": "terminal", "contextId": "terminal_x", "label": "Terminal 1 lines 1-2" },
+        { "kind": "image", "contextId": "image_y", "label": "pic.png" }
+      ]
+    },
+    "output": "before [Terminal 1 lines 1-2](t3-context://v1/terminal/terminal_x) after ![pic.png](t3-context://v1/image/image_y) "
+  }
+]
