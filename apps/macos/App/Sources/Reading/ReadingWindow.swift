@@ -7,12 +7,13 @@ import T3Timeline
 /// Detail column: the selected thread's timeline with its composer, or an empty state.
 struct ReadingWindow: View {
   @Environment(AppModel.self) private var app
+  @Environment(RightPanelStore.self) private var panel
 
   var body: some View {
     Group {
       if let key = app.selection {
         if let detail = app.detail, detail.key == key {
-          ThreadReader(app: app, detail: detail).id(key)
+          ThreadReader(app: app, detail: detail, panel: panel).id(key)
         } else {
           ProgressView().controlSize(.small).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -27,30 +28,63 @@ struct ReadingWindow: View {
       }
     }
     .background(Palette.canvas)
+    .modifier(SourceControlHost())
   }
 }
 
 struct ThreadReader: View {
   let app: AppModel
   let detail: ThreadDetailModel
+  let panel: RightPanelStore
   @State private var model: TimelineModel
   @State private var host: TimelineHost
+  @State private var diff: DiffPanelModel
 
-  init(app: AppModel, detail: ThreadDetailModel) {
+  init(app: AppModel, detail: ThreadDetailModel, panel: RightPanelStore) {
     self.app = app
     self.detail = detail
+    self.panel = panel
     let model = TimelineModel(detail: detail)
     let host = TimelineHost(key: detail.key, workspaceRoot: app.workspaceRoot(of: detail.key), assets: app.assets)
     host.toggleTurn = { [model] in model.toggleTurn($0) }
     host.toggleWorkGroup = { [model] in model.toggleWorkGroup($0) }
     host.toggleLocal = { [model] in model.toggleLocal($0) }
     host.openLink = { [weak app, key = detail.key] in app?.open($0, in: key) }
+    host.openDiff = { [weak panel, key = detail.key] turnId, path in panel?.revealDiff(turnId: turnId.rawValue, filePath: path, in: key) }
+    host.cancelWorktreeSetup = { [weak app, key = detail.key] in app?.sourceControl.cancelWorktreeSetup(key) }
     _model = State(initialValue: model)
     _host = State(initialValue: host)
+    _diff = State(initialValue: DiffPanelModel(fetch: app.diffFetcher(for: detail.key)))
   }
 
   var body: some View {
     let shell = app.runtime.threadShell(detail.key)?.shell
+    RightPanelLayout(key: detail.key, store: panel) {
+      chat(shell: shell)
+    } panel: {
+      RightPanelView(app: app, key: detail.key, turns: detail.thread?.checkpoints ?? [], store: panel, diff: diff)
+    }
+    .navigationTitle(shell?.title ?? "Thread")
+    .navigationSubtitle(subtitle(shell))
+    .toolbar {
+      ToolbarItemGroup(placement: .primaryAction) { SourceControlToolbarItems(key: detail.key) }
+      ToolbarItem(placement: .primaryAction) { SessionStatusLabel(shell: shell) }
+      ToolbarItemGroup(placement: .primaryAction) {
+        Button { panel.toggle(.diff, in: detail.key) } label: { Label("Diff", systemImage: "plusminus") }
+          .help("Show or hide the diff")
+        Button { panel.toggleVisibility(detail.key) } label: { Label("Panel", systemImage: "sidebar.right") }
+          .help("Show or hide the right panel")
+      }
+    }
+    // The bootstrap's worktree stages go to the card under the first message.
+    .task(id: detail.key) { await app.sourceControl.followWorktreeSetup(detail.key) { [model] in model.worktreeSetup = $0 } }
+    .onChange(of: detail.thread?.latestTurn?.completedAt, initial: true) { _, completedAt in
+      // A turn finishing under the reader's eyes is not "unread", focused or not.
+      Task { await app.runtime.markThreadRead(detail.key, completedAt: completedAt) }
+    }
+  }
+
+  private func chat(shell: OrchestrationThreadShell?) -> some View {
     VStack(spacing: 0) {
       ZStack {
         #if DEBUG
@@ -73,15 +107,6 @@ struct ThreadReader: View {
           .padding(.horizontal, 20).padding(.bottom, 8)
       }
       ComposerHost(key: detail.key)
-    }
-    .navigationTitle(shell?.title ?? "Thread")
-    .navigationSubtitle(subtitle(shell))
-    .toolbar {
-      ToolbarItem(placement: .primaryAction) { SessionStatusLabel(shell: shell) }
-    }
-    .onChange(of: detail.thread?.latestTurn?.completedAt, initial: true) { _, completedAt in
-      // A turn finishing under the reader's eyes is not "unread", focused or not.
-      Task { await app.runtime.markThreadRead(detail.key, completedAt: completedAt) }
     }
   }
 

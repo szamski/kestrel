@@ -1,4 +1,5 @@
 import Foundation
+import Synchronization
 import Testing
 import T3Contracts
 import T3Protocol
@@ -109,6 +110,38 @@ import T3Protocol
     let id = runtime.environments[0].environmentId
     await runtime.removeEnvironment(id)
     await until { runtime.environments.isEmpty && runtime.shells.isEmpty && runtime.sidebar.rows.isEmpty }
+    await runtime.stop()
+  }
+
+  /// The app starts the saved local environment before its server is up, then registers the same environment
+  /// again; the model has to follow the replacement runtime, not the stopped one (it stayed in backoff forever).
+  @Test func registeringAnEnvironmentAgainMakesTheModelFollowTheReplacementRuntime() async throws {
+    let config = Fixtures.serverConfig()
+    let descriptor = try JSONSerialization.data(withJSONObject: [
+      "environmentId": config.environment.environmentId.rawValue, "label": "Box", "serverVersion": "9.9.9", "orchestrationProtocolVersion": 1,
+    ])
+    let token = Data(#"{"access_token":"bearer","token_type":"Bearer","expires_in":3600,"scope":"orchestration:read"}"#.utf8)
+    StubProtocol.install(host: "replaced.test") { request in (200, request.url.path == "/oauth/token" ? token : descriptor) }
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent("t3-client-\(UUID().uuidString)")
+    let base = URL(string: "http://replaced.test:1")!
+    try EnvironmentCatalogFile(directory: directory).save([
+      EnvironmentConnectionEntry(environmentId: config.environment.environmentId, label: "Box", httpBaseURL: base, wsBaseURL: URL(string: "ws://replaced.test:1")!)
+    ])
+    let clientState = ClientStateStore(directory: directory)
+    let server = FakeServer()
+    let launches = Mutex(0)
+    let registry = EnvironmentRegistry(
+      catalog: EnvironmentCatalogFile(directory: directory), credentials: InMemoryCredentialStore(), cache: try SQLiteSnapshotCache(path: nil),
+      clientState: clientState, loader: FakeLoader(shell: Data2.shell()), clock: ManualClock(), keepRunningThreadsMounted: false,
+      httpSession: StubProtocol.session(),
+      makeDriver: { _, _ in launches.withLock { $0 += 1; return $0 } == 1 ? FakeServerDriver([]) : FakeServerDriver([server]) })
+    let runtime = ClientRuntime(registry: registry, clientState: clientState, clock: ManualClock(), reportsActivity: false)
+    await runtime.start()
+    await until { runtime.environments.first?.connection.phase == .backoff }
+
+    try await runtime.addLocalEnvironment(baseURL: base, bootstrapToken: "boot", label: "This Mac", clientLabel: "Kestrel")
+    await until { runtime.environments.first?.connection.phase == .connected }
+    #expect(runtime.environments.count == 1 && runtime.environments[0].label == "This Mac")
     await runtime.stop()
   }
 }

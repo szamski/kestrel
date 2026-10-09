@@ -3,6 +3,7 @@ import SwiftUI
 /// Sidebar | reading window, with the app-level sheets, alerts and confirmations.
 struct MainView: View {
   @Environment(AppModel.self) private var app
+  @State private var rightPanel = RightPanelStore()
 
   var body: some View {
     @Bindable var model = app
@@ -17,6 +18,10 @@ struct MainView: View {
       }
     }
     .frame(minWidth: 760, minHeight: 480)
+    .environment(rightPanel)
+    #if DEBUG
+    .task { DiffDebugSnapshot.runIfRequested(app: app) }
+    #endif
     .sheet(item: $model.sheet) { sheet in
       switch sheet {
       case .addEnvironment: AddEnvironmentSheet()

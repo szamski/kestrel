@@ -21,7 +21,7 @@ struct ThreadContextMenu: View {
     }
     if row.section == .pinned || row.section == .active {
       Button(pinned ? "Unpin" : "Pin") {
-        app.run { pinned ? try await runtime.unpinThread(key) : try await runtime.pinThread(key) }
+        app.setPinned(!pinned, key)
       }
     }
     if pinned {

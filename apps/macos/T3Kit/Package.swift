@@ -13,6 +13,9 @@ let package = Package(
     .library(name: "T3Markdown", targets: ["T3Markdown"]),
     .library(name: "T3Composer", targets: ["T3Composer"]),
     .library(name: "T3Timeline", targets: ["T3Timeline"]),
+    .library(name: "T3Terminal", targets: ["T3Terminal"]),
+    .library(name: "T3Diff", targets: ["T3Diff"]),
+    .library(name: "T3Keybindings", targets: ["T3Keybindings"]),
   ],
   dependencies: [
     .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.9.0"),
@@ -28,14 +31,33 @@ let package = Package(
       name: "T3Markdown",
       dependencies: [.product(name: "Markdown", package: "swift-markdown")]
     ),
+    // Unified-diff parser, word diff, review-comment mapping and the virtualized diff table.
+    .target(name: "T3Diff", dependencies: ["T3Contracts", "T3Markdown"]),
+    // Keybinding matching, `when` evaluation and shortcut labels over the server-resolved rules.
+    .target(name: "T3Keybindings", dependencies: ["T3Contracts"]),
     .target(name: "T3Composer", dependencies: ["T3Contracts", "T3Timeline", "T3Markdown"]),
     // Pure timeline derivation: messages, work log, tool presentation, plans.
     .target(name: "T3Timeline", dependencies: ["T3Contracts"]),
+    // Native terminal: Ghostty surface view, session model over the terminal RPCs, drawer.
+    .target(
+      name: "T3Terminal",
+      dependencies: ["T3Contracts", "T3Protocol", "GhosttyKit"],
+      // What libghostty's static archive needs beyond Swift's own imports (shader tooling is C++).
+      linkerSettings: [
+        .linkedLibrary("c++"),
+        .linkedFramework("Carbon"), .linkedFramework("Metal"), .linkedFramework("MetalKit"),
+        .linkedFramework("CoreText"), .linkedFramework("CoreGraphics"), .linkedFramework("CoreVideo"),
+        .linkedFramework("IOSurface"), .linkedFramework("QuartzCore"), .linkedFramework("AppKit"),
+      ]),
+    .binaryTarget(name: "GhosttyKit", path: "../Vendor/GhosttyKit/GhosttyKit.xcframework"),
     .testTarget(name: "T3ContractsTests", dependencies: ["T3Contracts"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3ProtocolTests", dependencies: ["T3Protocol"]),
     .testTarget(name: "T3ClientRuntimeTests", dependencies: ["T3ClientRuntime"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3MarkdownTests", dependencies: ["T3Markdown"]),
     .testTarget(name: "T3ComposerTests", dependencies: ["T3Composer", "T3Timeline", "T3Markdown"]),
+    .testTarget(name: "T3DiffTests", dependencies: ["T3Diff"]),
+    .testTarget(name: "T3KeybindingsTests", dependencies: ["T3Keybindings"]),
+    .testTarget(name: "T3TerminalTests", dependencies: ["T3Terminal"]),
     .testTarget(name: "T3TimelineTests", dependencies: ["T3Timeline"], resources: [.copy("Fixtures")]),
   ],
   swiftLanguageModes: [.v6]

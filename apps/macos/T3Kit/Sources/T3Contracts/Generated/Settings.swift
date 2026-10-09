@@ -1424,7 +1424,7 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     self.enableDeviceSupport = (try c.decodeIfPresent(Bool.self, forKey: .enableDeviceSupport)) ?? false
     self.deviceOnboardingCompleted = (try c.decodeIfPresent(Bool.self, forKey: .deviceOnboardingCompleted)) ?? false
     self.deviceHosts = (try c.decodeIfPresent([ServerSettingsDeviceHostsItem].self, forKey: .deviceHosts)) ?? []
-    self.sidebarAutoSettleAfterDays = (try c.decodeIfPresent(Double.self, forKey: .sidebarAutoSettleAfterDays)) ?? 3
+    self.sidebarAutoSettleAfterDays = c.contains(.sidebarAutoSettleAfterDays) ? (try c.decodeIfPresent(Double.self, forKey: .sidebarAutoSettleAfterDays)) : 3
     self.sidebarAutoSettleOnMerge = (try c.decodeIfPresent(Bool.self, forKey: .sidebarAutoSettleOnMerge)) ?? true
     self.backgroundActivity = (try c.decodeIfPresent(BackgroundActivitySettings.self, forKey: .backgroundActivity)) ?? WireDefault.value(BackgroundActivitySettings.self, json: "{}")
     self.automaticGitFetchInterval = (try c.decodeIfPresent(Double.self, forKey: .automaticGitFetchInterval)) ?? 30000

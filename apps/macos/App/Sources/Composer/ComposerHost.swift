@@ -12,7 +12,10 @@ struct ComposerHost: View {
 
   var body: some View {
     if let target = app.composerTarget(for: key, draft: draft) {
-      ComposerBar(app: app, target: target).id(target)
+      VStack(spacing: 0) {
+        ComposerBar(app: app, target: target).id(target)
+        SourceControlStrip(key: key, draft: draft)
+      }
     }
   }
 }
@@ -35,9 +38,11 @@ private struct ComposerBar: View {
     .frame(maxWidth: timelineColumnWidth + 2 * timelineHorizontalInset)
     .frame(maxWidth: .infinity)
     .padding(.horizontal, 20)
-    .padding(.bottom, 12)
+    .padding(.bottom, 4)
     .zIndex(1)
     .task {
+      // The diff panel inserts review comments through the model that is on screen.
+      LiveComposers.shared.register(model, for: target.key)
       await model.start()
       model.requestFocus()
       // The window assigns its own initial focus after the first layout; take it back unless the user is typing elsewhere.
@@ -45,6 +50,7 @@ private struct ComposerBar: View {
       if let window = NSApp.keyWindow ?? NSApp.mainWindow, !(window.firstResponder is NSText) { model.requestFocus() }
     }
     .onDisappear {
+      LiveComposers.shared.unregister(model, for: target.key)
       model.stop()
       Task { await app.composer.services.persistDraftsNow() }
     }
@@ -67,5 +73,6 @@ struct DraftReader: View {
     }
     .navigationTitle("New thread")
     .navigationSubtitle(draft.projectTitle)
+    .toolbar { ToolbarItemGroup(placement: .primaryAction) { SourceControlToolbarItems(key: draft.key, draft: draft) } }
   }
 }

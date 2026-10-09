@@ -12,6 +12,9 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<!-- Debug only (empty in Release): where the local server runs from; see Debug.xcconfig. -->
+	<key>T3RepoRoot</key>
+	<string>$(T3_REPO_ROOT)</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>T3 Code connects to T3 Code servers on your local network.</string>
 </dict>

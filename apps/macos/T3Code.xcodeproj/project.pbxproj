@@ -13,8 +13,11 @@
 		A10000000000000000000004 /* T3Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000004 /* T3Markdown */; };
 		A10000000000000000000005 /* T3Timeline in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000005 /* T3Timeline */; };
 		A10000000000000000000006 /* T3Composer in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000006 /* T3Composer */; };
-		B00000000000000000000001 /* app-icon-dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* app-icon-dev.icon */; };
-		B00000000000000000000002 /* app-icon-prod.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* app-icon-prod.icon */; };
+		A10000000000000000000020 /* T3Diff in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000020 /* T3Diff */; };
+		A10000000000000000000021 /* T3Keybindings in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000021 /* T3Keybindings */; };
+		A10000000000000000000022 /* T3Terminal in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000022 /* T3Terminal */; };
+		B00000000000000000000001 /* Kestrel-dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* Kestrel-dev.icon */; };
+		B00000000000000000000002 /* Kestrel-prod.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* Kestrel-prod.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +25,8 @@
 		A20000000000000000000002 /* T3Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = T3Kit; sourceTree = "<group>"; };
 		A20000000000000000000003 /* App/Support/Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App/Support/Debug.xcconfig; sourceTree = "<group>"; };
 		A20000000000000000000004 /* App/Support/Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App/Support/Release.xcconfig; sourceTree = "<group>"; };
-		B00000000000000000000003 /* app-icon-dev.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "app-icon-dev.icon"; path = "../../assets/dev/app-icon.icon"; sourceTree = SOURCE_ROOT; };
-		B00000000000000000000004 /* app-icon-prod.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "app-icon-prod.icon"; path = "../../assets/prod/app-icon.icon"; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000003 /* Kestrel-dev.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "Kestrel-dev.icon"; path = Brand/dev/Kestrel.icon; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000004 /* Kestrel-prod.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; name = "Kestrel-prod.icon"; path = Brand/prod/Kestrel.icon; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -60,6 +63,9 @@
 				A10000000000000000000004 /* T3Markdown in Frameworks */,
 				A10000000000000000000005 /* T3Timeline in Frameworks */,
 				A10000000000000000000006 /* T3Composer in Frameworks */,
+				A10000000000000000000020 /* T3Diff in Frameworks */,
+				A10000000000000000000021 /* T3Keybindings in Frameworks */,
+				A10000000000000000000022 /* T3Terminal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,8 +95,8 @@
 		A80000000000000000000005 /* Brand Icons */ = {
 			isa = PBXGroup;
 			children = (
-				B00000000000000000000003 /* app-icon-dev.icon */,
-				B00000000000000000000004 /* app-icon-prod.icon */,
+				B00000000000000000000003 /* Kestrel-dev.icon */,
+				B00000000000000000000004 /* Kestrel-prod.icon */,
 			);
 			name = "Brand Icons";
 			sourceTree = "<group>";
@@ -121,6 +127,9 @@
 				A40000000000000000000004 /* T3Markdown */,
 				A40000000000000000000005 /* T3Timeline */,
 				A40000000000000000000006 /* T3Composer */,
+				A40000000000000000000020 /* T3Diff */,
+				A40000000000000000000021 /* T3Keybindings */,
+				A40000000000000000000022 /* T3Terminal */,
 			);
 			productName = "T3 Code";
 			productReference = A20000000000000000000001 /* T3 Code.app */;
@@ -168,8 +177,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00000000000000000000001 /* app-icon-dev.icon in Resources */,
-				B00000000000000000000002 /* app-icon-prod.icon in Resources */,
+				B00000000000000000000001 /* Kestrel-dev.icon in Resources */,
+				B00000000000000000000002 /* Kestrel-prod.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,13 +241,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A20000000000000000000003 /* App/Support/Debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "*/prod/app-icon.icon";
+				EXCLUDED_SOURCE_FILE_NAMES = "*/prod/Kestrel.icon";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
@@ -255,13 +265,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A20000000000000000000004 /* App/Support/Release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "*/dev/app-icon.icon";
+				EXCLUDED_SOURCE_FILE_NAMES = "*/dev/Kestrel.icon";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
@@ -328,6 +339,18 @@
 		A40000000000000000000006 /* T3Composer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = T3Composer;
+		};
+		A40000000000000000000020 /* T3Diff */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Diff;
+		};
+		A40000000000000000000021 /* T3Keybindings */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Keybindings;
+		};
+		A40000000000000000000022 /* T3Terminal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Terminal;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

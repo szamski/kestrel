@@ -8,7 +8,9 @@ struct SidebarFooter: View {
 
   var body: some View {
     let environments = app.runtime.environments
-    HStack(spacing: 8) {
+    VStack(alignment: .leading, spacing: 6) {
+      LocalServerRow()
+      HStack(spacing: 8) {
       Button {
         showing.toggle()
       } label: {
@@ -30,6 +32,7 @@ struct SidebarFooter: View {
       .labelStyle(.iconOnly)
       .buttonStyle(.borderless)
       .help("Add environment")
+      }
     }
     .font(.callout)
     .padding(.horizontal, 14).padding(.vertical, 8)

@@ -58,14 +58,14 @@ final class StubProtocol: URLProtocol {
     return url
   }
 
-  func descriptor(protocolVersion: Int? = 1) -> Data {
-    var json: [String: Any] = ["environmentId": environmentId.rawValue, "label": "Work Mac", "serverVersion": "9.9.9"]
+  func descriptor(protocolVersion: Int? = 1, label: String = "Work Mac") -> Data {
+    var json: [String: Any] = ["environmentId": environmentId.rawValue, "label": label, "serverVersion": "9.9.9"]
     if let protocolVersion { json["orchestrationProtocolVersion"] = protocolVersion }
     return try! JSONSerialization.data(withJSONObject: json)
   }
 
-  func installServer(host: String, protocolVersion: Int? = 1, tokenStatus: Int = 200) {
-    let descriptor = descriptor(protocolVersion: protocolVersion)
+  func installServer(host: String, protocolVersion: Int? = 1, tokenStatus: Int = 200, label: String = "Work Mac") {
+    let descriptor = descriptor(protocolVersion: protocolVersion, label: label)
     StubProtocol.install(host: host) { request in
       switch request.url.path {
       case "/.well-known/t3/environment": (200, descriptor)
@@ -112,6 +112,31 @@ final class StubProtocol: URLProtocol {
 
     let runtime = try #require(await registry.runtime(for: environmentId))
     _ = await waitFor(runtime.supervisor.state) { $0.phase == .connected }
+    await registry.stop()
+  }
+
+  @Test func theAppManagedLocalServerIsRegisteredUnderItsOwnLabelsAndReplacesItsCredential() async throws {
+    installServer(host: "127.0.0.1")
+    let (registry, credentials, _, _) = try makeRegistry(directory: directory(), servers: [FakeServer()])
+    let baseURL = URL(string: "http://127.0.0.1:13900")!
+    let entry = try await registry.addLocal(baseURL: baseURL, bootstrapToken: "boot-1", label: "This Mac", clientLabel: "Kestrel")
+    #expect(entry.environmentId == environmentId && entry.label == "This Mac")
+    let exchange = try #require(StubProtocol.requests(host: "127.0.0.1").first { $0.url.path == "/oauth/token" })
+    let form = String(decoding: exchange.body, as: UTF8.self)
+    #expect(form.contains("subject_token=boot-1") && form.contains("client_label=Kestrel"))
+    #expect(try credentials.load(environmentId: environmentId.rawValue)?.httpBaseURL.absoluteString == "http://127.0.0.1:13900/")
+    // A restarted server on another port is registered again; the single catalog entry follows it.
+    _ = try await registry.addLocal(baseURL: URL(string: "http://127.0.0.1:13901")!, bootstrapToken: "boot-2", label: "This Mac", clientLabel: "Kestrel")
+    #expect(try credentials.load(environmentId: environmentId.rawValue)?.httpBaseURL.port == 13901)
+    await registry.stop()
+  }
+
+  @Test func theLocalEntryKeepsItsLabelWhenTheDescriptorNamesTheMachine() async throws {
+    installServer(host: "127.0.0.1", label: "M5-PRO")
+    let (registry, _, _, _) = try makeRegistry(directory: directory(), servers: [FakeServer()])
+    let entry = try await registry.addLocal(
+      baseURL: URL(string: "http://127.0.0.1:13900")!, bootstrapToken: "boot-1", label: "This Mac", clientLabel: "Kestrel")
+    #expect(entry.label == "This Mac")
     await registry.stop()
   }
 

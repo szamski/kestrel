@@ -59,6 +59,12 @@ struct AddEnvironmentSheet: View {
     .padding(20)
     .frame(width: 420)
     .disabled(adding)
+    .onAppear {
+      guard let prefilled = app.addEnvironmentHost else { return }
+      app.addEnvironmentHost = nil
+      mode = .code
+      host = prefilled
+    }
   }
 
   private var canAdd: Bool {

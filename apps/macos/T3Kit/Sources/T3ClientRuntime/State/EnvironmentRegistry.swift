@@ -118,6 +118,27 @@ public actor EnvironmentRegistry {
   /// into the Keychain, catalog entry, connect. Pairing the same environment again replaces its credential.
   @discardableResult
   public func add(target: PairingTarget) async throws(AddEnvironmentError) -> EnvironmentConnectionEntry {
+    try await register(target: target, label: target.label, metadata: metadata)
+  }
+
+  /// Registers the server this app started itself: the desktop bootstrap credential is exchanged for a bearer
+  /// like a pairing code, under `label` in the catalog and `clientLabel` on the server's client list.
+  @discardableResult
+  public func addLocal(baseURL: URL, bootstrapToken: String, label: String, clientLabel: String) async throws(AddEnvironmentError)
+    -> EnvironmentConnectionEntry
+  {
+    let target: PairingTarget
+    do { target = try PairingTarget.resolve(host: baseURL.absoluteString, pairingCode: bootstrapToken) } catch {
+      throw .invalidPairing(Self.describe(error))
+    }
+    var local = metadata
+    local.label = clientLabel
+    return try await register(target: target, label: label, metadata: local)
+  }
+
+  private func register(target: PairingTarget, label requestedLabel: String?, metadata: ClientMetadata) async throws(AddEnvironmentError)
+    -> EnvironmentConnectionEntry
+  {
     let http = EnvironmentHTTPClient(baseURL: target.httpBaseURL, session: httpSession)
     let descriptor: EnvironmentDescriptorInfo
     let token: AccessTokenResponse
@@ -144,7 +165,7 @@ public actor EnvironmentRegistry {
       throw .unsupportedToken("The environment issued a \(token.tokenType) token, which this client cannot use yet.")
     }
     let environmentId = EnvironmentId(rawValue: descriptor.environmentId)
-    let label = target.label ?? descriptor.label
+    let label = requestedLabel ?? descriptor.label
     do {
       try credentials.save(
         EnvironmentCredential(

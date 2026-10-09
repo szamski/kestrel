@@ -41,6 +41,15 @@ public actor ServerConfigSync {
     await writer?.flush()
   }
 
+  /// Shows `settings` in place of the current ones (an optimistic edit, or the server's answer to one) and keeps them cached.
+  func replaceSettings(_ settings: ServerSettings) async {
+    guard var next = current else { return }
+    next.config.settings = settings
+    current = next
+    projection.set(next)
+    await writer?.submit(next.config)
+  }
+
   func apply(_ event: ServerConfigStreamEvent) async {
     guard let next = ServerConfigProjection.apply(current, event) else { return }
     current = next

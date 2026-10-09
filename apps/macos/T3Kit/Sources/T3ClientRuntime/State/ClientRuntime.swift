@@ -50,6 +50,8 @@ public final class ClientRuntime {
   @ObservationIgnored private let reportsActivity: Bool
   @ObservationIgnored private var tasks: [Task<Void, Never>] = []
   @ObservationIgnored private var perEnvironment: [EnvironmentId: [Task<Void, Never>]] = [:]
+  /// Which runtime `perEnvironment` observes: pairing an environment again replaces its runtime under the same id.
+  @ObservationIgnored private var observedRuntime: [EnvironmentId: ObjectIdentifier] = [:]
   @ObservationIgnored private var connectionStates: [EnvironmentId: SupervisorConnectionState] = [:]
   @ObservationIgnored private var entries: [EnvironmentId: EnvironmentConnectionEntry] = [:]
   @ObservationIgnored private var order: [EnvironmentId] = []
@@ -117,6 +119,7 @@ public final class ClientRuntime {
     tasks = []
     for tasks in perEnvironment.values { tasks.forEach { $0.cancel() } }
     perEnvironment = [:]
+    observedRuntime = [:]
     wakeTimer?.cancel()
     searchTask?.cancel()
     await activity.stop()
@@ -139,6 +142,14 @@ public final class ClientRuntime {
     try await registry.add(host: host, pairingCode: pairingCode)
   }
 
+  /// Registers (or re-registers, replacing its credential) the server the app runs itself.
+  @discardableResult
+  public func addLocalEnvironment(baseURL: URL, bootstrapToken: String, label: String, clientLabel: String) async throws(AddEnvironmentError)
+    -> EnvironmentConnectionEntry
+  {
+    try await registry.addLocal(baseURL: baseURL, bootstrapToken: bootstrapToken, label: label, clientLabel: clientLabel)
+  }
+
   /// Closes the connection and clears credentials, caches and client-owned state of the environment.
   public func removeEnvironment(_ environmentId: EnvironmentId) async { await registry.remove(environmentId) }
   public func setEnvironmentEnabled(_ environmentId: EnvironmentId, _ enabled: Bool) async { await registry.setEnabled(environmentId, enabled) }
@@ -157,20 +168,29 @@ public final class ClientRuntime {
     for removed in perEnvironment.keys where !ids.contains(removed) {
       perEnvironment[removed]?.forEach { $0.cancel() }
       perEnvironment[removed] = nil
+      observedRuntime[removed] = nil
       connectionStates[removed] = nil
       entries[removed] = nil
       shells[removed] = nil
       serverConfigs[removed] = nil
     }
-    for runtime in runtimes where perEnvironment[runtime.entry.environmentId] == nil {
+    for runtime in runtimes where observedRuntime[runtime.entry.environmentId] != ObjectIdentifier(runtime) {
       let id = runtime.entry.environmentId
+      perEnvironment[id]?.forEach { $0.cancel() }
+      observedRuntime[id] = ObjectIdentifier(runtime)
       entries[id] = runtime.entry
       let connection = runtime.supervisor.state.changes()
       let shell = runtime.shell.changes()
       let config = runtime.config.projection.changes()
       perEnvironment[id] = [
         Task { [weak self] in
-          for await state in connection { self?.connectionStates[id] = state; self?.publishEnvironments() }
+          for await state in connection {
+            guard let self else { return }
+            let wasConnected = connectionStates[id]?.phase == .connected
+            connectionStates[id] = state
+            publishEnvironments()
+            if wasConnected != (state.phase == .connected) { scheduleRecompute() }  // the group representative follows who is connected
+          }
         },
         Task { [weak self] in
           for await state in shell { self?.shells[id] = state; self?.scheduleRecompute() }
@@ -219,7 +239,9 @@ public final class ClientRuntime {
     projects = order.flatMap { id in
       (shells[id]?.snapshot?.projects ?? []).map { EnvironmentProject(environmentId: id, project: $0) }
     }
-    projectGroups = ProjectGrouping.buildGroups(projects: projects, settings: projectGrouping)
+    projectGroups = ProjectGrouping.buildGroups(
+      projects: projects, settings: projectGrouping,
+      connectedEnvironmentIds: Set(connectionStates.filter { $0.value.phase == .connected }.keys))
     sidebar = buildSidebar(now: now, filter: filter, projectRefs: filter.projectRefs)
     armSnoozeWake(sidebar.layout.nextSnoozeWakeAt, now: now)
   }

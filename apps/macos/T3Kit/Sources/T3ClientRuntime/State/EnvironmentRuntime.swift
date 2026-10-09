@@ -21,6 +21,7 @@ public actor EnvironmentRuntime {
   private let serial = KeyedSerialExecutor()
   private let urlSession: URLSession
   private var overlay = OptimisticOverlay()
+  private var settingsInFlight = 0
   private var tasks: [Task<Void, Never>] = []
 
   public init(
@@ -144,6 +145,42 @@ public actor EnvironmentRuntime {
         recomputeDisplay()
       }
       return .failure(CommandError.map(error))
+    }
+  }
+
+  // MARK: Settings
+
+  /// `server.updateSettings` with the edit shown at once. Concurrent edits stack; the last answer is authoritative, and a
+  /// rejected edit is undone by re-reading the server's settings (or restoring the previous ones when it cannot be reached).
+  public func updateSettings(_ patch: ServerSettingsPatch) async throws(CommandError) {
+    guard let session = supervisor.session.value else { throw .notConnected(environment: entry.label) }
+    let previous = config.projection.value?.config.settings
+    var shown: ServerSettings?
+    if let previous, let next = SettingsPlanner.applying(patch, to: previous) {
+      shown = next
+      await config.replaceSettings(next)
+    }
+    settingsInFlight += 1
+    do {
+      let result = try await session.call(Rpc.serverUpdateSettings, ServerUpdateSettingsPayload(patch: patch))
+      settingsInFlight -= 1
+      if settingsInFlight == 0 { await config.replaceSettings(result) }
+    } catch {
+      settingsInFlight -= 1
+      if settingsInFlight == 0 {
+        if let fresh = try? await session.call(Rpc.serverGetSettings, EmptyObject()) {
+          await config.replaceSettings(fresh)
+        } else if let previous, config.projection.value?.config.settings == shown {
+          await config.replaceSettings(previous)
+        }
+      }
+      switch error {
+      case .failure(.serverSettingsError): throw .rejected(message: "The server could not save the setting.")
+      case .failure(.environmentAuthorizationError(let e)): throw .unauthorized(message: "\(e)")
+      case .failure(.unknown): throw .rejected(message: "The server refused the setting.")
+      case .transportClosed(let reason): throw .transport(message: "The connection closed before the setting was saved (\(reason)).")
+      case .defect, .interrupted: throw .transport(message: "The setting could not be saved.")
+      }
     }
   }
 

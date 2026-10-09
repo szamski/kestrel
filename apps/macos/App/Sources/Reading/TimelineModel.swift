@@ -21,6 +21,10 @@ final class TimelineModel {
   let detail: ThreadDetailModel
   private(set) var items: [TimelineItem] = []
   private(set) var timeline: ThreadTimeline?
+  /// Live stages of the thread's worktree bootstrap, fed by `subscribeWorktreeSetup`.
+  var worktreeSetup: WorktreeSetupSnapshot? {
+    didSet { if worktreeSetup != oldValue { schedule() } }
+  }
 
   /// Folds ("Worked for ..."), work groups and reasoning blocks the reader opened.
   private var expandedTurnIds: Set<TurnId> = []
@@ -74,7 +78,7 @@ final class TimelineModel {
           timeline = nil
           continue
         }
-        let context = TimelineContext(expandedTurnIds: expandedTurnIds, expandedWorkGroupIds: expandedWorkGroupIds)
+        let context = TimelineContext(expandedTurnIds: expandedTurnIds, expandedWorkGroupIds: expandedWorkGroupIds, worktreeSetup: worktreeSetup)
         let derived = await worker.derive(thread, context: context)
         let local = expandedLocal
         timeline = derived

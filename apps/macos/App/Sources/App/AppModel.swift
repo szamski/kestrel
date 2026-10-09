@@ -44,6 +44,13 @@ final class AppModel {
   let runtime: ClientRuntime
   let assets: AssetStore
   let composer: ComposerStore
+  /// Branch and worktree choices, git actions and project scripts of the thread in view.
+  let sourceControl: SourceControlStore
+  /// The server this app starts itself (Settings › Connections › Run local server).
+  let localServer: LocalServer
+  private(set) var runsLocalServer: Bool
+  /// Host to prefill in the add-environment sheet (the foreign server found on this Mac).
+  var addEnvironmentHost: String?
 
   /// The thread shown in the reading window. Changing it opens its live detail and marks it read.
   var selection: ScopedThreadKey? {
@@ -69,6 +76,8 @@ final class AppModel {
 
   private static let selectionDefaultsKey = "app.selectedThread"
   private static let draftThreadsDefaultsKey = "app.draftThreads"
+  private static let runsLocalServerKey = "localServer.enabled"
+  private static let localEnvironmentKey = "localServer.environmentId"
 
   /// `~/Library/Application Support/T3 Code Dev/` in Debug, `T3 Code` otherwise.
   static var dataDirectory: URL {
@@ -91,7 +100,45 @@ final class AppModel {
     self.runtime = runtime
     assets = AssetStore(runtime: runtime)
     composer = ComposerStore(runtime: runtime, directory: Self.dataDirectory)
+    sourceControl = SourceControlStore(runtime: runtime)
+    localServer = LocalServer(dataDirectory: Self.dataDirectory)
+    runsLocalServer = UserDefaults.standard.object(forKey: Self.runsLocalServerKey) as? Bool ?? true
     composer.environment.onThreadStarted = { [weak self] key in self?.draftStarted(key) }
+    composer.environment.draftSend = { [weak self] target in try self?.sourceControl.draftSend(for: target) ?? .init() }
+    sourceControl.app = self
+    localServer.register = { [weak self] url, token in try await self?.registerLocalEnvironment(baseURL: url, token: token) }
+    localServer.unavailable = { [weak self] in await self?.disableLocalEnvironment() }
+  }
+
+  // MARK: Local server
+
+  func setRunsLocalServer(_ enabled: Bool) {
+    guard enabled != runsLocalServer else { return }
+    runsLocalServer = enabled
+    UserDefaults.standard.set(enabled, forKey: Self.runsLocalServerKey)
+    if enabled {
+      localServer.start()
+    } else {
+      Task {
+        await localServer.stop()
+        await disableLocalEnvironment()
+      }
+    }
+  }
+
+  /// Exchanges the server's bootstrap token for a bearer and registers it as the local environment. The environment id
+  /// follows the server's home; when the home changed (dev seed, `T3CODE_HOME`) the previous local environment is dropped.
+  private func registerLocalEnvironment(baseURL: URL, token: String) async throws {
+    let entry = try await runtime.addLocalEnvironment(baseURL: baseURL, bootstrapToken: token, label: "This Mac", clientLabel: "Kestrel")
+    let previous = UserDefaults.standard.string(forKey: Self.localEnvironmentKey)
+    UserDefaults.standard.set(entry.environmentId.rawValue, forKey: Self.localEnvironmentKey)
+    if let previous, previous != entry.environmentId.rawValue { await runtime.removeEnvironment(EnvironmentId(rawValue: previous)) }
+  }
+
+  /// No local server runs: keep the environment saved (threads stay readable) but stop its reconnect attempts.
+  private func disableLocalEnvironment() async {
+    guard let id = UserDefaults.standard.string(forKey: Self.localEnvironmentKey) else { return }
+    await runtime.setEnvironmentEnabled(EnvironmentId(rawValue: id), false)
   }
 
   // MARK: Lifecycle
@@ -100,6 +147,7 @@ final class AppModel {
     guard !started else { return }
     started = true
     await runtime.start()
+    if runsLocalServer { localServer.start() } else { await disableLocalEnvironment() }
     restoreSelection()
     observePresence()
     tasks.append(
@@ -123,6 +171,7 @@ final class AppModel {
     await detail?.close()
     await composer.services.persistDraftsNow()
     await runtime.stop()
+    await localServer.stop()
   }
 
   /// Visibility and focus feed the server's background-activity lease. Wake-from-sleep and
@@ -215,8 +264,8 @@ final class AppModel {
     confirmation = ConfirmRequest(title: title, message: message, confirmTitle: confirmTitle, perform: perform)
   }
 
-  /// Whether the web defaults ask before archiving / deleting (`confirmThreadArchive` false, `confirmThreadDelete` true).
-  var confirmsArchive: Bool { UserDefaults.standard.bool(forKey: "confirmThreadArchive") }
+  /// Settings › General › Confirmations (`confirmThreadArchive`, `confirmThreadDelete`, `confirmThreadUnpin`).
+  var confirmsArchive: Bool { ClientSettingsStore.shared.client.confirmThreadArchive }
 
   func archive(_ thread: EnvironmentThreadShell) {
     let key = thread.key
@@ -233,12 +282,29 @@ final class AppModel {
 
   func delete(_ thread: EnvironmentThreadShell) {
     let key = thread.key
-    confirm(
-      "Delete thread \u{201C}\(thread.shell.title)\u{201D}?", message: "This permanently clears the conversation history of this thread.",
-      confirmTitle: "Delete"
-    ) { [self] in
+    let go: @MainActor () async -> Void = { [self] in
       if selection == key { selection = nil }
       run { [runtime] in try await runtime.deleteThread(key) }
+    }
+    if ClientSettingsStore.shared.client.confirmThreadDelete {
+      confirm(
+        "Delete thread \u{201C}\(thread.shell.title)\u{201D}?", message: "This permanently clears the conversation history of this thread.",
+        confirmTitle: "Delete", perform: go)
+    } else {
+      Task { await go() }
+    }
+  }
+
+  /// Pins or unpins a thread; unpinning asks first when Settings › Confirmations says so.
+  func setPinned(_ pinned: Bool, _ key: ScopedThreadKey) {
+    let go: @MainActor () async -> Void = { [self] in
+      run { [runtime] in pinned ? try await runtime.pinThread(key) : try await runtime.unpinThread(key) }
+    }
+    if !pinned, ClientSettingsStore.shared.client.confirmThreadUnpin {
+      let title = runtime.threadShell(key)?.shell.title ?? "this thread"
+      confirm("Unpin thread \u{201C}\(title)\u{201D}?", message: "It moves back to the other threads.", confirmTitle: "Unpin", perform: go)
+    } else {
+      Task { await go() }
     }
   }
 
@@ -263,8 +329,10 @@ final class AppModel {
   }
 
   /// Opens the project's draft composer; the thread is created when its first message is sent.
-  func startNewThread(in group: ProjectGroup) {
-    let project = group.representative
+  func startNewThread(in group: ProjectGroup) { startNewThread(in: group.representative, label: group.label) }
+
+  /// The same, in one environment's project (a draft can move between the environments of its logical project).
+  func startNewThread(in project: EnvironmentProject, label: String) {
     let defaults = UserDefaults.standard
     var reserved = defaults.dictionary(forKey: Self.draftThreadsDefaultsKey) as? [String: String] ?? [:]
     let reservation = "\(project.environmentId.rawValue):\(project.projectId.rawValue)"
@@ -273,7 +341,7 @@ final class AppModel {
     defaults.set(reserved, forKey: Self.draftThreadsDefaultsKey)
     draft = DraftThread(
       key: ScopedThreadKey(environmentId: project.environmentId, threadId: ThreadId(rawValue: threadId)), projectId: project.projectId,
-      projectTitle: group.label)
+      projectTitle: label)
     selection = nil
     composer.environment.activeEnvironmentId = project.environmentId
   }

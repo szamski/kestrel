@@ -162,6 +162,9 @@ function decodeExpr(f: Field): string {
     read = lossy
       ? `try c.decodeLossyArrayIfPresent(${elem}.self, ${key})`
       : `${f.lenient ? "try?" : "try"} c.decodeIfPresent(${baseType(ir)}.self, ${key})`;
+    // A nullable field with a non-null default keeps an explicit null (the default only fills an absent key).
+    if (f.hasDefault && f.default !== null && f.wire.nullable && !lossy)
+      return `c.contains(.${f.id}) ? (${read}) : ${defaultExpr(f)}`;
     if (f.hasDefault && f.default !== null) return `(${read}) ?? ${defaultExpr(f)}`;
     if (f.hasDefault && !f.optional) return `(${read}) ?? ${defaultExpr(f)}`;
     return read;

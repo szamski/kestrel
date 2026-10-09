@@ -16,6 +16,10 @@ final class TimelineHost {
   var toggleWorkGroup: (String) -> Void = { _ in }
   var toggleLocal: (String) -> Void = { _ in }
   var openLink: (MarkdownLink) -> Void = { _ in }
+  /// "Changed files": open the diff panel on a turn, at a file when given.
+  var openDiff: (TurnId, String?) -> Void = { _, _ in }
+  /// "Cancel" on the worktree setup card.
+  var cancelWorktreeSetup: () -> Void = {}
 
   init(key: ScopedThreadKey, workspaceRoot: String?, assets: AssetStore) {
     self.key = key

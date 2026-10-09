@@ -189,7 +189,7 @@ struct AssistantMetaView: View {
   var body: some View {
     HStack(spacing: 8) {
       if let date = message.updatedAt.date {
-        Text(date, format: .dateTime.hour().minute())
+        Text(date, format: ClientSettingsStore.shared.timeStyle)
       }
       if let duration { Text(duration) }
       if showsCopy && !streaming {
@@ -235,24 +235,36 @@ struct ReasoningDisclosure: View {
 
 struct TurnDiffCard: View {
   let summary: OrchestrationCheckpointSummary
+  @Environment(\.timelineHost) private var host
   private static let shown = 8
 
   var body: some View {
     let stat = summarizeTurnDiffStats(summary.files)
     let files = summary.files.sorted { $0.path < $1.path }
     VStack(alignment: .leading, spacing: 6) {
-      HStack(spacing: 8) {
-        Text("Changed files (\(files.count))").font(.callout.weight(.medium))
-        Spacer(minLength: 0)
-        DiffStat(additions: stat.additions, deletions: stat.deletions)
-      }
-      ForEach(files.prefix(Self.shown), id: \.path) { file in
+      Button { host?.openDiff(summary.turnId, nil) } label: {
         HStack(spacing: 8) {
-          Text(file.path).font(.system(size: 12, design: .monospaced)).lineLimit(1).truncationMode(.head)
+          Text("Changed files (\(files.count))").font(.callout.weight(.medium))
           Spacer(minLength: 0)
-          DiffStat(additions: file.additions, deletions: file.deletions)
+          DiffStat(additions: stat.additions, deletions: stat.deletions)
+          Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Palette.muted)
         }
+        .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .help("View diff")
+      ForEach(files.prefix(Self.shown), id: \.path) { file in
+        Button { host?.openDiff(summary.turnId, file.path) } label: {
+          HStack(spacing: 8) {
+            Text(file.path).font(.system(size: 12, design: .monospaced)).lineLimit(1).truncationMode(.head)
+            Spacer(minLength: 0)
+            DiffStat(additions: file.additions, deletions: file.deletions)
+          }
+          .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
         .foregroundStyle(Palette.muted)
+        .help("View diff of \(file.path)")
       }
       if files.count > Self.shown {
         Text("+\(files.count - Self.shown) more").font(.caption).foregroundStyle(Palette.muted)
@@ -309,10 +321,15 @@ struct ProposedPlanCard: View {
 
 struct WorktreeSetupCard: View {
   let snapshot: WorktreeSetupSnapshot
+  @Environment(\.timelineHost) private var host
 
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
-      Label(title, systemImage: "arrow.triangle.branch").font(.callout.weight(.medium))
+      HStack {
+        Label(title, systemImage: "arrow.triangle.branch").font(.callout.weight(.medium))
+        Spacer()
+        if snapshot.phase == .running { Button("Cancel") { host?.cancelWorktreeSetup() }.controlSize(.small) }
+      }
       if let branch = snapshot.branch { Text(branch).font(.system(size: 12, design: .monospaced)).foregroundStyle(Palette.muted) }
       ForEach(snapshot.stages, id: \.id) { stage in
         HStack(spacing: 8) {

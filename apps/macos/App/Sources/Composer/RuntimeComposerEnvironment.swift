@@ -17,18 +17,15 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
   var activeEnvironmentId: EnvironmentId?
   /// Called once a draft thread exists on the server (its first turn was accepted).
   @ObservationIgnored var onThreadStarted: (@MainActor (ScopedThreadKey) -> Void)?
+  /// The branch and worktree a draft was set up with (source control strip); asked for at the draft's first send.
+  @ObservationIgnored var draftSend: (@MainActor (ComposerTarget) throws -> SourceControlStore.DraftSend)?
   private var favorites: Set<String>
-  private var settingsRevision = 0
-  @ObservationIgnored private var defaultsObserver: NSObjectProtocol?
 
   init(runtime: ClientRuntime, directory: URL) {
     self.runtime = runtime
     self.directory = directory
     try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     favorites = Set((try? JSONDecoder().decode([String].self, from: Data(contentsOf: directory.appending(path: "favorites.json")))) ?? [])
-    defaultsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
-      MainActor.assumeIsolated { self?.settingsRevision += 1 }
-    }
   }
 
   // MARK: Catalog
@@ -36,11 +33,12 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
   private var environmentId: EnvironmentId? { activeEnvironmentId ?? runtime.environments.first?.environmentId }
 
   private func buildCatalog() -> ComposerCatalog {
-    _ = settingsRevision
+    // Device preferences come from the settings store; reading them here keeps the catalog live.
+    let preferences = ClientSettingsStore.shared.client
     let config = environmentId.flatMap { runtime.serverConfigs[$0]?.config }
     let capabilities = config?.environment.capabilities
     let server = config?.settings
-    var models = ComposerModelSettings(planModeEnabled: Self.flag("composer.planModeEnabled", false), favoriteModelKeys: favorites)
+    var models = ComposerModelSettings(planModeEnabled: preferences.planModeEnabled, favoriteModelKeys: favorites)
     // Legacy per-driver switches enable the default instances; explicit `providerInstances` override them.
     if let legacy = server?.providers {
       models.legacyProviderEnabled = [
@@ -63,11 +61,10 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       }
     }
     let settings = ComposerSettings(
-      sendShortcut: SendShortcut(rawValue: UserDefaults.standard.string(forKey: "composer.sendShortcut") ?? "") ?? .enter,
-      followUpBehavior: FollowUpBehavior(rawValue: UserDefaults.standard.string(forKey: "composer.followUpBehavior") ?? "") ?? .queue,
-      showSkillsInSlashMenu: Self.flag("composer.showSkillsInSlashMenu", true), richTextEnabled: Self.flag("composer.richTextEnabled", true),
-      collapseOnScroll: Self.flag("composer.collapseOnScroll", true), contextWindowMeterEnabled: Self.flag("composer.contextWindowMeterEnabled", false),
-      models: models)
+      sendShortcut: SendShortcut(rawValue: preferences.sendShortcut.rawValue) ?? .enter,
+      followUpBehavior: FollowUpBehavior(rawValue: preferences.followUpBehavior.rawValue) ?? .queue,
+      showSkillsInSlashMenu: preferences.showSkillsInSlashMenu, richTextEnabled: preferences.composerRichTextEnabled,
+      collapseOnScroll: preferences.composerCollapseOnScroll, contextWindowMeterEnabled: preferences.contextWindowMeterEnabled, models: models)
     return ComposerCatalog(
       providers: config?.providers ?? [], settings: settings,
       capabilities: ComposerCapabilities(
@@ -78,8 +75,6 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       defaultModelSelection: server?.defaultModelSelection.map { ModelSelection(instanceId: $0.instanceId, model: $0.model, options: $0.options) },
       defaultRuntimeMode: server.map { RuntimeMode(rawValue: $0.defaultRuntimeMode.rawValue) } ?? .fullAccess)
   }
-
-  private static func flag(_ key: String, _ fallback: Bool) -> Bool { UserDefaults.standard.object(forKey: key) == nil ? fallback : UserDefaults.standard.bool(forKey: key) }
 
   func catalog() async -> ComposerCatalog { buildCatalog() }
 
@@ -200,10 +195,12 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       let project = runtime.projects.first { $0.environmentId == environmentId && $0.projectId.rawValue == projectId }
       guard let model = command.modelSelection ?? project?.project.defaultModelSelection else { throw ComposerEnvironmentError("Pick a model before sending.") }
       // The thread is created with its first turn, so an abandoned draft never leaves an empty thread behind.
+      let send = try draftSend?(target) ?? .init()
       command.bootstrap = ClientOrchestrationCommandThreadTurnStartBootstrap(
         createThread: ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread(
           projectId: ProjectId(projectId), title: titleSeed ?? "New thread", modelSelection: model, runtimeMode: command.runtimeMode,
-          interactionMode: command.interactionMode, createdAt: command.createdAt))
+          interactionMode: command.interactionMode, branch: send.branch, worktreePath: send.worktreePath, createdAt: command.createdAt),
+        prepareWorktree: send.prepare, runSetupScript: send.prepare == nil ? nil : true)
       try await dispatch(.threadTurnStart(command), environmentId, thread: command.threadId)
       onThreadStarted?(key)
       return

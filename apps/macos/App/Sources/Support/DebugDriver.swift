@@ -54,6 +54,7 @@ final class DebugDriver {
       case "dark": NSApp.appearance = NSAppearance(named: .darkAqua); await sleep(0.6)
       case "shot": capture(window, name: arg)
       case "shotv": captureViews(window, name: arg)
+      case "shotsheet": captureViews(window?.attachedSheet, name: arg)
       case "shotsb":
         let table = findSidebarTable(in: window?.contentView)
         say("sidebar table \(String(describing: table.map { type(of: $0) })) rows=\(table?.numberOfRows ?? -1) frame=\(String(describing: table?.frame))")
@@ -65,6 +66,53 @@ final class DebugDriver {
       case "groups": say(app.runtime.projectGroups.map { "\($0.label) [\($0.representative.project.workspaceRoot)]" }.joined(separator: " | "))
       case "bench": await bench(arg)
       case "survey": let r = arg.split(separator: "-").compactMap { Int($0) }; await survey(r.count == 2 ? r[0]..<r[1] : 0..<(r.first ?? 12))
+      case "newthread":  // `newthread:<project label>`: opens the draft composer of that project
+        NSApp.activate(ignoringOtherApps: true)
+        window?.makeKeyAndOrderFront(nil)
+        if let group = app.runtime.projectGroups.first(where: { $0.label == arg }) { app.startNewThread(in: group) } else { say("no project \(arg)") }
+        await sleep(1.0)
+      case "providers":  // per environment: the provider snapshots the composer catalog is built from
+        for (id, projection) in app.runtime.serverConfigs {
+          let label = app.environmentLabel(id)
+          say("providers \(label) source=\(projection.source) cwd=\(projection.config.cwd) count=\(projection.config.providers.count)")
+          for p in projection.config.providers {
+            say("  \(p.instanceId.rawValue) driver=\(p.driver.rawValue) enabled=\(p.enabled) installed=\(p.installed) status=\(p.status.rawValue) availability=\(String(describing: p.availability)) auth=\(p.auth.status.rawValue) models=\(p.models.count)")
+          }
+        }
+      case "envs": for e in app.runtime.environments { say("env \(e.label) enabled=\(e.enabled) phase=\(e.connection.phase) stage=\(String(describing: e.connection.stage)) failure=\(String(describing: e.connection.lastFailure))") }
+      case "panel":  // `panel:files`, `panel:diff`, `panel:file:<path>[:line]`, `panel:goto`, `panel:search`
+        if let key = app.selection, let store = RightPanelStore.live {
+          let bits = arg.split(separator: ":").map(String.init)
+          switch bits.first {
+          case "files": store.openFiles(in: key)
+          case "diff": store.open(.diff, in: key)
+          case "worktree": store.open(.diff, in: key); store.selectScope(.workingTree, in: key)
+          case "file": store.openFile(bits[1], line: bits.count > 2 ? Int(bits[2]) : nil, in: key)
+          case "goto": store.goToFile(in: key)
+          case "search": store.searchContents(in: key)
+          default: say("unknown panel \(arg)")
+          }
+        } else { say("panel: no selected thread") }
+        await sleep(1.0)
+      case "mkthread":  // `mkthread:<project label>`: a titled thread in that project, with any known thread's model, selected
+        let model = app.runtime.sidebar.rows.first?.thread.shell.modelSelection
+        if let group = app.runtime.projectGroups.first(where: { $0.label == arg }), let model {
+          do {
+            let project = group.representative
+            let id = try await app.runtime.createThread(environmentId: project.environmentId, projectId: project.projectId, title: "[files] scratch", modelSelection: model)
+            app.selection = ScopedThreadKey(environmentId: project.environmentId, threadId: id)
+            for _ in 0..<100 where app.detail?.thread == nil { await sleep(0.1) }
+          } catch { say("mkthread failed: \(AppModel.describe(error))") }
+        } else { say("mkthread: no project or model for \(arg)") }
+      case "mkproject":  // `mkproject:<title>:<path>`: adds that directory as a project of the first connected environment
+        let bits = arg.split(separator: ":", maxSplits: 1).map(String.init)
+        if bits.count == 2, let entry = app.runtime.environments.first(where: { $0.connection.phase == .connected }), let env = await app.runtime.runtime(for: entry.environmentId) {
+          let meta = CommandMeta.fresh()
+          do {
+            _ = try await env.dispatch(.projectCreate(ProjectCreateCommand(commandId: meta.commandId, projectId: ProjectId(rawValue: UUID().uuidString.lowercased()), title: bits[0], workspaceRoot: bits[1], createdAt: meta.createdAt)))
+            await sleep(1.5)
+          } catch { say("mkproject failed: \(error)") }
+        } else { say("mkproject: no connected environment or bad arg") }
       case "scratch": await scratch()
       case "scratchops": await scratchOps()
       case "scratchclean": await scratchClean()
@@ -121,7 +169,7 @@ final class DebugDriver {
       for down in [true, false] {
         post(NSEvent.keyEvent(
           with: down ? .keyDown : .keyUp, location: .zero, modifierFlags: [], timestamp: ProcessInfo.processInfo.systemUptime,
-          windowNumber: window?.windowNumber ?? 0, context: nil, characters: s, charactersIgnoringModifiers: s, isARepeat: false, keyCode: 0))
+          windowNumber: (window?.attachedSheet ?? window)?.windowNumber ?? 0, context: nil, characters: s, charactersIgnoringModifiers: s, isARepeat: false, keyCode: 0))
       }
       await sleep(0.02)
     }

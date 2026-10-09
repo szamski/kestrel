@@ -136,7 +136,8 @@ public enum ProjectGrouping {
   }
 
   public static func buildGroups(
-    projects: [EnvironmentProject], settings: ProjectGroupingSettings, preferredEnvironmentId: EnvironmentId? = nil
+    projects: [EnvironmentProject], settings: ProjectGroupingSettings, preferredEnvironmentId: EnvironmentId? = nil,
+    connectedEnvironmentIds: Set<EnvironmentId>? = nil
   ) -> [ProjectGroup] {
     // Insertion-ordered maps: JS Map iteration order is the observable output order.
     var physicalOrder: [String] = [], byPhysical: [String: [EnvironmentProject]] = [:]
@@ -166,7 +167,10 @@ public enum ProjectGrouping {
     }
     return groupOrder.map { key in
       let members = grouped[key]!
-      let representative = preferredEnvironmentId.flatMap { id in members.first { $0.project.environmentId == id }?.project } ?? members[0].project
+      // New threads start in the representative, so a disconnected environment only represents a group nobody else has.
+      let live = connectedEnvironmentIds.map { ids in members.filter { ids.contains($0.project.environmentId) } } ?? members
+      let pool = live.isEmpty ? members : live
+      let representative = preferredEnvironmentId.flatMap { id in pool.first { $0.project.environmentId == id }?.project } ?? pool[0].project
       return ProjectGroup(
         key: key,
         label: members.count > 1 ? groupLabel(representative: representative, members: members.map(\.project)) : representative.project.title,

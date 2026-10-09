@@ -1,2 +1,5 @@
 // Debug build settings. Machine-specific signing lives in the untracked Signing.local.xcconfig.
 #include? "Signing.local.xcconfig"
+
+// The Debug server runs from this checkout (apps/server/src/bin.ts); Release bundles its own (scripts/bundle-server.sh).
+T3_REPO_ROOT = $(SRCROOT)/../..
