@@ -32,10 +32,16 @@ struct SidebarView: View {
       }
     }
     .listStyle(.sidebar)
+    .themedSidebar()
     .searchable(text: $runtime.filter.searchQuery, placement: .sidebar, prompt: "Search threads")
     .onDeleteCommand { if let thread = app.selectedThread { app.archive(thread) } }
     .overlay { if sidebar.isEmpty { EmptySidebar(searching: !runtime.filter.searchQuery.isEmpty) } }
-    .safeAreaInset(edge: .bottom, spacing: 0) { SidebarFooter() }
+    .safeAreaInset(edge: .bottom, spacing: 0) {
+      VStack(spacing: 0) {
+        StageBadge()
+        SidebarFooter()
+      }
+    }
     .toolbar {
       ToolbarItem { NewThreadMenu() }
     }

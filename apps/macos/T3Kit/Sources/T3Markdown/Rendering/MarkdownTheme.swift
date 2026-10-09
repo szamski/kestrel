@@ -1,4 +1,6 @@
 import AppKit
+import Foundation
+import Observation
 
 /// Everything the renderer needs to know about looks. Colours are keyed by semantic role;
 /// the default light/dark themes approximate the web "t3-chat" palette
@@ -112,11 +114,69 @@ extension MarkdownTheme {
       ])
   }
 
-  public static var light: MarkdownTheme { t3ChatLight() }
-  public static var dark: MarkdownTheme { t3ChatDark() }
+  public static var light: MarkdownTheme { ThemeOverrides.shared.markdown ?? t3ChatLight() }
+  public static var dark: MarkdownTheme { ThemeOverrides.shared.markdown ?? t3ChatDark() }
 
   /// The default theme for an appearance.
   public static func `default`(for appearance: NSAppearance) -> MarkdownTheme {
     appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? dark : light
   }
+}
+
+// MARK: - App theme hook
+
+public extension Notification.Name {
+  /// Posted on the main thread after `ThemeOverrides.install`; AppKit surfaces that cache colors redraw on it.
+  static let t3ThemeDidChange = Notification.Name("T3ThemeDidChange")
+}
+
+/// Red/green or blue/orange for additions and deletions (Settings › Appearance › Diff colors).
+public enum DiffColorScheme: Sendable, Hashable {
+  case redGreen, blueOrange
+}
+
+/// What the app theme feeds the renderers: the Markdown theme every surface that shows chat, code or diffs uses, and the diff
+/// color scheme. Reads register with Observation, so SwiftUI views that read `MarkdownTheme.light/.dark` or `DiffColors`
+/// re-render when the theme changes; AppKit surfaces listen for `.t3ThemeDidChange`.
+@Observable
+public final class ThemeOverrides: @unchecked Sendable {
+  public static let shared = ThemeOverrides()
+
+  @ObservationIgnored private let lock = NSLock()
+  @ObservationIgnored private var storedMarkdown: MarkdownTheme?
+  @ObservationIgnored private var storedDiff = DiffColorScheme.redGreen
+  @ObservationIgnored private var storedCodeFont: NSFont?
+  public private(set) var revision = 0
+
+  /// Nil until the app installs a theme, so the renderers' own defaults stay in force in tests and previews.
+  public var markdown: MarkdownTheme? {
+    _ = revision
+    return lock.withLock { storedMarkdown }
+  }
+
+  public var diffScheme: DiffColorScheme {
+    _ = revision
+    return lock.withLock { storedDiff }
+  }
+
+  /// The user's code font, for surfaces that size their own monospace text (diff rows).
+  public var codeFont: NSFont? {
+    _ = revision
+    return lock.withLock { storedCodeFont }
+  }
+
+  public func install(markdown: MarkdownTheme?, diff: DiffColorScheme, codeFont: NSFont?) {
+    lock.withLock {
+      storedMarkdown = markdown
+      storedDiff = diff
+      storedCodeFont = codeFont
+    }
+    revision += 1
+    NotificationCenter.default.post(name: .t3ThemeDidChange, object: nil)
+  }
+}
+
+public enum DiffColors {
+  public static var addition: NSColor { ThemeOverrides.shared.diffScheme == .blueOrange ? .systemBlue : .systemGreen }
+  public static var deletion: NSColor { ThemeOverrides.shared.diffScheme == .blueOrange ? .systemOrange : .systemRed }
 }

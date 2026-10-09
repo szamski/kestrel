@@ -82,7 +82,9 @@ private struct Detail: View {
     } else {
       switch model.page {
       case .general: GeneralPage()
+      case .appearance: AppearancePage()
       case .connections: Form { LocalServerSettings() }.formStyle(.grouped)
+      case .providers: ProvidersPage()
       default: Placeholder(text: "\(model.page.title) settings arrive in a later stage.", title: model.page.title)
       }
     }
@@ -108,12 +110,12 @@ private struct RestoreDefaultsButton: View {
   @State private var confirming = false
 
   var body: some View {
-    let labels = model.page == .general ? GeneralDefaults.changedLabels(model) : []
+    let labels = model.page == .general ? GeneralDefaults.changedLabels(model) : model.page == .appearance ? AppearanceDefaults.changedLabels(model) : []
     Button("Restore defaults", systemImage: "arrow.counterclockwise") { confirming = true }
       .disabled(labels.isEmpty)
       .help(labels.isEmpty ? "Everything on this page already has its default value." : "Reset this page to its defaults")
       .confirmationDialog("Restore default settings?", isPresented: $confirming) {
-        Button("Restore defaults", role: .destructive) { GeneralDefaults.restore(model) }
+        Button("Restore defaults", role: .destructive) { model.page == .appearance ? AppearanceDefaults.restore(model) : GeneralDefaults.restore(model) }
       } message: {
         Text("This will reset: \(labels.joined(separator: ", ")).")
       }

@@ -1,47 +1,56 @@
 import AppKit
 import SwiftUI
-import T3Markdown
+import T3Theme
 
-/// The web "t3-chat" palette (packages/shared/src/themePalettes.ts, OKLCH) for the app chrome the
-/// system does not provide. Sidebar, toolbar and controls stay native; only the reading canvas,
-/// bubbles and cards take these colours so the text matches `MarkdownTheme.light/.dark`.
+/// Colors for the app chrome the system does not provide, read from the live theme (`AppTheme`). Sidebar, toolbar and
+/// controls stay native unless a theme is chosen; the reading canvas, bubbles and cards always take these. Every read
+/// registers with Observation, so a view that reads one repaints when the theme changes.
+@MainActor
 enum Palette {
-  static let canvas = dynamic(light: (0.982446, 0.010114, 325.653), dark: (0.22813, 0.020366, 307.469))
-  static let surface = dynamic(light: (0.971835, 0.012884, 321.894), dark: (0.267101, 0.02016, 311.799))
-  static let border = dynamic(light: (0.923531, 0.021247, 328.096), dark: (0.266943, 0.015262, 302.425))
-  static let bubble = dynamic(light: (0.926746, 0.037898, 332.6), dark: (0.273791, 0.025541, 309.079))
-  static let bubbleText = dynamic(light: (0.354591, 0.093575, 307.568), dark: (0.949872, 0.021269, 306.838))
-  /// Same text colours as the Markdown theme so a message and its chrome never disagree.
-  static let text = Color(nsColor: .init(name: nil) { MarkdownTheme.default(for: $0).foreground })
-  static let muted = Color(nsColor: .init(name: nil) { MarkdownTheme.default(for: $0).muted })
-  static let link = Color(nsColor: .init(name: nil) { MarkdownTheme.default(for: $0).link })
+  static var canvas: Color { AppTheme.shared.color(.canvas) }
+  static var surface: Color { AppTheme.shared.color(.surface) }
+  static var border: Color { AppTheme.shared.color(.border) }
+  static var bubble: Color { AppTheme.shared.color(.messageSurface) }
+  static var bubbleText: Color { AppTheme.shared.color(.messageForeground) }
+  static var text: Color { AppTheme.shared.color(.text) }
+  static var muted: Color { AppTheme.shared.color(.textMuted) }
+  /// Same as the Markdown theme's link color, so a link in a message and one in the chrome never disagree.
+  static var link: Color { AppTheme.shared.color(.updateForeground) }
+  static var accent: Color { AppTheme.shared.color(.accent) }
+  static var sidebar: Color { AppTheme.shared.color(.sidebar) }
+  static var sidebarText: Color { AppTheme.shared.color(.sidebarForeground) }
+  static var sidebarMuted: Color { AppTheme.shared.color(.sidebarMutedForeground) }
+  static var sidebarRowSelected: Color { AppTheme.shared.color(.sidebarRowSelected) }
+  /// Menus, dialogs and the composer: the overlay surface at the Glass opacity setting.
+  static var overlay: Color { AppTheme.shared.color(.surfaceOverlay).opacity(AppTheme.shared.glassOpacity) }
+}
 
-  private static func dynamic(light: (Double, Double, Double), dark: (Double, Double, Double)) -> Color {
-    Color(
-      nsColor: NSColor(name: nil) { appearance in
-        let isDark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-        let (l, c, h) = isDark ? dark : light
-        return .oklch(l, c, h)
-      })
+extension View {
+  /// Paints the sidebar column with the theme's sidebar colors when a theme is chosen; native glass otherwise.
+  @ViewBuilder func themedSidebar() -> some View {
+    if AppTheme.shared.paintsChrome {
+      self.scrollContentBackground(.hidden).background(Palette.sidebar)
+        .foregroundStyle(Palette.sidebarText)
+    } else {
+      self
+    }
+  }
+
+  /// The sidebar footer's bar: the system's bar material, or the theme's sidebar color when a theme paints the chrome.
+  @ViewBuilder func themedBarBackground() -> some View {
+    if AppTheme.shared.paintsChrome { background(Palette.sidebar) } else { background(.bar) }
+  }
+
+  /// Everything the root view applies for the theme: accent tint and the interface font.
+  func themed() -> some View {
+    modifier(ThemedRoot())
   }
 }
 
-extension NSColor {
-  /// OKLCH to sRGB (Björn Ottosson's OKLab matrices), clamped to the gamut.
-  static func oklch(_ l: Double, _ c: Double, _ hDegrees: Double) -> NSColor {
-    let h = hDegrees * .pi / 180
-    let a = c * cos(h), b = c * sin(h)
-    let l_ = l + 0.3963377774 * a + 0.2158037573 * b
-    let m_ = l - 0.1055613458 * a - 0.0638541728 * b
-    let s_ = l - 0.0894841775 * a - 1.2914855480 * b
-    let (lc, mc, sc) = (l_ * l_ * l_, m_ * m_ * m_, s_ * s_ * s_)
-    let r = 4.0767416621 * lc - 3.3077115913 * mc + 0.2309699292 * sc
-    let g = -1.2684380046 * lc + 2.6097574011 * mc - 0.3413193965 * sc
-    let bl = -0.0041960863 * lc - 0.7034186147 * mc + 1.7076147010 * sc
-    func encode(_ v: Double) -> CGFloat {
-      let x = min(max(v, 0), 1)
-      return CGFloat(x <= 0.0031308 ? 12.92 * x : 1.055 * pow(x, 1 / 2.4) - 0.055)
-    }
-    return NSColor(srgbRed: encode(r), green: encode(g), blue: encode(bl), alpha: 1)
+private struct ThemedRoot: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .tint(AppTheme.shared.paintsChrome ? Palette.link : nil)
+      .font(AppTheme.shared.interfaceFont)
   }
 }

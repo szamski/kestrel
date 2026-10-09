@@ -179,7 +179,7 @@ public enum SettingsPlanner {
   // MARK: Optimistic apply
 
   /// The settings after the server applies `patch`, for showing an edit before it is acknowledged. Covers the merge rules of
-  /// `applyServerSettingsPatch`: objects merge, `projectSettingsOverrides` entries and `backgroundActivity` are replaced.
+  /// `applyServerSettingsPatch`: objects merge, `projectSettingsOverrides` and `usageLimitSources` merge per entry (null removes), `backgroundActivity` and `providerInstances` are replaced.
   /// Nil when the result does not decode (the edit then waits for the server's answer).
   public static func applying(_ patch: ServerSettingsPatch, to settings: ServerSettings) -> ServerSettings? {
     var next = object(settings)
@@ -189,8 +189,12 @@ public enum SettingsPlanner {
         var map = next[key] as? [String: Any] ?? [:]
         for (projectId, entry) in value as? [String: Any] ?? [:] { map[projectId] = entry is NSNull ? nil : entry }
         next[key] = map
-      case "backgroundActivity", "worktreeCleanup":
-        next[key] = value
+      case "backgroundActivity", "worktreeCleanup", "providerInstances":
+        next[key] = value  // replaced, not merged: an instance left out of the map is deleted
+      case "usageLimitSources":
+        var map = next[key] as? [String: Any] ?? [:]
+        for (id, entry) in value as? [String: Any] ?? [:] { map[id] = entry is NSNull ? nil : entry }
+        next[key] = map
       case "backgroundActivityProfile", "automaticGitFetchInterval", "providerHealthRefreshInterval":
         continue  // the server folds these into `backgroundActivity`; the answer carries the result
       default:

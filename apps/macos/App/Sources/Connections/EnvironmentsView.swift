@@ -36,7 +36,7 @@ struct SidebarFooter: View {
     }
     .font(.callout)
     .padding(.horizontal, 14).padding(.vertical, 8)
-    .background(.bar)
+    .themedBarBackground()
   }
 
   /// Worst state wins: blocked, then not connected, then connecting, else connected.

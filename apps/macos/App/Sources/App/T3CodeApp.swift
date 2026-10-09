@@ -10,6 +10,7 @@ struct T3CodeApp: App {
 
   init() {
     let model = AppModel()
+    AppTheme.shared.start()
     _app = State(initialValue: model)
     _commands = State(initialValue: CommandCenter(app: model))
   }
@@ -19,6 +20,7 @@ struct T3CodeApp: App {
       MainView()
         .environment(app)
         .environment(commands)
+        .themed()
         .overlay {
           if commands.palette.isOpen {
             PaletteView(app: app, commands: commands, startMode: commands.palette.mode) { commands.palette.dismiss() }
@@ -27,6 +29,10 @@ struct T3CodeApp: App {
         .task {
           delegate.model = app
           SettingsBindings.start(runtime: app.runtime)
+          AppTheme.shared.observeEnvironment(runtime: app.runtime)
+          #if DEBUG
+          AppearanceDebug.runIfRequested(app: app)
+          #endif
           commands.start()
           await app.start()
         }
@@ -36,7 +42,7 @@ struct T3CodeApp: App {
     .windowToolbarStyle(.unified)
     .commands { AppCommands(app: app, commands: commands) }
 
-    Settings { SettingsView(model: SettingsModel(runtime: app.runtime)) }
+    Settings { SettingsView(model: SettingsModel(runtime: app.runtime)).themed() }
   }
 }
 

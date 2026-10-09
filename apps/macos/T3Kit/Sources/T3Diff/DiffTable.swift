@@ -128,6 +128,7 @@ public struct DiffTable: NSViewRepresentable {
     private weak var table: DiffNSTableView?
     private var lastColumns = 0
     nonisolated(unsafe) private var observer: NSObjectProtocol?
+    nonisolated(unsafe) private var themeObserver: NSObjectProtocol?
 
     func attach(scroll: NSScrollView, table: DiffNSTableView) {
       self.scroll = scroll
@@ -135,9 +136,27 @@ public struct DiffTable: NSViewRepresentable {
       observer = NotificationCenter.default.addObserver(forName: NSView.frameDidChangeNotification, object: scroll.contentView, queue: .main) { [weak self] _ in
         MainActor.assumeIsolated { self?.viewportChanged() }
       }
+      themeObserver = NotificationCenter.default.addObserver(forName: .t3ThemeDidChange, object: nil, queue: .main) { [weak self] _ in
+        MainActor.assumeIsolated { self?.themeChanged() }
+      }
     }
 
-    deinit { if let observer { NotificationCenter.default.removeObserver(observer) } }
+    /// New colors redraw; a new code font also changes line metrics, so the table reloads.
+    private func themeChanged() {
+      guard let table else { return }
+      if render.refreshFont() {
+        render.setContent(files: render.files, rows: render.rows, layout: render.layout, wordWrap: render.wordWrap)
+        reload()
+      } else {
+        render.clearCaches()
+        table.redrawVisibleRows()
+      }
+    }
+
+    deinit {
+      if let observer { NotificationCenter.default.removeObserver(observer) }
+      if let themeObserver { NotificationCenter.default.removeObserver(themeObserver) }
+    }
 
     func markersDirty(_ markers: [String: [ClosedRange<Int>]]) -> Bool {
       defer { lastMarkers = markers }

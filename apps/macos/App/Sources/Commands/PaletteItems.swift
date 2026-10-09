@@ -3,6 +3,7 @@ import Foundation
 import T3ClientRuntime
 import T3Composer
 import T3Contracts
+import T3Theme
 
 /// One selectable row of the command palette.
 struct PaletteItem: Identifiable {
@@ -119,7 +120,17 @@ struct PaletteContent {
       commandItem(.appearanceCycle, title: "Cycle appearance", symbol: "circle.lefthalf.filled", terms: ["theme", "dark", "light"]),
       PaletteItem(id: "action:settings", title: "Open settings", symbol: "gearshape", shortcut: "\u{2318},", terms: ["preferences"], run: { finish { commands.openSettings() } }),
     ]
-    return items.compactMap { $0 }
+    return items.compactMap { $0 } + themeItems(finish: finish)
+  }
+
+  /// "Theme: Ocean": every theme in the library, so one can be picked without opening Settings.
+  private func themeItems(finish: @escaping (@escaping @MainActor () -> Void) -> Void) -> [PaletteItem] {
+    let library: [ThemeDefinition?] = [nil] + AppTheme.shared.library.map { Optional($0) }
+    return library.map { theme in
+      PaletteItem(
+        id: "theme:\(theme?.id ?? "standard")", title: "Theme: \(theme?.label ?? "T3 Code")", symbol: "paintpalette", terms: ["appearance", "colors", "palette"],
+        run: { finish { AppTheme.shared.use(theme?.id) } })
+    }
   }
 
   /// Newest first.

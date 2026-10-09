@@ -114,14 +114,14 @@ struct ThreadTerminalDrawerView: View {
   let app: AppModel
   let key: ScopedThreadKey
   @Bindable var drawers: TerminalDrawers
-  @Environment(\.colorScheme) private var colorScheme
   @State private var dragStart: CGFloat?
 
   var body: some View {
     if drawers.isOpen(key), drawers.canOpen(key, app: app) {
       VStack(spacing: 0) {
         handle
-        TerminalDrawerView(model: drawers.model(for: key, app: app), theme: colorScheme == .dark ? .dark : .light, onOpenLink: openLink)
+        TerminalDrawerView(
+          model: drawers.model(for: key, app: app), theme: AppTheme.shared.terminalTheme, font: AppTheme.shared.terminalFont, onOpenLink: openLink)
           .frame(height: drawers.height)
       }
       .background(Palette.canvas)

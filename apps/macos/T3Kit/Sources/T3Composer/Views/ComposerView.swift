@@ -63,8 +63,8 @@ public struct ComposerView: View {
       }
       footer.padding(.horizontal, 10).padding(.bottom, 10).padding(.top, 2)
     }
-    .background(RoundedRectangle(cornerRadius: ComposerTheme.corner, style: .continuous).fill(ComposerTheme.raised))
-    .overlay(RoundedRectangle(cornerRadius: ComposerTheme.corner, style: .continuous).strokeBorder(ComposerTheme.stroke))
+    .background(RoundedRectangle(cornerRadius: ComposerTheme.corner, style: .continuous).fill(style.fill ?? ComposerTheme.raised))
+    .overlay(RoundedRectangle(cornerRadius: ComposerTheme.corner, style: .continuous).strokeBorder(style.stroke ?? ComposerTheme.stroke))
     .shadow(color: .black.opacity(0.06), radius: 6, y: 1)
     .dropDestination(for: URL.self) { urls, _ in
       guard !urls.isEmpty else { return false }

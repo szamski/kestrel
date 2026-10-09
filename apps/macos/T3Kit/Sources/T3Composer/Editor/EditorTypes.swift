@@ -1,4 +1,5 @@
 import AppKit
+import SwiftUI
 import Foundation
 
 extension NSAttributedString.Key {
@@ -54,13 +55,28 @@ extension RichTextMark {
 public struct ComposerEditorStyle: Sendable {
   public var fontSize: CGFloat
   public var lineSpacing: CGFloat
+  /// The prompt font family (Settings › Appearance); nil keeps the system font.
+  public var fontFamily: String?
+  /// Theme colors; nil keeps the system's.
+  public var textColor: NSColor?
+  public var fill: Color?
+  public var stroke: Color?
 
-  public init(fontSize: CGFloat = 13.5, lineSpacing: CGFloat = 2.5) {
+  public init(
+    fontSize: CGFloat = 13.5, lineSpacing: CGFloat = 2.5, fontFamily: String? = nil, textColor: NSColor? = nil, fill: Color? = nil, stroke: Color? = nil
+  ) {
     self.fontSize = fontSize
     self.lineSpacing = lineSpacing
+    self.fontFamily = fontFamily
+    self.textColor = textColor
+    self.fill = fill
+    self.stroke = stroke
   }
 
-  var baseFont: NSFont { NSFont.systemFont(ofSize: fontSize) }
+  var baseFont: NSFont {
+    if let fontFamily, let font = NSFontManager.shared.font(withFamily: fontFamily, traits: [], weight: 5, size: fontSize) { return font }
+    return NSFont.systemFont(ofSize: fontSize)
+  }
 
   /// The font for a run with the given marks.
   func font(for marks: Int) -> NSFont {

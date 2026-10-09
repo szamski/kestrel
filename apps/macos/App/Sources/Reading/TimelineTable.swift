@@ -96,6 +96,7 @@ final class TimelineController: NSObject, NSTableViewDataSource, NSTableViewDele
   private var userScrolling = false
   private var olderRequestedForCount = -1
   private var isDark: Bool?
+  private var themeObserver: NSObjectProtocol?
   /// Counters for the performance report.
   private(set) var measureCount = 0
   private(set) var measureTime: Double = 0
@@ -140,9 +141,21 @@ final class TimelineController: NSObject, NSTableViewDataSource, NSTableViewDele
     center.addObserver(self, selector: #selector(frameChanged), name: NSView.frameDidChangeNotification, object: scrollView)
     center.addObserver(self, selector: #selector(liveScrollStarted), name: NSScrollView.willStartLiveScrollNotification, object: scrollView)
     center.addObserver(self, selector: #selector(liveScrollEnded), name: NSScrollView.didEndLiveScrollNotification, object: scrollView)
+    // A new theme can change fonts, so every height is stale; the rows repaint themselves.
+    themeObserver = center.addObserver(forName: .t3ThemeDidChange, object: nil, queue: .main) { [weak self] _ in
+      MainActor.assumeIsolated {
+        guard let self else { return }
+        self.invalidateAllHeights()
+        self.ensureMeasuredNearViewport()
+        self.scheduleRefine()
+      }
+    }
   }
 
-  isolated deinit { refineTask?.cancel() }
+  isolated deinit {
+    refineTask?.cancel()
+    if let themeObserver { NotificationCenter.default.removeObserver(themeObserver) }
+  }
 
   // MARK: Updates from SwiftUI
 

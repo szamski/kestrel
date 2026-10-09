@@ -16,6 +16,7 @@ let package = Package(
     .library(name: "T3Terminal", targets: ["T3Terminal"]),
     .library(name: "T3Diff", targets: ["T3Diff"]),
     .library(name: "T3Keybindings", targets: ["T3Keybindings"]),
+    .library(name: "T3Theme", targets: ["T3Theme"]),
   ],
   dependencies: [
     .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.9.0"),
@@ -35,6 +36,8 @@ let package = Package(
     .target(name: "T3Diff", dependencies: ["T3Contracts", "T3Markdown"]),
     // Keybinding matching, `when` evaluation and shortcut labels over the server-resolved rules.
     .target(name: "T3Keybindings", dependencies: ["T3Contracts"]),
+    // Pure theming: theme file v1 codec, palette derivation, VS Code / Open VSX import. No UI, no contracts.
+    .target(name: "T3Theme"),
     .target(name: "T3Composer", dependencies: ["T3Contracts", "T3Timeline", "T3Markdown"]),
     // Pure timeline derivation: messages, work log, tool presentation, plans.
     .target(name: "T3Timeline", dependencies: ["T3Contracts"]),
@@ -57,6 +60,7 @@ let package = Package(
     .testTarget(name: "T3ComposerTests", dependencies: ["T3Composer", "T3Timeline", "T3Markdown"]),
     .testTarget(name: "T3DiffTests", dependencies: ["T3Diff"]),
     .testTarget(name: "T3KeybindingsTests", dependencies: ["T3Keybindings"]),
+    .testTarget(name: "T3ThemeTests", dependencies: ["T3Theme"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3TerminalTests", dependencies: ["T3Terminal"]),
     .testTarget(name: "T3TimelineTests", dependencies: ["T3Timeline"], resources: [.copy("Fixtures")]),
   ],

@@ -89,8 +89,8 @@ final class DiffRowCell: NSView {
     var right = Self.headerButtonRect(bounds).minX - 8
     let stat = NSMutableAttributedString()
     let monospaced = NSFont.monospacedSystemFont(ofSize: 12, weight: .medium)
-    stat.append(NSAttributedString(string: "+\(file.additions)", attributes: [.font: monospaced, .foregroundColor: NSColor.systemGreen]))
-    stat.append(NSAttributedString(string: "  \u{2212}\(file.deletions)", attributes: [.font: monospaced, .foregroundColor: NSColor.systemRed]))
+    stat.append(NSAttributedString(string: "+\(file.additions)", attributes: [.font: monospaced, .foregroundColor: DiffColors.addition]))
+    stat.append(NSAttributedString(string: "  \u{2212}\(file.deletions)", attributes: [.font: monospaced, .foregroundColor: DiffColors.deletion]))
     let statSize = stat.size()
     right -= statSize.width
     stat.draw(at: NSPoint(x: right, y: (bounds.height - statSize.height) / 2))
@@ -154,8 +154,8 @@ final class DiffRowCell: NSView {
 
   private func tintColor(_ kind: DiffLine.Kind, strong: Bool) -> NSColor? {
     switch kind {
-    case .addition: NSColor.systemGreen.withAlphaComponent(strong ? 0.22 : 0.12)
-    case .deletion: NSColor.systemRed.withAlphaComponent(strong ? 0.22 : 0.12)
+    case .addition: DiffColors.addition.withAlphaComponent(strong ? 0.22 : 0.12)
+    case .deletion: DiffColors.deletion.withAlphaComponent(strong ? 0.22 : 0.12)
     default: nil
     }
   }
@@ -212,8 +212,8 @@ final class DiffRowCell: NSView {
   private func drawSign(_ kind: DiffLine.Kind, x: CGFloat, render: DiffRenderContext) {
     let sign: String, color: NSColor
     switch kind {
-    case .addition: (sign, color) = ("+", .systemGreen)
-    case .deletion: (sign, color) = ("\u{2212}", .systemRed)
+    case .addition: (sign, color) = ("+", DiffColors.addition)
+    case .deletion: (sign, color) = ("\u{2212}", DiffColors.deletion)
     default: return
     }
     (sign as NSString).draw(at: NSPoint(x: x + 3, y: 1), withAttributes: [.font: render.font, .foregroundColor: color])

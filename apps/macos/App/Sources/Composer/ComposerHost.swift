@@ -32,7 +32,7 @@ private struct ComposerBar: View {
   }
 
   var body: some View {
-    ComposerView(model: model) { atom, _ in
+    ComposerView(model: model, style: AppTheme.shared.composerStyle) { atom, _ in
       app.activateChip(atom, in: ScopedThreadKey(environmentId: .init(target.environmentId), threadId: .init(target.threadId)), cwd: target.cwd)
     }
     .frame(maxWidth: timelineColumnWidth + 2 * timelineHorizontalInset)

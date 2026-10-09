@@ -24,6 +24,9 @@ final class SettingsModel {
   init(runtime: ClientRuntime, store: ClientSettingsStore = .shared) {
     self.runtime = runtime
     self.store = store
+    #if DEBUG
+    if let name = UserDefaults.standard.string(forKey: "T3SettingsPage"), let start = SettingsPage(rawValue: name) { page = start }
+    #endif
   }
 
   // MARK: Target

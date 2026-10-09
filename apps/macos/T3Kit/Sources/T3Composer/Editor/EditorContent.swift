@@ -116,7 +116,7 @@ enum EditorContent {
 
   static func plainAttributes(style: ComposerEditorStyle, task: TaskAttrsBox?, mask: Int) -> [NSAttributedString.Key: Any] {
     var attributes: [NSAttributedString.Key: Any] = [
-      .font: style.font(for: mask), .foregroundColor: NSColor.labelColor, .t3Marks: mask, .paragraphStyle: style.paragraphStyle(task: task),
+      .font: style.font(for: mask), .foregroundColor: style.textColor ?? NSColor.labelColor, .t3Marks: mask, .paragraphStyle: style.paragraphStyle(task: task),
     ]
     if mask & RichTextMark.strike.bit != 0 { attributes[.strikethroughStyle] = NSUnderlineStyle.single.rawValue }
     if mask & RichTextMark.code.bit != 0 { attributes[.backgroundColor] = NSColor.labelColor.withAlphaComponent(0.08) }

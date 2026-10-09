@@ -4,8 +4,15 @@ import T3Contracts
 import T3Markdown
 import T3Timeline
 
-/// Column the conversation reads in, centred in the window (the web chat's max-w-3xl).
-let timelineColumnWidth: CGFloat = 760
+/// Column the conversation reads in, centred in the window (the web chat's max-w-3xl by default; Settings › Appearance › Chat
+/// width makes it wider or unbounded).
+@MainActor var timelineColumnWidth: CGFloat {
+  switch ClientSettingsStore.shared.client.chatWidth {
+  case .wide: 1152
+  case .full: .infinity
+  default: 760
+  }
+}
 let timelineHorizontalInset: CGFloat = 28
 
 /// A timeline row at its place in the column. Everything a row needs besides its value comes from

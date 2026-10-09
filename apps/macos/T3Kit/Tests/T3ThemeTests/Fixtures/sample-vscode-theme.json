@@ -1,0 +1,26 @@
+{
+  // A trimmed Tokyo Night-style theme: comments and trailing commas are legal in VS Code theme files.
+  "name": "tokyo-night-storm",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#24283b",
+    "editor.foreground": "#a9b1d6",
+    "focusBorder": "#7aa2f7",
+    "button.background": "#3d59a1",
+    "button.foreground": "#ffffff",
+    "sideBar.background": "#1f2335",
+    "sideBar.foreground": "#787c99",
+    "sideBar.border": "#1b1e2d",
+    "panel.border": "#1b1e2d",
+    "editorWidget.background": "#1f2335",
+    "list.activeSelectionBackground": "#2f3b54",
+    "list.hoverBackground": "#292e42",
+    "terminal.background": "#1f2335",
+    "terminal.foreground": "#a9b1d6",
+    "terminal.selectionBackground": "#515c7e4d",
+    "editorError.foreground": "#db4b4b",
+    "descriptionForeground": "#787c99",
+    "input.border": "#e0af68",
+  },
+  "tokenColors": [],
+}

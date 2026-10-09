@@ -176,25 +176,8 @@ final class CommandCenter {
   }
 }
 
-/// Light, dark or follow the system; `appearance.cycle` steps through them.
+/// Light, dark or follow the system; `appearance.cycle` steps through them. The mode lives in `AppTheme`.
 enum Appearance {
-  private static let key = "appearance.mode"
-  private static let order = ["system", "light", "dark"]
-
-  static func applyStored() { apply(UserDefaults.standard.string(forKey: key) ?? "system") }
-
-  static func cycle() {
-    let current = UserDefaults.standard.string(forKey: key) ?? "system"
-    let next = order[((order.firstIndex(of: current) ?? 0) + 1) % order.count]
-    UserDefaults.standard.set(next, forKey: key)
-    apply(next)
-  }
-
-  private static func apply(_ mode: String) {
-    NSApp.appearance = switch mode {
-    case "light": NSAppearance(named: .aqua)
-    case "dark": NSAppearance(named: .darkAqua)
-    default: nil
-    }
-  }
+  @MainActor static func applyStored() { AppTheme.shared.start() }
+  @MainActor static func cycle() { AppTheme.shared.cycleMode() }
 }

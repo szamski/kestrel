@@ -21,12 +21,13 @@ final class DiffRenderContext {
   private var wordCache: [Int: [Range<Int>]] = [:]
   private let attributedCache = NSCache<NSNumber, NSAttributedString>()
   private var themes: [Bool: MarkdownTheme] = [:]
+  private var themesRevision = -1
   private var anchor: Int?
   private var anchorFile: String?
 
-  let font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
-  let charWidth: CGFloat
-  let lineHeight: CGFloat
+  private(set) var font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+  private(set) var charWidth: CGFloat = 0
+  private(set) var lineHeight: CGFloat = 0
   var viewportWidth: CGFloat = 400
   private(set) var numberWidth: CGFloat = 40
   private var maxColumns = 0
@@ -36,9 +37,19 @@ final class DiffRenderContext {
   static let textInset: CGFloat = 8
 
   init() {
+    refreshFont()
+    attributedCache.countLimit = 4_000
+  }
+
+  /// The user's code font (Settings › Appearance) or 12pt system monospace; true when the metrics changed.
+  @discardableResult
+  func refreshFont() -> Bool {
+    let next = ThemeOverrides.shared.codeFont ?? NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    guard next != font || charWidth == 0 else { return false }
+    font = next
     charWidth = ("M" as NSString).size(withAttributes: [.font: font]).width
     lineHeight = ceil(font.boundingRectForFont.height) + 3
-    attributedCache.countLimit = 4_000
+    return true
   }
 
   // MARK: Data
@@ -62,11 +73,20 @@ final class DiffRenderContext {
   }
 
   func theme(for appearance: NSAppearance) -> MarkdownTheme {
+    let revision = ThemeOverrides.shared.revision
+    if themesRevision != revision {
+      themes.removeAll()
+      themesRevision = revision
+    }
     let dark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
     if let cached = themes[dark] { return cached }
     let theme = MarkdownTheme.default(for: appearance)
     themes[dark] = theme
     return theme
+  }
+
+  func clearCaches() {
+    attributedCache.removeAllObjects()
   }
 
   func requestHighlight(file index: Int) {
@@ -174,7 +194,7 @@ final class DiffRenderContext {
           if end > start { result.addAttribute(.foregroundColor, value: theme.color(for: span.role), range: NSRange(location: start, length: end - start)) }
         }
       }
-      let word = (source.kind == .addition ? NSColor.systemGreen : NSColor.systemRed).withAlphaComponent(0.34)
+      let word = (source.kind == .addition ? DiffColors.addition : DiffColors.deletion).withAlphaComponent(0.34)
       for range in wordRanges(file: file, line: line) {
         let start = mapped(range.lowerBound), end = min(length, mapped(range.upperBound))
         if end > start { result.addAttribute(.backgroundColor, value: word, range: NSRange(location: start, length: end - start)) }
