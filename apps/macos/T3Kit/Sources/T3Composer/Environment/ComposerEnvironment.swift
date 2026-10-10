@@ -135,6 +135,51 @@ public struct ContextWindowSnapshot: Sendable, Hashable {
   }
 }
 
+/// The server-side queue of a protocol-2 thread: user messages waiting behind the active run. Protocol-1 threads have
+/// none (`ComposerThreadSnapshot.serverQueue == nil`) and keep the composer's own queue.
+public struct ComposerServerQueue: Sendable, Equatable {
+  public struct Item: Sendable, Equatable, Identifiable {
+    public var runId: RunId
+    public var messageId: MessageId
+    public var text: String
+    public var attachments: [ChatAttachment]
+    public var context: OrchestrationMessageContext?
+    public var id: RunId { runId }
+
+    public init(runId: RunId, messageId: MessageId, text: String, attachments: [ChatAttachment] = [], context: OrchestrationMessageContext? = nil) {
+      self.runId = runId
+      self.messageId = messageId
+      self.text = text
+      self.attachments = attachments
+      self.context = context
+    }
+  }
+
+  public var items: [Item]
+  /// The run a queued message can be steered into.
+  public var activeRunId: RunId?
+  /// Stop held the queue: it waits for `resumeQueue`.
+  public var isHeld: Bool
+  public var canReorder: Bool
+  public var canPromoteToSteer: Bool
+
+  public init(items: [Item] = [], activeRunId: RunId? = nil, isHeld: Bool = false, canReorder: Bool = false, canPromoteToSteer: Bool = false) {
+    self.items = items
+    self.activeRunId = activeRunId
+    self.isHeld = isHeld
+    self.canReorder = canReorder
+    self.canPromoteToSteer = canPromoteToSteer
+  }
+}
+
+/// What a send does while a run is active on a protocol-2 thread (`dispatchMode` of the web composer); without
+/// an active run every delivery starts one.
+public enum ComposerDelivery: Sendable, Hashable {
+  case auto
+  case queue
+  case steer
+}
+
 /// What the composer needs to know about its thread, pushed by the host as it changes.
 public struct ComposerThreadSnapshot: Sendable {
   public var phase: QueuedMessages.Phase
@@ -157,14 +202,17 @@ public struct ComposerThreadSnapshot: Sendable {
   public var unavailableReason: String?
   /// A revert is rewriting the thread.
   public var isRewinding: Bool
+  /// Protocol 2: the server's queue and run state. Nil on protocol 1.
+  public var serverQueue: ComposerServerQueue?
 
   public init(
     phase: QueuedMessages.Phase = .ready, latestToolActivityId: String? = nil, pending: PendingPrompts = derivePendingPrompts([]),
     promptHistory: [ComposerPromptHistoryMessage] = [], dispatch: QueuedMessages.DispatchInput? = nil, threadModelSelection: ModelSelection? = nil,
     projectModelSelection: ModelSelection? = nil, runtimeMode: RuntimeMode? = nil, interactionMode: ProviderInteractionMode? = nil,
     contextWindow: ContextWindowSnapshot? = nil, sessionProviderInstanceId: String? = nil, isFirstMessage: Bool = true, isDetailLoaded: Bool = true,
-    unavailableReason: String? = nil, isRewinding: Bool = false
+    unavailableReason: String? = nil, isRewinding: Bool = false, serverQueue: ComposerServerQueue? = nil
   ) {
+    self.serverQueue = serverQueue
     self.phase = phase
     self.latestToolActivityId = latestToolActivityId
     self.pending = pending
@@ -287,11 +335,27 @@ public protocol ComposerEnvironment: Sendable {
   /// Sends `thread.turn.start`. The implementation also applies the thread-level side effects the
   /// web composer performs around a send (title seeding, model / mode persistence).
   func sendTurn(_ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws
+  /// Same as `sendTurn`, with the delivery protocol 2 applies while a run is active. Protocol 1 ignores it.
+  func sendTurn(
+    _ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool, delivery: ComposerDelivery
+  ) async throws
   func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws
   func respondToApproval(_ command: V1.ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws
   func respondToUserInput(_ command: V1.ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws
   /// Closes an async question without messaging the agent.
   func dismissUserInput(requestId: V1.ApprovalRequestId, target: ComposerTarget) async throws
+
+  // MARK: Server queue (protocol 2)
+
+  /// Hands a queued message to the active run.
+  func steerQueued(runId: RunId, into targetRunId: RunId, target: ComposerTarget) async throws
+  /// Replaces a queued message; `attachments` and `context` are the complete new set.
+  func editQueued(runId: RunId, text: String, attachments: [ChatAttachment], context: OrchestrationMessageContext?, target: ComposerTarget) async throws
+  /// Moves a queued message in front of `beforeRunId` (nil: to the end).
+  func reorderQueued(runId: RunId, before beforeRunId: RunId?, target: ComposerTarget) async throws
+  func cancelQueued(runId: RunId, target: ComposerTarget) async throws
+  /// Releases a queue that Stop held.
+  func resumeQueue(target: ComposerTarget) async throws
 
   // MARK: Client settings
 
@@ -313,6 +377,22 @@ public struct ComposerEnvironmentError: Error, LocalizedError, Sendable {
 }
 
 extension ComposerEnvironment {
+  public func sendTurn(
+    _ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool, delivery: ComposerDelivery
+  ) async throws {
+    try await sendTurn(command, target: target, titleSeed: titleSeed, isFirstMessage: isFirstMessage)
+  }
+
+  public func steerQueued(runId: RunId, into targetRunId: RunId, target: ComposerTarget) async throws { throw Self.noServerQueue }
+  public func editQueued(runId: RunId, text: String, attachments: [ChatAttachment], context: OrchestrationMessageContext?, target: ComposerTarget) async throws {
+    throw Self.noServerQueue
+  }
+  public func reorderQueued(runId: RunId, before beforeRunId: RunId?, target: ComposerTarget) async throws { throw Self.noServerQueue }
+  public func cancelQueued(runId: RunId, target: ComposerTarget) async throws { throw Self.noServerQueue }
+  public func resumeQueue(target: ComposerTarget) async throws { throw Self.noServerQueue }
+
+  private static var noServerQueue: ComposerEnvironmentError { ComposerEnvironmentError("This environment has no server-side queue.") }
+
   public func downloadAttachment(id: String, sourceEnvironmentId: String, to url: URL) async throws {
     throw ComposerEnvironmentError("Attachments cannot be copied between environments here.")
   }

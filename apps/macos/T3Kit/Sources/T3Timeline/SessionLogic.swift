@@ -201,7 +201,9 @@ public func findLatestProposedPlan(_ proposedPlans: [ProposedPlan], latestTurnId
 }
 
 public func hasActionableProposedPlan(_ plan: LatestProposedPlanState?) -> Bool {
-  plan != nil && plan!.implementedAt == nil
+  guard let plan else { return false }
+  if let status = plan.status { return status == "active" }
+  return plan.implementedAt == nil
 }
 
 // MARK: - Durations

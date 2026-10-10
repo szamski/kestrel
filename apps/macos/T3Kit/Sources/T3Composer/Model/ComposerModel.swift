@@ -58,6 +58,12 @@ public final class ComposerModel {
   public internal(set) var errorMessage: String?
   public internal(set) var respondingRequestIds: Set<String> = []
 
+  // Server queue (protocol 2)
+  /// The queued message whose content the composer is editing; sending saves it in place.
+  public internal(set) var editingQueued: EditingQueuedRun?
+  /// The queued run a queue command is in flight for; its row's controls are disabled.
+  public internal(set) var busyQueueRunId: RunId?
+
   // Prompt history
   var historyPosition: ComposerPromptHistoryPosition?
 
@@ -106,6 +112,8 @@ public final class ComposerModel {
   }
 
   public func stop() {
+    // The edit text is not the user's draft: give the draft back before the model goes away.
+    finishQueuedEdit()
     threadTask?.cancel()
     menuSearchTask?.cancel()
   }

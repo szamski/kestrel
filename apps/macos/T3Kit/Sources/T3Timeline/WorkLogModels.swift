@@ -28,6 +28,15 @@ public enum ToolLifecycleStatus: String, Sendable, Hashable {
   case failed
   case declined
   case stopped
+  /// Protocol 2 only: an item that exists but is not running (a resumable subagent).
+  case idle
+}
+
+/// The protocol-2 turn item a work-log entry was derived from (`structuredPayload` and
+/// `projectedItem` in session-logic.ts). Nil on protocol-1 entries.
+public struct V2WorkItem: Sendable, Hashable {
+  var row: OrchestrationV2ThreadProjectionVisibleTurnItemsItem
+  var item: OrchestrationV2ThreadProjectionTurnItemsItem { row.item }
 }
 
 public enum WorkLogTone: String, Sendable, Hashable {
@@ -112,6 +121,11 @@ public struct WorkLogEntry: Sendable, Hashable, Identifiable {
   public var taskId: String?
   public var agentRole: String?
   public var agentSpawn: AgentSpawn?
+  /// Protocol 2: the item behind this entry; `itemType` stays nil and `v2Type` names it.
+  public var v2: V2WorkItem?
+
+  /// The protocol-2 item type (`entry.itemType` in the web).
+  public var v2Type: String? { v2?.item.typeTag }
 
   public init(
     id: String,
@@ -160,6 +174,8 @@ public struct LatestProposedPlanState: Sendable, Hashable {
   public var planMarkdown: String
   public var implementedAt: String?
   public var implementationThreadId: ThreadId?
+  /// Protocol 2: `draft`, `active`, `completed` or `superseded`; `active` is actionable.
+  public var status: String?
 }
 
 public typealias ProposedPlan = V1.OrchestrationProposedPlan

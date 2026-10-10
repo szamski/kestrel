@@ -176,11 +176,22 @@ public struct ComposerView: View {
   @ViewBuilder private var primaryButtons: some View {
     switch model.primaryAction {
     case .stop: stopButton
+    case .saveEdit:
+      if model.isRunning { stopButton }
+      sendButton(symbol: "checkmark", help: "Save queued message")
+    case .resume: resumeButton
     case .stopAndQueue:
       stopButton
       sendButton(symbol: model.sendsAsQueue ? "text.append" : "arrow.up", help: model.sendsAsQueue ? "Queue message" : "Send now")
     default: sendButton(symbol: "arrow.up", help: "Send message")
     }
+  }
+
+  private var resumeButton: some View {
+    Button { model.resumeServerQueue() } label: {
+      Image(systemName: "play.fill").font(.system(size: 11, weight: .bold)).foregroundStyle(.white).frame(width: 28, height: 28).background(Circle().fill(Color.accentColor))
+    }
+    .buttonStyle(.plain).disabled(model.busyQueueRunId != nil).help("Resume the queue").accessibilityLabel("Resume the queue")
   }
 
   private var stopButton: some View {

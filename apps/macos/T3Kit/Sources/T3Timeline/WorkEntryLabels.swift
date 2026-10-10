@@ -87,6 +87,7 @@ private func capitalizedHeading(_ entry: WorkLogEntry) -> String {
 
 /// The label of one row inside an expanded group.
 public func workEntryDisplayLabel(_ entry: WorkLogEntry, workspaceRoot: String?) -> String {
+  if entry.v2 != nil { return V2Work.displayLabel(entry, workspaceRoot: workspaceRoot) }
   if let presentation = resolveWorkEntryToolPresentation(entry) { return presentation.displayName }
   if let command = entry.command, !command.isEmpty { return command }
   if let detail = entry.detail, !detail.isEmpty { return detail }
@@ -99,6 +100,7 @@ public func workEntryDisplayLabel(_ entry: WorkLogEntry, workspaceRoot: String?)
 
 /// The label of the live activity row, in the present tense while the call runs.
 public func liveWorkEntryLabel(_ entry: WorkLogEntry, workspaceRoot: String?, active: Bool) -> String {
+  if entry.v2 != nil { return V2Work.liveLabel(entry, workspaceRoot: workspaceRoot, active: active) }
   let status = liveActivityToolStatus(entry.toolLifecycleStatus, presentTense: active)
   var withStatus = entry
   withStatus.toolLifecycleStatus = status
@@ -110,7 +112,7 @@ public func liveWorkEntryLabel(_ entry: WorkLogEntry, workspaceRoot: String?, ac
       case .failed: "Failed"
       case .declined: "Declined"
       case .stopped: "Stopped"
-      case .completed: "Ran"
+      case .completed, .idle: "Ran"
       }
     return "\(verb) \(commandProgramName(command) ?? "command")"
   }

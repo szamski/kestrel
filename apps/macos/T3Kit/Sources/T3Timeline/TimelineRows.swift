@@ -45,6 +45,8 @@ public struct WorkRow: Sendable, Hashable {
   public var groupedEntries: [WorkLogEntry]
   public var isExpandedToolGroup: Bool
   public var displayLabel: String?
+  /// Protocol 2: the next row is more work, so the two read as one list.
+  public var continuesWorkLog = false
 }
 
 public struct WorkLiveRow: Sendable, Hashable {
@@ -55,6 +57,9 @@ public struct WorkLiveRow: Sendable, Hashable {
   public var groupId: String
   public var expanded: Bool
   public var active: Bool
+  /// Protocol 2: the latest reasoning of the live group, shown above the status line.
+  public var thought: WorkLogEntry?
+  public var continuesWorkLog = false
 }
 
 public struct WorkToggleRow: Sendable, Hashable {
@@ -70,6 +75,7 @@ public struct WorkToggleRow: Sendable, Hashable {
   public var toolIcon: ToolActivityIcon?
   public var summaryToolIcon: ToolPresentation.Icon?
   public var hasFailure: Bool
+  public var continuesWorkLog = false
 }
 
 public struct TurnFoldRow: Sendable, Hashable {
@@ -84,6 +90,44 @@ public struct ContextCompactionRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
   public var label: String
+  /// Protocol 2: the compaction is still running.
+  public var active = false
+}
+
+/// Protocol 2: provider output of an attempt a steer replaced, folded behind one row.
+public struct AttemptFoldRow: Sendable, Hashable {
+  public var id: String
+  public var createdAt: String
+  public var runId: String
+  public var attemptId: String
+  public var label: String
+  public var expanded: Bool
+}
+
+/// Protocol 2: a standalone item the timeline draws as its own card (fork, handoff, subagents,
+/// interrupt result, secret request, created thread).
+public struct EventRow: Sendable, Hashable {
+  public var id: String
+  public var createdAt: String
+  public var item: V2EventItem
+  /// Adjacent subagent cards of one provider turn render as one grouped row.
+  public var subagents: [V2EventItem]?
+  /// A created thread summarised below the final answer.
+  public var resourceSummary = false
+}
+
+/// Protocol 2: a page a completed `html_render` call published.
+public struct HtmlRenderRow: Sendable, Hashable {
+  public var id: String
+  public var createdAt: String
+  public var htmlRender: HtmlRenderReference
+}
+
+/// Protocol 2: an MCP App a completed tool call captured.
+public struct McpAppRow: Sendable, Hashable {
+  public var id: String
+  public var createdAt: String
+  public var mcpApp: McpAppEntry
 }
 
 public struct MessageRow: Sendable, Hashable {
@@ -96,6 +140,8 @@ public struct MessageRow: Sendable, Hashable {
   public var assistantCopyStreaming: Bool
   public var assistantTurnDiffSummary: V1.OrchestrationCheckpointSummary?
   public var revertTurnCount: Int?
+  /// Protocol 2 user messages: `turn_start`, `steer`, `queued_turn`...
+  public var inputIntent: String?
 }
 
 public struct AssistantMetaRow: Sendable, Hashable {
@@ -110,12 +156,18 @@ public struct ProposedPlanRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
   public var proposedPlan: ProposedPlan
+  /// Protocol 2: `draft`, `active`, `completed` or `superseded`.
+  public var status: String?
 }
 
 /// The "Working for ..." header and the trailing "thinking" placeholder.
 public struct LiveIndicatorRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String?
+  /// Protocol 2 "thinking" row standing in for tool calls after the latest one failed.
+  public var groupId: String?
+  public var expanded = false
+  public var continuesWorkLog = false
 }
 
 public struct WorktreeSetupRow: Sendable, Hashable {
@@ -149,6 +201,10 @@ public enum TimelineRow: Sendable, Hashable, Identifiable {
   case thinking(LiveIndicatorRow)
   case worktreeSetup(WorktreeSetupRow)
   case queuedMessage(QueuedMessageRow)
+  case attemptFold(AttemptFoldRow)
+  case event(EventRow)
+  case htmlRender(HtmlRenderRow)
+  case mcpApp(McpAppRow)
 
   public var id: String {
     switch self {
@@ -164,6 +220,10 @@ public enum TimelineRow: Sendable, Hashable, Identifiable {
     case .working(let row), .thinking(let row): row.id
     case .worktreeSetup(let row): row.id
     case .queuedMessage(let row): row.id
+    case .attemptFold(let row): row.id
+    case .event(let row): row.id
+    case .htmlRender(let row): row.id
+    case .mcpApp(let row): row.id
     }
   }
 
@@ -181,6 +241,10 @@ public enum TimelineRow: Sendable, Hashable, Identifiable {
     case .working(let row), .thinking(let row): row.createdAt
     case .worktreeSetup(let row): row.createdAt
     case .queuedMessage(let row): row.createdAt
+    case .attemptFold(let row): row.createdAt
+    case .event(let row): row.createdAt
+    case .htmlRender(let row): row.createdAt
+    case .mcpApp(let row): row.createdAt
     }
   }
 }

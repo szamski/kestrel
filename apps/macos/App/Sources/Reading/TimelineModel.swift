@@ -21,6 +21,8 @@ final class TimelineModel {
   let detail: ThreadDetailModel
   private(set) var items: [TimelineItem] = []
   private(set) var timeline: ThreadTimeline?
+  /// The checkpoints the diff panel lists as turns: the V1 thread's, or one per run of the V2 projection.
+  private(set) var checkpoints: [V1.OrchestrationCheckpointSummary] = []
   /// Live stages of the thread's worktree bootstrap, fed by `subscribeWorktreeSetup`.
   var worktreeSetup: WorktreeSetupSnapshot? {
     didSet { if worktreeSetup != oldValue { schedule() } }
@@ -29,6 +31,7 @@ final class TimelineModel {
   /// Folds ("Worked for ..."), work groups and reasoning blocks the reader opened.
   private var expandedTurnIds: Set<V1.TurnId> = []
   private var expandedWorkGroupIds: Set<String> = []
+  private var expandedAttemptIds: Set<String> = []
   private var expandedLocal: Set<String> = []
 
   @ObservationIgnored private let worker = DeriveWorker()
@@ -42,7 +45,9 @@ final class TimelineModel {
     self.detail = detail
     let detail = detail
     observation = Task { [weak self] in
-      for await _ in Observations({ detail.thread }) {
+      // A protocol-2 thread's rows come from the projection (it also grows when older pages merge in);
+      // the V1-shaped `thread` carries the shell's session, which says when background work parks the run.
+      for await _ in Observations({ (detail.thread, detail.projection) }) {
         guard let self else { return }
         schedule()
       }
@@ -53,6 +58,11 @@ final class TimelineModel {
 
   func toggleTurn(_ id: V1.TurnId) {
     if !expandedTurnIds.insert(id).inserted { expandedTurnIds.remove(id) }
+    schedule()
+  }
+
+  func toggleAttempt(_ id: String) {
+    if !expandedAttemptIds.insert(id).inserted { expandedAttemptIds.remove(id) }
     schedule()
   }
 
@@ -73,16 +83,29 @@ final class TimelineModel {
     Task {
       while dirty {
         dirty = false
-        guard let thread = detail.thread else {
+        let local = expandedLocal
+        if let projection = detail.projection {
+          // A shell session at idle while the projection still runs is background work parking the run.
+          let parked = detail.thread?.session?.status == .idle
+          let context = TimelineContextV2(
+            isWorking: parked ? false : nil, expandedRunIds: Set(expandedTurnIds.map(\.rawValue)), expandedAttemptIds: expandedAttemptIds,
+            expandedWorkGroupIds: expandedWorkGroupIds, worktreeSetup: worktreeSetup)
+          let derived = await worker.derive(projection, context: context)
+          timeline = nil
+          checkpoints = derived.checkpoints
+          items = derived.rows.map { TimelineItem(row: $0, expanded: local.contains($0.id)) }
+        } else if let thread = detail.thread {
+          let context = TimelineContext(expandedTurnIds: expandedTurnIds, expandedWorkGroupIds: expandedWorkGroupIds, worktreeSetup: worktreeSetup)
+          let derived = await worker.derive(thread, context: context)
+          timeline = derived
+          checkpoints = thread.checkpoints
+          items = derived.rows.map { TimelineItem(row: $0, expanded: local.contains($0.id)) }
+        } else {
           items = []
           timeline = nil
+          checkpoints = []
           continue
         }
-        let context = TimelineContext(expandedTurnIds: expandedTurnIds, expandedWorkGroupIds: expandedWorkGroupIds, worktreeSetup: worktreeSetup)
-        let derived = await worker.derive(thread, context: context)
-        let local = expandedLocal
-        timeline = derived
-        items = derived.rows.map { TimelineItem(row: $0, expanded: local.contains($0.id)) }
         #if DEBUG
         if Self.debugRepeat > 1 { items = Self.repeated(items, Self.debugRepeat) }
         #endif
@@ -95,6 +118,9 @@ final class TimelineModel {
 private actor DeriveWorker {
   private var deriver = ThreadTimelineDeriver()
   func derive(_ thread: V1.OrchestrationThread, context: TimelineContext) -> ThreadTimeline { deriver.derive(thread, context: context) }
+  func derive(_ projection: OrchestrationV2ThreadProjection, context: TimelineContextV2) -> ThreadTimelineV2 {
+    deriveThreadTimeline(projection: projection, context: context)
+  }
 }
 
 #if DEBUG
@@ -122,6 +148,10 @@ extension TimelineModel {
         case .thinking(var r): r.id += suffix; row = .thinking(r)
         case .worktreeSetup(var r): r.id += suffix; row = .worktreeSetup(r)
         case .queuedMessage(var r): r.id += suffix; row = .queuedMessage(r)
+        case .attemptFold(var r): r.id += suffix; row = .attemptFold(r)
+        case .event(var r): r.id += suffix; row = .event(r)
+        case .htmlRender(var r): r.id += suffix; row = .htmlRender(r)
+        case .mcpApp(var r): r.id += suffix; row = .mcpApp(r)
         }
         out.append(TimelineItem(row: row, expanded: item.expanded))
       }

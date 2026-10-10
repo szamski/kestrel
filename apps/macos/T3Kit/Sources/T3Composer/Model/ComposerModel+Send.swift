@@ -18,6 +18,8 @@ extension ComposerModel {
   /// Why the send button is disabled right now; nil when a send can go out.
   public var sendDisabledReason: String? {
     if let reason = thread.unavailableReason { return reason }
+    // Saving a queued message needs no provider.
+    if editingQueued != nil { return attachmentBlockReason }
     if providerCatalogPending { return "Waiting for the provider list" }
     if selectedEntry == nil { return "Enable a provider in Settings to send a message" }
     if let blocked = ModelPicker.antigravitySendBlockReason(selectedEntry?.snapshot, model: selectedModel) { return blocked }
@@ -30,7 +32,7 @@ extension ComposerModel {
   }
 
   public var canSend: Bool {
-    !isSending && !isConnecting && sendDisabledReason == nil && hasSendableContent && validationMessage == nil
+    !isSending && !isConnecting && sendDisabledReason == nil && (hasSendableContent || editingQueued?.attachments.isEmpty == false) && validationMessage == nil
   }
 
   /// What the primary button does for the draft at hand.
@@ -41,6 +43,10 @@ extension ComposerModel {
     /// A turn is running and the message goes out immediately (steer).
     case steer
     case stop
+    /// A queued message is being edited: sending saves it (with Stop beside it while a run is active).
+    case saveEdit
+    /// Stop held the server queue; with nothing to send, the button releases it.
+    case resume
     /// Stop with a sendable draft: both buttons show.
     case stopAndQueue
     case submitAnswer(isLast: Bool, isComplete: Bool)
@@ -48,7 +54,9 @@ extension ComposerModel {
 
   public var primaryAction: PrimaryAction {
     if let progress = userInputProgress { return .submitAnswer(isLast: progress.isLastQuestion, isComplete: progress.isComplete) }
+    if editingQueued != nil { return .saveEdit }
     if isRunning { return hasSendableContent ? .stopAndQueue : .stop }
+    if canResumeQueue && !hasSendableContent { return .resume }
     return .send
   }
 
@@ -65,6 +73,10 @@ extension ComposerModel {
     if isApprovalState { return }
     if userInputProgress != nil {
       await advanceUserInput()
+      return
+    }
+    if editingQueued != nil {
+      await saveQueuedEdit()
       return
     }
     let prompt = draft.prompt
@@ -86,11 +98,16 @@ extension ComposerModel {
     }
     errorMessage = nil
 
-    // A queued message that will still leave on its own goes first, so a new send lines up behind it.
-    let queueStillSending = queuedMessages.contains { $0.sending != nil || !$0.holdUntilUserAction }
-    if queueStillSending || (isRunning && (settings.followUpBehavior == .queue) != (intent == .alternate)) {
-      enqueueCurrentDraft()
-      return
+    // Protocol 2 queues on the server: the send itself says queue or steer. Protocol 1 keeps its own queue.
+    let wantsQueue = isRunning && (settings.followUpBehavior == .queue) != (intent == .alternate)
+    let delivery: ComposerDelivery = !isRunning ? .auto : wantsQueue ? .queue : .steer
+    if thread.serverQueue == nil {
+      // A queued message that will still leave on its own goes first, so a new send lines up behind it.
+      let queueStillSending = queuedMessages.contains { $0.sending != nil || !$0.holdUntilUserAction }
+      if queueStillSending || wantsQueue {
+        enqueueCurrentDraft()
+        return
+      }
     }
 
     let snapshot = draft
@@ -104,7 +121,8 @@ extension ComposerModel {
       // The composer clears before the send resolves; a failure gives the draft back.
       clearDraftContent(releaseAttachments: false)
       do {
-        try await services.environment.sendTurn(command, target: target, titleSeed: thread.isFirstMessage ? turn.titleSeed : nil, isFirstMessage: thread.isFirstMessage)
+        try await services.environment.sendTurn(
+          command, target: target, titleSeed: thread.isFirstMessage ? turn.titleSeed : nil, isFirstMessage: thread.isFirstMessage, delivery: delivery)
         services.releaseAttachments(snapshot.attachments)
         historyPosition = nil
       } catch {
@@ -160,6 +178,10 @@ extension ComposerModel {
 
   /// The oldest queued message goes now (`thread.steerQueuedMessage`).
   public func steerNextQueued() {
+    if let queue = thread.serverQueue {
+      if let next = queue.items.first { steerServerQueued(next.runId) }
+      return
+    }
     if let next = queuedMessages.first(where: { $0.sending == nil }) { steerQueued(id: next.id) }
   }
 
@@ -205,13 +227,17 @@ extension ComposerModel {
 
   // MARK: Stop
 
-  public var canInterrupt: Bool { thread.phase == .running && thread.dispatch.session?.status == "running" }
+  public var canInterrupt: Bool {
+    if let queue = thread.serverQueue { return queue.activeRunId != nil }
+    return thread.phase == .running && thread.dispatch.session?.status == "running"
+  }
 
   /// Stop: queued messages return to the composer instead of starting a new turn the moment the
   /// interrupted one settles.
   public func interrupt() async {
     guard canInterrupt else { return }
-    restoreQueuedMessages(services.editQueue { $0.drain(target.key) })
+    // The server holds its own queue on Stop; only the local queue comes back into the composer.
+    if thread.serverQueue == nil { restoreQueuedMessages(services.editQueue { $0.drain(target.key) }) }
     let command = V1.ClientOrchestrationCommandThreadTurnInterrupt(
       commandId: CommandId(ComposerServices.newId("cmd")), threadId: ThreadId(target.threadId),
       turnId: thread.dispatch.session?.activeTurnId.map { V1.TurnId($0) }, createdAt: IsoDateTime(date: Date()))
@@ -356,6 +382,7 @@ extension ComposerModel {
   func applyThread(_ snapshot: ComposerThreadSnapshot) {
     let hadText = activeText
     thread = snapshot
+    recoverQueuedEditIfGone()
     if activeText != hadText || lastEditorValue != activeText {
       reloadEditor(markdown: activeText, cursor: ComposerLogic.collapseExpandedCursor(activeText, activeText.jsLength), undoable: false)
     } else {

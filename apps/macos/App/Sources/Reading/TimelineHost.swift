@@ -15,6 +15,10 @@ final class TimelineHost {
   var toggleTurn: (V1.TurnId) -> Void = { _ in }
   var toggleWorkGroup: (String) -> Void = { _ in }
   var toggleLocal: (String) -> Void = { _ in }
+  /// Protocol 2: fold or unfold the provider output of a superseded attempt.
+  var toggleAttempt: (String) -> Void = { _ in }
+  /// Subagent and created-thread cards: select that thread in this environment.
+  var openThread: (ThreadId) -> Void = { _ in }
   var openLink: (MarkdownLink) -> Void = { _ in }
   /// "Changed files": open the diff panel on a turn, at a file when given.
   var openDiff: (V1.TurnId, String?) -> Void = { _, _ in }

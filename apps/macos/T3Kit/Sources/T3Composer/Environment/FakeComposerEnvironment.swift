@@ -29,6 +29,9 @@ public final class FakeComposerEnvironment: ComposerEnvironment, @unchecked Send
   // MARK: Recordings
 
   public private(set) var sentTurns: [(command: V1.ClientOrchestrationCommandThreadTurnStart, titleSeed: String?, isFirstMessage: Bool)] = []
+  public private(set) var deliveries: [ComposerDelivery] = []
+  /// Server-queue calls in order, as `steer run-1 into run-2`, `edit run-1: text`, `move run-1 before run-2`, `cancel run-1`, `resume`.
+  public private(set) var queueCalls: [String] = []
   public private(set) var interrupts: [V1.ClientOrchestrationCommandThreadTurnInterrupt] = []
   public private(set) var approvalResponses: [V1.ClientOrchestrationCommandThreadApprovalRespond] = []
   public private(set) var userInputResponses: [V1.ClientOrchestrationCommandThreadUserInputRespond] = []
@@ -135,6 +138,30 @@ public final class FakeComposerEnvironment: ComposerEnvironment, @unchecked Send
     if let failure = failSendsWith { throw ComposerEnvironmentError(failure) }
     locked { sentTurns.append((command, titleSeed, isFirstMessage)) }
   }
+
+  public func sendTurn(
+    _ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool, delivery: ComposerDelivery
+  ) async throws {
+    try await sendTurn(command, target: target, titleSeed: titleSeed, isFirstMessage: isFirstMessage)
+    locked { deliveries.append(delivery) }
+  }
+
+  public func steerQueued(runId: RunId, into targetRunId: RunId, target: ComposerTarget) async throws {
+    locked { queueCalls.append("steer \(runId.rawValue) into \(targetRunId.rawValue)") }
+  }
+
+  public func editQueued(runId: RunId, text: String, attachments: [ChatAttachment], context: OrchestrationMessageContext?, target: ComposerTarget) async throws {
+    if let failure = failSendsWith { throw ComposerEnvironmentError(failure) }
+    locked { queueCalls.append("edit \(runId.rawValue): \(text) [\(attachments.count)]") }
+  }
+
+  public func reorderQueued(runId: RunId, before beforeRunId: RunId?, target: ComposerTarget) async throws {
+    locked { queueCalls.append("move \(runId.rawValue) before \(beforeRunId?.rawValue ?? "end")") }
+  }
+
+  public func cancelQueued(runId: RunId, target: ComposerTarget) async throws { locked { queueCalls.append("cancel \(runId.rawValue)") } }
+
+  public func resumeQueue(target: ComposerTarget) async throws { locked { queueCalls.append("resume") } }
 
   public func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {
     locked { interrupts.append(command) }

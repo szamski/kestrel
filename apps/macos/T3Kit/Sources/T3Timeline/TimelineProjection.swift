@@ -211,6 +211,8 @@ extension TimelineRow {
     case .queuedMessage(let row):
       return object(
         base("queued-message", row.id, row.createdAt) + [("queuedMessageId", .string(row.queuedMessage.id)), ("isNext", .bool(row.isNext))])
+    case .attemptFold, .event, .htmlRender, .mcpApp:
+      return projectionV2
     }
   }
 }

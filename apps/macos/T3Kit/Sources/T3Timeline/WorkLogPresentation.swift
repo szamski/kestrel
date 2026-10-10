@@ -8,6 +8,9 @@ public enum ToolGroupAction: String, Sendable, Hashable {
   case linkPR = "link-pr"
   case unlinkPR = "unlink-pr"
   case listPRs = "list-prs"
+  case watchPR = "watch-pr"
+  case unwatchPR = "unwatch-pr"
+  case threadCreate = "thread-create"
   case read
   case edit
   case command
@@ -24,6 +27,10 @@ public enum ToolGroupSummaryKind: String, Sendable, Hashable {
   case linkPR = "link-pr"
   case unlinkPR = "unlink-pr"
   case listPRs = "list-prs"
+  case watchPR = "watch-pr"
+  case unwatchPR = "unwatch-pr"
+  case threadCreate = "thread-create"
+  case reasoning
   case read
   case edit
   case command
@@ -158,7 +165,7 @@ private func resolveT3McpToolPresentation(_ value: String?, status: String?, dat
 
 /// Latest live activity stays present-tense unless the call itself failed, declined, or stopped.
 public func liveActivityToolStatus(_ status: ToolLifecycleStatus?, presentTense: Bool) -> ToolLifecycleStatus {
-  if status == .failed || status == .declined || status == .stopped { return status! }
+  if status == .failed || status == .declined || status == .stopped || status == .idle { return status! }
   if presentTense || status == .inProgress { return .inProgress }
   return .completed
 }
@@ -168,6 +175,7 @@ public func resolveWorkEntryToolPresentation(
   _ entry: WorkLogEntry,
   fallbackStatus: ToolLifecycleStatus? = nil
 ) -> ToolPresentation? {
+  if entry.v2 != nil { return V2Work.toolPresentation(entry, fallbackStatus: fallbackStatus) }
   let status = (entry.toolLifecycleStatus ?? fallbackStatus)?.rawValue
   let data = entry.toolData
   if let data, case .object(let object) = data {
@@ -280,6 +288,7 @@ public func commandDetailRepeatsCommand(
 // MARK: - Status judgement
 
 public func workLogEntryIsToolLike(_ entry: WorkLogEntry) -> Bool {
+  if entry.v2 != nil { return V2Work.isToolLike(entry) }
   if entry.tone == .tool || entry.tone == .thinking || entry.tone == .error { return true }
   if let command = entry.command, !command.jsTrimmed.isEmpty { return true }
   if entry.requestKind != nil { return true }
@@ -320,6 +329,7 @@ private func toolDetailTextLooksLikeFailure(_ text: String) -> Bool {
 }
 
 private func workEntryIndicatesToolFailureFromOutput(_ entry: WorkLogEntry, includeCommand: Bool) -> Bool {
+  if entry.v2 != nil { return V2Work.indicatesToolFailure(entry, includeCommand: includeCommand) }
   if entry.tone == .error || entry.toolLifecycleStatus == .failed || entry.toolLifecycleStatus == .declined {
     return true
   }
@@ -343,12 +353,14 @@ public func workEntryDisplayIndicatesToolFailure(_ entry: WorkLogEntry) -> Bool 
 
 /// Decides whether the row can show a success marker.
 public func workEntryIndicatesToolSuccess(_ entry: WorkLogEntry) -> Bool {
-  workLogEntryIsToolLike(entry) && !workEntryIndicatesToolFailure(entry) && entry.tone != .thinking
+  if entry.v2 != nil { return V2Work.indicatesToolSuccess(entry) }
+  return workLogEntryIsToolLike(entry) && !workEntryIndicatesToolFailure(entry) && entry.tone != .thinking
     && entry.toolLifecycleStatus != .inProgress && entry.toolLifecycleStatus != .stopped
 }
 
 /// Tool-like row with neither clear success nor failure (empty, incomplete, in progress, etc.).
 public func workEntryIndicatesToolNeutralStatus(_ entry: WorkLogEntry) -> Bool {
+  if entry.v2 != nil { return V2Work.indicatesNeutralStatus(entry) }
   // Spawn CTA rows are never neutral-hidden: mid-run they derive from task.progress (tone
   // "thinking") and the neutral filter would swallow them exactly while the fleet runs.
   if entry.agentSpawn != nil { return false }
@@ -361,7 +373,8 @@ public func workEntryIndicatesToolNeutralStatus(_ entry: WorkLogEntry) -> Bool {
 /// Severe failures keep the red treatment ordinary tool failures lose: runtime errors and
 /// orchestration `*.failed` activities.
 public func workEntrySignalsSevereFailure(_ entry: WorkLogEntry) -> Bool {
-  entry.sourceActivityKind == "runtime.error" || entry.sourceActivityKind?.hasSuffix(".failed") == true
+  if entry.v2 != nil { return entry.v2Type == "error" }
+  return entry.sourceActivityKind == "runtime.error" || entry.sourceActivityKind?.hasSuffix(".failed") == true
 }
 
 private func workLogEntryIsLocalCodeSearch(_ entry: WorkLogEntry) -> Bool {
@@ -370,6 +383,7 @@ private func workLogEntryIsLocalCodeSearch(_ entry: WorkLogEntry) -> Bool {
 }
 
 public func toolGroupAction(_ entry: WorkLogEntry) -> ToolGroupAction {
+  if entry.v2 != nil { return V2Work.toolGroupAction(entry) }
   switch entry.sourceActivityKind {
   case "approval.requested", "approval.resolved", "provider.approval.respond.failed": return .update
   default: break
@@ -398,9 +412,9 @@ public func toolGroupAction(_ entry: WorkLogEntry) -> ToolGroupAction {
 private let imagePreviewExtensions = [".avif", ".gif", ".ico", ".jpeg", ".jpg", ".png", ".svg", ".webp"]
 
 func isWorkspaceImagePreviewPath(_ path: String) -> Bool {
-  let end = path.firstIndex(where: { $0 == "?" || $0 == "#" }) ?? path.endIndex
-  let withoutQuery = path[..<end].lowercased()
-  return imagePreviewExtensions.contains { withoutQuery.hasSuffix($0) }
+  // The literal path: a query or fragment no longer hides the extension (filePreview.ts).
+  let literal = path.lowercased()
+  return imagePreviewExtensions.contains { literal.hasSuffix($0) }
 }
 
 /// The workspace image a row viewed, if any.
@@ -419,7 +433,7 @@ public func workEntryViewedImagePath(_ entry: WorkLogEntry) -> String? {
 
 // MARK: - Group summaries
 
-private func toolGroupActionCount(_ action: ToolGroupAction, _ entries: [WorkLogEntry]) -> Int {
+func toolGroupActionCount(_ action: ToolGroupAction, _ entries: [WorkLogEntry]) -> Int {
   if action != .edit { return entries.count }
   var changedFiles = Set<String>()
   var editsWithoutFileDetails = 0
@@ -433,12 +447,15 @@ private func toolGroupActionCount(_ action: ToolGroupAction, _ entries: [WorkLog
   return changedFiles.count + editsWithoutFileDetails
 }
 
-private func toolGroupActionLabel(_ action: ToolGroupAction, _ count: Int) -> String {
+func toolGroupActionLabel(_ action: ToolGroupAction, _ count: Int) -> String {
   func plural(_ one: String, _ many: String) -> String { count == 1 ? one : many }
   switch action {
   case .linkPR: return "Linked \(count) \(plural("pull request", "pull requests"))"
   case .unlinkPR: return "Unlinked \(count) \(plural("pull request", "pull requests"))"
   case .listPRs: return count == 1 ? "Checked linked pull requests" : "Checked linked pull requests \(count) times"
+  case .watchPR: return "Watching \(count) \(plural("pull request", "pull requests"))"
+  case .unwatchPR: return "Stopped watching \(count) \(plural("pull request", "pull requests"))"
+  case .threadCreate: return "Created \(count) \(plural("thread", "threads"))"
   case .read: return "Read \(count) \(plural("file", "files"))"
   case .edit: return "Changed \(count) \(plural("file", "files"))"
   case .command: return "Ran \(count) \(plural("command", "commands"))"
@@ -461,6 +478,7 @@ private func joinSentence(_ labels: [String]) -> String {
 }
 
 public func summarizeToolGroup(_ entries: [WorkLogEntry]) -> String {
+  if entries.contains(where: { $0.v2 != nil }) { return V2Work.summarizeToolGroup(entries).summary }
   let summaryEntries = omitSupersededLifecycleMarkers(entries) { $0 }
   var sources: [(key: String, source: ToolActivitySource)] = []
   var actionOrder: [ToolGroupAction] = []
@@ -522,6 +540,7 @@ public func omitSupersededLifecycleMarkers<T>(_ entries: [T], workEntryFor: (T) 
 }
 
 public func toolGroupSummaryKind(_ entries: [WorkLogEntry]) -> ToolGroupSummaryKind {
+  if entries.contains(where: { $0.v2 != nil }) { return V2Work.toolGroupSummaryKind(entries) }
   if !entries.isEmpty && entries.allSatisfy({ resolveWorkEntryToolPresentation($0)?.icon == .pullRequest }) {
     return .pullRequest
   }

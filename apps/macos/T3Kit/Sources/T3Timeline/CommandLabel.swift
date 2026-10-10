@@ -1058,3 +1058,38 @@ private enum CommandLabel {
       ?? (context == .shell ? literalAliasProgramName(command) : nil)
   }
 }
+
+// MARK: - Display text
+
+/// The command as rows show it: a plain shell -c wrapper removed and control characters made
+/// visible (`commandDisplayText`). Callers retain the original for details.
+public func commandDisplayText(_ command: String) -> String {
+  withVisibleControlCharacters(withoutShellWrapper(command))
+}
+
+/// Replaces each control character with its control picture; tab, newline and carriage return stay.
+public func withVisibleControlCharacters(_ text: String) -> String {
+  var out = String.UnicodeScalarView()
+  for scalar in text.unicodeScalars {
+    switch scalar.value {
+    case 0x7f: out.append("\u{2421}")
+    case 0...8, 0x0b, 0x0c, 0x0e...0x1f: out.append(Unicode.Scalar(0x2400 + scalar.value)!)
+    default: out.append(scalar)
+    }
+  }
+  return String(out)
+}
+
+// A wrapper whose quoting does not balance is kept: the script's end cannot be known.
+private func withoutShellWrapper(_ command: String) -> String {
+  let trimmed = command.jsTrimmed
+  if CommandLabel.splitFirst(trimmed).remainingCommand != nil { return trimmed }
+  guard let tokens = CommandLabel.tokenize(trimmed), let first = tokens.first else { return trimmed }
+  var program = first.split(omittingEmptySubsequences: false, whereSeparator: { $0 == "/" || $0 == "\\" }).last.map(String.init) ?? ""
+  if program.lowercased().hasSuffix(".exe") { program = String(program.dropLast(4)) }
+  guard !program.isEmpty, CommandLabel.shellPrograms.contains(program),
+    let scriptIndex = CommandLabel.shellCommandArgumentIndex(tokens, start: 1), scriptIndex == tokens.count - 1
+  else { return trimmed }
+  let script = tokens[scriptIndex].jsTrimmed
+  return script.isEmpty ? trimmed : script
+}

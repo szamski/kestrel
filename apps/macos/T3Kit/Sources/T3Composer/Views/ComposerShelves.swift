@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import T3Contracts
 
 /// Image thumbnails above the editor: progress while uploading, retry on failure, remove.
 struct ComposerAttachmentShelf: View {
@@ -90,6 +91,14 @@ struct ComposerQueueList: View {
   let model: ComposerModel
 
   var body: some View {
+    if let queue = model.serverQueue {
+      ServerQueueList(model: model, queue: queue)
+    } else {
+      localQueue
+    }
+  }
+
+  @ViewBuilder private var localQueue: some View {
     let queued = model.queuedMessages
     if !queued.isEmpty {
       VStack(spacing: 0) {
@@ -142,6 +151,119 @@ private struct QueuedRow: View {
     .padding(.vertical, 7)
     .accessibilityElement(children: .contain)
     .accessibilityLabel("Queued: \(summary)")
+  }
+}
+
+/// The server's queue of a protocol-2 thread: messages waiting behind the active run. Rows reorder by drag (when the
+/// provider supports queued messages), edit in the composer, steer into the run or leave the queue.
+private struct ServerQueueList: View {
+  let model: ComposerModel
+  let queue: ComposerServerQueue
+
+  var body: some View {
+    if !queue.items.isEmpty {
+      VStack(spacing: 0) {
+        if queue.isHeld {
+          HStack(spacing: 8) {
+            Image(systemName: "pause.circle").foregroundStyle(.secondary).font(.system(size: 12))
+            Text("Queue paused").font(.system(size: 12.5))
+            Spacer(minLength: 8)
+            Button("Resume") { model.resumeServerQueue() }.controlSize(.small).disabled(model.busyQueueRunId != nil)
+          }
+          .padding(.horizontal, 12).padding(.vertical, 7)
+          Divider().opacity(0.5)
+        }
+        ForEach(Array(queue.items.enumerated()), id: \.element.id) { index, item in
+          if index > 0 { Divider().opacity(0.5) }
+          ServerQueueRow(model: model, queue: queue, item: item, index: index)
+        }
+      }
+      .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(ComposerTheme.raised))
+      .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(ComposerTheme.stroke))
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel("\(queue.items.count) queued message\(queue.items.count == 1 ? "" : "s")")
+    }
+  }
+}
+
+private struct ServerQueueRow: View {
+  let model: ComposerModel
+  let queue: ComposerServerQueue
+  let item: ComposerServerQueue.Item
+  let index: Int
+  @State private var isDropTarget = false
+
+  private var summary: String {
+    let line = item.text.split(separator: "\n", omittingEmptySubsequences: true).first.map(String.init) ?? ""
+    let plain = line.replacingOccurrences(of: #"\[([^\]]*)\]\([^)]*\)"#, with: "$1", options: .regularExpression)
+    if !plain.isEmpty { return plain }
+    switch item.attachments.first {
+    case .image(let image)?: return image.name
+    case .file(let file)?: return file.name
+    default: return "Attachment"
+    }
+  }
+
+  private var isEditing: Bool { model.editingQueued?.runId == item.runId }
+  private var isBusy: Bool { model.busyQueueRunId != nil }
+
+  var body: some View {
+    HStack(spacing: 8) {
+      if queue.canReorder {
+        Image(systemName: "line.3.horizontal").foregroundStyle(.tertiary).font(.system(size: 11)).help("Drag to reorder")
+      } else {
+        Image(systemName: queue.isHeld ? "pause.circle" : "clock").foregroundStyle(.secondary).font(.system(size: 12))
+      }
+      Text(summary).lineLimit(1).truncationMode(.tail).font(.system(size: 12.5)).foregroundStyle(.primary.opacity(0.8))
+      if !item.attachments.isEmpty {
+        Label("\(item.attachments.count)", systemImage: "paperclip").labelStyle(.titleAndIcon).font(.system(size: 11)).foregroundStyle(.secondary)
+      }
+      Spacer(minLength: 8)
+      if isEditing {
+        Button("Cancel") { model.cancelQueuedEdit() }.controlSize(.small).accessibilityLabel("Cancel editing queued message")
+      } else {
+        Button { model.editServerQueued(item.runId) } label: { Image(systemName: "pencil") }
+          .help("Edit in the composer").accessibilityLabel("Edit queued message").disabled(isBusy)
+        Button { model.steerServerQueued(item.runId) } label: { Label("Steer", systemImage: "arrow.turn.down.right").labelStyle(.titleAndIcon) }
+          .help(queue.activeRunId == nil ? "There is no active run to steer" : "Send as a steer instead")
+          .accessibilityLabel("Steer").disabled(isBusy || !queue.canPromoteToSteer)
+        Button { model.cancelServerQueued(item.runId) } label: { Image(systemName: "xmark") }
+          .help("Remove from queue").accessibilityLabel("Remove queued message").disabled(isBusy)
+      }
+    }
+    .buttonStyle(.borderless)
+    .foregroundStyle(.secondary)
+    .padding(.horizontal, 12)
+    .padding(.vertical, 7)
+    .background(isEditing ? Color.accentColor.opacity(0.12) : isDropTarget ? Color.primary.opacity(0.06) : .clear)
+    .contentShape(Rectangle())
+    .modifier(QueueReorder(enabled: queue.canReorder && !isBusy, item: item, model: model, isDropTarget: $isDropTarget))
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel("Queued: \(summary)")
+    .accessibilityAction(named: "Move up") { model.moveServerQueued(item.runId, by: -1) }
+    .accessibilityAction(named: "Move down") { model.moveServerQueued(item.runId, by: 1) }
+  }
+}
+
+/// Drag a row onto another to reorder; off when the provider cannot reorder queued messages.
+private struct QueueReorder: ViewModifier {
+  let enabled: Bool
+  let item: ComposerServerQueue.Item
+  let model: ComposerModel
+  @Binding var isDropTarget: Bool
+
+  func body(content: Content) -> some View {
+    if enabled {
+      content
+        .draggable(item.runId.rawValue)
+        .dropDestination(for: String.self) { ids, _ in
+          guard let dragged = ids.first else { return false }
+          model.dropServerQueued(RunId(rawValue: dragged), onto: item.runId)
+          return true
+        } isTargeted: { isDropTarget = $0 }
+    } else {
+      content
+    }
   }
 }
 

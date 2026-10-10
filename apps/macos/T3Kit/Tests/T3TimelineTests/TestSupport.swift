@@ -121,6 +121,10 @@ extension TimelineRow {
     case .thinking: "thinking"
     case .worktreeSetup: "worktree-setup"
     case .queuedMessage: "queued-message"
+    case .attemptFold: "attempt-fold"
+    case .event: "event"
+    case .htmlRender: "html-render"
+    case .mcpApp: "mcp-app"
     }
   }
 }

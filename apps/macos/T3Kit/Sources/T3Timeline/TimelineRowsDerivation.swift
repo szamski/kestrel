@@ -16,7 +16,8 @@ public func worktreeSetupAgentStarted(_ snapshot: WorktreeSetupSnapshot) -> Bool
 // MARK: - Labels
 
 public func workEntryIsVisibleInGroup(_ entry: WorkLogEntry, expandedToolGroupEntry: Bool = false) -> Bool {
-  (expandedToolGroupEntry && (entry.toolLifecycleStatus == .inProgress || entry.sourceActivityKind == "task.progress"))
+  if entry.v2 != nil { return V2Work.isVisibleInGroup(entry, expandedToolGroupEntry: expandedToolGroupEntry) }
+  return (expandedToolGroupEntry && (entry.toolLifecycleStatus == .inProgress || entry.sourceActivityKind == "task.progress"))
     || !workEntryIndicatesToolNeutralStatus(entry)
 }
 

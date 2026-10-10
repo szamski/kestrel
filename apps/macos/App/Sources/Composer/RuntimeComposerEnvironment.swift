@@ -41,7 +41,9 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
     var models = ComposerModelSettings(planModeEnabled: preferences.planModeEnabled, favoriteModelKeys: favorites)
     // Explicit `providerInstances` enable or disable instances (the legacy per-driver `providers` switches left the contracts).
     for (id, instance) in server?.providerInstances ?? [:] {
-      models.instanceEnabled[id] = instance.enabled ?? true
+      var configEnabled: Bool?
+      if case .object(let config)? = instance.config, case .bool(let flag)? = config["enabled"] { configEnabled = flag }
+      models.instanceEnabled[id] = ModelCatalog.resolveInstanceEnabled(driver: instance.driver.rawValue, enabled: instance.enabled, configEnabled: configEnabled)
       if case .object(let config)? = instance.config, case .array(let custom)? = config["customModels"] {
         models.instanceCustomModels[id] = custom.compactMap { value in
           switch value {
@@ -108,6 +110,9 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
     var session = ""
     var latestTurn = ""
     var modes = ""
+    /// Protocol 2: the server's queue and open requests (the activity log that derives them on protocol 1 stays empty).
+    var queue: ThreadQueueState?
+    var pending: PendingRequests?
   }
 
   private func unavailableReason(_ id: EnvironmentId) -> String? {
@@ -145,6 +150,10 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       if let turn = thread.latestTurn {
         fingerprint.latestTurn = "\(turn.turnId.rawValue)|\(turn.startedAt?.rawValue ?? "")|\(turn.completedAt?.rawValue ?? "")"
       }
+      if detail?.projection != nil {
+        fingerprint.queue = detail?.queue
+        fingerprint.pending = detail?.pendingRequests
+      }
       fingerprint.modes = "\(thread.runtimeMode.rawValue)|\(thread.interactionMode.rawValue)|\(thread.modelSelection.instanceId.rawValue)|\(thread.modelSelection.model)"
       return fingerprint
     }
@@ -154,7 +163,9 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       guard fingerprint != last else { continue }
       last = fingerprint
       if let thread = detail?.thread {
-        out.yield(ComposerThreadSnapshot(thread: thread, unavailableReason: fingerprint.unavailable))
+        var snapshot = ComposerThreadSnapshot(thread: thread, unavailableReason: fingerprint.unavailable)
+        if let queue = fingerprint.queue, let pending = fingerprint.pending { Self.applyServerState(&snapshot, queue: queue, pending: pending) }
+        out.yield(snapshot)
       } else if target.isDraftThread {
         let project = runtime.projects.first { $0.environmentId == environmentId && $0.projectId.rawValue == target.projectId }
         let unavailable = fingerprint.unavailable ?? (project == nil ? "This project is not available." : nil)
@@ -173,11 +184,88 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
     await detail?.close()
   }
 
+  /// Protocol 2 keeps its run state, queue and open requests in the projection, not in the V1-shaped thread.
+  private static func applyServerState(_ snapshot: inout ComposerThreadSnapshot, queue: ThreadQueueState, pending: PendingRequests) {
+    // Any active run (preparing, starting, running, waiting) takes follow-ups to the queue; the editor stays usable.
+    if queue.activeRun != nil {
+      snapshot.phase = .running
+    } else if snapshot.phase == .connecting {
+      snapshot.phase = .ready
+    }
+    snapshot.pending = PendingPrompts(
+      approvals: pending.approvals.compactMap { approval in
+        T3Timeline.ProviderRequestKind(rawValue: approval.requestKind.rawValue).map {
+          ApprovalPrompt(
+            requestId: approval.requestId, requestKind: $0, createdAt: approval.createdAt.rawValue, detail: approval.detail, appName: approval.appName,
+            options: approval.options?.map { ApprovalOption(decision: $0.decision, label: $0.label, warning: $0.warning) })
+        }
+      },
+      userInputs: pending.userInputs.map { input in
+        UserInputPrompt(
+          requestId: input.requestId, createdAt: input.createdAt.rawValue,
+          questions: input.questions.map { question in
+            T3Timeline.UserInputQuestion(
+              id: question.id, header: question.header, question: question.question,
+              options: question.options.map { T3Timeline.UserInputQuestionOption(label: $0.label, description: $0.description, value: $0.value) },
+              allowCustomAnswer: question.allowCustomAnswer, multiSelect: question.multiSelect)
+          }, dismissible: input.dismissible)
+      })
+    snapshot.dispatch.phase = snapshot.phase
+    snapshot.dispatch.hasPendingApproval = !snapshot.pending.approvals.isEmpty
+    snapshot.dispatch.hasPendingUserInput = !snapshot.pending.userInputs.isEmpty
+    snapshot.serverQueue = ComposerServerQueue(
+      items: queue.queued.map { ComposerServerQueue.Item(runId: $0.run.id, messageId: $0.messageId, text: $0.text, attachments: $0.attachments, context: $0.context) },
+      activeRunId: queue.activeRun?.id, isHeld: queue.isHeld, canReorder: queue.canReorder, canPromoteToSteer: queue.canPromoteToSteer)
+  }
+
   // MARK: Commands
 
   private func dispatch(_ command: V1.ClientOrchestrationCommand, _ environmentId: EnvironmentId, thread: ThreadId) async throws {
     guard let environment = await runtime.runtime(for: environmentId) else { throw ComposerEnvironmentError("The environment is not connected.") }
     do { try await environment.dispatch(command, thread: thread) } catch { throw ComposerEnvironmentError(error.message) }
+  }
+
+  func sendTurn(
+    _ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool, delivery: ComposerDelivery
+  ) async throws {
+    let environmentId = EnvironmentId(target.environmentId)
+    // A draft's first message launches the thread on either protocol; follow-ups on protocol 2 say how they join a run.
+    guard !target.isDraftThread, await runtime.orchestrationProtocol(environmentId) == .v2 else {
+      try await sendTurn(command, target: target, titleSeed: titleSeed, isFirstMessage: isFirstMessage)
+      return
+    }
+    guard let runtimeEnvironment = await runtime.runtime(for: environmentId) else { throw ComposerEnvironmentError("The environment is not connected.") }
+    let shell = runtime.threadShell(ScopedThreadKey(environmentId: environmentId, threadId: command.threadId))?.shell
+    // Protocol 2 has no modes on the message: change them first, as the web composer does.
+    if let shell, command.runtimeMode != shell.runtimeMode {
+      try await dispatch(ThreadCommand.setRuntimeMode(command.threadId, command.runtimeMode), environmentId, thread: command.threadId)
+    }
+    if let shell, command.interactionMode.rawValue != shell.interactionMode.rawValue {
+      try await dispatch(ThreadCommand.setInteractionMode(command.threadId, command.interactionMode), environmentId, thread: command.threadId)
+    }
+    let attachments = try command.message.attachments.map { item -> ChatAttachment in
+      switch item {
+      case .chatImageAttachment(let image): .image(image)
+      case .chatFileAttachment(let file): .file(file)
+      case .chatUnknownAttachment(let other): .other(other)
+      default: throw ComposerEnvironmentError("This attachment has not been uploaded.")
+      }
+    }
+    let sendDelivery: SendDelivery =
+      switch delivery {
+      case .auto: .auto
+      case .queue: .queue
+      case .steer: .steer
+      }
+    do {
+      try await runtimeEnvironment.dispatch(
+        ThreadCommandV2.send(
+          command.threadId, messageId: command.message.messageId, text: command.message.text, attachments: attachments, context: command.message.context,
+          delivery: sendDelivery, titleSeed: isFirstMessage ? titleSeed : nil, modelSelection: command.modelSelection,
+          sourcePlan: command.sourceProposedPlan.map { OrchestrationV2CommandMessageDispatchSourcePlanRef(threadId: $0.threadId, planId: PlanId(rawValue: $0.planId)) },
+          meta: CommandMeta(commandId: command.commandId, createdAt: command.createdAt)),
+        thread: command.threadId)
+    } catch { throw ComposerEnvironmentError(error.message) }
   }
 
   func sendTurn(_ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws {
@@ -214,6 +302,33 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       try await dispatch(ThreadCommand.setInteractionMode(command.threadId, command.interactionMode), environmentId, thread: command.threadId)
     }
     try await dispatch(.threadTurnStart(command), environmentId, thread: command.threadId)
+  }
+
+  // MARK: Server queue (protocol 2)
+
+  private func dispatch(_ command: OrchestrationV2Command, target: ComposerTarget) async throws {
+    guard let environment = await runtime.runtime(for: EnvironmentId(target.environmentId)) else { throw ComposerEnvironmentError("The environment is not connected.") }
+    do { try await environment.dispatch(command, thread: ThreadId(target.threadId)) } catch { throw ComposerEnvironmentError(error.message) }
+  }
+
+  func steerQueued(runId: RunId, into targetRunId: RunId, target: ComposerTarget) async throws {
+    try await dispatch(ThreadCommandV2.promoteQueuedToSteer(ThreadId(target.threadId), queuedRunId: runId, targetRunId: targetRunId), target: target)
+  }
+
+  func editQueued(runId: RunId, text: String, attachments: [ChatAttachment], context: OrchestrationMessageContext?, target: ComposerTarget) async throws {
+    try await dispatch(ThreadCommandV2.editQueued(ThreadId(target.threadId), runId: runId, text: text, attachments: attachments, context: context), target: target)
+  }
+
+  func reorderQueued(runId: RunId, before beforeRunId: RunId?, target: ComposerTarget) async throws {
+    try await dispatch(ThreadCommandV2.reorderQueued(ThreadId(target.threadId), runId: runId, before: beforeRunId), target: target)
+  }
+
+  func cancelQueued(runId: RunId, target: ComposerTarget) async throws {
+    try await dispatch(ThreadCommandV2.cancelQueued(ThreadId(target.threadId), runId: runId), target: target)
+  }
+
+  func resumeQueue(target: ComposerTarget) async throws {
+    try await dispatch(ThreadCommandV2.resumeQueue(ThreadId(target.threadId)), target: target)
   }
 
   func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {

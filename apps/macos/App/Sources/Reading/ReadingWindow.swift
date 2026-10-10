@@ -11,6 +11,22 @@ struct ReadingWindow: View {
 
   var body: some View {
     Group {
+      #if DEBUG
+      if let fixture = TimelineFixture.projection {
+        TimelineFixtureReader(app: app, panel: panel, projection: fixture)
+      } else {
+        content
+      }
+      #else
+      content
+      #endif
+    }
+    .background(Palette.canvas)
+    .modifier(SourceControlHost())
+  }
+
+  @ViewBuilder private var content: some View {
+    Group {
       if let key = app.selection {
         if let detail = app.detail, detail.key == key {
           ThreadReader(app: app, detail: detail, panel: panel).id(key)
@@ -27,8 +43,6 @@ struct ReadingWindow: View {
         }
       }
     }
-    .background(Palette.canvas)
-    .modifier(SourceControlHost())
   }
 }
 
@@ -49,6 +63,10 @@ struct ThreadReader: View {
     host.toggleTurn = { [model] in model.toggleTurn($0) }
     host.toggleWorkGroup = { [model] in model.toggleWorkGroup($0) }
     host.toggleLocal = { [model] in model.toggleLocal($0) }
+    host.toggleAttempt = { [model] in model.toggleAttempt($0) }
+    host.openThread = { [weak app, key = detail.key] threadId in
+      app?.selection = ScopedThreadKey(environmentId: key.environmentId, threadId: threadId)
+    }
     host.openLink = { [weak app, key = detail.key] in app?.open($0, in: key) }
     host.openDiff = { [weak panel, key = detail.key] turnId, path in panel?.revealDiff(turnId: turnId.rawValue, filePath: path, in: key) }
     host.cancelWorktreeSetup = { [weak app, key = detail.key] in app?.sourceControl.cancelWorktreeSetup(key) }
@@ -62,7 +80,7 @@ struct ThreadReader: View {
     RightPanelLayout(key: detail.key, store: panel) {
       chat(shell: shell)
     } panel: {
-      RightPanelView(app: app, key: detail.key, turns: detail.thread?.checkpoints ?? [], store: panel, diff: diff)
+      RightPanelView(app: app, key: detail.key, turns: model.checkpoints, store: panel, diff: diff)
     }
     .navigationTitle(shell?.title ?? "Thread")
     .navigationSubtitle(subtitle(shell))

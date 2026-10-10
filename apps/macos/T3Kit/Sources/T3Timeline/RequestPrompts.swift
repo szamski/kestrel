@@ -32,6 +32,18 @@ public struct ApprovalPrompt: Sendable, Hashable, Identifiable {
 
   public var id: String { requestId.rawValue }
 
+  public init(
+    requestId: V1.ApprovalRequestId, requestKind: ProviderRequestKind, createdAt: String, detail: String? = nil, appName: String? = nil,
+    options: [ApprovalOption]? = nil
+  ) {
+    self.requestId = requestId
+    self.requestKind = requestKind
+    self.createdAt = createdAt
+    self.detail = detail
+    self.appName = appName
+    self.options = options
+  }
+
   /// ComposerPendingApprovalActions: used when the provider sent no options.
   public static let defaultOptions: [ApprovalOption] = [
     ApprovalOption(decision: .cancel, label: "Cancel"),
@@ -78,6 +90,12 @@ public struct UserInputQuestionOption: Sendable, Hashable, Codable {
   public var label: String
   public var description: String
   public var value: String?
+
+  public init(label: String, description: String, value: String? = nil) {
+    self.label = label
+    self.description = description
+    self.value = value
+  }
 }
 
 public struct UserInputQuestion: Sendable, Hashable, Codable, Identifiable {
@@ -87,6 +105,17 @@ public struct UserInputQuestion: Sendable, Hashable, Codable, Identifiable {
   public var options: [UserInputQuestionOption]
   public var allowCustomAnswer: Bool?
   public var multiSelect: Bool
+
+  public init(
+    id: String, header: String, question: String, options: [UserInputQuestionOption], allowCustomAnswer: Bool? = nil, multiSelect: Bool = false
+  ) {
+    self.id = id
+    self.header = header
+    self.question = question
+    self.options = options
+    self.allowCustomAnswer = allowCustomAnswer
+    self.multiSelect = multiSelect
+  }
 
   /// The value an option answers with (`option.value ?? option.label`).
   public func answerValue(of option: UserInputQuestionOption) -> String { option.value ?? option.label }
@@ -100,11 +129,23 @@ public struct UserInputPrompt: Sendable, Hashable, Identifiable {
   public var dismissible: Bool
 
   public var id: String { requestId.rawValue }
+
+  public init(requestId: V1.ApprovalRequestId, createdAt: String, questions: [UserInputQuestion], dismissible: Bool) {
+    self.requestId = requestId
+    self.createdAt = createdAt
+    self.questions = questions
+    self.dismissible = dismissible
+  }
 }
 
 public struct PendingPrompts: Sendable, Hashable {
   public var approvals: [ApprovalPrompt]
   public var userInputs: [UserInputPrompt]
+
+  public init(approvals: [ApprovalPrompt], userInputs: [UserInputPrompt]) {
+    self.approvals = approvals
+    self.userInputs = userInputs
+  }
 }
 
 private let requestActivityKinds: Set<String> = [

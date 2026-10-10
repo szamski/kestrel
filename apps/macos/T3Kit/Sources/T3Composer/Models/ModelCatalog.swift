@@ -188,10 +188,23 @@ public enum ModelCatalog {
       } else if entry.isDefault, let legacy = settings.legacyProviderEnabled[entry.driverKind] {
         next.enabled = legacy
       } else {
-        next.enabled = false
+        // Unconfigured default instance: only Codex and Claude run before the user configures them; other ids are stale.
+        next.enabled = entry.isDefault && unconfiguredDefaultInstances.contains(entry.instanceId)
       }
       return next
     }
+  }
+
+  /// Default instances that run without a `providerInstances` entry (`isUnconfiguredDefaultInstanceEnabled`).
+  static let unconfiguredDefaultInstances: Set<String> = ["codex", "claudeAgent"]
+
+  /// Built-in drivers that stay off until turned on (`DEFAULT_DISABLED_PROVIDER_DRIVERS`); unknown drivers default on.
+  private static let disabledByDefaultDrivers: Set<String> = ["cursor", "grok", "muse", "pi", "opencode", "antigravity"]
+
+  /// `resolveProviderInstanceEnabled`: an explicit false on the envelope or the in-config flag wins, then envelope, config, driver default.
+  public static func resolveInstanceEnabled(driver: String, enabled: Bool?, configEnabled: Bool?) -> Bool {
+    if enabled == false || configEnabled == false { return false }
+    return enabled ?? configEnabled ?? !disabledByDefaultDrivers.contains(driver)
   }
 
   /// Default instance of each driver before its custom ones; stable across drivers.

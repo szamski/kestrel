@@ -34,7 +34,7 @@ extension ComposerModel {
   public func isResting(isExistingThread: Bool, timelineOverflows: Bool) -> Bool {
     ComposerFooterLayout.shouldUseRestingLayout(
       isExistingThread: isExistingThread, isScrollCollapsed: isScrollCollapsed, hasExpandedChrome: isMenuOpen || isModelPickerOpen || isStashMenuOpen
-        || activeApproval != nil || activeUserInput != nil || !queuedMessages.isEmpty,
+        || activeApproval != nil || activeUserInput != nil || !queuedMessages.isEmpty || thread.serverQueue?.items.isEmpty == false,
       hasMultilinePrompt: draft.prompt.contains("\n"), timelineOverflows: timelineOverflows)
   }
 }
