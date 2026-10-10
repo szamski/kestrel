@@ -14,7 +14,7 @@ public struct EnvironmentDescriptorInfo: Decodable, Sendable, Equatable {
 
 public struct AccessTokenResponse: Decodable, Sendable, Equatable {
   public let accessToken: String
-  /// "Bearer", or "DPoP" once T3 Connect lands.
+  /// "Bearer", or "DPoP" for a managed (T3 Connect) exchange.
   public let tokenType: String
   public let expiresIn: Double
   public let scope: String
@@ -36,16 +36,34 @@ public struct AuthSessionInfo: Decodable, Sendable, Equatable {
   public let expiresAt: String?
 }
 
-/// How an authenticated request proves itself. DPoP only builds the headers; minting
-/// the proof is the (later) T3 Connect work.
+/// A DPoP-bound access token that signs every request it authorizes: a proof names the method and
+/// URL it is sent to and is accepted once, so it can never be built ahead of the request. `id`
+/// identifies the token (equality only; it is not secret).
+public struct DPoPAuthorizer: Sendable, Equatable {
+  public let id: String
+  private let sign: @Sendable (_ method: String, _ url: URL) async throws -> [String: String]
+
+  /// `headers` returns the complete `Authorization` and `DPoP` headers for one request.
+  public init(id: String, headers: @escaping @Sendable (_ method: String, _ url: URL) async throws -> [String: String]) {
+    self.id = id
+    sign = headers
+  }
+
+  public func headers(method: String, url: URL) async throws -> [String: String] { try await sign(method, url) }
+  public static func == (lhs: Self, rhs: Self) -> Bool { lhs.id == rhs.id }
+}
+
+/// How an authenticated request proves itself. A DPoP environment never falls back to bearer: the
+/// server rejects a DPoP token presented without a valid proof.
 public enum RequestAuthorization: Sendable, Equatable {
   case bearer(String)
-  case dpop(accessToken: String, proof: String)
+  case dpop(DPoPAuthorizer)
 
-  var headers: [String: String] {
+  /// The headers for one request to `url`.
+  public func headers(method: String, url: URL) async throws -> [String: String] {
     switch self {
     case .bearer(let token): ["Authorization": "Bearer \(token)"]
-    case .dpop(let token, let proof): ["Authorization": "DPoP \(token)", "DPoP": proof]
+    case .dpop(let authorizer): try await authorizer.headers(method: method, url: url)
     }
   }
 }
@@ -100,6 +118,15 @@ public struct EnvironmentHTTPClient: Sendable {
 
   // MARK: Endpoints
 
+  /// The URL a request to `path` is sent to (query and fragment dropped): what a DPoP proof must name.
+  public func endpointURL(_ path: String) -> URL {
+    var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
+    components.path = path
+    components.query = nil
+    components.fragment = nil
+    return components.url!
+  }
+
   public func descriptor() async throws -> EnvironmentDescriptorInfo {
     try await get("/.well-known/t3/environment")
   }
@@ -122,7 +149,7 @@ public struct EnvironmentHTTPClient: Sendable {
   }
 
   public func webSocketTicket(auth: RequestAuthorization) async throws -> WebSocketTicket {
-    try await send(method: "POST", path: "/api/auth/websocket-ticket", headers: auth.headers, body: nil)
+    try await send(method: "POST", path: "/api/auth/websocket-ticket", headers: [:], authorization: auth, body: nil)
   }
 
   // MARK: Authorized JSON helpers
@@ -133,19 +160,24 @@ public struct EnvironmentHTTPClient: Sendable {
     _ path: String, query: [URLQueryItem] = [], auth: RequestAuthorization? = nil,
     orchestrationProtocol: OrchestrationProtocol? = nil
   ) async throws -> Response {
-    var headers = auth?.headers ?? [:]
+    var headers: [String: String] = [:]
     Self.addOrchestrationProtocol(orchestrationProtocol, to: &headers)
-    return try await send(method: "GET", path: path, query: query, headers: headers, body: nil)
+    return try await send(method: "GET", path: path, query: query, headers: headers, authorization: auth, body: nil)
   }
 
   public func post<Body: Encodable & Sendable, Response: Decodable & Sendable>(
     _ path: String, body: Body, auth: RequestAuthorization? = nil,
     orchestrationProtocol: OrchestrationProtocol? = nil
   ) async throws -> Response {
-    var headers = auth?.headers ?? [:]
+    var headers: [String: String] = [:]
     Self.addOrchestrationProtocol(orchestrationProtocol, to: &headers)
     headers["Content-Type"] = "application/json"
-    return try await send(method: "POST", path: path, headers: headers, body: try JSONEncoder().encode(body))
+    return try await send(method: "POST", path: path, headers: headers, authorization: auth, body: try JSONEncoder().encode(body))
+  }
+
+  /// A POST without a body (the declared endpoint has no payload, e.g. `/api/connect/unlink`).
+  public func postWithoutBody<Response: Decodable & Sendable>(_ path: String, auth: RequestAuthorization? = nil) async throws -> Response {
+    try await send(method: "POST", path: path, headers: [:], authorization: auth, body: nil)
   }
 
   // MARK: Internals
@@ -169,17 +201,20 @@ public struct EnvironmentHTTPClient: Sendable {
   }
 
   private func send<Response: Decodable & Sendable>(
-    method: String, path: String, query: [URLQueryItem] = [], headers: [String: String], body: Data?
+    method: String, path: String, query: [URLQueryItem] = [], headers: [String: String], authorization: RequestAuthorization? = nil,
+    body: Data?
   ) async throws -> Response {
-    var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
-    components.path = path
-    components.fragment = nil
+    var components = URLComponents(url: endpointURL(path), resolvingAgainstBaseURL: false)!
     components.queryItems = query.isEmpty ? nil : query
     var request = URLRequest(url: components.url!, timeoutInterval: timeout)
     request.httpMethod = method
     request.httpBody = body
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     for (name, value) in headers { request.setValue(value, forHTTPHeaderField: name) }
+    // Signed against the final URL: a DPoP proof names the method and URL (without query) it is sent to.
+    if let authorization {
+      for (name, value) in try await authorization.headers(method: method, url: request.url!) { request.setValue(value, forHTTPHeaderField: name) }
+    }
 
     let data: Data
     let response: URLResponse
@@ -195,8 +230,9 @@ public struct EnvironmentHTTPClient: Sendable {
     }
     guard (200..<300).contains(status) else {
       let body = try? JSONDecoder().decode(ErrorBody.self, from: data)
+      // Declared HTTP errors carry either a machine `reason` or a human `message` (conflicts, bad requests).
       throw EnvironmentHTTPError.server(
-        status: status, code: body?.code, reason: body?.reason,
+        status: status, code: body?.code, reason: body?.reason ?? body?.message,
         requiredScope: body?.requiredScope, traceId: body?.traceId)
     }
     do {
@@ -209,6 +245,7 @@ public struct EnvironmentHTTPClient: Sendable {
   private struct ErrorBody: Decodable {
     let code: String?
     let reason: String?
+    let message: String?
     let requiredScope: String?
     let traceId: String?
   }

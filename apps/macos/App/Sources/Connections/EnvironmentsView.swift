@@ -82,7 +82,10 @@ struct EnvironmentRow: View {
     HStack(alignment: .top, spacing: 8) {
       Circle().fill(SidebarFooter.tint(status.enabled ? status.connection.phase : nil)).frame(width: 9, height: 9).padding(.top, 5)
       VStack(alignment: .leading, spacing: 2) {
-        Text(status.label).lineLimit(1)
+        HStack(spacing: 4) {
+          Text(status.label).lineLimit(1)
+          if status.route == .relay { Image(systemName: "cloud").foregroundStyle(.secondary).help("Connected through T3 Connect") }
+        }
         Text(detail).font(.caption).foregroundStyle(.secondary).lineLimit(3).fixedSize(horizontal: false, vertical: true)
       }
       Spacer(minLength: 4)

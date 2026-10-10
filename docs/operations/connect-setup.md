@@ -87,6 +87,21 @@ Clerk's native Android SDK uses `clerk://<applicationId>.callback`. In the Clerk
 
 Preserve existing entries. These callbacks are separate from the `t3code-dev` / `t3code-preview` / `t3code` navigation schemes. A private development build using the production Clerk key still needs its development callback allowed by that instance's administrator; rebuilding the same package does not change the allowlist.
 
+## macOS native client sign-in redirects
+
+The native macOS client (`apps/macos`) signs in through Clerk's native SDK, which redirects OAuth providers to
+`<bundle id>://callback`. Add each bundle ID to **Native applications > Allowlist for mobile SSO redirect** of the
+Clerk instance selected by the app's publishable key:
+
+| Variant     | Callback                        |
+| ----------- | ------------------------------- |
+| Development | `codes.t3.macos.dev://callback` |
+| Production  | `codes.t3.macos://callback`     |
+
+Email-code sign-in needs no redirect. The client identifies to the relay as `t3-web` (the relay issues DPoP tokens to
+`t3-web` and `t3-mobile` only) and to environments as a `desktop` device. Its public configuration lives in
+`apps/macos/App/Support/Connect.xcconfig`, with the same values as `.env.example`.
+
 ## Desktop passkeys
 
 For a production macOS app with bundle ID `com.t3tools.t3code`:

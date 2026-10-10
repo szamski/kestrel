@@ -19,6 +19,18 @@ const EXTRA_ROOTS = [
   "OrchestrationV2ThreadHistoryPage",
   "OrchestrationV2ThreadProjection",
   "ExecutionEnvironmentDescriptor",
+  // T3 Connect: the relay API a client calls (the host-side link types are reached through the environment HTTP API).
+  "RelayClientEnvironmentRecord",
+  "RelayListEnvironmentsResponse",
+  "RelayEnvironmentConnectRequest",
+  "RelayEnvironmentConnectResponse",
+  "RelayEnvironmentStatusResponse",
+  "RelayEnvironmentLinkChallengeRequest",
+  "RelayEnvironmentLinkChallengeResponse",
+  "RelayEnvironmentLinkRequest",
+  "RelayEnvironmentLinkResponse",
+  "RelayDpopAccessTokenResponse",
+  "RelayOkResponse",
 ];
 /**
  * Structs the contracts reuse inside forward-compatible wrappers (`Schema.toType` rebuilds the

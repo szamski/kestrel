@@ -58,7 +58,10 @@ export async function loadRuntime() {
 }
 
 export async function loadContracts() {
-  return (await import(pathToFileURL(join(contractsSrc, "index.ts")).href)) as Record<string, any>;
+  const index = await import(pathToFileURL(join(contractsSrc, "index.ts")).href);
+  // `relay` is a separate package entry point (`@t3tools/contracts/relay`), not part of the index.
+  const relay = await import(pathToFileURL(join(contractsSrc, "relay.ts")).href);
+  return { ...relay, ...index } as Record<string, any>;
 }
 
 export async function loadFrozenV1() {

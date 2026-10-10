@@ -82,23 +82,37 @@ public struct BearerConnectionDriver: ConnectionDriving {
       let prepared = PreparedConnection(
         environmentId: entry.environmentId, label: descriptor.label, httpBaseURL: entry.httpBaseURL, socketURL: socketURL,
         authorization: authorization, orchestrationProtocol: negotiated)
-      progress(.opening(prepared))
-      let transport = try await URLSessionWebSocketTransport.open(URLRequest(url: socketURL))
-      progress(.synchronizing(prepared))
-      let live = try await LiveEnvironmentSession.open(
-        transport: transport, label: descriptor.label, expectedEnvironmentId: entry.environmentId, orchestrationProtocol: negotiated,
-        onConfigEvent: onConfigEvent)
-      return ConnectionLease(prepared: prepared, session: live)
+      return try await ConnectionLease.open(
+        prepared, entryLabel: entry.label, label: descriptor.label, expectedEnvironmentId: entry.environmentId, progress: progress, onConfigEvent: onConfigEvent)
     } catch let error as EnvironmentHTTPError {
       throw Self.map(error, label: entry.label)
+    }
+  }
+}
+
+extension ConnectionLease {
+  /// Opens the RPC socket named by `prepared` and waits for the first server config; shared by the bearer and relay drivers.
+  static func open(
+    _ prepared: PreparedConnection, entryLabel: String, label: String, expectedEnvironmentId: EnvironmentId,
+    progress: @Sendable (ConnectionAttemptProgress) -> Void, onConfigEvent: @escaping @Sendable (ServerConfigStreamEvent) -> Void
+  ) async throws -> ConnectionLease {
+    progress(.opening(prepared))
+    let transport: any RpcTransport
+    do {
+      transport = try await URLSessionWebSocketTransport.open(URLRequest(url: prepared.socketURL))
     } catch let error as WebSocketOpenError {
       switch error {
-      case .timeout: throw ConnectionAttemptError.transient(.timeout, detail: "\(entry.label) did not respond during connection setup.")
+      case .timeout: throw ConnectionAttemptError.transient(.timeout, detail: "\(entryLabel) did not respond during connection setup.")
       case .rejected(let status, let message):
         // A refused upgrade with 401/403 is an authorization problem, not a network one.
         if status == 401 || status == 403 { throw ConnectionAttemptError.blocked(.authentication, detail: "The environment rejected the connection credential.") }
-        throw ConnectionAttemptError.transient(.transport, detail: "\(entry.label) could not establish a WebSocket connection: \(message)")
+        throw ConnectionAttemptError.transient(.transport, detail: "\(entryLabel) could not establish a WebSocket connection: \(message)")
       }
     }
+    progress(.synchronizing(prepared))
+    let live = try await LiveEnvironmentSession.open(
+      transport: transport, label: label, expectedEnvironmentId: expectedEnvironmentId, orchestrationProtocol: prepared.orchestrationProtocol,
+      onConfigEvent: onConfigEvent)
+    return ConnectionLease(prepared: prepared, session: live)
   }
 }

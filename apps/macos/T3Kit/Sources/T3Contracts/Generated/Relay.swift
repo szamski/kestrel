@@ -3,6 +3,43 @@
 
 import Foundation
 
+public struct RelayClientEnvironmentRecord: Sendable, Hashable, Codable {
+  public var environmentId: EnvironmentId
+  public var label: String
+  public var endpoint: RelayManagedEndpoint
+  public var linkedAt: IsoDateTime
+
+  public init(environmentId: EnvironmentId, label: String, endpoint: RelayManagedEndpoint, linkedAt: IsoDateTime) {
+    self.environmentId = environmentId
+    self.label = label
+    self.endpoint = endpoint
+    self.linkedAt = linkedAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case environmentId
+    case label
+    case endpoint
+    case linkedAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.label = try c.decode(String.self, forKey: .label)
+    self.endpoint = try c.decode(RelayManagedEndpoint.self, forKey: .endpoint)
+    self.linkedAt = try c.decode(IsoDateTime.self, forKey: .linkedAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(label, forKey: .label)
+    try c.encode(endpoint, forKey: .endpoint)
+    try c.encode(linkedAt, forKey: .linkedAt)
+  }
+}
+
 public struct RelayCloudEnvironmentHealthRequest: Sendable, Hashable, Codable {
   public var proof: String
 
@@ -44,6 +81,44 @@ public struct RelayCloudMintCredentialRequest: Sendable, Hashable, Codable {
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(proof, forKey: .proof)
+  }
+}
+
+public struct RelayDpopAccessTokenResponse: Sendable, Hashable, Codable {
+  public var access_token: String
+  public var expires_in: Int
+  public var scope: String
+
+  public init(access_token: String, expires_in: Int, scope: String) {
+    self.access_token = access_token
+    self.expires_in = expires_in
+    self.scope = scope
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case issued_token_type
+    case token_type
+    case access_token
+    case expires_in
+    case scope
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("urn:ietf:params:oauth:token-type:access_token", forKey: .issued_token_type)
+    try c.expectConstant("DPoP", forKey: .token_type)
+    self.access_token = try c.decode(String.self, forKey: .access_token)
+    self.expires_in = try c.decode(Int.self, forKey: .expires_in)
+    self.scope = try c.decode(String.self, forKey: .scope)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("urn:ietf:params:oauth:token-type:access_token", forKey: .issued_token_type)
+    try c.encode("DPoP", forKey: .token_type)
+    try c.encode(access_token, forKey: .access_token)
+    try c.encode(expires_in, forKey: .expires_in)
+    try c.encode(scope, forKey: .scope)
   }
 }
 
@@ -94,6 +169,75 @@ public struct RelayEnvironmentConfigRequest: Sendable, Hashable, Codable {
   }
 }
 
+public struct RelayEnvironmentConnectRequest: Sendable, Hashable, Codable {
+  public var deviceId: String?
+  public var clientKeyThumbprint: String?
+  public var clientProofKeyThumbprint: String?
+
+  public init(deviceId: String? = nil, clientKeyThumbprint: String? = nil, clientProofKeyThumbprint: String? = nil) {
+    self.deviceId = deviceId
+    self.clientKeyThumbprint = clientKeyThumbprint
+    self.clientProofKeyThumbprint = clientProofKeyThumbprint
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case deviceId
+    case clientKeyThumbprint
+    case clientProofKeyThumbprint
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.deviceId = try c.decodeIfPresent(String.self, forKey: .deviceId)
+    self.clientKeyThumbprint = try c.decodeIfPresent(String.self, forKey: .clientKeyThumbprint)
+    self.clientProofKeyThumbprint = try c.decodeIfPresent(String.self, forKey: .clientProofKeyThumbprint)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(deviceId, forKey: .deviceId)
+    try c.encodeIfPresent(clientKeyThumbprint, forKey: .clientKeyThumbprint)
+    try c.encodeIfPresent(clientProofKeyThumbprint, forKey: .clientProofKeyThumbprint)
+  }
+}
+
+public struct RelayEnvironmentConnectResponse: Sendable, Hashable, Codable {
+  public var environmentId: EnvironmentId
+  public var endpoint: RelayManagedEndpoint
+  public var credential: String
+  public var expiresAt: IsoDateTime
+
+  public init(environmentId: EnvironmentId, endpoint: RelayManagedEndpoint, credential: String, expiresAt: IsoDateTime) {
+    self.environmentId = environmentId
+    self.endpoint = endpoint
+    self.credential = credential
+    self.expiresAt = expiresAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case environmentId
+    case endpoint
+    case credential
+    case expiresAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.endpoint = try c.decode(RelayManagedEndpoint.self, forKey: .endpoint)
+    self.credential = try c.decode(String.self, forKey: .credential)
+    self.expiresAt = try c.decode(IsoDateTime.self, forKey: .expiresAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(endpoint, forKey: .endpoint)
+    try c.encode(credential, forKey: .credential)
+    try c.encode(expiresAt, forKey: .expiresAt)
+  }
+}
+
 public struct RelayEnvironmentHealthResponse: Sendable, Hashable, Codable {
   public var environmentId: EnvironmentId
   public var descriptor: ExecutionEnvironmentDescriptor
@@ -134,6 +278,164 @@ public struct RelayEnvironmentHealthResponse: Sendable, Hashable, Codable {
   }
 }
 
+public struct RelayEnvironmentLinkChallengeRequest: Sendable, Hashable, Codable {
+  public var notificationsEnabled: Bool
+  public var liveActivitiesEnabled: Bool
+  public var managedTunnelsEnabled: Bool
+
+  public init(notificationsEnabled: Bool, liveActivitiesEnabled: Bool, managedTunnelsEnabled: Bool) {
+    self.notificationsEnabled = notificationsEnabled
+    self.liveActivitiesEnabled = liveActivitiesEnabled
+    self.managedTunnelsEnabled = managedTunnelsEnabled
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case notificationsEnabled
+    case liveActivitiesEnabled
+    case managedTunnelsEnabled
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.notificationsEnabled = try c.decode(Bool.self, forKey: .notificationsEnabled)
+    self.liveActivitiesEnabled = try c.decode(Bool.self, forKey: .liveActivitiesEnabled)
+    self.managedTunnelsEnabled = try c.decode(Bool.self, forKey: .managedTunnelsEnabled)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(notificationsEnabled, forKey: .notificationsEnabled)
+    try c.encode(liveActivitiesEnabled, forKey: .liveActivitiesEnabled)
+    try c.encode(managedTunnelsEnabled, forKey: .managedTunnelsEnabled)
+  }
+}
+
+public struct RelayEnvironmentLinkChallengeResponse: Sendable, Hashable, Codable {
+  public var challenge: String
+  public var expiresAt: IsoDateTime
+
+  public init(challenge: String, expiresAt: IsoDateTime) {
+    self.challenge = challenge
+    self.expiresAt = expiresAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case challenge
+    case expiresAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.challenge = try c.decode(String.self, forKey: .challenge)
+    self.expiresAt = try c.decode(IsoDateTime.self, forKey: .expiresAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(challenge, forKey: .challenge)
+    try c.encode(expiresAt, forKey: .expiresAt)
+  }
+}
+
+public struct RelayEnvironmentLinkRequest: Sendable, Hashable, Codable {
+  public var deviceId: String?
+  public var proof: String
+  public var notificationsEnabled: Bool
+  public var liveActivitiesEnabled: Bool
+  public var managedTunnelsEnabled: Bool
+
+  public init(deviceId: String? = nil, proof: String, notificationsEnabled: Bool, liveActivitiesEnabled: Bool, managedTunnelsEnabled: Bool) {
+    self.deviceId = deviceId
+    self.proof = proof
+    self.notificationsEnabled = notificationsEnabled
+    self.liveActivitiesEnabled = liveActivitiesEnabled
+    self.managedTunnelsEnabled = managedTunnelsEnabled
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case deviceId
+    case proof
+    case notificationsEnabled
+    case liveActivitiesEnabled
+    case managedTunnelsEnabled
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.deviceId = try c.decodeIfPresent(String.self, forKey: .deviceId)
+    self.proof = try c.decode(String.self, forKey: .proof)
+    self.notificationsEnabled = try c.decode(Bool.self, forKey: .notificationsEnabled)
+    self.liveActivitiesEnabled = try c.decode(Bool.self, forKey: .liveActivitiesEnabled)
+    self.managedTunnelsEnabled = try c.decode(Bool.self, forKey: .managedTunnelsEnabled)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(deviceId, forKey: .deviceId)
+    try c.encode(proof, forKey: .proof)
+    try c.encode(notificationsEnabled, forKey: .notificationsEnabled)
+    try c.encode(liveActivitiesEnabled, forKey: .liveActivitiesEnabled)
+    try c.encode(managedTunnelsEnabled, forKey: .managedTunnelsEnabled)
+  }
+}
+
+public struct RelayEnvironmentLinkResponse: Sendable, Hashable, Codable {
+  public var ok: Bool
+  public var cloudUserId: String
+  public var environmentId: EnvironmentId
+  public var endpoint: RelayManagedEndpoint
+  public var endpointRuntime: RelayManagedEndpointRuntimeConfig?
+  public var relayIssuer: String
+  public var environmentCredential: String
+  public var cloudMintPublicKey: String
+
+  public init(ok: Bool, cloudUserId: String, environmentId: EnvironmentId, endpoint: RelayManagedEndpoint, endpointRuntime: RelayManagedEndpointRuntimeConfig? = nil, relayIssuer: String, environmentCredential: String, cloudMintPublicKey: String) {
+    self.ok = ok
+    self.cloudUserId = cloudUserId
+    self.environmentId = environmentId
+    self.endpoint = endpoint
+    self.endpointRuntime = endpointRuntime
+    self.relayIssuer = relayIssuer
+    self.environmentCredential = environmentCredential
+    self.cloudMintPublicKey = cloudMintPublicKey
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case ok
+    case cloudUserId
+    case environmentId
+    case endpoint
+    case endpointRuntime
+    case relayIssuer
+    case environmentCredential
+    case cloudMintPublicKey
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.ok = try c.decode(Bool.self, forKey: .ok)
+    self.cloudUserId = try c.decode(String.self, forKey: .cloudUserId)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.endpoint = try c.decode(RelayManagedEndpoint.self, forKey: .endpoint)
+    self.endpointRuntime = try c.decodeIfPresent(RelayManagedEndpointRuntimeConfig.self, forKey: .endpointRuntime)
+    self.relayIssuer = try c.decode(String.self, forKey: .relayIssuer)
+    self.environmentCredential = try c.decode(String.self, forKey: .environmentCredential)
+    self.cloudMintPublicKey = try c.decode(String.self, forKey: .cloudMintPublicKey)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(ok, forKey: .ok)
+    try c.encode(cloudUserId, forKey: .cloudUserId)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(endpoint, forKey: .endpoint)
+    try c.encode(endpointRuntime, forKey: .endpointRuntime)
+    try c.encode(relayIssuer, forKey: .relayIssuer)
+    try c.encode(environmentCredential, forKey: .environmentCredential)
+    try c.encode(cloudMintPublicKey, forKey: .cloudMintPublicKey)
+  }
+}
+
 public struct RelayEnvironmentMintResponse: Sendable, Hashable, Codable {
   public var credential: String
   public var expiresAt: IsoDateTime
@@ -163,6 +465,95 @@ public struct RelayEnvironmentMintResponse: Sendable, Hashable, Codable {
     try c.encode(credential, forKey: .credential)
     try c.encode(expiresAt, forKey: .expiresAt)
     try c.encode(proof, forKey: .proof)
+  }
+}
+
+public struct RelayEnvironmentStatusResponse: Sendable, Hashable, Codable {
+  public var environmentId: EnvironmentId
+  public var endpoint: RelayManagedEndpoint
+  public var status: RelayEnvironmentStatusValue
+  public var checkedAt: IsoDateTime
+  public var descriptor: ExecutionEnvironmentDescriptor?
+  public var error: String?
+  public var offlineReason: String?
+  public var traceId: String?
+
+  public init(environmentId: EnvironmentId, endpoint: RelayManagedEndpoint, status: RelayEnvironmentStatusValue, checkedAt: IsoDateTime, descriptor: ExecutionEnvironmentDescriptor? = nil, error: String? = nil, offlineReason: String? = nil, traceId: String? = nil) {
+    self.environmentId = environmentId
+    self.endpoint = endpoint
+    self.status = status
+    self.checkedAt = checkedAt
+    self.descriptor = descriptor
+    self.error = error
+    self.offlineReason = offlineReason
+    self.traceId = traceId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case environmentId
+    case endpoint
+    case status
+    case checkedAt
+    case descriptor
+    case error
+    case offlineReason
+    case traceId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.endpoint = try c.decode(RelayManagedEndpoint.self, forKey: .endpoint)
+    self.status = try c.decode(RelayEnvironmentStatusValue.self, forKey: .status)
+    self.checkedAt = try c.decode(IsoDateTime.self, forKey: .checkedAt)
+    self.descriptor = try c.decodeIfPresent(ExecutionEnvironmentDescriptor.self, forKey: .descriptor)
+    self.error = try c.decodeIfPresent(String.self, forKey: .error)
+    self.offlineReason = try c.decodeIfPresent(String.self, forKey: .offlineReason)
+    self.traceId = try c.decodeIfPresent(String.self, forKey: .traceId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(endpoint, forKey: .endpoint)
+    try c.encode(status, forKey: .status)
+    try c.encode(checkedAt, forKey: .checkedAt)
+    try c.encodeIfPresent(descriptor, forKey: .descriptor)
+    try c.encodeIfPresent(error, forKey: .error)
+    try c.encodeIfPresent(offlineReason, forKey: .offlineReason)
+    try c.encodeIfPresent(traceId, forKey: .traceId)
+  }
+}
+
+public enum RelayEnvironmentStatusValue: Sendable, Hashable, Codable, RawRepresentable {
+  case online
+  case offline
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "online": self = .online
+    case "offline": self = .offline
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .online: "online"
+    case .offline: "offline"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -200,6 +591,28 @@ public struct RelayLinkProofRequest: Sendable, Hashable, Codable {
     try c.encode(relayIssuer, forKey: .relayIssuer)
     try c.encode(endpoint, forKey: .endpoint)
     try c.encode(origin, forKey: .origin)
+  }
+}
+
+public struct RelayListEnvironmentsResponse: Sendable, Hashable, Codable {
+  public var environments: [RelayClientEnvironmentRecord]
+
+  public init(environments: [RelayClientEnvironmentRecord]) {
+    self.environments = environments
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case environments
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.environments = try c.decode([RelayClientEnvironmentRecord].self, forKey: .environments)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(environments, forKey: .environments)
   }
 }
 
@@ -331,5 +744,27 @@ public struct RelayManagedEndpointRuntimeConfig: Sendable, Hashable, Codable {
     try c.encode(connectorToken, forKey: .connectorToken)
     try c.encodeIfPresent(tunnelId, forKey: .tunnelId)
     try c.encodeIfPresent(tunnelName, forKey: .tunnelName)
+  }
+}
+
+public struct RelayOkResponse: Sendable, Hashable, Codable {
+  public var ok: Bool
+
+  public init(ok: Bool) {
+    self.ok = ok
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case ok
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.ok = try c.decode(Bool.self, forKey: .ok)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(ok, forKey: .ok)
   }
 }

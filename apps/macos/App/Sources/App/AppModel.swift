@@ -48,6 +48,8 @@ final class AppModel {
   let sourceControl: SourceControlStore
   /// The server this app starts itself (Settings › Connections › Run local server).
   let localServer: LocalServer
+  /// T3 Connect: the cloud account, its environments and linking this Mac (Settings › Connections).
+  let connect: ConnectModel
   private(set) var runsLocalServer: Bool
   /// Host to prefill in the add-environment sheet (the foreign server found on this Mac).
   var addEnvironmentHost: String?
@@ -77,7 +79,7 @@ final class AppModel {
   private static let selectionDefaultsKey = "app.selectedThread"
   private static let draftThreadsDefaultsKey = "app.draftThreads"
   private static let runsLocalServerKey = "localServer.enabled"
-  private static let localEnvironmentKey = "localServer.environmentId"
+  static let localEnvironmentKey = "localServer.environmentId"
 
   /// `~/Library/Application Support/T3 Code Dev/` in Debug, `T3 Code` otherwise.
   static var dataDirectory: URL {
@@ -96,8 +98,13 @@ final class AppModel {
     let service = KeychainCredentialStore.defaultService
     #endif
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    let runtime = runtime ?? ClientRuntime.live(directory: Self.dataDirectory, keychainService: service, appVersion: version)
+    // An injected runtime (previews, tests) gets no T3 Connect: Clerk would start talking to the network.
+    let connectSetup = runtime == nil ? ConnectSetup.make(keychainService: service, appVersion: version) : ConnectSetup.Result()
+    let runtime =
+      runtime
+      ?? ClientRuntime.live(directory: Self.dataDirectory, keychainService: service, appVersion: version, managed: connectSetup.services?.authorizer)
     self.runtime = runtime
+    connect = ConnectModel(runtime: runtime, setup: connectSetup) { Self.storedLocalEnvironmentId }
     assets = AssetStore(runtime: runtime)
     composer = ComposerStore(runtime: runtime, directory: Self.dataDirectory)
     sourceControl = SourceControlStore(runtime: runtime)
@@ -147,6 +154,7 @@ final class AppModel {
     guard !started else { return }
     started = true
     await runtime.start()
+    await connect.start()
     if runsLocalServer { localServer.start() } else { await disableLocalEnvironment() }
     restoreSelection()
     observePresence()
@@ -170,6 +178,7 @@ final class AppModel {
     observers.forEach { NotificationCenter.default.removeObserver($0) }
     await detail?.close()
     await composer.services.persistDraftsNow()
+    connect.stop()
     await runtime.stop()
     await localServer.stop()
   }

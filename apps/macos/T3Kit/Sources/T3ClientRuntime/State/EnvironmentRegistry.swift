@@ -11,10 +11,14 @@ public enum AddEnvironmentError: Error, Sendable, Equatable {
   case pairingRejected(String)
   case unsupportedToken(String)
   case storage(String)
+  /// The environment is already saved with a direct credential; a second route would replace it.
+  case alreadyConnected(String)
 
   public var message: String {
     switch self {
-    case .invalidPairing(let m), .unreachable(let m), .incompatible(let m), .pairingRejected(let m), .unsupportedToken(let m), .storage(let m): m
+    case .invalidPairing(let m), .unreachable(let m), .incompatible(let m), .pairingRejected(let m), .unsupportedToken(let m), .storage(let m),
+      .alreadyConnected(let m):
+      m
     }
   }
 }
@@ -25,6 +29,7 @@ public struct EnvironmentStatus: Sendable, Equatable, Identifiable {
   public var label: String
   public var enabled: Bool
   public var connection: SupervisorConnectionState
+  public var route: ConnectionRoute = .direct
   public var id: EnvironmentId { environmentId }
 }
 
@@ -175,6 +180,37 @@ public actor EnvironmentRegistry {
       throw .storage("Could not store the credential in the Keychain.")
     }
     let entry = EnvironmentConnectionEntry(environmentId: environmentId, label: label, httpBaseURL: target.httpBaseURL, wsBaseURL: target.wsBaseURL)
+    try await install(entry)
+    return entry
+  }
+
+  /// Saves a T3 Connect environment. Nothing secret is stored: the driver asks the signed-in account for access on every connect.
+  /// Saving the same relay environment again only updates its label and last known endpoint.
+  @discardableResult
+  public func addManaged(environmentId: EnvironmentId, label: String, httpBaseURL: URL, wsBaseURL: URL) async throws(AddEnvironmentError)
+    -> EnvironmentConnectionEntry
+  {
+    let entry = EnvironmentConnectionEntry(environmentId: environmentId, label: label, httpBaseURL: httpBaseURL, wsBaseURL: wsBaseURL, route: .relay)
+    if let existing = catalog.load().first(where: { $0.environmentId == environmentId }) {
+      // Installing over a direct entry would drop its bearer scope: the user pairs and unpairs those explicitly.
+      guard existing.route == .relay else { throw .alreadyConnected("\(existing.label) is already connected directly on this Mac.") }
+      var same = existing
+      same.label = label
+      same.httpBaseURL = httpBaseURL
+      same.wsBaseURL = wsBaseURL
+      if same == existing, started[environmentId] != nil { return existing }
+      var kept = entry
+      kept.enabled = existing.enabled
+      try await install(kept)
+      return kept
+    }
+    try await install(entry)
+    return entry
+  }
+
+  /// Replaces the environment's scope with one for `entry`, saves the catalog and connects.
+  private func install(_ entry: EnvironmentConnectionEntry) async throws(AddEnvironmentError) {
+    let environmentId = entry.environmentId
     if let existing = started[environmentId] {
       // Pairing again: replace the old scope so it connects with the new credential.
       await existing.stop()
@@ -185,7 +221,6 @@ public actor EnvironmentRegistry {
     entries.append(entry)
     do { try catalog.save(entries) } catch { throw .storage("Could not save the environment list.") }
     await launch(entry)
-    return entry
   }
 
   /// Removes the environment: closes its scope and clears credentials, caches and client-owned state.
@@ -197,6 +232,14 @@ public actor EnvironmentRegistry {
     await clientState?.update { $0.removeEnvironment(environmentId) }
     try? catalog.save(catalog.load().filter { $0.environmentId != environmentId })
     publish()
+  }
+
+  /// The saved bearer credential of a direct environment, for calls to that same server (T3 Connect linking). Relay environments have none.
+  public func directAuthorization(for environmentId: EnvironmentId) -> (httpBaseURL: URL, authorization: RequestAuthorization)? {
+    guard let entry = catalog.load().first(where: { $0.environmentId == environmentId }), entry.route == .direct,
+      let credential = try? credentials.load(environmentId: environmentId.rawValue), credential.tokenType.lowercased() == "bearer"
+    else { return nil }
+    return (entry.httpBaseURL, .bearer(credential.accessToken))
   }
 
   /// Switches a saved environment on or off. Off drops the socket and stops the retry ladder;

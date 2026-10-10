@@ -9,7 +9,7 @@ public struct EnvironmentCredential: Codable, Sendable, Equatable {
   public var httpBaseURL: URL
   public var wsBaseURL: URL
   public var accessToken: String
-  /// "Bearer" today; "DPoP" tokens need a proof key as well (T3 Connect, later).
+  /// Always "Bearer" here: managed (DPoP) environments keep their tokens in memory, bound to the device proof key (T3Connect).
   public var tokenType: String
 
   public init(

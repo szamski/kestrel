@@ -75,13 +75,22 @@ public final class ClientRuntime {
   }
 
   /// Production wiring under `directory` (environments.json, client-state.json, snapshot-cache.sqlite),
-  /// bearer credentials in the Keychain, `NWPathMonitor` and app-activation wakeups.
-  public static func live(directory: URL, keychainService: String = KeychainCredentialStore.defaultService, appVersion: String? = nil) -> ClientRuntime {
+  /// bearer credentials in the Keychain, `NWPathMonitor` and app-activation wakeups. `managed` (T3 Connect)
+  /// opens relay environments; without it they stay blocked.
+  public static func live(
+    directory: URL, keychainService: String = KeychainCredentialStore.defaultService, appVersion: String? = nil,
+    managed: (any ManagedEnvironmentAuthorizing)? = nil
+  ) -> ClientRuntime {
     let clientState = ClientStateStore(directory: directory)
     let cache: any SnapshotCache = (try? SQLiteSnapshotCache(path: SQLiteSnapshotCache.defaultPath(in: directory))) ?? NoSnapshotCache()
     let registry = EnvironmentRegistry(
       catalog: EnvironmentCatalogFile(directory: directory), credentials: KeychainCredentialStore(service: keychainService), cache: cache,
-      clientState: clientState, metadata: ClientMetadata(label: EnvironmentRegistry.tokenExchangeLabel, appVersion: appVersion))
+      clientState: clientState, metadata: ClientMetadata(label: EnvironmentRegistry.tokenExchangeLabel, appVersion: appVersion),
+      makeDriver: { credentials, metadata in
+        RoutingConnectionDriver(
+          direct: BearerConnectionDriver(credentials: credentials, metadata: metadata),
+          relay: managed.map { RelayConnectionDriver(authorizer: $0, metadata: metadata) })
+      })
     return ClientRuntime(
       registry: registry, clientState: clientState, networkChanges: SystemSignals.networkChanges(), wakeups: SystemSignals.wakeups())
   }
@@ -150,6 +159,19 @@ public final class ClientRuntime {
     try await registry.addLocal(baseURL: baseURL, bootstrapToken: bootstrapToken, label: label, clientLabel: clientLabel)
   }
 
+  /// Saves a T3 Connect environment from the relay's list and connects to it through the signed-in account.
+  @discardableResult
+  public func addManagedEnvironment(environmentId: EnvironmentId, label: String, httpBaseURL: URL, wsBaseURL: URL) async throws(AddEnvironmentError)
+    -> EnvironmentConnectionEntry
+  {
+    try await registry.addManaged(environmentId: environmentId, label: label, httpBaseURL: httpBaseURL, wsBaseURL: wsBaseURL)
+  }
+
+  /// The bearer authorization of a directly paired environment (the local server), for T3 Connect link calls to that same server.
+  public func directAuthorization(for environmentId: EnvironmentId) async -> (httpBaseURL: URL, authorization: RequestAuthorization)? {
+    await registry.directAuthorization(for: environmentId)
+  }
+
   /// Closes the connection and clears credentials, caches and client-owned state of the environment.
   public func removeEnvironment(_ environmentId: EnvironmentId) async { await registry.remove(environmentId) }
   public func setEnvironmentEnabled(_ environmentId: EnvironmentId, _ enabled: Bool) async { await registry.setEnabled(environmentId, enabled) }
@@ -209,7 +231,7 @@ public final class ClientRuntime {
       guard let entry = entries[id] else { return nil }
       return EnvironmentStatus(
         environmentId: id, label: entry.label, enabled: connectionStates[id]?.desired ?? entry.enabled,
-        connection: connectionStates[id] ?? .available)
+        connection: connectionStates[id] ?? .available, route: entry.route)
     }
   }
 

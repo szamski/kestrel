@@ -83,9 +83,19 @@ import Testing
         + "&client_label=T3%20Code%20for%20Mac&client_device_type=desktop&client_os=macOS")
   }
 
-  @Test func dpopSeamBuildsHeaders() {
-    #expect(RequestAuthorization.bearer("t").headers == ["Authorization": "Bearer t"])
-    #expect(RequestAuthorization.dpop(accessToken: "t", proof: "p").headers == ["Authorization": "DPoP t", "DPoP": "p"])
+  @Test func authorizationBuildsHeadersPerRequest() async throws {
+    let url = URL(string: "https://box.example/api/x")!
+    #expect(try await RequestAuthorization.bearer("t").headers(method: "GET", url: url) == ["Authorization": "Bearer t"])
+    // A DPoP authorizer signs the request it is asked about, so a proof is never built ahead of its method and URL.
+    let dpop = RequestAuthorization.dpop(DPoPAuthorizer(id: "t") { method, url in ["Authorization": "DPoP t", "DPoP": "\(method) \(url.path)"] })
+    #expect(try await dpop.headers(method: "POST", url: url) == ["Authorization": "DPoP t", "DPoP": "POST /api/x"])
+    #expect(dpop == .dpop(DPoPAuthorizer(id: "t") { _, _ in [:] }), "identity is the token id")
+    #expect(dpop != .bearer("t"))
+  }
+
+  @Test func endpointURLDropsQueryAndFragment() {
+    let client = EnvironmentHTTPClient(baseURL: URL(string: "https://box.example:8443/ignored?x=1#frag")!)
+    #expect(client.endpointURL("/oauth/token").absoluteString == "https://box.example:8443/oauth/token")
   }
 
   @Test func protocolCompatibility() throws {

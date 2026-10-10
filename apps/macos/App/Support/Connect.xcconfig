@@ -1,0 +1,7 @@
+// T3 Connect public configuration: the same identifiers as the repository-root .env.example
+// (T3CODE_CLERK_PUBLISHABLE_KEY, T3CODE_CLERK_JWT_TEMPLATE, T3CODE_RELAY_URL), which official builds embed. None of them is a secret.
+// Point a build at another deployment by overriding these in the untracked Signing.local.xcconfig.
+// The relay is a host, not a URL: xcconfig treats `//` as a comment. The app builds `https://<host>`.
+T3_CONNECT_CLERK_PUBLISHABLE_KEY = pk_live_Y2xlcmsudDMuY29kZXMk
+T3_CONNECT_CLERK_JWT_TEMPLATE = t3-relay
+T3_CONNECT_RELAY_HOST = relay.t3.codes

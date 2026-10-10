@@ -2,8 +2,8 @@ import Foundation
 import T3Contracts
 import T3Protocol
 
-// Port of packages/client-runtime/src/connection/model.ts (the parts a direct-connection
-// client uses; relay and SSH targets belong to later stages).
+// Port of packages/client-runtime/src/connection/model.ts (direct and T3 Connect relay routes;
+// SSH targets belong to a later stage).
 
 public enum NetworkStatus: String, Sendable { case unknown, offline, online }
 
@@ -72,22 +72,47 @@ public enum ConnectionWakeup: String, Sendable {
   public var shouldResubscribe: Bool { self == .applicationActive || self == .applicationActiveProbe }
 }
 
+/// How an environment is reached. Only the driver for the route ever sees its credential.
+public enum ConnectionRoute: String, Sendable, Codable {
+  /// A bearer token saved at pairing time (pairing link, LAN, Tailscale, the local server).
+  case direct
+  /// T3 Connect: the relay vouches for the account, the environment issues a DPoP-bound token for this device.
+  /// Nothing is saved but the entry; the token is minted on demand and never replaced by a bearer.
+  case relay
+}
+
 /// A saved environment as the connection layer needs it.
 public struct EnvironmentConnectionEntry: Sendable, Equatable, Codable, Identifiable {
   public var environmentId: EnvironmentId
   public var label: String
+  /// For a relay entry: the managed endpoint the relay last reported. The driver takes the endpoint from the relay on every connect.
   public var httpBaseURL: URL
   public var wsBaseURL: URL
   /// False when the user switched the environment off: saved, but never connects.
   public var enabled: Bool = true
+  public var route: ConnectionRoute = .direct
   public var id: EnvironmentId { environmentId }
 
-  public init(environmentId: EnvironmentId, label: String, httpBaseURL: URL, wsBaseURL: URL, enabled: Bool = true) {
+  public init(environmentId: EnvironmentId, label: String, httpBaseURL: URL, wsBaseURL: URL, enabled: Bool = true, route: ConnectionRoute = .direct) {
     self.environmentId = environmentId
     self.label = label
     self.httpBaseURL = httpBaseURL
     self.wsBaseURL = wsBaseURL
     self.enabled = enabled
+    self.route = route
+  }
+
+  private enum CodingKeys: String, CodingKey { case environmentId, label, httpBaseURL, wsBaseURL, enabled, route }
+
+  /// Catalogs written before `route` existed hold direct environments only.
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    label = try c.decode(String.self, forKey: .label)
+    httpBaseURL = try c.decode(URL.self, forKey: .httpBaseURL)
+    wsBaseURL = try c.decode(URL.self, forKey: .wsBaseURL)
+    enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
+    route = try c.decodeIfPresent(ConnectionRoute.self, forKey: .route) ?? .direct
   }
 }
 
