@@ -207,6 +207,7 @@ enum LocalServerSupport {
   /// `-KestrelSeedFromLive YES`: gives an empty dev home a snapshot of the live database for browsing real threads.
   /// The source is opened READ-ONLY and only ever read (`VACUUM INTO` writes the new file, never the source); nothing
   /// is symlinked and nothing flows back (AGENTS.md "Test data"). Only runs when the dev home has no database yet.
+  /// After a successful snapshot, `attachments/` is copied as real files so seeded image threads still load.
   /// Prefers the orchestration V2 `statev2.sqlite` when the live home has one; otherwise falls back to V1 `state.sqlite`.
   static func seedFromLiveIfRequested(into stateDirectory: URL) {
     guard UserDefaults.standard.bool(forKey: "KestrelSeedFromLive") else { return }
@@ -224,7 +225,31 @@ enum LocalServerSupport {
     defer { sqlite3_close(db) }
     sqlite3_busy_timeout(db, 5000)
     let quoted = destination.path.replacingOccurrences(of: "'", with: "''")
-    if sqlite3_exec(db, "VACUUM INTO '\(quoted)'", nil, nil, nil) != SQLITE_OK { try? fm.removeItem(at: destination) }
+    guard sqlite3_exec(db, "VACUUM INTO '\(quoted)'", nil, nil, nil) == SQLITE_OK else {
+      try? fm.removeItem(at: destination)
+      return
+    }
+    seedAttachmentsFromLive(liveUserdata.appending(path: "attachments", directoryHint: .isDirectory),
+                            into: stateDirectory.appending(path: "attachments", directoryHint: .isDirectory))
+  }
+
+  /// Real copies of the live attachments so seeded threads can load their images; existing files are kept and a
+  /// file that fails to copy is logged, not fatal. A missing source directory is a no-op.
+  private static func seedAttachmentsFromLive(_ source: URL, into destination: URL) {
+    let fm = FileManager.default
+    guard let files = fm.enumerator(at: source, includingPropertiesForKeys: [.isRegularFileKey]) else { return }
+    let prefix = source.pathComponents.count
+    for case let file as URL in files {
+      guard (try? file.resourceValues(forKeys: [.isRegularFileKey]))?.isRegularFile == true else { continue }
+      let target = destination.appending(path: file.pathComponents.dropFirst(prefix).joined(separator: "/"))
+      guard !fm.fileExists(atPath: target.path) else { continue }
+      do {
+        try fm.createDirectory(at: target.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try fm.copyItem(at: file, to: target)
+      } catch {
+        NSLog("Kestrel seed: could not copy attachment %@: %@", file.lastPathComponent, error.localizedDescription)
+      }
+    }
   }
   #endif
 }
