@@ -528,15 +528,31 @@ struct WorkEntryLine: View {
   let entry: WorkLogEntry
   var showsDetail = false
   @Environment(\.timelineHost) private var host
+  @Environment(\.timelineRowID) private var rowID
 
   var body: some View {
     let failed = workEntryDisplayIndicatesToolFailure(entry)
     if entry.tone == .error {
       ErrorBanner(title: entry.label, detail: entry.detail)
     } else {
+      // Protocol 2: an entry with content opens to the full command, output and files.
+      let work = showsDetail ? entry.v2.flatMap { $0.hasDetail ? $0 : nil } : nil
+      let open = work != nil && host?.disclosure.open.contains(entry.id) == true
       VStack(alignment: .leading, spacing: 2) {
-        ActivityLine(symbol: WorkSymbols.symbol(entry), label: workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot), failed: failed, inlineMarkdown: WorkSymbols.symbol(entry) == "brain")
-        if showsDetail, let command = entry.command, !command.isEmpty, workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot) != command {
+        let line = ActivityLine(
+          symbol: WorkSymbols.symbol(entry), label: workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot), failed: failed,
+          chevron: work == nil ? nil : open, inlineMarkdown: WorkSymbols.symbol(entry) == "brain")
+        if work != nil {
+          Button {
+            host?.disclosure.toggle(entry.id)
+            if let rowID { host?.rowChanged(rowID) }
+          } label: { line }.buttonStyle(.plain)
+        } else {
+          line
+        }
+        if let work, open {
+          WorkEntryDetail(work: work, entryId: entry.id)
+        } else if showsDetail, let command = entry.command, !command.isEmpty, workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot) != command {
           Text(command)
             .font(.system(size: 12, design: .monospaced))
             .foregroundStyle(Palette.muted)

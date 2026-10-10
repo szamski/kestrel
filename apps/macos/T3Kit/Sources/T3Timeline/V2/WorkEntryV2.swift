@@ -558,3 +558,37 @@ public func liveThoughtLine(_ markdown: String) -> String {
   }
   return text
 }
+
+// MARK: - On-demand item detail (`turnItemNeedsDetailFetch`, `turnItemDetailRevision`, `turnItemHasDetail`)
+
+extension V2WorkItem {
+  /// `{ summary, truncated: true }`: what the wire projection leaves of a large dynamic input.
+  private static func isSummarized(_ value: JSONValue) -> Bool {
+    value["truncated"] == .bool(true) && value["summary"]?.stringValue != nil
+  }
+
+  /// True when the timeline withholds content that `orchestration.getTurnItem` returns.
+  public var needsDetailFetch: Bool {
+    switch item {
+    case .commandExecution(let value): value.outputOmitted == true
+    case .dynamicTool(let value): value.outputOmitted == true || Self.isSummarized(value.input)
+    default: false
+    }
+  }
+
+  /// Cache key of a fetched item: a running item keeps one key, so an open entry fetches once
+  /// while it streams and again when it finishes.
+  public var detailRevision: String { item.fields.map(turnItemDetailRevision) ?? "" }
+
+  /// Whether expanding the entry shows anything. Entries without content must not offer a disclosure.
+  public var hasDetail: Bool {
+    switch item {
+    case .commandExecution(let value):
+      !value.input.jsTrimmed.isEmpty || value.outputOmitted == true || (value.exitCode ?? 0) != 0
+    case .fileChange: true
+    case .dynamicTool(let value):
+      value.outputOmitted == true || Self.isSummarized(value.input) || value.input != .null && value.input != .object([:])
+    default: false
+    }
+  }
+}

@@ -50,6 +50,7 @@ struct TimelineCellRoot: View {
     if let item {
       TimelineRowContainer(item: item)
         .environment(\.timelineHost, host)
+        .environment(\.timelineRowID, item.id)
         .frame(width: fixedWidth)
         .fixedSize(horizontal: false, vertical: fixedWidth != nil)
     }
@@ -111,6 +112,7 @@ final class TimelineController: NSObject, NSTableViewDataSource, NSTableViewDele
     self.host = host
     measurer = NSHostingView(rootView: TimelineCellRoot(item: nil, host: host, fixedWidth: 600))
     super.init()
+    host.rowChanged = { [weak self] in self?.contentSizeInvalidated(rowID: $0) }
     let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("timeline"))
     column.resizingMask = .autoresizingMask
     table.addTableColumn(column)

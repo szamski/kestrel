@@ -108,7 +108,7 @@ func isLiveSubagentTurnItem(_ item: TurnItem) -> Bool {
   return ["pending", "running", "waiting"].contains(subagent.status.rawValue)
 }
 
-private func detailRevision(_ fields: any TurnItemFields) -> String {
+func turnItemDetailRevision(_ fields: any TurnItemFields) -> String {
   ["idle", "pending", "running", "waiting"].contains(fields.status.rawValue) ? "live" : fields.updatedAt.rawValue
 }
 
@@ -217,7 +217,7 @@ func deriveTimelineEntriesV2(
         continue
       }
       if let app = mcpAppFromToolItem(toolName: tool.toolName, output: tool.output) {
-        let entry = McpAppEntry(sourceThreadId: row.sourceThreadId.rawValue, itemId: row.sourceItemId.rawValue, revision: detailRevision(fields), app: app)
+        let entry = McpAppEntry(sourceThreadId: row.sourceThreadId.rawValue, itemId: row.sourceItemId.rawValue, revision: turnItemDetailRevision(fields), app: app)
         entries.append(V2TimelineEntry(id: id, createdAt: createdAt, kind: .mcpApp(entry), attempt: attempt, runId: runId))
         continue
       }

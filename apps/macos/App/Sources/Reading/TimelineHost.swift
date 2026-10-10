@@ -12,6 +12,9 @@ final class TimelineHost {
   let key: ScopedThreadKey
   let workspaceRoot: String?
   let assets: AssetStore
+  /// Protocol 2: output and arguments the timeline withholds, loaded when a work entry opens.
+  let details: TurnItemDetailLoader
+  let disclosure = EntryDisclosure()
   var toggleTurn: (V1.TurnId) -> Void = { _ in }
   var toggleWorkGroup: (String) -> Void = { _ in }
   var toggleLocal: (String) -> Void = { _ in }
@@ -22,13 +25,16 @@ final class TimelineHost {
   var openLink: (MarkdownLink) -> Void = { _ in }
   /// "Changed files": open the diff panel on a turn, at a file when given.
   var openDiff: (V1.TurnId, String?) -> Void = { _, _ in }
+  /// A row's content changed size on its own (a work entry opened, its detail arrived): re-measure that row.
+  var rowChanged: (String) -> Void = { _ in }
   /// "Cancel" on the worktree setup card.
   var cancelWorktreeSetup: () -> Void = {}
 
-  init(key: ScopedThreadKey, workspaceRoot: String?, assets: AssetStore) {
+  init(key: ScopedThreadKey, workspaceRoot: String?, assets: AssetStore, details: TurnItemDetailLoader) {
     self.key = key
     self.workspaceRoot = workspaceRoot
     self.assets = assets
+    self.details = details
   }
 
   var markdownOptions: MarkdownOptions { MarkdownOptions(baseDirectory: workspaceRoot) }
@@ -45,4 +51,6 @@ final class TimelineHost {
 
 extension EnvironmentValues {
   @Entry var timelineHost: TimelineHost?
+  /// The table row a view renders in.
+  @Entry var timelineRowID: String?
 }

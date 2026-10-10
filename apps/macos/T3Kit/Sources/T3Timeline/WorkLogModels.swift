@@ -36,7 +36,9 @@ public enum ToolLifecycleStatus: String, Sendable, Hashable {
 /// `projectedItem` in session-logic.ts). Nil on protocol-1 entries.
 public struct V2WorkItem: Sendable, Hashable {
   var row: OrchestrationV2ThreadProjectionVisibleTurnItemsItem
-  var item: OrchestrationV2ThreadProjectionTurnItemsItem { row.item }
+  public var item: OrchestrationV2ThreadProjectionTurnItemsItem { row.item }
+  public var sourceThreadId: ThreadId { row.sourceThreadId }
+  public var sourceItemId: TurnItemId { row.sourceItemId }
 }
 
 public enum WorkLogTone: String, Sendable, Hashable {

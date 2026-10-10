@@ -59,7 +59,8 @@ struct ThreadReader: View {
     self.detail = detail
     self.panel = panel
     let model = TimelineModel(detail: detail)
-    let host = TimelineHost(key: detail.key, workspaceRoot: app.workspaceRoot(of: detail.key), assets: app.assets)
+    let host = TimelineHost(key: detail.key, workspaceRoot: app.workspaceRoot(of: detail.key), assets: app.assets,
+      details: TurnItemDetailLoader(runtime: app.runtime, environment: detail.key.environmentId))
     host.toggleTurn = { [model] in model.toggleTurn($0) }
     host.toggleWorkGroup = { [model] in model.toggleWorkGroup($0) }
     host.toggleLocal = { [model] in model.toggleLocal($0) }

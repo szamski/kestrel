@@ -147,7 +147,8 @@ struct TimelineFixtureReader: View {
     self.app = app
     self.panel = panel
     let model = FixtureTimeline(projection: projection, expandAll: TimelineFixture.expandAll)
-    let host = TimelineHost(key: TimelineFixture.key, workspaceRoot: "/workspace/project", assets: app.assets)
+    let host = TimelineHost(key: TimelineFixture.key, workspaceRoot: "/workspace/project", assets: app.assets,
+      details: TurnItemDetailLoader(runtime: app.runtime, environment: TimelineFixture.key.environmentId))
     host.toggleTurn = { [model] in model.toggleTurn($0) }
     host.toggleWorkGroup = { [model] in model.toggleWorkGroup($0) }
     host.toggleLocal = { [model] in model.toggleLocal($0) }
