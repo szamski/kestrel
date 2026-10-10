@@ -432,13 +432,16 @@ struct ActivityLine: View {
   /// nil: not expandable; otherwise whether it is open.
   var chevron: Bool?
   var trailing: String?
+  /// Reasoning summaries arrive as inline Markdown (`**Title** text`); other labels hold paths and
+  /// commands, where `_` or `*` must stay literal.
+  var inlineMarkdown = false
 
   var body: some View {
     HStack(spacing: 8) {
       Image(systemName: symbol)
         .foregroundStyle(failed ? Color.red : active ? Color.accentColor : Palette.muted)
         .frame(width: 16)
-      Text(label)
+      Text(inlineMarkdown ? label.inlineMarkdownText : AttributedString(label))
         .lineLimit(1)
         .truncationMode(.tail)
         .foregroundStyle(failed ? Color.red : active ? Palette.text : Palette.muted)
@@ -532,7 +535,7 @@ struct WorkEntryLine: View {
       ErrorBanner(title: entry.label, detail: entry.detail)
     } else {
       VStack(alignment: .leading, spacing: 2) {
-        ActivityLine(symbol: WorkSymbols.symbol(entry), label: workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot), failed: failed)
+        ActivityLine(symbol: WorkSymbols.symbol(entry), label: workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot), failed: failed, inlineMarkdown: WorkSymbols.symbol(entry) == "brain")
         if showsDetail, let command = entry.command, !command.isEmpty, workEntryDisplayLabel(entry, workspaceRoot: host?.workspaceRoot) != command {
           Text(command)
             .font(.system(size: 12, design: .monospaced))
@@ -605,7 +608,7 @@ struct WorkLiveView: View {
     VStack(alignment: .leading, spacing: 0) {
       // Protocol 2: the latest reasoning of the live group sits above the status line.
       if let thought = row.thought?.detail.map(liveThoughtLine), !thought.isEmpty {
-        Text(thought).font(.system(size: 12)).foregroundStyle(Palette.muted).lineLimit(1).truncationMode(.tail).padding(.leading, 24).frame(height: 18)
+        Text(thought.inlineMarkdownText).font(.system(size: 12)).foregroundStyle(Palette.muted).lineLimit(1).truncationMode(.tail).padding(.leading, 24).frame(height: 18)
       }
       Button {
         host?.toggleWorkGroup(row.groupId)
@@ -951,4 +954,8 @@ struct SubagentCard: View {
 
 extension String {
   fileprivate var nonEmptyForView: String? { isEmpty ? nil : self }
+  /// Inline Markdown for single-line reasoning summaries; falls back to the plain text.
+  fileprivate var inlineMarkdownText: AttributedString {
+    (try? AttributedString(markdown: self, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(self)
+  }
 }
