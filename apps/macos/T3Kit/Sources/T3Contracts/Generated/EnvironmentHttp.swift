@@ -220,14 +220,16 @@ public struct EnvironmentCloudLinkStateResult: Sendable, Hashable, Codable {
   public var relayIssuer: String?
   public var managedTunnelActive: Bool?
   public var publishAgentActivity: Bool
+  public var holdWebhooksWhileOffline: Bool?
 
-  public init(linked: Bool, cloudUserId: String? = nil, relayUrl: String? = nil, relayIssuer: String? = nil, managedTunnelActive: Bool? = nil, publishAgentActivity: Bool) {
+  public init(linked: Bool, cloudUserId: String? = nil, relayUrl: String? = nil, relayIssuer: String? = nil, managedTunnelActive: Bool? = nil, publishAgentActivity: Bool, holdWebhooksWhileOffline: Bool? = nil) {
     self.linked = linked
     self.cloudUserId = cloudUserId
     self.relayUrl = relayUrl
     self.relayIssuer = relayIssuer
     self.managedTunnelActive = managedTunnelActive
     self.publishAgentActivity = publishAgentActivity
+    self.holdWebhooksWhileOffline = holdWebhooksWhileOffline
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -237,6 +239,7 @@ public struct EnvironmentCloudLinkStateResult: Sendable, Hashable, Codable {
     case relayIssuer
     case managedTunnelActive
     case publishAgentActivity
+    case holdWebhooksWhileOffline
   }
 
   public init(from decoder: any Decoder) throws {
@@ -247,6 +250,7 @@ public struct EnvironmentCloudLinkStateResult: Sendable, Hashable, Codable {
     self.relayIssuer = try c.decodeIfPresent(String.self, forKey: .relayIssuer)
     self.managedTunnelActive = try c.decodeIfPresent(Bool.self, forKey: .managedTunnelActive)
     self.publishAgentActivity = try c.decode(Bool.self, forKey: .publishAgentActivity)
+    self.holdWebhooksWhileOffline = try c.decodeIfPresent(Bool.self, forKey: .holdWebhooksWhileOffline)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -257,28 +261,34 @@ public struct EnvironmentCloudLinkStateResult: Sendable, Hashable, Codable {
     try c.encode(relayIssuer, forKey: .relayIssuer)
     try c.encodeIfPresent(managedTunnelActive, forKey: .managedTunnelActive)
     try c.encode(publishAgentActivity, forKey: .publishAgentActivity)
+    try c.encodeIfPresent(holdWebhooksWhileOffline, forKey: .holdWebhooksWhileOffline)
   }
 }
 
 public struct EnvironmentCloudPreferencesRequest: Sendable, Hashable, Codable {
   public var publishAgentActivity: Bool
+  public var holdWebhooksWhileOffline: Bool?
 
-  public init(publishAgentActivity: Bool) {
+  public init(publishAgentActivity: Bool, holdWebhooksWhileOffline: Bool? = nil) {
     self.publishAgentActivity = publishAgentActivity
+    self.holdWebhooksWhileOffline = holdWebhooksWhileOffline
   }
 
   private enum CodingKeys: String, CodingKey {
     case publishAgentActivity
+    case holdWebhooksWhileOffline
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.publishAgentActivity = try c.decode(Bool.self, forKey: .publishAgentActivity)
+    self.holdWebhooksWhileOffline = try c.decodeIfPresent(Bool.self, forKey: .holdWebhooksWhileOffline)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(publishAgentActivity, forKey: .publishAgentActivity)
+    try c.encodeIfPresent(holdWebhooksWhileOffline, forKey: .holdWebhooksWhileOffline)
   }
 }
 
@@ -478,9 +488,12 @@ public enum EnvironmentInternalErrorReason: Sendable, Hashable, Codable, RawRepr
   case pairing_link_revoke_failed
   case client_sessions_load_failed
   case client_session_revoke_failed
+  case project_snapshot_failed
+  case project_mutation_failed
   case orchestration_snapshot_failed
   case orchestration_thread_snapshot_failed
-  case orchestration_dispatch_failed
+  case orchestration_thread_bounded_snapshot_failed
+  case orchestration_thread_history_failed
   case internal_error
   /// A value this build does not know; kept verbatim so it round-trips.
   case unknown(String)
@@ -497,9 +510,12 @@ public enum EnvironmentInternalErrorReason: Sendable, Hashable, Codable, RawRepr
     case "pairing_link_revoke_failed": self = .pairing_link_revoke_failed
     case "client_sessions_load_failed": self = .client_sessions_load_failed
     case "client_session_revoke_failed": self = .client_session_revoke_failed
+    case "project_snapshot_failed": self = .project_snapshot_failed
+    case "project_mutation_failed": self = .project_mutation_failed
     case "orchestration_snapshot_failed": self = .orchestration_snapshot_failed
     case "orchestration_thread_snapshot_failed": self = .orchestration_thread_snapshot_failed
-    case "orchestration_dispatch_failed": self = .orchestration_dispatch_failed
+    case "orchestration_thread_bounded_snapshot_failed": self = .orchestration_thread_bounded_snapshot_failed
+    case "orchestration_thread_history_failed": self = .orchestration_thread_history_failed
     case "internal_error": self = .internal_error
     default: self = .unknown(rawValue)
     }
@@ -517,9 +533,12 @@ public enum EnvironmentInternalErrorReason: Sendable, Hashable, Codable, RawRepr
     case .pairing_link_revoke_failed: "pairing_link_revoke_failed"
     case .client_sessions_load_failed: "client_sessions_load_failed"
     case .client_session_revoke_failed: "client_session_revoke_failed"
+    case .project_snapshot_failed: "project_snapshot_failed"
+    case .project_mutation_failed: "project_mutation_failed"
     case .orchestration_snapshot_failed: "orchestration_snapshot_failed"
     case .orchestration_thread_snapshot_failed: "orchestration_thread_snapshot_failed"
-    case .orchestration_dispatch_failed: "orchestration_dispatch_failed"
+    case .orchestration_thread_bounded_snapshot_failed: "orchestration_thread_bounded_snapshot_failed"
+    case .orchestration_thread_history_failed: "orchestration_thread_history_failed"
     case .internal_error: "internal_error"
     case .unknown(let value): value
     }
@@ -603,6 +622,7 @@ public enum EnvironmentRequestInvalidReason: Sendable, Hashable, Codable, RawRep
   case invalid_scope
   case scope_not_granted
   case invalid_command
+  case invalid_history_cursor
   /// A value this build does not know; kept verbatim so it round-trips.
   case unknown(String)
 
@@ -611,6 +631,7 @@ public enum EnvironmentRequestInvalidReason: Sendable, Hashable, Codable, RawRep
     case "invalid_scope": self = .invalid_scope
     case "scope_not_granted": self = .scope_not_granted
     case "invalid_command": self = .invalid_command
+    case "invalid_history_cursor": self = .invalid_history_cursor
     default: self = .unknown(rawValue)
     }
   }
@@ -620,6 +641,7 @@ public enum EnvironmentRequestInvalidReason: Sendable, Hashable, Codable, RawRep
     case .invalid_scope: "invalid_scope"
     case .scope_not_granted: "scope_not_granted"
     case .invalid_command: "invalid_command"
+    case .invalid_history_cursor: "invalid_history_cursor"
     case .unknown(let value): value
     }
   }
@@ -667,10 +689,12 @@ public struct EnvironmentResourceNotFoundError: Sendable, Hashable, Codable, Err
 
 public struct EnvironmentScopeRequiredError: Sendable, Hashable, Codable, Error {
   public var requiredScope: AuthEnvironmentScope
+  public var requiredPermission: String?
   public var traceId: String
 
-  public init(requiredScope: AuthEnvironmentScope, traceId: String) {
+  public init(requiredScope: AuthEnvironmentScope, requiredPermission: String? = nil, traceId: String) {
     self.requiredScope = requiredScope
+    self.requiredPermission = requiredPermission
     self.traceId = traceId
   }
 
@@ -678,6 +702,7 @@ public struct EnvironmentScopeRequiredError: Sendable, Hashable, Codable, Error 
     case _tag
     case code
     case requiredScope
+    case requiredPermission
     case traceId
   }
 
@@ -686,6 +711,7 @@ public struct EnvironmentScopeRequiredError: Sendable, Hashable, Codable, Error 
     try c.expectConstant("EnvironmentScopeRequiredError", forKey: ._tag)
     try c.expectConstant("insufficient_scope", forKey: .code)
     self.requiredScope = try c.decode(AuthEnvironmentScope.self, forKey: .requiredScope)
+    self.requiredPermission = try c.decodeIfPresent(String.self, forKey: .requiredPermission)
     self.traceId = try c.decode(String.self, forKey: .traceId)
   }
 
@@ -694,6 +720,7 @@ public struct EnvironmentScopeRequiredError: Sendable, Hashable, Codable, Error 
     try c.encode("EnvironmentScopeRequiredError", forKey: ._tag)
     try c.encode("insufficient_scope", forKey: .code)
     try c.encode(requiredScope, forKey: .requiredScope)
+    try c.encodeIfPresent(requiredPermission, forKey: .requiredPermission)
     try c.encode(traceId, forKey: .traceId)
   }
 }
@@ -840,6 +867,92 @@ public enum HttpAuthWebSocketTicketFailureWrapper: Sendable, Hashable, Codable, 
   }
 }
 
+public struct HttpOrchestrationThreadBoundedSnapshotQuery: Sendable, Hashable, Codable {
+  public var compactTurnItems: String?
+
+  public init(compactTurnItems: String? = nil) {
+    self.compactTurnItems = compactTurnItems
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case compactTurnItems
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.compactTurnItems = try c.decodeIfPresent(String.self, forKey: .compactTurnItems)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(compactTurnItems, forKey: .compactTurnItems)
+  }
+}
+
+public struct HttpOrchestrationThreadHistoryPageQuery: Sendable, Hashable, Codable {
+  public var cursor: String
+  public var throughEntryId: String?
+  public var view: HttpOrchestrationThreadHistoryPageQueryView?
+
+  public init(cursor: String, throughEntryId: String? = nil, view: HttpOrchestrationThreadHistoryPageQueryView? = nil) {
+    self.cursor = cursor
+    self.throughEntryId = throughEntryId
+    self.view = view
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case cursor
+    case throughEntryId
+    case view
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.cursor = try c.decode(String.self, forKey: .cursor)
+    self.throughEntryId = try c.decodeIfPresent(String.self, forKey: .throughEntryId)
+    self.view = try c.decodeIfPresent(HttpOrchestrationThreadHistoryPageQueryView.self, forKey: .view)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(cursor, forKey: .cursor)
+    try c.encodeIfPresent(throughEntryId, forKey: .throughEntryId)
+    try c.encodeIfPresent(view, forKey: .view)
+  }
+}
+
+public enum HttpOrchestrationThreadHistoryPageQueryView: Sendable, Hashable, Codable, RawRepresentable {
+  case conversation
+  case activity
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "conversation": self = .conversation
+    case "activity": self = .activity
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .conversation: "conversation"
+    case .activity: "activity"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
 public struct HttpOrchestrationThreadSnapshotParams: Sendable, Hashable, Codable {
   public var threadId: String
 
@@ -862,34 +975,51 @@ public struct HttpOrchestrationThreadSnapshotParams: Sendable, Hashable, Codable
   }
 }
 
-public struct HttpOrchestrationThreadSnapshotQuery: Sendable, Hashable, Codable {
-  public var reasoningMessages: String?
-  public var turnLimit: String?
-  public var beforeCursor: String?
+public struct HttpWebhooksWebhookPostParams: Sendable, Hashable, Codable {
+  public var hookId: String
+  public var token: String
 
-  public init(reasoningMessages: String? = nil, turnLimit: String? = nil, beforeCursor: String? = nil) {
-    self.reasoningMessages = reasoningMessages
-    self.turnLimit = turnLimit
-    self.beforeCursor = beforeCursor
+  public init(hookId: String, token: String) {
+    self.hookId = hookId
+    self.token = token
   }
 
   private enum CodingKeys: String, CodingKey {
-    case reasoningMessages
-    case turnLimit
-    case beforeCursor
+    case hookId
+    case token
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.reasoningMessages = try c.decodeIfPresent(String.self, forKey: .reasoningMessages)
-    self.turnLimit = try c.decodeIfPresent(String.self, forKey: .turnLimit)
-    self.beforeCursor = try c.decodeIfPresent(String.self, forKey: .beforeCursor)
+    self.hookId = try c.decode(String.self, forKey: .hookId)
+    self.token = try c.decode(String.self, forKey: .token)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(reasoningMessages, forKey: .reasoningMessages)
-    try c.encodeIfPresent(turnLimit, forKey: .turnLimit)
-    try c.encodeIfPresent(beforeCursor, forKey: .beforeCursor)
+    try c.encode(hookId, forKey: .hookId)
+    try c.encode(token, forKey: .token)
+  }
+}
+
+public struct HttpWebhooksWebhookPostSuccess: Sendable, Hashable, Codable {
+  public var deliveryId: String
+
+  public init(deliveryId: String) {
+    self.deliveryId = deliveryId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case deliveryId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.deliveryId = try c.decode(String.self, forKey: .deliveryId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(deliveryId, forKey: .deliveryId)
   }
 }

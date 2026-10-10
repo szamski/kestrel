@@ -72,68 +72,84 @@ public struct ExecutionEnvironmentCapabilities: Sendable, Hashable, Codable {
   public var questionAttachments: Bool?
   public var fileAttachments: ExecutionEnvironmentCapabilitiesFileAttachments?
   public var pullRequests: Bool?
+  public var pullRequestChecks: Bool?
   public var inlineMessageContext: Bool?
   public var requiredWorktreeBootstrap: Bool?
   public var threadSettlement: Bool?
   public var threadAutoSettlement: Bool?
   public var storageCleanup: Bool?
   public var projectWorktreeCleanup: Bool?
+  public var worktreesDirectory: Bool?
   public var threadRestartContinuation: Bool?
   public var projectSettingsOverrides: Bool?
   public var threadSnooze: Bool?
   public var environmentThemes: Bool?
   public var usageLimitSources: Bool?
   public var usagePriceOverrides: Bool?
+  public var usageModelAliases: Bool?
   public var threadPinning: Bool?
   public var threadPinReorder: Bool?
   public var threadActiveReorder: Bool?
   public var threadAutoSettleOptOut: Bool?
   public var threadTitleRegeneration: Bool?
+  public var threadVisitedTracking: Bool?
   public var threadPullRequestLinking: Bool?
+  public var serverResolvedCommandContext: Bool?
   public var threadPullRequests: Bool?
+  public var threadPullRequestWatch: Bool?
   public var pullRequestStackActions: Bool?
   public var serverSelfUpdate: ExecutionEnvironmentCapabilitiesServerSelfUpdate?
+  public var serverInstallation: ServerInstallation?
   public var serverSelfUpdateProgress: Bool?
   public var serverUpdateThreadContinuation: Bool?
   public var agentActivityPublishing: Bool?
   public var projectCloneTracking: Bool?
   public var environmentIcon: Bool?
   public var desktopAppUpdate: Bool?
+  public var serverBrowser: Bool?
 
-  public init(repositoryIdentity: Bool = false, connectionProbe: Bool? = nil, attachmentUploads: Bool? = nil, questionAttachments: Bool? = nil, fileAttachments: ExecutionEnvironmentCapabilitiesFileAttachments? = nil, pullRequests: Bool? = nil, inlineMessageContext: Bool? = nil, requiredWorktreeBootstrap: Bool? = nil, threadSettlement: Bool? = nil, threadAutoSettlement: Bool? = nil, storageCleanup: Bool? = nil, projectWorktreeCleanup: Bool? = nil, threadRestartContinuation: Bool? = nil, projectSettingsOverrides: Bool? = nil, threadSnooze: Bool? = nil, environmentThemes: Bool? = nil, usageLimitSources: Bool? = nil, usagePriceOverrides: Bool? = nil, threadPinning: Bool? = nil, threadPinReorder: Bool? = nil, threadActiveReorder: Bool? = nil, threadAutoSettleOptOut: Bool? = nil, threadTitleRegeneration: Bool? = nil, threadPullRequestLinking: Bool? = nil, threadPullRequests: Bool? = nil, pullRequestStackActions: Bool? = nil, serverSelfUpdate: ExecutionEnvironmentCapabilitiesServerSelfUpdate? = nil, serverSelfUpdateProgress: Bool? = nil, serverUpdateThreadContinuation: Bool? = nil, agentActivityPublishing: Bool? = nil, projectCloneTracking: Bool? = nil, environmentIcon: Bool? = nil, desktopAppUpdate: Bool? = nil) {
+  public init(repositoryIdentity: Bool = false, connectionProbe: Bool? = nil, attachmentUploads: Bool? = nil, questionAttachments: Bool? = nil, fileAttachments: ExecutionEnvironmentCapabilitiesFileAttachments? = nil, pullRequests: Bool? = nil, pullRequestChecks: Bool? = nil, inlineMessageContext: Bool? = nil, requiredWorktreeBootstrap: Bool? = nil, threadSettlement: Bool? = nil, threadAutoSettlement: Bool? = nil, storageCleanup: Bool? = nil, projectWorktreeCleanup: Bool? = nil, worktreesDirectory: Bool? = nil, threadRestartContinuation: Bool? = nil, projectSettingsOverrides: Bool? = nil, threadSnooze: Bool? = nil, environmentThemes: Bool? = nil, usageLimitSources: Bool? = nil, usagePriceOverrides: Bool? = nil, usageModelAliases: Bool? = nil, threadPinning: Bool? = nil, threadPinReorder: Bool? = nil, threadActiveReorder: Bool? = nil, threadAutoSettleOptOut: Bool? = nil, threadTitleRegeneration: Bool? = nil, threadVisitedTracking: Bool? = nil, threadPullRequestLinking: Bool? = nil, serverResolvedCommandContext: Bool? = nil, threadPullRequests: Bool? = nil, threadPullRequestWatch: Bool? = nil, pullRequestStackActions: Bool? = nil, serverSelfUpdate: ExecutionEnvironmentCapabilitiesServerSelfUpdate? = nil, serverInstallation: ServerInstallation? = nil, serverSelfUpdateProgress: Bool? = nil, serverUpdateThreadContinuation: Bool? = nil, agentActivityPublishing: Bool? = nil, projectCloneTracking: Bool? = nil, environmentIcon: Bool? = nil, desktopAppUpdate: Bool? = nil, serverBrowser: Bool? = nil) {
     self.repositoryIdentity = repositoryIdentity
     self.connectionProbe = connectionProbe
     self.attachmentUploads = attachmentUploads
     self.questionAttachments = questionAttachments
     self.fileAttachments = fileAttachments
     self.pullRequests = pullRequests
+    self.pullRequestChecks = pullRequestChecks
     self.inlineMessageContext = inlineMessageContext
     self.requiredWorktreeBootstrap = requiredWorktreeBootstrap
     self.threadSettlement = threadSettlement
     self.threadAutoSettlement = threadAutoSettlement
     self.storageCleanup = storageCleanup
     self.projectWorktreeCleanup = projectWorktreeCleanup
+    self.worktreesDirectory = worktreesDirectory
     self.threadRestartContinuation = threadRestartContinuation
     self.projectSettingsOverrides = projectSettingsOverrides
     self.threadSnooze = threadSnooze
     self.environmentThemes = environmentThemes
     self.usageLimitSources = usageLimitSources
     self.usagePriceOverrides = usagePriceOverrides
+    self.usageModelAliases = usageModelAliases
     self.threadPinning = threadPinning
     self.threadPinReorder = threadPinReorder
     self.threadActiveReorder = threadActiveReorder
     self.threadAutoSettleOptOut = threadAutoSettleOptOut
     self.threadTitleRegeneration = threadTitleRegeneration
+    self.threadVisitedTracking = threadVisitedTracking
     self.threadPullRequestLinking = threadPullRequestLinking
+    self.serverResolvedCommandContext = serverResolvedCommandContext
     self.threadPullRequests = threadPullRequests
+    self.threadPullRequestWatch = threadPullRequestWatch
     self.pullRequestStackActions = pullRequestStackActions
     self.serverSelfUpdate = serverSelfUpdate
+    self.serverInstallation = serverInstallation
     self.serverSelfUpdateProgress = serverSelfUpdateProgress
     self.serverUpdateThreadContinuation = serverUpdateThreadContinuation
     self.agentActivityPublishing = agentActivityPublishing
     self.projectCloneTracking = projectCloneTracking
     self.environmentIcon = environmentIcon
     self.desktopAppUpdate = desktopAppUpdate
+    self.serverBrowser = serverBrowser
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -143,33 +159,41 @@ public struct ExecutionEnvironmentCapabilities: Sendable, Hashable, Codable {
     case questionAttachments
     case fileAttachments
     case pullRequests
+    case pullRequestChecks
     case inlineMessageContext
     case requiredWorktreeBootstrap
     case threadSettlement
     case threadAutoSettlement
     case storageCleanup
     case projectWorktreeCleanup
+    case worktreesDirectory
     case threadRestartContinuation
     case projectSettingsOverrides
     case threadSnooze
     case environmentThemes
     case usageLimitSources
     case usagePriceOverrides
+    case usageModelAliases
     case threadPinning
     case threadPinReorder
     case threadActiveReorder
     case threadAutoSettleOptOut
     case threadTitleRegeneration
+    case threadVisitedTracking
     case threadPullRequestLinking
+    case serverResolvedCommandContext
     case threadPullRequests
+    case threadPullRequestWatch
     case pullRequestStackActions
     case serverSelfUpdate
+    case serverInstallation
     case serverSelfUpdateProgress
     case serverUpdateThreadContinuation
     case agentActivityPublishing
     case projectCloneTracking
     case environmentIcon
     case desktopAppUpdate
+    case serverBrowser
   }
 
   public init(from decoder: any Decoder) throws {
@@ -180,33 +204,41 @@ public struct ExecutionEnvironmentCapabilities: Sendable, Hashable, Codable {
     self.questionAttachments = try c.decodeIfPresent(Bool.self, forKey: .questionAttachments)
     self.fileAttachments = try c.decodeIfPresent(ExecutionEnvironmentCapabilitiesFileAttachments.self, forKey: .fileAttachments)
     self.pullRequests = try c.decodeIfPresent(Bool.self, forKey: .pullRequests)
+    self.pullRequestChecks = try c.decodeIfPresent(Bool.self, forKey: .pullRequestChecks)
     self.inlineMessageContext = try c.decodeIfPresent(Bool.self, forKey: .inlineMessageContext)
     self.requiredWorktreeBootstrap = try c.decodeIfPresent(Bool.self, forKey: .requiredWorktreeBootstrap)
     self.threadSettlement = try c.decodeIfPresent(Bool.self, forKey: .threadSettlement)
     self.threadAutoSettlement = try c.decodeIfPresent(Bool.self, forKey: .threadAutoSettlement)
     self.storageCleanup = try c.decodeIfPresent(Bool.self, forKey: .storageCleanup)
     self.projectWorktreeCleanup = try c.decodeIfPresent(Bool.self, forKey: .projectWorktreeCleanup)
+    self.worktreesDirectory = try c.decodeIfPresent(Bool.self, forKey: .worktreesDirectory)
     self.threadRestartContinuation = try c.decodeIfPresent(Bool.self, forKey: .threadRestartContinuation)
     self.projectSettingsOverrides = try c.decodeIfPresent(Bool.self, forKey: .projectSettingsOverrides)
     self.threadSnooze = try c.decodeIfPresent(Bool.self, forKey: .threadSnooze)
     self.environmentThemes = try c.decodeIfPresent(Bool.self, forKey: .environmentThemes)
     self.usageLimitSources = try c.decodeIfPresent(Bool.self, forKey: .usageLimitSources)
     self.usagePriceOverrides = try c.decodeIfPresent(Bool.self, forKey: .usagePriceOverrides)
+    self.usageModelAliases = try c.decodeIfPresent(Bool.self, forKey: .usageModelAliases)
     self.threadPinning = try c.decodeIfPresent(Bool.self, forKey: .threadPinning)
     self.threadPinReorder = try c.decodeIfPresent(Bool.self, forKey: .threadPinReorder)
     self.threadActiveReorder = try c.decodeIfPresent(Bool.self, forKey: .threadActiveReorder)
     self.threadAutoSettleOptOut = try c.decodeIfPresent(Bool.self, forKey: .threadAutoSettleOptOut)
     self.threadTitleRegeneration = try c.decodeIfPresent(Bool.self, forKey: .threadTitleRegeneration)
+    self.threadVisitedTracking = try c.decodeIfPresent(Bool.self, forKey: .threadVisitedTracking)
     self.threadPullRequestLinking = try c.decodeIfPresent(Bool.self, forKey: .threadPullRequestLinking)
+    self.serverResolvedCommandContext = try c.decodeIfPresent(Bool.self, forKey: .serverResolvedCommandContext)
     self.threadPullRequests = try c.decodeIfPresent(Bool.self, forKey: .threadPullRequests)
+    self.threadPullRequestWatch = try c.decodeIfPresent(Bool.self, forKey: .threadPullRequestWatch)
     self.pullRequestStackActions = try c.decodeIfPresent(Bool.self, forKey: .pullRequestStackActions)
     self.serverSelfUpdate = try c.decodeIfPresent(ExecutionEnvironmentCapabilitiesServerSelfUpdate.self, forKey: .serverSelfUpdate)
+    self.serverInstallation = try? c.decodeIfPresent(ServerInstallation.self, forKey: .serverInstallation)
     self.serverSelfUpdateProgress = try c.decodeIfPresent(Bool.self, forKey: .serverSelfUpdateProgress)
     self.serverUpdateThreadContinuation = try c.decodeIfPresent(Bool.self, forKey: .serverUpdateThreadContinuation)
     self.agentActivityPublishing = try c.decodeIfPresent(Bool.self, forKey: .agentActivityPublishing)
     self.projectCloneTracking = try c.decodeIfPresent(Bool.self, forKey: .projectCloneTracking)
     self.environmentIcon = try c.decodeIfPresent(Bool.self, forKey: .environmentIcon)
     self.desktopAppUpdate = try c.decodeIfPresent(Bool.self, forKey: .desktopAppUpdate)
+    self.serverBrowser = try c.decodeIfPresent(Bool.self, forKey: .serverBrowser)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -217,33 +249,41 @@ public struct ExecutionEnvironmentCapabilities: Sendable, Hashable, Codable {
     try c.encodeIfPresent(questionAttachments, forKey: .questionAttachments)
     try c.encodeIfPresent(fileAttachments, forKey: .fileAttachments)
     try c.encodeIfPresent(pullRequests, forKey: .pullRequests)
+    try c.encodeIfPresent(pullRequestChecks, forKey: .pullRequestChecks)
     try c.encodeIfPresent(inlineMessageContext, forKey: .inlineMessageContext)
     try c.encodeIfPresent(requiredWorktreeBootstrap, forKey: .requiredWorktreeBootstrap)
     try c.encodeIfPresent(threadSettlement, forKey: .threadSettlement)
     try c.encodeIfPresent(threadAutoSettlement, forKey: .threadAutoSettlement)
     try c.encodeIfPresent(storageCleanup, forKey: .storageCleanup)
     try c.encodeIfPresent(projectWorktreeCleanup, forKey: .projectWorktreeCleanup)
+    try c.encodeIfPresent(worktreesDirectory, forKey: .worktreesDirectory)
     try c.encodeIfPresent(threadRestartContinuation, forKey: .threadRestartContinuation)
     try c.encodeIfPresent(projectSettingsOverrides, forKey: .projectSettingsOverrides)
     try c.encodeIfPresent(threadSnooze, forKey: .threadSnooze)
     try c.encodeIfPresent(environmentThemes, forKey: .environmentThemes)
     try c.encodeIfPresent(usageLimitSources, forKey: .usageLimitSources)
     try c.encodeIfPresent(usagePriceOverrides, forKey: .usagePriceOverrides)
+    try c.encodeIfPresent(usageModelAliases, forKey: .usageModelAliases)
     try c.encodeIfPresent(threadPinning, forKey: .threadPinning)
     try c.encodeIfPresent(threadPinReorder, forKey: .threadPinReorder)
     try c.encodeIfPresent(threadActiveReorder, forKey: .threadActiveReorder)
     try c.encodeIfPresent(threadAutoSettleOptOut, forKey: .threadAutoSettleOptOut)
     try c.encodeIfPresent(threadTitleRegeneration, forKey: .threadTitleRegeneration)
+    try c.encodeIfPresent(threadVisitedTracking, forKey: .threadVisitedTracking)
     try c.encodeIfPresent(threadPullRequestLinking, forKey: .threadPullRequestLinking)
+    try c.encodeIfPresent(serverResolvedCommandContext, forKey: .serverResolvedCommandContext)
     try c.encodeIfPresent(threadPullRequests, forKey: .threadPullRequests)
+    try c.encodeIfPresent(threadPullRequestWatch, forKey: .threadPullRequestWatch)
     try c.encodeIfPresent(pullRequestStackActions, forKey: .pullRequestStackActions)
     try c.encodeIfPresent(serverSelfUpdate, forKey: .serverSelfUpdate)
+    try c.encodeIfPresent(serverInstallation, forKey: .serverInstallation)
     try c.encodeIfPresent(serverSelfUpdateProgress, forKey: .serverSelfUpdateProgress)
     try c.encodeIfPresent(serverUpdateThreadContinuation, forKey: .serverUpdateThreadContinuation)
     try c.encodeIfPresent(agentActivityPublishing, forKey: .agentActivityPublishing)
     try c.encodeIfPresent(projectCloneTracking, forKey: .projectCloneTracking)
     try c.encodeIfPresent(environmentIcon, forKey: .environmentIcon)
     try c.encodeIfPresent(desktopAppUpdate, forKey: .desktopAppUpdate)
+    try c.encodeIfPresent(serverBrowser, forKey: .serverBrowser)
   }
 }
 
@@ -465,8 +505,9 @@ public struct RepositoryIdentity: Sendable, Hashable, Codable {
   public var provider: String?
   public var owner: String?
   public var name: String?
+  public var origin: RepositoryIdentityOrigin?
 
-  public init(canonicalKey: String, locator: RepositoryIdentityLocator, webUrl: String? = nil, rootPath: String? = nil, displayName: String? = nil, provider: String? = nil, owner: String? = nil, name: String? = nil) {
+  public init(canonicalKey: String, locator: RepositoryIdentityLocator, webUrl: String? = nil, rootPath: String? = nil, displayName: String? = nil, provider: String? = nil, owner: String? = nil, name: String? = nil, origin: RepositoryIdentityOrigin? = nil) {
     self.canonicalKey = canonicalKey
     self.locator = locator
     self.webUrl = webUrl
@@ -475,6 +516,7 @@ public struct RepositoryIdentity: Sendable, Hashable, Codable {
     self.provider = provider
     self.owner = owner
     self.name = name
+    self.origin = origin
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -486,6 +528,7 @@ public struct RepositoryIdentity: Sendable, Hashable, Codable {
     case provider
     case owner
     case name
+    case origin
   }
 
   public init(from decoder: any Decoder) throws {
@@ -498,6 +541,7 @@ public struct RepositoryIdentity: Sendable, Hashable, Codable {
     self.provider = try c.decodeIfPresent(String.self, forKey: .provider)
     self.owner = try c.decodeIfPresent(String.self, forKey: .owner)
     self.name = try c.decodeIfPresent(String.self, forKey: .name)
+    self.origin = try c.decodeIfPresent(RepositoryIdentityOrigin.self, forKey: .origin)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -510,6 +554,7 @@ public struct RepositoryIdentity: Sendable, Hashable, Codable {
     try c.encodeIfPresent(provider, forKey: .provider)
     try c.encodeIfPresent(owner, forKey: .owner)
     try c.encodeIfPresent(name, forKey: .name)
+    try c.encodeIfPresent(origin, forKey: .origin)
   }
 }
 
@@ -540,6 +585,143 @@ public struct RepositoryIdentityLocator: Sendable, Hashable, Codable {
     try c.encode("git-remote", forKey: .source)
     try c.encode(remoteName, forKey: .remoteName)
     try c.encode(remoteUrl, forKey: .remoteUrl)
+  }
+}
+
+public struct RepositoryIdentityOrigin: Sendable, Hashable, Codable {
+  public var canonicalKey: String
+  public var displayName: String?
+
+  public init(canonicalKey: String, displayName: String? = nil) {
+    self.canonicalKey = canonicalKey
+    self.displayName = displayName
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case canonicalKey
+    case displayName
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.canonicalKey = try c.decode(String.self, forKey: .canonicalKey)
+    self.displayName = try c.decodeIfPresent(String.self, forKey: .displayName)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(canonicalKey, forKey: .canonicalKey)
+    try c.encodeIfPresent(displayName, forKey: .displayName)
+  }
+}
+
+public enum ServerInstallation: Sendable, Hashable, Codable {
+  case npx(ServerInstallationNpx)
+  case npmGlobal(ServerInstallationNpmGlobal)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "kind" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "npx"?, "pnpm-dlx"?, "bunx"?: self = .npx(try ServerInstallationNpx(from: decoder))
+    case "npm-global"?: self = .npmGlobal(try ServerInstallationNpmGlobal(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .npx(let value): try value.encode(to: encoder)
+    case .npmGlobal(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct ServerInstallationNpmGlobal: Sendable, Hashable, Codable {
+  public var prefix: String
+
+  public init(prefix: String) {
+    self.prefix = prefix
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case prefix
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("npm-global", forKey: .kind)
+    self.prefix = try c.decode(String.self, forKey: .prefix)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("npm-global", forKey: .kind)
+    try c.encode(prefix, forKey: .prefix)
+  }
+}
+
+public struct ServerInstallationNpx: Sendable, Hashable, Codable {
+  public var kind: ServerInstallationNpxKind
+
+  public init(kind: ServerInstallationNpxKind) {
+    self.kind = kind
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.kind = try c.decode(ServerInstallationNpxKind.self, forKey: .kind)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(kind, forKey: .kind)
+  }
+}
+
+public enum ServerInstallationNpxKind: Sendable, Hashable, Codable, RawRepresentable {
+  case npx
+  case pnpmDlx
+  case bunx
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "npx": self = .npx
+    case "pnpm-dlx": self = .pnpmDlx
+    case "bunx": self = .bunx
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .npx: "npx"
+    case .pnpmDlx: "pnpm-dlx"
+    case .bunx: "bunx"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 

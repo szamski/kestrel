@@ -211,7 +211,7 @@ extension SourceControlStore {
         let meta = CommandMeta.fresh()
         try await environment.dispatch(
           .threadMetaUpdate(
-            ClientOrchestrationCommandThreadMetaUpdate(
+            V1.ClientOrchestrationCommandThreadMetaUpdate(
               commandId: meta.commandId, threadId: context.key.threadId, branch: .some(branch), expectedBranch: .some(shell.branch),
               worktreePath: worktreePath)),
           thread: context.key.threadId)
@@ -266,7 +266,7 @@ extension SourceControlStore {
   struct DraftSend {
     var branch: String?
     var worktreePath: String?
-    var prepare: ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree?
+    var prepare: V1.ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree?
   }
 
   func draftSend(for target: ComposerTarget) throws -> DraftSend {
@@ -279,7 +279,7 @@ extension SourceControlStore {
     guard let base = workspace.branch else { throw ComposerEnvironmentError("Select a base branch before sending in New worktree mode.") }
     return DraftSend(
       branch: base,
-      prepare: ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree(
+      prepare: V1.ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree(
         projectCwd: project.project.workspaceRoot, baseBranch: base, branch: BranchToolbarLogic.temporaryWorktreeBranchName(),
         startFromOrigin: workspace.startFromOrigin ? true : nil))
   }

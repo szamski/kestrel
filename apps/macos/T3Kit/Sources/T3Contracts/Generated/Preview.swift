@@ -109,6 +109,172 @@ public struct DiscoveredLocalServerTerminal: Sendable, Hashable, Codable {
   }
 }
 
+public struct PreviewAdjustInput: Sendable, Hashable, Codable {
+  public var threadId: ThreadId
+  public var tabId: String
+  public var colorScheme: PreviewAppearancePreference?
+  public var zoomFactor: Double?
+  public var hardReload: Bool?
+  public var clear: PreviewAdjustInputClear?
+
+  public init(threadId: ThreadId, tabId: String, colorScheme: PreviewAppearancePreference? = nil, zoomFactor: Double? = nil, hardReload: Bool? = nil, clear: PreviewAdjustInputClear? = nil) {
+    self.threadId = threadId
+    self.tabId = tabId
+    self.colorScheme = colorScheme
+    self.zoomFactor = zoomFactor
+    self.hardReload = hardReload
+    self.clear = clear
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case threadId
+    case tabId
+    case colorScheme
+    case zoomFactor
+    case hardReload
+    case clear
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.tabId = try c.decode(String.self, forKey: .tabId)
+    self.colorScheme = try c.decodeIfPresent(PreviewAppearancePreference.self, forKey: .colorScheme)
+    self.zoomFactor = try c.decodeIfPresent(Double.self, forKey: .zoomFactor)
+    self.hardReload = try c.decodeIfPresent(Bool.self, forKey: .hardReload)
+    self.clear = try c.decodeIfPresent(PreviewAdjustInputClear.self, forKey: .clear)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(tabId, forKey: .tabId)
+    try c.encodeIfPresent(colorScheme, forKey: .colorScheme)
+    try c.encodeIfPresent(zoomFactor, forKey: .zoomFactor)
+    try c.encodeIfPresent(hardReload, forKey: .hardReload)
+    try c.encodeIfPresent(clear, forKey: .clear)
+  }
+}
+
+public enum PreviewAdjustInputClear: Sendable, Hashable, Codable, RawRepresentable {
+  case cookies
+  case cache
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "cookies": self = .cookies
+    case "cache": self = .cache
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .cookies: "cookies"
+    case .cache: "cache"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum PreviewAppearancePreference: Sendable, Hashable, Codable, RawRepresentable {
+  case system
+  case light
+  case dark
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "system": self = .system
+    case "light": self = .light
+    case "dark": self = .dark
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .system: "system"
+    case .light: "light"
+    case .dark: "dark"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct PreviewClearProfileError: Sendable, Hashable, Codable, Error {
+  public var profileId: String
+  public var cause: JSONValue
+
+  public init(profileId: String, cause: JSONValue) {
+    self.profileId = profileId
+    self.cause = cause
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case _tag
+    case profileId
+    case cause
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("PreviewClearProfileError", forKey: ._tag)
+    self.profileId = try c.decode(String.self, forKey: .profileId)
+    self.cause = try c.decode(JSONValue.self, forKey: .cause)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("PreviewClearProfileError", forKey: ._tag)
+    try c.encode(profileId, forKey: .profileId)
+    try c.encode(cause, forKey: .cause)
+  }
+}
+
+public struct PreviewClearProfileInput: Sendable, Hashable, Codable {
+  public var profileId: String
+
+  public init(profileId: String) {
+    self.profileId = profileId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case profileId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.profileId = try c.decode(String.self, forKey: .profileId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(profileId, forKey: .profileId)
+  }
+}
+
 public struct PreviewCloseInput: Sendable, Hashable, Codable {
   public var threadId: ThreadId
   public var tabId: String?
@@ -133,6 +299,31 @@ public struct PreviewCloseInput: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(threadId, forKey: .threadId)
     try c.encodeIfPresent(tabId, forKey: .tabId)
+  }
+}
+
+public struct PreviewControlRequiredError: Sendable, Hashable, Codable, Error {
+  public var tabId: String
+
+  public init(tabId: String) {
+    self.tabId = tabId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case _tag
+    case tabId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("PreviewControlRequiredError", forKey: ._tag)
+    self.tabId = try c.decode(String.self, forKey: .tabId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("PreviewControlRequiredError", forKey: ._tag)
+    try c.encode(tabId, forKey: .tabId)
   }
 }
 
@@ -346,12 +537,14 @@ public struct PreviewNavStatusLoadFailed: Sendable, Hashable, Codable {
   public var title: String
   public var code: Int
   public var description: String
+  public var download: PreviewNavStatusLoadFailedDownload?
 
-  public init(url: String, title: String, code: Int, description: String) {
+  public init(url: String, title: String, code: Int, description: String, download: PreviewNavStatusLoadFailedDownload? = nil) {
     self.url = url
     self.title = title
     self.code = code
     self.description = description
+    self.download = download
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -360,6 +553,7 @@ public struct PreviewNavStatusLoadFailed: Sendable, Hashable, Codable {
     case title
     case code
     case description
+    case download
   }
 
   public init(from decoder: any Decoder) throws {
@@ -369,6 +563,7 @@ public struct PreviewNavStatusLoadFailed: Sendable, Hashable, Codable {
     self.title = try c.decode(String.self, forKey: .title)
     self.code = try c.decode(Int.self, forKey: .code)
     self.description = try c.decode(String.self, forKey: .description)
+    self.download = try c.decodeIfPresent(PreviewNavStatusLoadFailedDownload.self, forKey: .download)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -378,6 +573,34 @@ public struct PreviewNavStatusLoadFailed: Sendable, Hashable, Codable {
     try c.encode(title, forKey: .title)
     try c.encode(code, forKey: .code)
     try c.encode(description, forKey: .description)
+    try c.encodeIfPresent(download, forKey: .download)
+  }
+}
+
+public struct PreviewNavStatusLoadFailedDownload: Sendable, Hashable, Codable {
+  public var id: String
+  public var fileName: String
+
+  public init(id: String, fileName: String) {
+    self.id = id
+    self.fileName = fileName
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case fileName
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(String.self, forKey: .id)
+    self.fileName = try c.decode(String.self, forKey: .fileName)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(fileName, forKey: .fileName)
   }
 }
 
@@ -483,12 +706,16 @@ public struct PreviewOpenInput: Sendable, Hashable, Codable {
   public var url: String?
   public var viewport: PreviewViewportSetting?
   public var profileId: String?
+  public var runtime: PreviewRuntime?
+  public var reveal: Bool?
 
-  public init(threadId: ThreadId, url: String? = nil, viewport: PreviewViewportSetting? = nil, profileId: String? = nil) {
+  public init(threadId: ThreadId, url: String? = nil, viewport: PreviewViewportSetting? = nil, profileId: String? = nil, runtime: PreviewRuntime? = nil, reveal: Bool? = nil) {
     self.threadId = threadId
     self.url = url
     self.viewport = viewport
     self.profileId = profileId
+    self.runtime = runtime
+    self.reveal = reveal
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -496,6 +723,8 @@ public struct PreviewOpenInput: Sendable, Hashable, Codable {
     case url
     case viewport
     case profileId
+    case runtime
+    case reveal
   }
 
   public init(from decoder: any Decoder) throws {
@@ -504,6 +733,8 @@ public struct PreviewOpenInput: Sendable, Hashable, Codable {
     self.url = try c.decodeIfPresent(String.self, forKey: .url)
     self.viewport = try c.decodeIfPresent(PreviewViewportSetting.self, forKey: .viewport)
     self.profileId = try c.decodeIfPresent(String.self, forKey: .profileId)
+    self.runtime = try c.decodeIfPresent(PreviewRuntime.self, forKey: .runtime)
+    self.reveal = try c.decodeIfPresent(Bool.self, forKey: .reveal)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -512,6 +743,8 @@ public struct PreviewOpenInput: Sendable, Hashable, Codable {
     try c.encodeIfPresent(url, forKey: .url)
     try c.encodeIfPresent(viewport, forKey: .viewport)
     try c.encodeIfPresent(profileId, forKey: .profileId)
+    try c.encodeIfPresent(runtime, forKey: .runtime)
+    try c.encodeIfPresent(reveal, forKey: .reveal)
   }
 }
 
@@ -539,6 +772,33 @@ public struct PreviewRefreshInput: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(threadId, forKey: .threadId)
     try c.encode(tabId, forKey: .tabId)
+  }
+}
+
+public struct PreviewReportProfilesInput: Sendable, Hashable, Codable {
+  public var profiles: [BrowserProfile]
+  public var defaultProfileId: String
+
+  public init(profiles: [BrowserProfile], defaultProfileId: String) {
+    self.profiles = profiles
+    self.defaultProfileId = defaultProfileId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case profiles
+    case defaultProfileId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.profiles = try c.decode([BrowserProfile].self, forKey: .profiles)
+    self.defaultProfileId = try c.decode(String.self, forKey: .defaultProfileId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(profiles, forKey: .profiles)
+    try c.encode(defaultProfileId, forKey: .defaultProfileId)
   }
 }
 
@@ -616,6 +876,38 @@ public struct PreviewResizeInput: Sendable, Hashable, Codable {
   }
 }
 
+public enum PreviewRuntime: Sendable, Hashable, Codable, RawRepresentable {
+  case desktop
+  case server
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "desktop": self = .desktop
+    case "server": self = .server
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .desktop: "desktop"
+    case .server: "server"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
 public struct PreviewSessionLookupError: Sendable, Hashable, Codable, Error {
   public var threadId: String
   public var tabId: String
@@ -653,17 +945,29 @@ public struct PreviewSessionSnapshot: Sendable, Hashable, Codable {
   public var canGoBack: Bool
   public var canGoForward: Bool
   public var viewport: PreviewViewportSetting?
+  public var colorScheme: PreviewAppearancePreference?
+  public var zoomFactor: Double?
   public var profileId: String?
+  public var runtime: PreviewRuntime?
+  public var automationOwner: String?
+  public var reveal: Bool?
+  public var revealRequest: PreviewSessionSnapshotRevealRequest?
   public var updatedAt: IsoDateTime
 
-  public init(threadId: String, tabId: String, navStatus: PreviewNavStatus, canGoBack: Bool, canGoForward: Bool, viewport: PreviewViewportSetting? = nil, profileId: String? = nil, updatedAt: IsoDateTime) {
+  public init(threadId: String, tabId: String, navStatus: PreviewNavStatus, canGoBack: Bool, canGoForward: Bool, viewport: PreviewViewportSetting? = nil, colorScheme: PreviewAppearancePreference? = nil, zoomFactor: Double? = nil, profileId: String? = nil, runtime: PreviewRuntime? = nil, automationOwner: String? = nil, reveal: Bool? = nil, revealRequest: PreviewSessionSnapshotRevealRequest? = nil, updatedAt: IsoDateTime) {
     self.threadId = threadId
     self.tabId = tabId
     self.navStatus = navStatus
     self.canGoBack = canGoBack
     self.canGoForward = canGoForward
     self.viewport = viewport
+    self.colorScheme = colorScheme
+    self.zoomFactor = zoomFactor
     self.profileId = profileId
+    self.runtime = runtime
+    self.automationOwner = automationOwner
+    self.reveal = reveal
+    self.revealRequest = revealRequest
     self.updatedAt = updatedAt
   }
 
@@ -674,7 +978,13 @@ public struct PreviewSessionSnapshot: Sendable, Hashable, Codable {
     case canGoBack
     case canGoForward
     case viewport
+    case colorScheme
+    case zoomFactor
     case profileId
+    case runtime
+    case automationOwner
+    case reveal
+    case revealRequest
     case updatedAt
   }
 
@@ -686,7 +996,13 @@ public struct PreviewSessionSnapshot: Sendable, Hashable, Codable {
     self.canGoBack = try c.decode(Bool.self, forKey: .canGoBack)
     self.canGoForward = try c.decode(Bool.self, forKey: .canGoForward)
     self.viewport = try c.decodeIfPresent(PreviewViewportSetting.self, forKey: .viewport)
+    self.colorScheme = try c.decodeIfPresent(PreviewAppearancePreference.self, forKey: .colorScheme)
+    self.zoomFactor = try c.decodeIfPresent(Double.self, forKey: .zoomFactor)
     self.profileId = try c.decodeIfPresent(String.self, forKey: .profileId)
+    self.runtime = try c.decodeIfPresent(PreviewRuntime.self, forKey: .runtime)
+    self.automationOwner = try c.decodeIfPresent(String.self, forKey: .automationOwner)
+    self.reveal = try c.decodeIfPresent(Bool.self, forKey: .reveal)
+    self.revealRequest = try c.decodeIfPresent(PreviewSessionSnapshotRevealRequest.self, forKey: .revealRequest)
     self.updatedAt = try c.decode(IsoDateTime.self, forKey: .updatedAt)
   }
 
@@ -698,8 +1014,41 @@ public struct PreviewSessionSnapshot: Sendable, Hashable, Codable {
     try c.encode(canGoBack, forKey: .canGoBack)
     try c.encode(canGoForward, forKey: .canGoForward)
     try c.encodeIfPresent(viewport, forKey: .viewport)
+    try c.encodeIfPresent(colorScheme, forKey: .colorScheme)
+    try c.encodeIfPresent(zoomFactor, forKey: .zoomFactor)
     try c.encodeIfPresent(profileId, forKey: .profileId)
+    try c.encodeIfPresent(runtime, forKey: .runtime)
+    try c.encodeIfPresent(automationOwner, forKey: .automationOwner)
+    try c.encodeIfPresent(reveal, forKey: .reveal)
+    try c.encodeIfPresent(revealRequest, forKey: .revealRequest)
     try c.encode(updatedAt, forKey: .updatedAt)
+  }
+}
+
+public struct PreviewSessionSnapshotRevealRequest: Sendable, Hashable, Codable {
+  public var id: String
+  public var force: Bool
+
+  public init(id: String, force: Bool) {
+    self.id = id
+    self.force = force
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case force
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(String.self, forKey: .id)
+    self.force = try c.decode(Bool.self, forKey: .force)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(force, forKey: .force)
   }
 }
 

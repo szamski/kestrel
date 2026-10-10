@@ -25,7 +25,7 @@ func activity(
   sequence: Int? = nil,
   at: String = "2026-02-23T00:00:00.000Z",
   _ payload: String = "{}"
-) -> OrchestrationThreadActivity {
+) -> V1.OrchestrationThreadActivity {
   decodeJSON(
     """
     {"id":"\(id)","tone":"\(tone)","kind":"\(kind)","summary":\(summaryLiteral(summary)),"payload":\(payload),
@@ -47,7 +47,7 @@ func message(
   streaming: Bool = false,
   at: String = "2026-01-01T00:00:00.000Z",
   updatedAt: String? = nil
-) -> OrchestrationMessage {
+) -> V1.OrchestrationMessage {
   decodeJSON(
     """
     {"id":"\(id)","role":"\(role)","text":\(summaryLiteral(text)),"turnId":\(jsonString(role == "user" ? nil : turn)),
@@ -63,15 +63,15 @@ func workEntry(
   at: String = "2026-01-01T00:00:00.000Z",
   kind: String? = nil
 ) -> WorkLogEntry {
-  WorkLogEntry(id: id, createdAt: at, turnId: turn.map { TurnId($0) }, label: label, tone: tone, sourceActivityKind: kind)
+  WorkLogEntry(id: id, createdAt: at, turnId: turn.map { V1.TurnId($0) }, label: label, tone: tone, sourceActivityKind: kind)
 }
 
 func timelineEntries(_ values: [TimelineEntry]) -> [TimelineEntry] { values }
 
-func latestTurn(_ id: String = "turn-1", state: OrchestrationLatestTurnState = .completed, started: String? = "2026-01-01T00:00:00.000Z", completed: String? = nil)
+func latestTurn(_ id: String = "turn-1", state: V1.OrchestrationLatestTurnState = .completed, started: String? = "2026-01-01T00:00:00.000Z", completed: String? = nil)
   -> LatestTurnTiming
 {
-  LatestTurnTiming(turnId: TurnId(id), state: state, startedAt: started, completedAt: completed)
+  LatestTurnTiming(turnId: V1.TurnId(id), state: state, startedAt: started, completedAt: completed)
 }
 
 func rows(
@@ -82,7 +82,7 @@ func rows(
   expandedWorkGroupIds: Set<String> = [],
   isWorking: Bool = false,
   activeTurnStartedAt: String? = nil,
-  summaries: [OrchestrationCheckpointSummary] = [],
+  summaries: [V1.OrchestrationCheckpointSummary] = [],
   rollback: Bool = false,
   liveAgentTaskIds: Set<String>? = nil,
   worktreeSetup: WorktreeSetupSnapshot? = nil,
@@ -92,8 +92,8 @@ func rows(
     TimelineRowsInput(
       timelineEntries: entries,
       latestTurn: latestTurn,
-      runningTurnId: runningTurnId.map { TurnId($0) },
-      expandedTurnIds: Set(expandedTurnIds.map { TurnId($0) }),
+      runningTurnId: runningTurnId.map { V1.TurnId($0) },
+      expandedTurnIds: Set(expandedTurnIds.map { V1.TurnId($0) }),
       expandedWorkGroupIds: expandedWorkGroupIds,
       isWorking: isWorking,
       activeTurnStartedAt: activeTurnStartedAt,

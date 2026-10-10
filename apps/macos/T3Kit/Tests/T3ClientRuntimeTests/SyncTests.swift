@@ -16,7 +16,7 @@ import T3Contracts
     var environmentId: EnvironmentId { runtime.entry.environmentId }
 
     static func make(
-      servers: [FakeServer], shell: OrchestrationShellSnapshot? = Data2.shell(), thread: OrchestrationThreadDetailSnapshot? = nil,
+      servers: [FakeServer], shell: V1.OrchestrationShellSnapshot? = Data2.shell(), thread: V1.OrchestrationThreadDetailSnapshot? = nil,
       cache: SQLiteSnapshotCache? = nil, keepAlive: Bool = false, start: Bool = true, uploadSession: URLSession = URLSession(configuration: .ephemeral)
     ) async throws -> Harness {
       let config = Fixtures.serverConfig()
@@ -50,7 +50,7 @@ import T3Contracts
     #expect(replaying.status == .synchronizing)
     #expect(replaying.snapshot?.threads.contains { $0.id == "stale" } == false)
     #expect(replaying.snapshot?.threads.contains { $0.id == "fresh" } == true)
-    try server.chunk(request, items: [OrchestrationShellStreamItem.synchronized, Data2.threadUpserted(cursor + 4, id: "live")])
+    try server.chunk(request, items: [V1.OrchestrationShellStreamItem.synchronized, Data2.threadUpserted(cursor + 4, id: "live")])
     let live = await waitFor(h.runtime.shell) { $0.status == .live && $0.snapshot?.snapshotSequence == cursor + 4 }
     #expect(live.error == nil)
     await h.runtime.stop()
@@ -64,7 +64,7 @@ import T3Contracts
     #expect(request.payload["requestCompletionMarker"] as? Bool == true)
     var snapshot = Data2.shell()
     snapshot.snapshotSequence = 500
-    try server.chunk(request, items: [OrchestrationShellStreamItem.snapshot(.init(snapshot: snapshot)), .synchronized])
+    try server.chunk(request, items: [V1.OrchestrationShellStreamItem.snapshot(.init(snapshot: snapshot)), .synchronized])
     let state = await waitFor(h.runtime.shell) { $0.status == .live }
     #expect(state.snapshot?.snapshotSequence == 500)
     await h.runtime.stop()
@@ -85,7 +85,7 @@ import T3Contracts
     let h = try await Harness.make(servers: [first, second])
     let cursor = Data2.shell().snapshotSequence
     let initial = await first.waitForRequest("orchestration.subscribeShell")
-    try first.chunk(initial, items: [Data2.threadUpserted(cursor + 10, id: "x"), OrchestrationShellStreamItem.synchronized])
+    try first.chunk(initial, items: [Data2.threadUpserted(cursor + 10, id: "x"), V1.OrchestrationShellStreamItem.synchronized])
     _ = await waitFor(h.runtime.shell) { $0.status == .live && $0.snapshot?.snapshotSequence == cursor + 10 }
     first.close()  // socket lost
     _ = await waitFor(h.runtime.supervisor.state) { $0.phase == .backoff }
@@ -116,16 +116,16 @@ import T3Contracts
 
   // MARK: Thread
 
-  func threadHarness(_ server: FakeServer = FakeServer(), keepAlive: Bool = false) async throws -> (Harness, OrchestrationThreadDetailSnapshot, ThreadId) {
+  func threadHarness(_ server: FakeServer = FakeServer(), keepAlive: Bool = false) async throws -> (Harness, V1.OrchestrationThreadDetailSnapshot, ThreadId) {
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
-    let snapshot = try decode(OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
     let h = try await Harness.make(servers: [server], thread: snapshot, keepAlive: keepAlive)
     return (h, snapshot, snapshot.thread.id)
   }
 
-  func events(_ count: Int) throws -> [OrchestrationEvent] {
+  func events(_ count: Int) throws -> [V1.OrchestrationEvent] {
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
-    return try (scenario["events"] as! [Any]).prefix(count).map { try decode(OrchestrationEvent.self, $0) }
+    return try (scenario["events"] as! [Any]).prefix(count).map { try decode(V1.OrchestrationEvent.self, $0) }
   }
 
   @Test func threadDetailLoadsAWindowedSnapshotThenFollowsLiveEvents() async throws {
@@ -139,11 +139,11 @@ import T3Contracts
     #expect(h.loader.threadCalls == [ThreadSnapshotWindow(turnLimit: 10)])
 
     let deltas = try events(12).filter { if case .threadMessageSent = $0 { true } else { false } }
-    try server.chunk(request, items: deltas.map { OrchestrationThreadStreamItem.event(.init(event: $0)) })
+    try server.chunk(request, items: deltas.map { V1.OrchestrationThreadStreamItem.event(.init(event: $0)) })
     let replaying = await waitFor(lease.state) { $0.data?.messages.first { $0.id == "m-asst-1" }?.text == "Hello world" }
     #expect(replaying.status == .synchronizing)
     #expect(replaying.data?.messages.first { $0.id == "m-asst-1" }?.text == "Hello world")
-    try server.chunk(request, items: [OrchestrationThreadStreamItem.synchronized])
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.synchronized])
     let live = await waitFor(lease.state) { $0.status == .live }
     #expect(live.data?.messages.contains { $0.id == "m-user-1" } == true)
     await lease.release()
@@ -153,7 +153,7 @@ import T3Contracts
   @Test func consumersShareOneStreamAndTheStateIsRetainedForFiveIdleMinutes() async throws {
     let server = FakeServer()
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
-    let snapshot = try decode(OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
     let h = try await Harness.make(servers: [server], thread: snapshot)
     let threadId = snapshot.thread.id
 
@@ -161,7 +161,7 @@ import T3Contracts
     let b = await h.runtime.threads.acquire(threadId)
     let request = await server.waitForRequest("orchestration.subscribeThread")
     #expect(server.requests("orchestration.subscribeThread").count == 1, "mounted consumers share one live stream")
-    try server.chunk(request, items: [OrchestrationThreadStreamItem.synchronized])
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.synchronized])
     _ = await waitFor(a.state) { $0.status == .live }
 
     await a.release()
@@ -201,8 +201,8 @@ import T3Contracts
     let lease = await h.runtime.threads.acquire(threadId)
     let request = await server.waitForRequest("orchestration.subscribeThread")
     let all = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic")
-    let deleted = try decode(OrchestrationEvent.self, (all["events"] as! [Any]).last!)
-    try server.chunk(request, items: [OrchestrationThreadStreamItem.event(.init(event: deleted))])
+    let deleted = try decode(V1.OrchestrationEvent.self, (all["events"] as! [Any]).last!)
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.event(.init(event: deleted))])
     let state = await waitFor(lease.state) { $0.status == .deleted }
     #expect(state.data == nil)
     #expect(await h.cache.loadThread(h.environmentId, threadId) == nil)
@@ -213,7 +213,7 @@ import T3Contracts
   @Test func runningThreadsStayMountedUntilTheirOwnDetailShowsTheStop() async throws {
     let server = FakeServer()
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
-    let snapshot = try decode(OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
     let h = try await Harness.make(servers: [server], thread: snapshot)
     let threadId = snapshot.thread.id
     await h.runtime.threads.reconcileKeepAlive(running: [threadId])
@@ -225,7 +225,7 @@ import T3Contracts
     #expect(await h.runtime.threads.keptThreadIds == [threadId])
 
     // Detail catches up (synchronized, settled session): the stream closes.
-    try server.chunk(request, items: [OrchestrationThreadStreamItem.synchronized])
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.synchronized])
     var kept = await h.runtime.threads.keptThreadIds
     while !kept.isEmpty { await Task.yield(); kept = await h.runtime.threads.keptThreadIds }
     #expect(await h.runtime.threads.liveThreadIds.isEmpty)
@@ -234,7 +234,7 @@ import T3Contracts
 
   // MARK: Commands
 
-  func firstThread(_ h: Harness) -> OrchestrationThreadShell { h.runtime.shell.value.snapshot!.threads.first { $0.settledOverride != .settled && $0.session == nil } ?? h.runtime.shell.value.snapshot!.threads[0] }
+  func firstThread(_ h: Harness) -> V1.OrchestrationThreadShell { h.runtime.shell.value.snapshot!.threads.first { $0.settledOverride != .settled && $0.session == nil } ?? h.runtime.shell.value.snapshot!.threads[0] }
 
   @Test func settleShowsAtOnceStaysUntilTheShellReachesItsSequenceAndRollsBackOnFailure() async throws {
     let server = FakeServer()
@@ -247,7 +247,7 @@ import T3Contracts
     initial.threads[0].pinnedAt = .some(nil)
     let h = try await Harness.make(servers: [server], shell: initial)
     let subscribe = await server.waitForRequest("orchestration.subscribeShell")
-    try server.chunk(subscribe, items: [OrchestrationShellStreamItem.synchronized])
+    try server.chunk(subscribe, items: [V1.OrchestrationShellStreamItem.synchronized])
     let base = await waitFor(h.runtime.shell) { $0.status == .live }
     let target = base.snapshot!.threads[0]
     let cursor = base.snapshot!.snapshotSequence

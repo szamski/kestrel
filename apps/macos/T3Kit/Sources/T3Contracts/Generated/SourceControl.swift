@@ -176,12 +176,14 @@ public struct SourceControlProviderAuth: Sendable, Hashable, Codable {
   public var account: String?
   public var host: String?
   public var detail: String?
+  public var accounts: [SourceControlProviderAuthAccountsItem]?
 
-  public init(status: SourceControlProviderAuthStatus, account: String? = nil, host: String? = nil, detail: String? = nil) {
+  public init(status: SourceControlProviderAuthStatus, account: String? = nil, host: String? = nil, detail: String? = nil, accounts: [SourceControlProviderAuthAccountsItem]? = nil) {
     self.status = status
     self.account = account
     self.host = host
     self.detail = detail
+    self.accounts = accounts
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -189,6 +191,7 @@ public struct SourceControlProviderAuth: Sendable, Hashable, Codable {
     case account
     case host
     case detail
+    case accounts
   }
 
   public init(from decoder: any Decoder) throws {
@@ -197,6 +200,7 @@ public struct SourceControlProviderAuth: Sendable, Hashable, Codable {
     self.account = try c.decodeWireOption(String.self, forKey: .account)
     self.host = try c.decodeWireOption(String.self, forKey: .host)
     self.detail = try c.decodeWireOption(String.self, forKey: .detail)
+    self.accounts = try c.decodeIfPresent([SourceControlProviderAuthAccountsItem].self, forKey: .accounts)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -205,6 +209,54 @@ public struct SourceControlProviderAuth: Sendable, Hashable, Codable {
     try c.encodeWireOption(account, forKey: .account)
     try c.encodeWireOption(host, forKey: .host)
     try c.encodeWireOption(detail, forKey: .detail)
+    try c.encodeIfPresent(accounts, forKey: .accounts)
+  }
+}
+
+public struct SourceControlProviderAuthAccountsItem: Sendable, Hashable, Codable {
+  public var host: String
+  public var account: String
+  public var active: Bool
+  public var authenticated: Bool
+  public var error: String?
+  public var environmentVariable: String?
+
+  public init(host: String, account: String, active: Bool, authenticated: Bool, error: String? = nil, environmentVariable: String? = nil) {
+    self.host = host
+    self.account = account
+    self.active = active
+    self.authenticated = authenticated
+    self.error = error
+    self.environmentVariable = environmentVariable
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case host
+    case account
+    case active
+    case authenticated
+    case error
+    case environmentVariable
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.host = try c.decode(String.self, forKey: .host)
+    self.account = try c.decode(String.self, forKey: .account)
+    self.active = try c.decode(Bool.self, forKey: .active)
+    self.authenticated = try c.decode(Bool.self, forKey: .authenticated)
+    self.error = try c.decodeIfPresent(String.self, forKey: .error)
+    self.environmentVariable = try c.decodeIfPresent(String.self, forKey: .environmentVariable)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(host, forKey: .host)
+    try c.encode(account, forKey: .account)
+    try c.encode(active, forKey: .active)
+    try c.encode(authenticated, forKey: .authenticated)
+    try c.encodeIfPresent(error, forKey: .error)
+    try c.encodeIfPresent(environmentVariable, forKey: .environmentVariable)
   }
 }
 

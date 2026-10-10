@@ -209,3 +209,9 @@ public enum SettingsPlanner {
     return base.merging(patch) { old, new in merge(old, new) }
   }
 }
+
+extension ServerSettingsResponseStreamingMode {
+  /// Protocol-1 servers still offer per-token streaming; upstream's contracts dropped it with orchestrator V2,
+  /// so it decodes as `unknown("token")` and a protocol-2 server will reject it.
+  public static let token = ServerSettingsResponseStreamingMode.unknown("token")
+}

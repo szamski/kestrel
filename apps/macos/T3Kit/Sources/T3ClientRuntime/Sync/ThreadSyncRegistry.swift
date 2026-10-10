@@ -79,7 +79,7 @@ public actor ThreadSyncRegistry {
     live[threadId] = nil
     let snapshot = await entry.sync.stop()
     // Cancellation or a quick re-acquire may have replaced this scope: only the latest owner caches.
-    guard live[threadId] == nil, snapshot.state.data != nil || snapshot.state.status == .deleted else { return }
+    guard live[threadId] == nil, snapshot.state.hasData || snapshot.state.status == .deleted else { return }
     nextToken += 1
     let token = nextToken
     let ttl = idleTTL, clock = clock
@@ -112,7 +112,7 @@ public actor ThreadSyncRegistry {
   /// A detail stream is done when it is in sync and shows a settled session, or cannot progress.
   static func isDetailDone(_ state: EnvironmentThreadState) -> Bool {
     if state.status == .deleted || state.error != nil { return true }
-    return state.status == .live && !(state.data?.session?.isStartingOrRunning ?? false)
+    return state.status == .live && !state.isRunActive
   }
 
   /// Keeps one stream open for every thread whose session is starting or running, so opening it later

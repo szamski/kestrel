@@ -118,13 +118,15 @@ public enum WebSocketURL {
   public static let orchestrationProtocolQueryParam = "orchestrationProtocol"
 
   /// `/ws?wsTicket=…&clientSurface=…&clientAppVersion=…&clientDeviceType=…&clientOs=…
-  /// [&connectionMethod=…]&orchestrationProtocol=1`. The server reads these in
+  /// [&connectionMethod=…]&orchestrationProtocol=<negotiated>`. The server reads these in
   /// apps/server/src/ws.ts (`readClientAnalyticsProps`); unknown or malformed values are dropped.
+  /// A protocol-2 server refuses the upgrade (426) unless the parameter is exactly 2.
   public static func make(
     wsBaseURL: URL,
     ticket: String,
     metadata: ClientMetadata,
-    connectionMethod: ConnectionMethod? = .direct
+    connectionMethod: ConnectionMethod? = .direct,
+    orchestrationProtocol: OrchestrationProtocol
   ) -> URL {
     var url = URLComponents(url: wsBaseURL, resolvingAgainstBaseURL: false)!
     if url.path.isEmpty || url.path == "/" { url.path = "/ws" }
@@ -133,7 +135,7 @@ public enum WebSocketURL {
     items.append(("clientDeviceType", metadata.deviceType))
     items.append(("clientOs", metadata.os))
     if let connectionMethod { items.append(("connectionMethod", connectionMethod.rawValue)) }
-    items.append((orchestrationProtocolQueryParam, String(ProtocolCompatibility.clientVersion)))
+    items.append((orchestrationProtocolQueryParam, String(orchestrationProtocol.rawValue)))
     // Percent-encoded by hand: URLComponents would leave `+` raw and the server reads it as a space.
     url.percentEncodedQuery = items.map { "\($0.0)=\(formEscape($0.1))" }.joined(separator: "&")
     return url.url!
@@ -142,20 +144,40 @@ public enum WebSocketURL {
 
 // MARK: - Compatibility
 
+/// An orchestration wire protocol this client can speak (ORCHESTRATION_PROTOCOL_VERSION in
+/// packages/contracts/src/environment.ts is the newest one upstream ships).
+public enum OrchestrationProtocol: Int, Sendable, Comparable, CaseIterable {
+  /// Servers that predate negotiation (e.g. T3 Code 0.0.45): `V1` contracts, `/ws` ignores the query parameter.
+  case v1 = 1
+  /// Orchestrator V2: the server only accepts `orchestrationProtocol=2`.
+  case v2 = 2
+
+  public static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
+
+  /// Sent on orchestration HTTP requests (`ORCHESTRATION_PROTOCOL_HEADER`); required by protocol-2
+  /// servers and unknown to protocol-1 ones.
+  public static let headerName = "x-t3-orchestration-protocol"
+}
+
 public enum ProtocolCompatibility: Error, Sendable, Equatable {
   /// The server speaks a newer protocol than this client.
   case clientTooOld(serverVersion: Int)
   /// The server speaks an older protocol than this client.
   case serverTooOld(serverVersion: Int)
 
-  /// ORCHESTRATION_PROTOCOL_VERSION in packages/contracts/src/environment.ts.
-  public static let clientVersion = 1
-
-  /// nil when compatible. A missing version means protocol 1.
-  public static func check(_ descriptor: EnvironmentDescriptorInfo) -> ProtocolCompatibility? {
+  /// The connection speaks the server's own version when this client supports it. A missing
+  /// version means protocol 1 (servers older than version negotiation).
+  public static func negotiate(_ descriptor: EnvironmentDescriptorInfo) -> Result<OrchestrationProtocol, ProtocolCompatibility> {
     let server = descriptor.orchestrationProtocolVersion ?? 1
-    if server == clientVersion { return nil }
-    return server > clientVersion ? .clientTooOld(serverVersion: server) : .serverTooOld(serverVersion: server)
+    if let negotiated = OrchestrationProtocol(rawValue: server) { return .success(negotiated) }
+    let newest = OrchestrationProtocol.allCases.max()!.rawValue
+    return .failure(server > newest ? .clientTooOld(serverVersion: server) : .serverTooOld(serverVersion: server))
+  }
+
+  /// nil when compatible.
+  public static func check(_ descriptor: EnvironmentDescriptorInfo) -> ProtocolCompatibility? {
+    if case .failure(let incompatible) = negotiate(descriptor) { return incompatible }
+    return nil
   }
 
   public func message(environmentLabel: String) -> String {

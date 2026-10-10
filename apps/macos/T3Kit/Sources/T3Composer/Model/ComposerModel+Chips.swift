@@ -122,6 +122,8 @@ extension ComposerModel {
       return ChipPresentation(kind: .mention, symbol: "doc.text", label: value.label)
     case .skill(let value):
       return ChipPresentation(kind: .skill, symbol: "sparkles", label: value.label)
+    case .thread(let value):
+      return ChipPresentation(kind: .neutral, symbol: "bubble.left", label: value.label, tooltip: value.title)
     case .other(let value):
       return ChipPresentation(kind: .neutral, symbol: "doc", label: value.label)
     case .unknown(let value):

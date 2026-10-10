@@ -1,9 +1,7 @@
 // Builds the full generator model: schema roots (RPCs, HTTP API, extra
 // exports) -> Builder IR. No Swift text is produced here.
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { Builder, type Wire } from "./ir.ts";
-import { contractsSrc, loadContracts, loadModuleExports, loadRuntime } from "./load.ts";
+import { loadContracts, loadFrozenV1, loadModuleExports, loadRuntime } from "./load.ts";
 import { pascal, typeName } from "./names.ts";
 
 /** Exports that must be generated even when no RPC reaches them (brief, section 2). */
@@ -11,6 +9,44 @@ const EXTRA_ROOTS = [
   "ServerConfig",
   "ServerSettings",
   "ClientSettingsSchema",
+  "OrchestrationV2DomainEvent",
+  "OrchestrationV2Command",
+  "OrchestrationV2ShellSnapshot",
+  "OrchestrationV2ShellStreamItem",
+  "OrchestrationV2ThreadStreamItem",
+  "OrchestrationV2ThreadDetailSnapshot",
+  "OrchestrationV2ThreadBoundedSnapshot",
+  "OrchestrationV2ThreadHistoryPage",
+  "OrchestrationV2ThreadProjection",
+  "ExecutionEnvironmentDescriptor",
+];
+/**
+ * Structs the contracts reuse inside forward-compatible wrappers (`Schema.toType` rebuilds the
+ * nested AST, so it no longer matches the export by identity). Their rebuilt copies fold back into
+ * the export, which keeps these Swift names (and the code using them) stable. Other nested
+ * structs keep their positional names, e.g. `ServerConfigProvidersItem`.
+ */
+const NESTED_EXPORTS = [
+  "KeybindingShortcut",
+  "PullRequestContextMetadata",
+  "ElementContextDetails",
+  "ElementContextRecord",
+  "FileContextRecord",
+  "ImageContextRecord",
+  "MentionContextRecord",
+  "SkillContextRecord",
+  "TerminalContextRecord",
+  "ModelCapabilities",
+  "ProviderAuthMethod",
+  "ProviderOptionChoice",
+  "RemoteOpenTarget",
+  "ServerProviderContinuation",
+  "ServerProviderSlashCommandInput",
+  "UsageSource",
+  "UsageSourceFingerprint",
+];
+/** Protocol 1 (frozen-v1/): the orchestration surface only; everything else is shared with the current types. */
+const V1_EXTRA_ROOTS = [
   "OrchestrationEvent",
   "ClientOrchestrationCommand",
   "OrchestrationShellStreamItem",
@@ -18,7 +54,6 @@ const EXTRA_ROOTS = [
   "OrchestrationShellSnapshot",
   "OrchestrationThreadDetailSnapshot",
   "OrchestrationReadModel",
-  "ExecutionEnvironmentDescriptor",
 ];
 
 export interface RpcModel {
@@ -44,18 +79,19 @@ export interface HttpModel {
   errorStatuses: Record<string, number>;
 }
 
-export async function buildModel() {
+/** `v1` models only the frozen protocol-1 orchestration RPCs, HTTP group and roots, resolving shared leaf schemas against the current contracts. */
+export async function buildModel(variant: "current" | "v1" = "current") {
+  const v1 = variant === "v1";
   const rt = await loadRuntime();
-  const contracts = await loadContracts();
-  const modules = await loadModuleExports();
+  const contracts = v1 ? await loadFrozenV1() : await loadContracts();
+  const modules = await loadModuleExports(v1);
   const { S } = rt;
 
   // ---- export names -> codec ASTs ------------------------------------------------
   const sources = new Map<string, string>();
-  for (const m of modules.keys())
-    sources.set(m, readFileSync(join(contractsSrc, `${m}.ts`), "utf8"));
+  for (const [m, { source }] of modules) sources.set(m, source);
   const defining = (name: string): string => {
-    const hits = [...modules.entries()].filter(([, ns]) => name in ns).map(([m]) => m);
+    const hits = [...modules.entries()].filter(([, { ns }]) => name in ns).map(([m]) => m);
     const own = hits.find((m) =>
       new RegExp(`export (?:const|class|function) ${name}\\b`).test(sources.get(m)!),
     );
@@ -64,7 +100,7 @@ export async function buildModel() {
   const codecOf = (schema: any) => S.toCodecJson(schema).ast;
   const candidates = new Map<any, string[]>();
   const moduleByName = new Map<string, string>();
-  for (const [mod, ns] of modules) {
+  for (const [mod, { ns }] of modules) {
     for (const [name, value] of Object.entries<any>(ns)) {
       if (!S.isSchema(value)) continue;
       const tag = value.ast._tag;
@@ -88,13 +124,21 @@ export async function buildModel() {
       if (!moduleByName.has(name)) moduleByName.set(name, defining(name) || mod);
     }
   }
-  const rank = (n: string) => [/Schema$/.test(n) ? 1 : 0, n.length, n] as const;
+  // `export const B = A.check(...)` shares A's codec AST; the original keeps the name.
+  const isAlias = (n: string, list: string[]) => {
+    const m = new RegExp(`export const ${n}\\s*=\\s*(\\w+)\\b`).exec(
+      sources.get(moduleByName.get(n) ?? "") ?? "",
+    );
+    return m !== null && m[1] !== n && list.includes(m[1]!);
+  };
   const exportNames = new Map<any, string>();
   for (const [ast, list] of candidates) {
+    const rank = (n: string) =>
+      [isAlias(n, list) ? 1 : 0, /Schema$/.test(n) ? 1 : 0, n.length, n] as const;
     list.sort((a, b) => {
       const ra = rank(a);
       const rb = rank(b);
-      return ra[0] - rb[0] || ra[1] - rb[1] || (ra[2] < rb[2] ? -1 : 1);
+      return ra[0] - rb[0] || ra[1] - rb[1] || ra[2] - rb[2] || (ra[3] < rb[3] ? -1 : 1);
     });
     exportNames.set(ast, list[0]!);
   }
@@ -110,7 +154,13 @@ export async function buildModel() {
       if (m) isoKeys.add(m[1]!);
     }
 
-  const builder = new Builder(rt, exportNames, (n) => moduleOfType.get(n) ?? "", isoKeys);
+  const builder = new Builder(
+    rt,
+    exportNames,
+    (n) => moduleOfType.get(n) ?? "",
+    isoKeys,
+    NESTED_EXPORTS,
+  );
   const roots: Wire[] = [];
   const track = (w: Wire) => (roots.push(w), w);
 
@@ -125,7 +175,7 @@ export async function buildModel() {
     return name;
   };
   const rpcs: RpcModel[] = [];
-  const group = [...contracts.WsRpcGroup.requests.values()] as any[];
+  const group: any[] = v1 ? contracts.V1_RPCS : [...contracts.WsRpcGroup.requests.values()];
   for (const rpc of group) {
     const tag: string = rpc._tag;
     const base = pascal(tag);
@@ -142,8 +192,13 @@ export async function buildModel() {
 
   // ---- HTTP API ----------------------------------------------------------------------
   const https: HttpModel[] = [];
-  const api: any = contracts.EnvironmentHttpApi;
-  for (const [group, g] of Object.entries<any>(api.groups)) {
+  const groups: Record<string, any> = v1
+    ? { orchestration: contracts.V1_HTTP_GROUP }
+    : (contracts.EnvironmentHttpApi as any).groups;
+  for (const [group, g] of Object.entries<any>(groups)) {
+    // Server-side OAuth endpoints for external MCP agents; they return untagged
+    // RFC 6749 errors and are never called by a client.
+    if (group === "mcpOAuth") continue;
     for (const [name, e] of Object.entries<any>(g.endpoints)) {
       const hint = `Http${pascal(group)}${pascal(name)}`;
       const wireOf = (schema: any, suffix: string, encoded: boolean): Wire =>
@@ -197,7 +252,7 @@ export async function buildModel() {
 
   // ---- extra roots ---------------------------------------------------------------------
   const extras: string[] = [];
-  for (const name of EXTRA_ROOTS) {
+  for (const name of v1 ? V1_EXTRA_ROOTS : EXTRA_ROOTS) {
     const schema = (contracts as any)[name];
     if (!schema || !S.isSchema(schema))
       throw new Error(`Extra root ${name} is not an exported schema`);

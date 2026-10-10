@@ -3,6 +3,348 @@
 
 import Foundation
 
+public struct ChatGptHandoffInput: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+  public var environmentId: EnvironmentId
+  public var attemptId: String
+  public var returnUrl: String
+  public var profile: ChatGptReconnectProfile?
+
+  public init(instanceId: ProviderInstanceId, environmentId: EnvironmentId, attemptId: String, returnUrl: String, profile: ChatGptReconnectProfile? = nil) {
+    self.instanceId = instanceId
+    self.environmentId = environmentId
+    self.attemptId = attemptId
+    self.returnUrl = returnUrl
+    self.profile = profile
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case instanceId
+    case environmentId
+    case attemptId
+    case returnUrl
+    case profile
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.attemptId = try c.decode(String.self, forKey: .attemptId)
+    self.returnUrl = try c.decode(String.self, forKey: .returnUrl)
+    self.profile = try c.decodeIfPresent(ChatGptReconnectProfile.self, forKey: .profile)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(attemptId, forKey: .attemptId)
+    try c.encode(returnUrl, forKey: .returnUrl)
+    try c.encode(profile, forKey: .profile)
+  }
+}
+
+public enum ChatGptHandoffState: Sendable, Hashable, Codable {
+  case auth(ChatGptHandoffStateAuth)
+  case finished(ChatGptHandoffStateFinished)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "phase" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "auth"?: self = .auth(try ChatGptHandoffStateAuth(from: decoder))
+    case "finished"?: self = .finished(try ChatGptHandoffStateFinished(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .auth(let value): try value.encode(to: encoder)
+    case .finished(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct ChatGptImportProfileInput: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+  public var profile: ChatGptTransferredProfile
+
+  public init(instanceId: ProviderInstanceId, profile: ChatGptTransferredProfile) {
+    self.instanceId = instanceId
+    self.profile = profile
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case instanceId
+    case profile
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.profile = try c.decode(ChatGptTransferredProfile.self, forKey: .profile)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(profile, forKey: .profile)
+  }
+}
+
+public struct ChatGptReconnectProfile: Sendable, Hashable, Codable {
+  public var clientId: String
+  public var subject: String?
+  public var email: String??
+  public var redirectUri: String?
+  public var connectionLabel: String?
+  public var sharingEnabled: Bool?
+  public var idTokenHint: String?
+
+  public init(clientId: String, subject: String? = nil, email: String?? = nil, redirectUri: String? = nil, connectionLabel: String? = nil, sharingEnabled: Bool? = nil, idTokenHint: String? = nil) {
+    self.clientId = clientId
+    self.subject = subject
+    self.email = email
+    self.redirectUri = redirectUri
+    self.connectionLabel = connectionLabel
+    self.sharingEnabled = sharingEnabled
+    self.idTokenHint = idTokenHint
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case clientId
+    case subject
+    case email
+    case redirectUri
+    case connectionLabel
+    case sharingEnabled
+    case idTokenHint
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.clientId = try c.decode(String.self, forKey: .clientId)
+    self.subject = try c.decodeIfPresent(String.self, forKey: .subject)
+    self.email = try c.decodeTriState(String.self, forKey: .email)
+    self.redirectUri = try c.decodeIfPresent(String.self, forKey: .redirectUri)
+    self.connectionLabel = try c.decodeIfPresent(String.self, forKey: .connectionLabel)
+    self.sharingEnabled = try c.decodeIfPresent(Bool.self, forKey: .sharingEnabled)
+    self.idTokenHint = try c.decodeIfPresent(String.self, forKey: .idTokenHint)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(clientId, forKey: .clientId)
+    try c.encodeIfPresent(subject, forKey: .subject)
+    try c.encodeTriState(email, forKey: .email)
+    try c.encodeIfPresent(redirectUri, forKey: .redirectUri)
+    try c.encodeIfPresent(connectionLabel, forKey: .connectionLabel)
+    try c.encodeIfPresent(sharingEnabled, forKey: .sharingEnabled)
+    try c.encodeIfPresent(idTokenHint, forKey: .idTokenHint)
+  }
+}
+
+public struct ChatGptReconnectProfileInput: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+  public var methodId: String
+
+  public init(instanceId: ProviderInstanceId, methodId: String) {
+    self.instanceId = instanceId
+    self.methodId = methodId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case instanceId
+    case methodId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.methodId = try c.decode(String.self, forKey: .methodId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(methodId, forKey: .methodId)
+  }
+}
+
+public struct ChatGptTransferredProfile: Sendable, Hashable, Codable {
+  public var registration: ChatGptReconnectProfile
+  public var credentials: ChatGptTransferredProfileCredentials
+
+  public init(registration: ChatGptReconnectProfile, credentials: ChatGptTransferredProfileCredentials) {
+    self.registration = registration
+    self.credentials = credentials
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case registration
+    case credentials
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.registration = try c.decode(ChatGptReconnectProfile.self, forKey: .registration)
+    self.credentials = try c.decode(ChatGptTransferredProfileCredentials.self, forKey: .credentials)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(registration, forKey: .registration)
+    try c.encode(credentials, forKey: .credentials)
+  }
+}
+
+public struct ChatGptTransferredProfileCredentials: Sendable, Hashable, Codable {
+  public var clientId: String
+  public var accessToken: String
+  public var refreshToken: String?
+  public var idToken: String
+  public var issuer: String
+  public var expiresAt: Double
+  public var earliestRefreshAt: Double?
+  public var scopes: [String]
+  public var subject: String
+  public var email: String?
+
+  public init(clientId: String, accessToken: String, refreshToken: String? = nil, idToken: String, issuer: String, expiresAt: Double, earliestRefreshAt: Double? = nil, scopes: [String], subject: String, email: String? = nil) {
+    self.clientId = clientId
+    self.accessToken = accessToken
+    self.refreshToken = refreshToken
+    self.idToken = idToken
+    self.issuer = issuer
+    self.expiresAt = expiresAt
+    self.earliestRefreshAt = earliestRefreshAt
+    self.scopes = scopes
+    self.subject = subject
+    self.email = email
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case clientId
+    case accessToken
+    case refreshToken
+    case idToken
+    case issuer
+    case expiresAt
+    case earliestRefreshAt
+    case scopes
+    case subject
+    case email
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.clientId = try c.decode(String.self, forKey: .clientId)
+    self.accessToken = try c.decode(String.self, forKey: .accessToken)
+    self.refreshToken = try c.decodeIfPresent(String.self, forKey: .refreshToken)
+    self.idToken = try c.decode(String.self, forKey: .idToken)
+    self.issuer = try c.decode(String.self, forKey: .issuer)
+    self.expiresAt = try c.decode(Double.self, forKey: .expiresAt)
+    self.earliestRefreshAt = try c.decodeIfPresent(Double.self, forKey: .earliestRefreshAt)
+    self.scopes = try c.decode([String].self, forKey: .scopes)
+    self.subject = try c.decode(String.self, forKey: .subject)
+    self.email = try c.decodeIfPresent(String.self, forKey: .email)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(clientId, forKey: .clientId)
+    try c.encode(accessToken, forKey: .accessToken)
+    try c.encode(refreshToken, forKey: .refreshToken)
+    try c.encode(idToken, forKey: .idToken)
+    try c.encode(issuer, forKey: .issuer)
+    try c.encode(expiresAt, forKey: .expiresAt)
+    try c.encode(earliestRefreshAt, forKey: .earliestRefreshAt)
+    try c.encode(scopes, forKey: .scopes)
+    try c.encode(subject, forKey: .subject)
+    try c.encode(email, forKey: .email)
+  }
+}
+
+public struct CodexAuthCallbackInput: Sendable, Hashable, Codable {
+  public var authorizationUrl: String
+  public var returnUrl: String
+  public var environmentId: EnvironmentId
+  public var instanceId: ProviderInstanceId
+  public var flowId: String
+
+  public init(authorizationUrl: String, returnUrl: String, environmentId: EnvironmentId, instanceId: ProviderInstanceId, flowId: String) {
+    self.authorizationUrl = authorizationUrl
+    self.returnUrl = returnUrl
+    self.environmentId = environmentId
+    self.instanceId = instanceId
+    self.flowId = flowId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case authorizationUrl
+    case returnUrl
+    case environmentId
+    case instanceId
+    case flowId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.authorizationUrl = try c.decode(String.self, forKey: .authorizationUrl)
+    self.returnUrl = try c.decode(String.self, forKey: .returnUrl)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.flowId = try c.decode(String.self, forKey: .flowId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(authorizationUrl, forKey: .authorizationUrl)
+    try c.encode(returnUrl, forKey: .returnUrl)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(flowId, forKey: .flowId)
+  }
+}
+
+public enum CodexAuthCallbackState: Sendable, Hashable, Codable {
+  case ready
+  case finished(CodexAuthCallbackStateFinished)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "phase" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "ready"?: self = .ready
+    case "finished"?: self = .finished(try CodexAuthCallbackStateFinished(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .ready:
+      var c = encoder.container(keyedBy: TagKeys.self)
+      try c.encode("ready", forKey: .tag)
+    case .finished(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public struct ProviderAuthCancelInput: Sendable, Hashable, Codable {
   public var instanceId: ProviderInstanceId
   public var flowId: String
@@ -270,12 +612,14 @@ public struct ProviderAuthInteractionTerminal: Sendable, Hashable, Codable {
 
 public struct ProviderAuthMethod: Sendable, Hashable, Codable {
   public var id: String
+  public var accountEmail: String?
   public var name: String
   public var description: String?
   public var type: ProviderAuthMethodType
 
-  public init(id: String, name: String, description: String? = nil, type: ProviderAuthMethodType) {
+  public init(id: String, accountEmail: String? = nil, name: String, description: String? = nil, type: ProviderAuthMethodType) {
     self.id = id
+    self.accountEmail = accountEmail
     self.name = name
     self.description = description
     self.type = type
@@ -283,6 +627,7 @@ public struct ProviderAuthMethod: Sendable, Hashable, Codable {
 
   private enum CodingKeys: String, CodingKey {
     case id
+    case accountEmail
     case name
     case description
     case type
@@ -291,6 +636,7 @@ public struct ProviderAuthMethod: Sendable, Hashable, Codable {
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.id = try c.decode(String.self, forKey: .id)
+    self.accountEmail = try c.decodeIfPresent(String.self, forKey: .accountEmail)
     self.name = try c.decode(String.self, forKey: .name)
     self.description = try c.decodeIfPresent(String.self, forKey: .description)
     self.type = try c.decode(ProviderAuthMethodType.self, forKey: .type)
@@ -299,6 +645,7 @@ public struct ProviderAuthMethod: Sendable, Hashable, Codable {
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(id, forKey: .id)
+    try c.encodeIfPresent(accountEmail, forKey: .accountEmail)
     try c.encode(name, forKey: .name)
     try c.encode(description, forKey: .description)
     try c.encode(type, forKey: .type)
@@ -550,27 +897,69 @@ public struct ProviderAuthResponseTerminalSize: Sendable, Hashable, Codable {
 public struct ProviderAuthStartInput: Sendable, Hashable, Codable {
   public var instanceId: ProviderInstanceId
   public var methodId: String?
+  public var returnUrl: String?
+  public var callbackMode: ProviderAuthStartInputCallbackMode?
 
-  public init(instanceId: ProviderInstanceId, methodId: String? = nil) {
+  public init(instanceId: ProviderInstanceId, methodId: String? = nil, returnUrl: String? = nil, callbackMode: ProviderAuthStartInputCallbackMode? = nil) {
     self.instanceId = instanceId
     self.methodId = methodId
+    self.returnUrl = returnUrl
+    self.callbackMode = callbackMode
   }
 
   private enum CodingKeys: String, CodingKey {
     case instanceId
     case methodId
+    case returnUrl
+    case callbackMode
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
     self.methodId = try c.decodeIfPresent(String.self, forKey: .methodId)
+    self.returnUrl = try c.decodeIfPresent(String.self, forKey: .returnUrl)
+    self.callbackMode = try c.decodeIfPresent(ProviderAuthStartInputCallbackMode.self, forKey: .callbackMode)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(instanceId, forKey: .instanceId)
     try c.encodeIfPresent(methodId, forKey: .methodId)
+    try c.encodeIfPresent(returnUrl, forKey: .returnUrl)
+    try c.encodeIfPresent(callbackMode, forKey: .callbackMode)
+  }
+}
+
+public enum ProviderAuthStartInputCallbackMode: Sendable, Hashable, Codable, RawRepresentable {
+  case server
+  case client
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "server": self = .server
+    case "client": self = .client
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .server: "server"
+    case .client: "client"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -750,10 +1139,12 @@ public struct ProviderInstallState: Sendable, Hashable, Codable {
   public var totalBytes: Int?
   public var version: String?
   public var installedVersion: String?
+  public var executablePath: String??
+  public var source: ProviderInstallStateSource??
   public var canRemove: Bool
   public var message: String?
 
-  public init(driver: ProviderDriverKind, operationId: String? = nil, phase: ProviderInstallStatePhase, downloadedBytes: Int, totalBytes: Int? = nil, version: String? = nil, installedVersion: String? = nil, canRemove: Bool, message: String? = nil) {
+  public init(driver: ProviderDriverKind, operationId: String? = nil, phase: ProviderInstallStatePhase, downloadedBytes: Int, totalBytes: Int? = nil, version: String? = nil, installedVersion: String? = nil, executablePath: String?? = nil, source: ProviderInstallStateSource?? = nil, canRemove: Bool, message: String? = nil) {
     self.driver = driver
     self.operationId = operationId
     self.phase = phase
@@ -761,6 +1152,8 @@ public struct ProviderInstallState: Sendable, Hashable, Codable {
     self.totalBytes = totalBytes
     self.version = version
     self.installedVersion = installedVersion
+    self.executablePath = executablePath
+    self.source = source
     self.canRemove = canRemove
     self.message = message
   }
@@ -773,6 +1166,8 @@ public struct ProviderInstallState: Sendable, Hashable, Codable {
     case totalBytes
     case version
     case installedVersion
+    case executablePath
+    case source
     case canRemove
     case message
   }
@@ -786,6 +1181,8 @@ public struct ProviderInstallState: Sendable, Hashable, Codable {
     self.totalBytes = try c.decodeIfPresent(Int.self, forKey: .totalBytes)
     self.version = try c.decodeIfPresent(String.self, forKey: .version)
     self.installedVersion = try c.decodeIfPresent(String.self, forKey: .installedVersion)
+    self.executablePath = try c.decodeTriState(String.self, forKey: .executablePath)
+    self.source = try c.decodeTriState(ProviderInstallStateSource.self, forKey: .source)
     self.canRemove = try c.decode(Bool.self, forKey: .canRemove)
     self.message = try c.decodeIfPresent(String.self, forKey: .message)
   }
@@ -799,6 +1196,8 @@ public struct ProviderInstallState: Sendable, Hashable, Codable {
     try c.encode(totalBytes, forKey: .totalBytes)
     try c.encode(version, forKey: .version)
     try c.encode(installedVersion, forKey: .installedVersion)
+    try c.encodeTriState(executablePath, forKey: .executablePath)
+    try c.encodeTriState(source, forKey: .source)
     try c.encode(canRemove, forKey: .canRemove)
     try c.encode(message, forKey: .message)
   }
@@ -837,6 +1236,38 @@ public enum ProviderInstallStatePhase: Sendable, Hashable, Codable, RawRepresent
     case .succeeded: "succeeded"
     case .failed: "failed"
     case .cancelled: "cancelled"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum ProviderInstallStateSource: Sendable, Hashable, Codable, RawRepresentable {
+  case managed
+  case local
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "managed": self = .managed
+    case "local": self = .local
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .managed: "managed"
+    case .local: "local"
     case .unknown(let value): value
     }
   }

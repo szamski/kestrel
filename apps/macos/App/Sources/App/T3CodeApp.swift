@@ -51,9 +51,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 
-  /// Flushes client state and closes connections before the process goes away.
+  private var terminating = false
+
+  /// Flushes client state and closes connections before the process goes away. The deadline runs off the main actor
+  /// and is armed first: whatever `model.stop()` waits on (a connection, the server's shutdown, a blocked main
+  /// actor) quit ends after 6 s at the latest, with our server SIGKILLed (the watchdog would also catch it).
   func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
     guard let model else { return .terminateNow }
+    guard !terminating else { return .terminateLater }
+    terminating = true
+    DispatchQueue.global().asyncAfter(deadline: .now() + 6) {
+      LocalServer.killSpawned()
+      _exit(0)
+    }
     Task { @MainActor in
       await model.stop()
       NSApp.reply(toApplicationShouldTerminate: true)

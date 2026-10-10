@@ -8,7 +8,7 @@ import Testing
 // timeline entries, turn timing).
 
 @Suite struct ActivePlanTests {
-  func plan(_ id: String, at: String, turn: String = "turn-1", sequence: Int? = nil, _ payload: String) -> OrchestrationThreadActivity {
+  func plan(_ id: String, at: String, turn: String = "turn-1", sequence: Int? = nil, _ payload: String) -> V1.OrchestrationThreadActivity {
     activity(id, "turn.plan.updated", summary: "Plan updated", tone: "info", turn: turn, sequence: sequence, at: at, payload)
   }
 
@@ -84,7 +84,7 @@ import Testing
 @Suite struct ProposedPlanTests {
   func plan(_ id: String, turn: String?, _ markdown: String, created: String, updated: String, implemented: String? = nil) -> ProposedPlan {
     ProposedPlan(
-      id: id, turnId: turn.map { TurnId($0) }, planMarkdown: markdown, implementedAt: implemented.map { IsoDateTime($0) },
+      id: id, turnId: turn.map { V1.TurnId($0) }, planMarkdown: markdown, implementedAt: implemented.map { IsoDateTime($0) },
       implementationThreadId: implemented == nil ? nil : ThreadId("thread-implement"), createdAt: IsoDateTime(created), updatedAt: IsoDateTime(updated))
   }
 
@@ -138,7 +138,7 @@ import Testing
 }
 
 @Suite struct WorkLogDerivationTests {
-  func ids(_ activities: [OrchestrationThreadActivity]) -> [String] { deriveWorkLogEntries(activities).map(\.id) }
+  func ids(_ activities: [V1.OrchestrationThreadActivity]) -> [String] { deriveWorkLogEntries(activities).map(\.id) }
 
   @Test func keepsTheLatestTaskProgressWithoutEmittingPlanUpdateEntries() {
     let activities = [
@@ -211,7 +211,7 @@ import Testing
     ]
     let entries = deriveWorkLogEntries(activities)
     #expect(entries.map(\.id) == ["turn-1-tool", "turn-2-tool"])
-    #expect(entries.map(\.turnId) == [TurnId("turn-1"), TurnId("turn-2")])
+    #expect(entries.map(\.turnId) == [V1.TurnId("turn-1"), V1.TurnId("turn-2")])
   }
 
   @Test func omitsCheckpointCapturedAndExitPlanModeEntries() {
@@ -303,7 +303,7 @@ import Testing
   }
 
   @Test func collapsesInterleavedLifecycleUpdatesByToolCallId() {
-    func tool(_ id: String, _ kind: String, _ call: String, _ second: Int, status: String, command: String? = nil) -> OrchestrationThreadActivity {
+    func tool(_ id: String, _ kind: String, _ call: String, _ second: Int, status: String, command: String? = nil) -> V1.OrchestrationThreadActivity {
       activity(
         id, kind, summary: "Tool", turn: "turn-1", at: "2026-02-23T00:00:0\(second).000Z",
         #"{"itemType":"command_execution","toolCallId":"\#(call)","status":"\#(status)"\#(command.map { #","data":{"command":"\#($0)"}"# } ?? "")}"#)
@@ -444,7 +444,7 @@ import Testing
 
   @Test func keepsSeparateEntriesWhenAnIdenticalCallStartsAfterThePriorCompleted() {
     let detail = #""detail":"Read: {\"file_path\":\"/tmp/app.ts\"}""#
-    func tool(_ id: String, _ kind: String, _ second: Int) -> OrchestrationThreadActivity {
+    func tool(_ id: String, _ kind: String, _ second: Int) -> V1.OrchestrationThreadActivity {
       activity(id, kind, at: "2026-02-23T00:00:0\(second).000Z", #"{"itemType":"dynamic_tool_call","title":"Tool call",\#(detail)}"#)
     }
     #expect(ids([tool("1u", "tool.updated", 1), tool("1c", "tool.completed", 2), tool("2u", "tool.updated", 3), tool("2c", "tool.completed", 4)]) == ["1c", "2c"])
@@ -481,7 +481,7 @@ import Testing
     #expect(entries.count == 1)
     #expect(entries[0].agentSpawn == AgentSpawn(workflowId: nil, agentTaskIds: ["a", "b"]))
     #expect(entries[0].id == "start-a")
-    #expect(entries[0].turnId == TurnId("turn-1"))
+    #expect(entries[0].turnId == V1.TurnId("turn-1"))
   }
 
   @Test func aWorkflowRunAndItsMembersCollapseIntoOneRowKeyedToTheCoordinator() {
@@ -564,7 +564,7 @@ import Testing
 }
 
 @Suite struct TurnTimingTests {
-  let session = { (status: String, active: String?) -> OrchestrationSession in
+  let session = { (status: String, active: String?) -> V1.OrchestrationSession in
     decodeJSON(
       """
       {"threadId":"t","status":"\(status)","providerName":"codex","providerInstanceId":"codex","runtimeMode":"full-access",

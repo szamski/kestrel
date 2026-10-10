@@ -125,10 +125,11 @@ public struct GitCommandError: Sendable, Hashable, Codable, Error {
   public var stdoutLength: Double?
   public var stderrLength: Double?
   public var outputLength: Double?
+  public var reason: GitCommandFailureReason?
   public var detail: String
   public var cause: JSONValue?
 
-  public init(operation: String, command: String, cwd: String, argumentCount: Double? = nil, exitCode: Double? = nil, stdoutLength: Double? = nil, stderrLength: Double? = nil, outputLength: Double? = nil, detail: String, cause: JSONValue? = nil) {
+  public init(operation: String, command: String, cwd: String, argumentCount: Double? = nil, exitCode: Double? = nil, stdoutLength: Double? = nil, stderrLength: Double? = nil, outputLength: Double? = nil, reason: GitCommandFailureReason? = nil, detail: String, cause: JSONValue? = nil) {
     self.operation = operation
     self.command = command
     self.cwd = cwd
@@ -137,6 +138,7 @@ public struct GitCommandError: Sendable, Hashable, Codable, Error {
     self.stdoutLength = stdoutLength
     self.stderrLength = stderrLength
     self.outputLength = outputLength
+    self.reason = reason
     self.detail = detail
     self.cause = cause
   }
@@ -151,6 +153,7 @@ public struct GitCommandError: Sendable, Hashable, Codable, Error {
     case stdoutLength
     case stderrLength
     case outputLength
+    case reason
     case detail
     case cause
   }
@@ -166,6 +169,7 @@ public struct GitCommandError: Sendable, Hashable, Codable, Error {
     self.stdoutLength = try c.decodeIfPresent(Double.self, forKey: .stdoutLength)
     self.stderrLength = try c.decodeIfPresent(Double.self, forKey: .stderrLength)
     self.outputLength = try c.decodeIfPresent(Double.self, forKey: .outputLength)
+    self.reason = try c.decodeIfPresent(GitCommandFailureReason.self, forKey: .reason)
     self.detail = try c.decode(String.self, forKey: .detail)
     self.cause = try c.decodeIfPresent(JSONValue.self, forKey: .cause)
   }
@@ -181,8 +185,59 @@ public struct GitCommandError: Sendable, Hashable, Codable, Error {
     try c.encodeIfPresent(stdoutLength, forKey: .stdoutLength)
     try c.encodeIfPresent(stderrLength, forKey: .stderrLength)
     try c.encodeIfPresent(outputLength, forKey: .outputLength)
+    try c.encodeIfPresent(reason, forKey: .reason)
     try c.encode(detail, forKey: .detail)
     try c.encodeIfPresent(cause, forKey: .cause)
+  }
+}
+
+public enum GitCommandFailureReason: Sendable, Hashable, Codable, RawRepresentable {
+  case authentication_failed
+  case branch_already_exists
+  case branch_checked_out_in_worktree
+  case host_key_unverified
+  case not_a_repository
+  case path_already_exists
+  case remote_unreachable
+  case tag_would_be_clobbered
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "authentication_failed": self = .authentication_failed
+    case "branch_already_exists": self = .branch_already_exists
+    case "branch_checked_out_in_worktree": self = .branch_checked_out_in_worktree
+    case "host_key_unverified": self = .host_key_unverified
+    case "not_a_repository": self = .not_a_repository
+    case "path_already_exists": self = .path_already_exists
+    case "remote_unreachable": self = .remote_unreachable
+    case "tag_would_be_clobbered": self = .tag_would_be_clobbered
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .authentication_failed: "authentication_failed"
+    case .branch_already_exists: "branch_already_exists"
+    case .branch_checked_out_in_worktree: "branch_checked_out_in_worktree"
+    case .host_key_unverified: "host_key_unverified"
+    case .not_a_repository: "not_a_repository"
+    case .path_already_exists: "path_already_exists"
+    case .remote_unreachable: "remote_unreachable"
+    case .tag_would_be_clobbered: "tag_would_be_clobbered"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -454,8 +509,9 @@ public struct GitRunStackedActionInput: Sendable, Hashable, Codable {
   public var featureBranch: Bool?
   public var filePaths: [String]?
   public var threadId: ThreadId?
+  public var projectId: ProjectId?
 
-  public init(actionId: String, cwd: String, action: GitStackedAction, commitMessage: String? = nil, featureBranch: Bool? = nil, filePaths: [String]? = nil, threadId: ThreadId? = nil) {
+  public init(actionId: String, cwd: String, action: GitStackedAction, commitMessage: String? = nil, featureBranch: Bool? = nil, filePaths: [String]? = nil, threadId: ThreadId? = nil, projectId: ProjectId? = nil) {
     self.actionId = actionId
     self.cwd = cwd
     self.action = action
@@ -463,6 +519,7 @@ public struct GitRunStackedActionInput: Sendable, Hashable, Codable {
     self.featureBranch = featureBranch
     self.filePaths = filePaths
     self.threadId = threadId
+    self.projectId = projectId
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -473,6 +530,7 @@ public struct GitRunStackedActionInput: Sendable, Hashable, Codable {
     case featureBranch
     case filePaths
     case threadId
+    case projectId
   }
 
   public init(from decoder: any Decoder) throws {
@@ -484,6 +542,7 @@ public struct GitRunStackedActionInput: Sendable, Hashable, Codable {
     self.featureBranch = try c.decodeIfPresent(Bool.self, forKey: .featureBranch)
     self.filePaths = try c.decodeIfPresent([String].self, forKey: .filePaths)
     self.threadId = try c.decodeIfPresent(ThreadId.self, forKey: .threadId)
+    self.projectId = try c.decodeIfPresent(ProjectId.self, forKey: .projectId)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -495,6 +554,7 @@ public struct GitRunStackedActionInput: Sendable, Hashable, Codable {
     try c.encodeIfPresent(featureBranch, forKey: .featureBranch)
     try c.encodeIfPresent(filePaths, forKey: .filePaths)
     try c.encodeIfPresent(threadId, forKey: .threadId)
+    try c.encodeIfPresent(projectId, forKey: .projectId)
   }
 }
 
@@ -1544,8 +1604,9 @@ public struct VcsStatusLocalResult: Sendable, Hashable, Codable {
   public var refName: String?
   public var hasWorkingTreeChanges: Bool
   public var workingTree: VcsStatusLocalResultWorkingTree
+  public var branchChanges: VcsStatusLocalResultBranchChanges?
 
-  public init(isRepo: Bool, sourceControlProvider: SourceControlProviderInfo? = nil, hasPrimaryRemote: Bool, isDefaultRef: Bool, refName: String? = nil, hasWorkingTreeChanges: Bool, workingTree: VcsStatusLocalResultWorkingTree) {
+  public init(isRepo: Bool, sourceControlProvider: SourceControlProviderInfo? = nil, hasPrimaryRemote: Bool, isDefaultRef: Bool, refName: String? = nil, hasWorkingTreeChanges: Bool, workingTree: VcsStatusLocalResultWorkingTree, branchChanges: VcsStatusLocalResultBranchChanges? = nil) {
     self.isRepo = isRepo
     self.sourceControlProvider = sourceControlProvider
     self.hasPrimaryRemote = hasPrimaryRemote
@@ -1553,6 +1614,7 @@ public struct VcsStatusLocalResult: Sendable, Hashable, Codable {
     self.refName = refName
     self.hasWorkingTreeChanges = hasWorkingTreeChanges
     self.workingTree = workingTree
+    self.branchChanges = branchChanges
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -1563,6 +1625,7 @@ public struct VcsStatusLocalResult: Sendable, Hashable, Codable {
     case refName
     case hasWorkingTreeChanges
     case workingTree
+    case branchChanges
   }
 
   public init(from decoder: any Decoder) throws {
@@ -1574,6 +1637,7 @@ public struct VcsStatusLocalResult: Sendable, Hashable, Codable {
     self.refName = try c.decodeIfPresent(String.self, forKey: .refName)
     self.hasWorkingTreeChanges = try c.decode(Bool.self, forKey: .hasWorkingTreeChanges)
     self.workingTree = try c.decode(VcsStatusLocalResultWorkingTree.self, forKey: .workingTree)
+    self.branchChanges = try c.decodeIfPresent(VcsStatusLocalResultBranchChanges.self, forKey: .branchChanges)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -1585,6 +1649,39 @@ public struct VcsStatusLocalResult: Sendable, Hashable, Codable {
     try c.encode(refName, forKey: .refName)
     try c.encode(hasWorkingTreeChanges, forKey: .hasWorkingTreeChanges)
     try c.encode(workingTree, forKey: .workingTree)
+    try c.encodeIfPresent(branchChanges, forKey: .branchChanges)
+  }
+}
+
+public struct VcsStatusLocalResultBranchChanges: Sendable, Hashable, Codable {
+  public var baseRef: String?
+  public var insertions: Int
+  public var deletions: Int
+
+  public init(baseRef: String? = nil, insertions: Int, deletions: Int) {
+    self.baseRef = baseRef
+    self.insertions = insertions
+    self.deletions = deletions
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case baseRef
+    case insertions
+    case deletions
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.baseRef = try c.decodeIfPresent(String.self, forKey: .baseRef)
+    self.insertions = try c.decode(Int.self, forKey: .insertions)
+    self.deletions = try c.decode(Int.self, forKey: .deletions)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(baseRef, forKey: .baseRef)
+    try c.encode(insertions, forKey: .insertions)
+    try c.encode(deletions, forKey: .deletions)
   }
 }
 
@@ -1794,13 +1891,14 @@ public struct VcsStatusResult: Sendable, Hashable, Codable {
   public var refName: String?
   public var hasWorkingTreeChanges: Bool
   public var workingTree: VcsStatusLocalResultWorkingTree
+  public var branchChanges: VcsStatusLocalResultBranchChanges?
   public var hasUpstream: Bool
   public var aheadCount: Int
   public var behindCount: Int
   public var aheadOfDefaultCount: Int?
   public var pr: VcsStatusRemoteResultPr?
 
-  public init(isRepo: Bool, sourceControlProvider: SourceControlProviderInfo? = nil, hasPrimaryRemote: Bool, isDefaultRef: Bool, refName: String? = nil, hasWorkingTreeChanges: Bool, workingTree: VcsStatusLocalResultWorkingTree, hasUpstream: Bool, aheadCount: Int, behindCount: Int, aheadOfDefaultCount: Int? = nil, pr: VcsStatusRemoteResultPr? = nil) {
+  public init(isRepo: Bool, sourceControlProvider: SourceControlProviderInfo? = nil, hasPrimaryRemote: Bool, isDefaultRef: Bool, refName: String? = nil, hasWorkingTreeChanges: Bool, workingTree: VcsStatusLocalResultWorkingTree, branchChanges: VcsStatusLocalResultBranchChanges? = nil, hasUpstream: Bool, aheadCount: Int, behindCount: Int, aheadOfDefaultCount: Int? = nil, pr: VcsStatusRemoteResultPr? = nil) {
     self.isRepo = isRepo
     self.sourceControlProvider = sourceControlProvider
     self.hasPrimaryRemote = hasPrimaryRemote
@@ -1808,6 +1906,7 @@ public struct VcsStatusResult: Sendable, Hashable, Codable {
     self.refName = refName
     self.hasWorkingTreeChanges = hasWorkingTreeChanges
     self.workingTree = workingTree
+    self.branchChanges = branchChanges
     self.hasUpstream = hasUpstream
     self.aheadCount = aheadCount
     self.behindCount = behindCount
@@ -1823,6 +1922,7 @@ public struct VcsStatusResult: Sendable, Hashable, Codable {
     case refName
     case hasWorkingTreeChanges
     case workingTree
+    case branchChanges
     case hasUpstream
     case aheadCount
     case behindCount
@@ -1839,6 +1939,7 @@ public struct VcsStatusResult: Sendable, Hashable, Codable {
     self.refName = try c.decodeIfPresent(String.self, forKey: .refName)
     self.hasWorkingTreeChanges = try c.decode(Bool.self, forKey: .hasWorkingTreeChanges)
     self.workingTree = try c.decode(VcsStatusLocalResultWorkingTree.self, forKey: .workingTree)
+    self.branchChanges = try c.decodeIfPresent(VcsStatusLocalResultBranchChanges.self, forKey: .branchChanges)
     self.hasUpstream = try c.decode(Bool.self, forKey: .hasUpstream)
     self.aheadCount = try c.decode(Int.self, forKey: .aheadCount)
     self.behindCount = try c.decode(Int.self, forKey: .behindCount)
@@ -1855,6 +1956,7 @@ public struct VcsStatusResult: Sendable, Hashable, Codable {
     try c.encode(refName, forKey: .refName)
     try c.encode(hasWorkingTreeChanges, forKey: .hasWorkingTreeChanges)
     try c.encode(workingTree, forKey: .workingTree)
+    try c.encodeIfPresent(branchChanges, forKey: .branchChanges)
     try c.encode(hasUpstream, forKey: .hasUpstream)
     try c.encode(aheadCount, forKey: .aheadCount)
     try c.encode(behindCount, forKey: .behindCount)
@@ -1891,6 +1993,33 @@ public enum VcsStatusStreamEvent: Sendable, Hashable, Codable {
     case .remoteUpdated(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
+  }
+}
+
+public struct VcsStatusSubscriptionInput: Sendable, Hashable, Codable {
+  public var cwd: String
+  public var includeRemote: Bool?
+
+  public init(cwd: String, includeRemote: Bool? = nil) {
+    self.cwd = cwd
+    self.includeRemote = includeRemote
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case cwd
+    case includeRemote
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.cwd = try c.decode(String.self, forKey: .cwd)
+    self.includeRemote = try c.decodeIfPresent(Bool.self, forKey: .includeRemote)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(cwd, forKey: .cwd)
+    try c.encodeIfPresent(includeRemote, forKey: .includeRemote)
   }
 }
 

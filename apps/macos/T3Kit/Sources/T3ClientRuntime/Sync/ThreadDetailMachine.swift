@@ -1,5 +1,6 @@
 import Foundation
 import T3Contracts
+import T3Protocol
 
 public enum ThreadDetailStatus: String, Sendable { case empty, cached, synchronizing, live, deleted }
 
@@ -13,12 +14,30 @@ public struct ThreadPageState: Sendable, Equatable {
 }
 
 public struct EnvironmentThreadState: Sendable, Equatable {
-  public var data: OrchestrationThread?
+  /// Protocol 1: the thread detail. Nil on protocol 2, which holds `projection` instead.
+  public var data: V1.OrchestrationThread?
+  /// Protocol 2: the server's thread projection (runs, turn items, messages, requests, checkpoints, ...).
+  public var projection: OrchestrationV2ThreadProjection?
+  /// Protocol 2: progressive history of the bounded window in `projection`.
+  public var history: ThreadHistoryMeta = .empty
   public var status: ThreadDetailStatus
   public var error: String?
   public var page: ThreadPageState?
-  public static let empty = EnvironmentThreadState(data: nil, status: .empty, error: nil, page: nil)
-  public var hasOlderTurns: Bool { page?.hasMore == true }
+  public static let empty = EnvironmentThreadState(data: nil, projection: nil, history: .empty, status: .empty, error: nil, page: nil)
+  public var hasOlderTurns: Bool { page?.hasMore == true || history.hasMoreHistory }
+  public var isLoadingOlder: Bool { page?.loadingOlder == true || history.loading }
+  public var hasData: Bool { data != nil || projection != nil }
+
+  /// A turn or run is starting or running: the detail should stay mounted and must not be cached mid-stream.
+  public var isRunActive: Bool {
+    if let session = data?.session { return session.isStartingOrRunning }
+    return projection?.runs.contains { run in
+      switch run.status {
+      case .preparing, .queued, .starting, .running, .waiting: true
+      default: false
+      }
+    } ?? false
+  }
 }
 
 /// A thread's state together with the cursor it is consistent with. Saved only after an update
@@ -27,11 +46,13 @@ public struct ThreadResumeSnapshot: Sendable, Equatable {
   public var state: EnvironmentThreadState
   public var sequence: Int
   public var persisted: Bool
+  /// The data and cursor only mean something to a connection speaking the same protocol.
+  public var orchestrationProtocol: OrchestrationProtocol = .v1
 }
 
 /// Detail snapshot to write to the disk cache.
 public struct ThreadPersistRequest: Sendable, Equatable {
-  public var snapshot: OrchestrationThreadDetailSnapshot
+  public var snapshot: V1.OrchestrationThreadDetailSnapshot
 }
 
 /// Turn window sizes for paginated loads: the first page covers the last 10 user-anchored
@@ -43,7 +64,7 @@ public enum ThreadPaging {
   public static let snapshotIdleTTL: Duration = .seconds(300)
 }
 
-extension OrchestrationSession {
+extension V1.OrchestrationSession {
   public var isStartingOrRunning: Bool { status == .starting || status == .running }
 }
 
@@ -60,14 +81,14 @@ public struct ThreadDetailMachine: Sendable {
   /// Set by updates that should reach the disk cache; the owner takes it with `takePersistRequest()`.
   private var persistRequest: ThreadPersistRequest?
   private struct PendingOlderPage: Sendable {
-    var snapshot: OrchestrationThreadDetailSnapshot
+    var snapshot: V1.OrchestrationThreadDetailSnapshot
     var epoch: Int
   }
   private var pendingOlderPage: PendingOlderPage?
   /// Only the first subscription after a warm live resume keeps the retained status.
   public private(set) var resumingLive: Bool
 
-  public init(cached: OrchestrationThreadDetailSnapshot? = nil, retained: ThreadResumeSnapshot? = nil) {
+  public init(cached: V1.OrchestrationThreadDetailSnapshot? = nil, retained: ThreadResumeSnapshot? = nil) {
     if let retained {
       state = Self.cachedState(retained.state)
       lastSequence = retained.sequence
@@ -84,7 +105,7 @@ public struct ThreadDetailMachine: Sendable {
 
   // MARK: Helpers
 
-  static func pageState(_ page: OrchestrationThreadDetailPage?) -> ThreadPageState? {
+  static func pageState(_ page: V1.OrchestrationThreadDetailPage?) -> ThreadPageState? {
     page.map { ThreadPageState(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, loadingOlder: false) }
   }
 
@@ -107,9 +128,9 @@ public struct ThreadDetailMachine: Sendable {
   public func currentPersistRequest() -> ThreadPersistRequest? {
     guard let thread = state.data, !(thread.session?.isStartingOrRunning ?? false) else { return nil }
     return ThreadPersistRequest(
-      snapshot: OrchestrationThreadDetailSnapshot(
+      snapshot: V1.OrchestrationThreadDetailSnapshot(
         snapshotSequence: lastSequence, thread: thread,
-        page: state.page.map { OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: lastSequence, threadSequence: nil) }))
+        page: state.page.map { V1.OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: lastSequence, threadSequence: nil) }))
   }
 
   public mutating func takePersistRequest() -> ThreadPersistRequest? {
@@ -204,7 +225,7 @@ public struct ThreadDetailMachine: Sendable {
 
   // MARK: Applying stream items
 
-  private mutating func setThread(_ thread: OrchestrationThread, page: ThreadPageState??) {
+  private mutating func setThread(_ thread: V1.OrchestrationThread, page: ThreadPageState??) {
     state.data = thread
     // Buffered values from a failed attempt can still arrive after its error.
     state.status = state.error != nil ? .cached : (awaitingCompletion ? .synchronizing : .live)
@@ -213,17 +234,17 @@ public struct ThreadDetailMachine: Sendable {
     if !(thread.session?.isStartingOrRunning ?? false) { offerPersistence(thread, sequence: lastSequence) }
   }
 
-  private mutating func offerPersistence(_ thread: OrchestrationThread, sequence: Int) {
+  private mutating func offerPersistence(_ thread: V1.OrchestrationThread, sequence: Int) {
     persistRequest = ThreadPersistRequest(
-      snapshot: OrchestrationThreadDetailSnapshot(
+      snapshot: V1.OrchestrationThreadDetailSnapshot(
         snapshotSequence: sequence, thread: thread,
         // Persist the window boundary with the window's content so a restore keeps paging from there.
-        page: state.page.map { OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: sequence, threadSequence: nil) }))
+        page: state.page.map { V1.OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: sequence, threadSequence: nil) }))
   }
 
   /// True when the thread was deleted by this item (the owner removes the cached copy).
   @discardableResult
-  public mutating func apply(_ item: OrchestrationThreadStreamItem) -> Bool {
+  public mutating func apply(_ item: V1.OrchestrationThreadStreamItem) -> Bool {
     switch item {
     case .synchronized:
       awaitingCompletion = false
@@ -247,7 +268,7 @@ public struct ThreadDetailMachine: Sendable {
     }
   }
 
-  private mutating func applyEvent(_ event: OrchestrationEvent) -> Bool {
+  private mutating func applyEvent(_ event: V1.OrchestrationEvent) -> Bool {
     guard let sequence = event.sequence else { return false }
     if sequence <= lastSequence { return false }
     lastSequence = sequence
@@ -281,7 +302,7 @@ public struct ThreadDetailMachine: Sendable {
   /// Applies a received batch. Plain event batches take a fast path with one state write.
   /// Returns true when the thread was deleted.
   @discardableResult
-  public mutating func apply(_ items: [OrchestrationThreadStreamItem]) -> Bool {
+  public mutating func apply(_ items: [V1.OrchestrationThreadStreamItem]) -> Bool {
     guard var thread = state.data, pendingOlderPage == nil, !items.contains(where: Self.needsSlowPath) else {
       var deleted = false
       for item in items { deleted = apply(item) || deleted }
@@ -290,7 +311,7 @@ public struct ThreadDetailMachine: Sendable {
     var sequence = lastSequence
     var synchronized = false
     // Retain the last settled state even if the next turn starts before this batch publishes.
-    var persistable: (OrchestrationThread, Int)?
+    var persistable: (V1.OrchestrationThread, Int)?
     let original = thread
     for item in items {
       switch item {
@@ -312,7 +333,7 @@ public struct ThreadDetailMachine: Sendable {
     return false
   }
 
-  private static func needsSlowPath(_ item: OrchestrationThreadStreamItem) -> Bool {
+  private static func needsSlowPath(_ item: V1.OrchestrationThreadStreamItem) -> Bool {
     switch item {
     case .snapshot: true
     case .event(let e): e.event.isThreadReverted || e.event.isThreadDeleted
@@ -340,7 +361,7 @@ public struct ThreadDetailMachine: Sendable {
   }
 
   /// Staleness check and merge of a fetched page. `response == nil` means the load failed.
-  public mutating func completeLoadOlder(_ response: OrchestrationThreadDetailSnapshot?, request: OlderPageRequest) {
+  public mutating func completeLoadOlder(_ response: V1.OrchestrationThreadDetailSnapshot?, request: OlderPageRequest) {
     // A page older than the loaded state was read from a projection behind what we render.
     let stale = historyEpoch != request.epochAtStart || (response.map { $0.snapshotSequence < lastSequence } ?? false)
     guard let response, !stale else {
@@ -370,7 +391,7 @@ public struct ThreadDetailMachine: Sendable {
   }
 
   /// Prepends an older disjoint page. Identity dedupe guards overlapping pages (a server bug or cursor misuse).
-  private mutating func mergeOlderPage(_ snapshot: OrchestrationThreadDetailSnapshot) {
+  private mutating func mergeOlderPage(_ snapshot: V1.OrchestrationThreadDetailSnapshot) {
     guard let loaded = state.data else { return }
     let older = snapshot.thread
     func mergeById<T>(_ olderRows: [T], _ loadedRows: [T], id: (T) -> String) -> [T] {
@@ -389,10 +410,10 @@ public struct ThreadDetailMachine: Sendable {
     // consistent with the state it merged into.
     if !(merged.session?.isStartingOrRunning ?? false) {
       persistRequest = ThreadPersistRequest(
-        snapshot: OrchestrationThreadDetailSnapshot(
+        snapshot: V1.OrchestrationThreadDetailSnapshot(
           snapshotSequence: lastSequence, thread: merged,
           page: snapshot.page.map {
-            OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: lastSequence, threadSequence: $0.threadSequence)
+            V1.OrchestrationThreadDetailPage(beforeCursor: $0.beforeCursor, hasMore: $0.hasMore, snapshotSequence: lastSequence, threadSequence: $0.threadSequence)
           }))
     }
   }

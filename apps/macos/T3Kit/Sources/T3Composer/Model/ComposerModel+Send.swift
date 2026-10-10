@@ -212,9 +212,9 @@ extension ComposerModel {
   public func interrupt() async {
     guard canInterrupt else { return }
     restoreQueuedMessages(services.editQueue { $0.drain(target.key) })
-    let command = ClientOrchestrationCommandThreadTurnInterrupt(
+    let command = V1.ClientOrchestrationCommandThreadTurnInterrupt(
       commandId: CommandId(ComposerServices.newId("cmd")), threadId: ThreadId(target.threadId),
-      turnId: thread.dispatch.session?.activeTurnId.map { TurnId($0) }, createdAt: IsoDateTime(date: Date()))
+      turnId: thread.dispatch.session?.activeTurnId.map { V1.TurnId($0) }, createdAt: IsoDateTime(date: Date()))
     do { try await services.environment.interruptTurn(command, target: target) } catch {
       errorMessage = error.localizedDescription.isEmpty ? "Failed to interrupt the current turn." : error.localizedDescription
     }
@@ -227,7 +227,7 @@ extension ComposerModel {
     let requestId = approval.requestId
     respondingRequestIds.insert(requestId.rawValue)
     defer { respondingRequestIds.remove(requestId.rawValue) }
-    let command = ClientOrchestrationCommandThreadApprovalRespond(
+    let command = V1.ClientOrchestrationCommandThreadApprovalRespond(
       commandId: CommandId(ComposerServices.newId("cmd")), threadId: ThreadId(target.threadId), requestId: requestId, decision: decision, createdAt: IsoDateTime(date: Date()))
     do { try await services.environment.respondToApproval(command, target: target) } catch {
       errorMessage = error.localizedDescription.isEmpty ? "Failed to submit approval decision." : error.localizedDescription
@@ -288,7 +288,7 @@ extension ComposerModel {
     let requestId = prompt.requestId
     guard !respondingRequestIds.contains(requestId.rawValue) else { return }
     // Wait for question attachments, then bind them by question.
-    var attachmentsByQuestion: [String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]] = [:]
+    var attachmentsByQuestion: [String: [V1.ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]] = [:]
     for question in prompt.questions {
       let key = questionAttachmentKey(requestId: requestId.rawValue, questionId: question.id)
       if (questionAttachmentPreparation[key] ?? 0) > 0 { return }
@@ -296,7 +296,7 @@ extension ComposerModel {
       guard !attachments.isEmpty else { continue }
       for attachment in attachments { services.startUpload(attachment, target: target) }
       await services.awaitUploads(attachments.map(\.id))
-      var wire: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem] = []
+      var wire: [V1.ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem] = []
       for attachment in attachments {
         guard case .ready(let serverId)? = services.uploads[attachment.id] else {
           errorMessage = "Wait for attachments to finish uploading, or remove failed uploads."
@@ -318,7 +318,7 @@ extension ComposerModel {
       case .values(let values): wireAnswers[id] = .array(values.map(JSONValue.string))
       }
     }
-    let command = ClientOrchestrationCommandThreadUserInputRespond(
+    let command = V1.ClientOrchestrationCommandThreadUserInputRespond(
       commandId: CommandId(ComposerServices.newId("cmd")), threadId: ThreadId(target.threadId), requestId: requestId, answers: wireAnswers,
       attachmentsByQuestionId: attachmentsByQuestion.isEmpty ? nil : attachmentsByQuestion, createdAt: IsoDateTime(date: Date()))
     do {

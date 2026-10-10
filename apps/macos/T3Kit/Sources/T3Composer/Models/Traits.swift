@@ -5,9 +5,9 @@ import T3Contracts
 /// in `components/chat/TraitsPicker.tsx`.
 public struct TraitsState: Sendable, Hashable {
   public var descriptors: [ProviderOptionDescriptor]
-  public var selectDescriptors: [ProviderOptionDescriptorSelect]
-  public var booleanDescriptors: [ProviderOptionDescriptorBoolean]
-  public var primarySelect: ProviderOptionDescriptorSelect?
+  public var selectDescriptors: [SelectProviderOptionDescriptor]
+  public var booleanDescriptors: [BooleanProviderOptionDescriptor]
+  public var primarySelect: SelectProviderOptionDescriptor?
   public var effort: String?
   public var ultrathinkPromptControlled: Bool
   public var ultrathinkInBodyText: Bool
@@ -37,12 +37,12 @@ public enum Traits {
     (selections ?? []).map { selection in
       switch selection.value {
       case .bool(let flag):
-        return .boolean(ProviderOptionDescriptorBoolean(id: selection.id, label: savedOptionLabel(selection.id), currentValue: flag))
+        return .boolean(BooleanProviderOptionDescriptor(id: selection.id, label: savedOptionLabel(selection.id), currentValue: flag))
       case .string(let value):
         return .select(
-          ProviderOptionDescriptorSelect(
+          SelectProviderOptionDescriptor(
             id: selection.id, label: savedOptionLabel(selection.id),
-            options: [ProviderOptionDescriptorSelectOptionsItem(id: value, label: value)], currentValue: value))
+            options: [ProviderOptionChoice(id: value, label: value)], currentValue: value))
       case .unknown:
         return .unknown(.null)
       }
@@ -61,8 +61,8 @@ public enum Traits {
     } else {
       descriptors = ModelOptions.resolvedDescriptors(caps, selections: modelOptions)
     }
-    let selects: [ProviderOptionDescriptorSelect] = descriptors.compactMap { if case .select(let value) = $0 { value } else { nil } }
-    let booleans: [ProviderOptionDescriptorBoolean] = descriptors.compactMap { if case .boolean(let value) = $0 { value } else { nil } }
+    let selects: [SelectProviderOptionDescriptor] = descriptors.compactMap { if case .select(let value) = $0 { value } else { nil } }
+    let booleans: [BooleanProviderOptionDescriptor] = descriptors.compactMap { if case .boolean(let value) = $0 { value } else { nil } }
     let primary = selects.first
     let ultrathinkControlled = allowPromptInjectedEffort && (primary?.promptInjectedValues?.count ?? 0) > 0 && ComposerSubmission.isUltrathinkPrompt(prompt)
     let ultrathinkInBody = ultrathinkControlled && ComposerSubmission.isUltrathinkPrompt(stripUltrathinkPrefix(prompt))
@@ -145,7 +145,7 @@ public enum Traits {
   }
 
   /// Picking an option in a select group.
-  public static func selectChange(_ state: TraitsState, descriptor: ProviderOptionDescriptorSelect, value: String, prompt: String) -> Change? {
+  public static func selectChange(_ state: TraitsState, descriptor: SelectProviderOptionDescriptor, value: String, prompt: String) -> Change? {
     if value.isEmpty { return nil }
     if descriptor.promptInjectedValues?.contains(value) == true {
       let next = prompt.jsTrim().isEmpty ? ultrathinkPromptPrefix : ComposerSubmission.applyClaudePromptEffortPrefix(prompt, effort: "ultrathink")

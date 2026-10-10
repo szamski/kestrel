@@ -9,7 +9,7 @@ func decodeJSON<T: Decodable>(_ json: String) -> T {
   try! JSONDecoder().decode(T.self, from: Data(json.utf8))
 }
 
-func threadActivity(_ id: String, _ kind: String, at: String = "2026-02-23T00:00:01.000Z", tone: String = "info", sequence: Int? = nil, payload: String = "{}") -> OrchestrationThreadActivity {
+func threadActivity(_ id: String, _ kind: String, at: String = "2026-02-23T00:00:01.000Z", tone: String = "info", sequence: Int? = nil, payload: String = "{}") -> V1.OrchestrationThreadActivity {
   decodeJSON("""
     {"id":"\(id)","tone":"\(tone)","kind":"\(kind)","summary":"s","payload":\(payload),"turnId":null,\(sequence.map { "\"sequence\":\($0)," } ?? "")"createdAt":"\(at)"}
     """)

@@ -127,21 +127,32 @@ public struct EnvironmentHTTPClient: Sendable {
 
   // MARK: Authorized JSON helpers
 
+  /// `orchestrationProtocol` marks an orchestration endpoint call: protocol-2 servers require
+  /// the `x-t3-orchestration-protocol` header there; protocol-1 servers predate it, so it is not sent.
   public func get<Response: Decodable & Sendable>(
-    _ path: String, query: [URLQueryItem] = [], auth: RequestAuthorization? = nil
+    _ path: String, query: [URLQueryItem] = [], auth: RequestAuthorization? = nil,
+    orchestrationProtocol: OrchestrationProtocol? = nil
   ) async throws -> Response {
-    try await send(method: "GET", path: path, query: query, headers: auth?.headers ?? [:], body: nil)
+    var headers = auth?.headers ?? [:]
+    Self.addOrchestrationProtocol(orchestrationProtocol, to: &headers)
+    return try await send(method: "GET", path: path, query: query, headers: headers, body: nil)
   }
 
   public func post<Body: Encodable & Sendable, Response: Decodable & Sendable>(
-    _ path: String, body: Body, auth: RequestAuthorization? = nil
+    _ path: String, body: Body, auth: RequestAuthorization? = nil,
+    orchestrationProtocol: OrchestrationProtocol? = nil
   ) async throws -> Response {
     var headers = auth?.headers ?? [:]
+    Self.addOrchestrationProtocol(orchestrationProtocol, to: &headers)
     headers["Content-Type"] = "application/json"
     return try await send(method: "POST", path: path, headers: headers, body: try JSONEncoder().encode(body))
   }
 
   // MARK: Internals
+
+  static func addOrchestrationProtocol(_ version: OrchestrationProtocol?, to headers: inout [String: String]) {
+    if let version, version >= .v2 { headers[OrchestrationProtocol.headerName] = String(version.rawValue) }
+  }
 
   static func tokenExchangeForm(credential: String, scopes: [String]?, clientMetadata: ClientMetadata?) -> String {
     var fields = [

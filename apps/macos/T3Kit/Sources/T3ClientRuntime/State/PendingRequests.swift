@@ -15,7 +15,7 @@ public struct PendingApprovalOption: Sendable, Codable, Hashable {
 }
 
 public struct PendingApproval: Sendable, Codable, Hashable {
-  public let requestId: ApprovalRequestId
+  public let requestId: V1.ApprovalRequestId
   public let requestKind: PendingRequestKind
   public let createdAt: IsoDateTime
   public let detail: String?
@@ -39,7 +39,7 @@ public struct UserInputQuestion: Sendable, Codable, Hashable {
 }
 
 public struct PendingUserInput: Sendable, Codable, Hashable {
-  public let requestId: ApprovalRequestId
+  public let requestId: V1.ApprovalRequestId
   public let createdAt: IsoDateTime
   public let questions: [UserInputQuestion]
   /// Async questions can be dismissed without a reply; native callbacks cannot.
@@ -86,9 +86,9 @@ public enum PendingRequestDeriver {
   }
 
   /// `TrimmedNonEmptyString`: the id must already be trimmed and non-empty.
-  private static func requestId(_ value: JSONValue?) -> ApprovalRequestId? {
+  private static func requestId(_ value: JSONValue?) -> V1.ApprovalRequestId? {
     guard case .string(let s)? = value, !s.isEmpty, s == s.trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
-    return ApprovalRequestId(s)
+    return V1.ApprovalRequestId(s)
   }
 
   private static func trimmedNonEmpty(_ value: JSONValue?) -> String? {
@@ -129,11 +129,11 @@ public enum PendingRequestDeriver {
     }
   }
 
-  public static func derive(_ activities: [OrchestrationThreadActivity]) -> PendingRequests {
+  public static func derive(_ activities: [V1.OrchestrationThreadActivity]) -> PendingRequests {
     // Insertion-ordered maps, like the JS Maps they mirror.
-    var approvals: [ApprovalRequestId: PendingApproval] = [:], approvalOrder: [ApprovalRequestId] = []
-    var inputs: [ApprovalRequestId: PendingUserInput] = [:], inputOrder: [ApprovalRequestId] = []
-    var closedApprovals = Set<ApprovalRequestId>(), closedInputs = Set<ApprovalRequestId>()
+    var approvals: [V1.ApprovalRequestId: PendingApproval] = [:], approvalOrder: [V1.ApprovalRequestId] = []
+    var inputs: [V1.ApprovalRequestId: PendingUserInput] = [:], inputOrder: [V1.ApprovalRequestId] = []
+    var closedApprovals = Set<V1.ApprovalRequestId>(), closedInputs = Set<V1.ApprovalRequestId>()
 
     for activity in activities where requestActivityKinds.contains(activity.kind) {
       guard case .object(let payload) = activity.payload, let id = requestId(payload["requestId"]) else { continue }

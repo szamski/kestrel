@@ -17,14 +17,13 @@ import T3Contracts
     #expect(ProviderInstances.rows(settings: settings, liveInstanceIds: ["cursor"]).map(\.instanceId).contains("cursor"))
   }
 
-  @Test func editingADefaultSlotMovesItIntoTheInstanceMapAndResetsTheLegacyBlob() throws {
+  @Test func editingADefaultSlotMovesItIntoTheInstanceMap() throws {
     let settings = ServerSettings()
     let row = try #require(ProviderInstances.rows(settings: settings, liveInstanceIds: []).first)
     var next = row.instance
     next.enabled = false
     let patch = ProviderInstances.updatePatch(settings: settings, row: row, next: next)
     #expect(patch.providerInstances?["codex"]?.enabled == false)
-    #expect(patch.providers?.codex != nil)
     let applied = try #require(SettingsPlanner.applying(patch, to: settings))
     let again = try #require(ProviderInstances.rows(settings: applied, liveInstanceIds: []).first)
     #expect(!ProviderInstances.isEnabled(again.instance) && again.isDirty)

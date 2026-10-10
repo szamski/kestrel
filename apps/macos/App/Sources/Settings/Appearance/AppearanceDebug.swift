@@ -24,6 +24,8 @@ enum AppearanceDebug {
         try? await Task.sleep(for: .seconds(2.5))
       }
       NSApp.activate(ignoringOtherApps: true)
+      NSApp.windows.first { $0.isVisible && $0.frame.width > 700 }?.makeKeyAndOrderFront(nil)  // an inactive window paints a gray selection
+      try? await Task.sleep(for: .milliseconds(600))
       if let main = NSApp.windows.first(where: { $0.isVisible && $0.title != "Appearance" && $0.contentView != nil && $0.frame.width > 700 }) {
         capture(main, to: out.appending(path: "main.png"), say)
       }
@@ -54,7 +56,7 @@ enum AppearanceDebug {
         say("no settings window: \(NSApp.windows.map { "\($0.title)|\($0.isVisible)" })")
       }
       say("done")
-      exit(0)
+      NSApp.terminate(nil)  // the normal quit path, so the local server is stopped too
     }
   }
 

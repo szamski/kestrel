@@ -89,7 +89,7 @@ private func optionsFrom(_ any: Any?) throws -> [ProviderOptionSelection]? {
       // The oracle's trigger display reads descriptors resolved without the unavailable-model fallback.
       let caps = ModelOptions.capabilities(models: entry.models, model: input.string("model"), driver: entry.driverKind, planModeEnabled: input.bool("planModeEnabled"))
       let descriptors = ModelOptions.resolvedDescriptors(caps, selections: try optionsFrom(input["modelOptions"]))
-      var primary: ProviderOptionDescriptorSelect?
+      var primary: SelectProviderOptionDescriptor?
       for descriptor in descriptors { if case .select(let value) = descriptor { primary = value; break } }
       let controlled = (primary?.promptInjectedValues?.count ?? 0) > 0 && ComposerSubmission.isUltrathinkPrompt(prompt)
       let display = Traits.triggerDisplay(driver: entry.driverKind, descriptors: descriptors, primaryId: primary?.id, ultrathinkPromptControlled: controlled)

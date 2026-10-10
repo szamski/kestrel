@@ -6,6 +6,10 @@ import Foundation
 public typealias ServerProbeFailure = ServerProbeFailureWrapper
 public typealias ProviderAuthStartFailure = ServerRefreshProvidersFailure
 public typealias ProviderAuthCompleteFailure = ServerRefreshProvidersFailure
+public typealias ProviderChatgptReconnectProfileFailure = ServerRefreshProvidersFailure
+public typealias ProviderChatgptImportProfileFailure = ServerRefreshProvidersFailure
+public typealias ProviderChatgptHandoffSubscribeFailure = ServerRefreshProvidersFailure
+public typealias ProviderCodexAuthCallbackSubscribeFailure = ServerRefreshProvidersFailure
 public typealias ProviderAuthRespondFailure = ServerRefreshProvidersFailure
 public typealias ProviderAuthCancelFailure = ServerRefreshProvidersFailure
 public typealias ProviderAuthLogoutFailure = ServerRefreshProvidersFailure
@@ -19,6 +23,16 @@ public typealias ServerCommitDesktopUpdateFailure = ServerUpdateServerFailure
 public typealias ServerRemoveKeybindingFailure = ServerUpsertKeybindingFailure
 public typealias ServerUpdateSettingsFailure = ServerGetSettingsFailure
 public typealias ServerDiscoverSourceControlFailure = ServerDiscoverSourceControlFailureWrapper
+public typealias ServerPrepareAcpRegistryAgentFailure = ServerSearchAcpRegistryFailure
+public typealias ServerUninstallAcpRegistryManagedBinaryFailure = ServerSearchAcpRegistryFailure
+public typealias ServerAcceptAcpRegistryUrlAuthFailure = ServerAcceptAcpRegistryUrlAuthFailureWrapper
+public typealias ServerListAcpRegistrySessionsFailure = ServerSearchAcpRegistryFailure
+public typealias ServerImportAcpRegistrySessionFailure = ServerSearchAcpRegistryFailure
+public typealias ServerDeleteAcpRegistrySessionFailure = ServerSearchAcpRegistryFailure
+public typealias ServerListAcpRegistryProvidersFailure = ServerSearchAcpRegistryFailure
+public typealias ServerSetAcpRegistryProviderFailure = ServerSearchAcpRegistryFailure
+public typealias ServerDisableAcpRegistryProviderFailure = ServerSearchAcpRegistryFailure
+public typealias ServerLogoutAcpRegistryFailure = ServerSearchAcpRegistryFailure
 public typealias ServerGetTraceDiagnosticsFailure = ServerGetTraceDiagnosticsFailureWrapper
 public typealias ServerGetProcessDiagnosticsFailure = ServerGetProcessDiagnosticsFailureWrapper
 public typealias ServerGetHostResourcesFailure = ServerGetHostResourcesFailureWrapper
@@ -27,6 +41,14 @@ public typealias ServerGetResourceTelemetryHistoryFailure = ServerGetResourceTel
 public typealias ServerRetryResourceTelemetryFailure = ServerRetryResourceTelemetryFailureWrapper
 public typealias ServerRefreshUsageRatesFailure = ServerRefreshUsageRatesFailureWrapper
 public typealias ServerSignalProcessFailure = ServerSignalProcessFailureWrapper
+public typealias ScheduledTasksSubscribeFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksUpsertFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksSetEnabledFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksDeleteFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksRunNowFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksRotateWebhookTokenFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksListWebhookDeliveriesFailure = ScheduledTasksListFailure
+public typealias ScheduledTasksGetWebhookDeliveryFailure = ScheduledTasksListFailure
 public typealias ServerReportClientActivityFailure = ServerReportClientActivityFailureWrapper
 public typealias ServerReportHostPowerStateFailure = ServerReportHostPowerStateFailureWrapper
 public typealias ServerGetBackgroundPolicyFailure = ServerGetBackgroundPolicyFailureWrapper
@@ -39,6 +61,7 @@ public typealias PullRequestsStackFailure = PullRequestsListFailure
 public typealias PullRequestsLinkedThreadsFailure = PullRequestsListFailure
 public typealias PullRequestsDetailFailure = PullRequestsListFailure
 public typealias PullRequestsPreviewFailure = PullRequestsListFailure
+public typealias PullRequestsChecksFailure = PullRequestsListFailure
 public typealias PullRequestsActivityFailure = PullRequestsListFailure
 public typealias PullRequestsThreadCommentsFailure = PullRequestsListFailure
 public typealias PullRequestsDiffFileContentsFailure = PullRequestsListFailure
@@ -63,7 +86,11 @@ public typealias SourceControlPublishRepositoryFailure = SourceControlLookupRepo
 public typealias ProjectCloneCancelFailure = ProjectCloneCancelFailureWrapper
 public typealias ProjectCloneRetryFailure = SourceControlLookupRepositoryFailure
 public typealias SubscribeProjectClonesFailure = SubscribeProjectClonesFailureWrapper
+public typealias ProjectsCreateNewFailure = ProjectsEnsureScratchFailure
 public typealias AttachmentsDeleteFailure = AttachmentsDeleteFailureWrapper
+public typealias McpAppsToolInfoFailure = McpAppsCallToolFailure
+public typealias McpAppsReadResourceFailure = McpAppsCallToolFailure
+public typealias McpAppsUpdateModelContextFailure = McpAppsCallToolFailure
 public typealias SubscribeWorktreeSetupFailure = SubscribeWorktreeSetupFailureWrapper
 public typealias WorktreeSetupCancelFailure = WorktreeSetupCancelFailureWrapper
 public typealias VcsRefreshStatusFailure = SubscribeVcsStatusFailure
@@ -77,6 +104,7 @@ public typealias VcsCreateRefFailure = VcsPullFailure
 public typealias VcsSwitchRefFailure = VcsPullFailure
 public typealias ReviewGetDiffFileContentsFailure = ReviewGetDiffPreviewFailure
 public typealias TerminalAttachFailure = TerminalOpenFailure
+public typealias TerminalObserveFailure = TerminalOpenFailure
 public typealias TerminalWriteFailure = TerminalOpenFailure
 public typealias TerminalResizeFailure = TerminalOpenFailure
 public typealias TerminalClearFailure = TerminalOpenFailure
@@ -86,12 +114,12 @@ public typealias SubscribeTerminalEventsFailure = SubscribeTerminalEventsFailure
 public typealias SubscribeTerminalMetadataFailure = SubscribeTerminalMetadataFailureWrapper
 public typealias PreviewNavigateFailure = PreviewOpenFailure
 public typealias PreviewResizeFailure = PreviewOpenFailure
+public typealias PreviewAdjustFailure = PreviewOpenFailure
 public typealias PreviewRefreshFailure = PreviewOpenFailure
 public typealias PreviewCloseFailure = PreviewOpenFailure
 public typealias PreviewListFailure = PreviewListFailureWrapper
+public typealias PreviewReportProfilesFailure = PreviewReportProfilesFailureWrapper
 public typealias PreviewReportStatusFailure = PreviewOpenFailure
-public typealias PreviewAutomationRespondFailure = PreviewAutomationConnectFailure
-public typealias PreviewAutomationFocusHostFailure = PreviewAutomationFocusHostFailureWrapper
 public typealias SubscribePreviewEventsFailure = SubscribePreviewEventsFailureWrapper
 public typealias SubscribeDiscoveredLocalServersFailure = SubscribeDiscoveredLocalServersFailureWrapper
 public typealias DeviceListFailure = DeviceConfigureFailure
@@ -106,8 +134,11 @@ public typealias SubscribeServerConfigFailure = ServerGetConfigFailure
 public typealias SubscribeServerLifecycleFailure = SubscribeServerLifecycleFailureWrapper
 public typealias SubscribeBackgroundPolicyFailure = SubscribeBackgroundPolicyFailureWrapper
 public typealias SubscribeResourceTelemetryFailure = SubscribeResourceTelemetryFailureWrapper
+public typealias OrchestrationSearchThreadStreamFailure = OrchestrationSearchThreadFailure
+public typealias OrchestrationGetThreadProjectionFailure = OrchestrationGetTurnItemFailure
+public typealias OrchestrationSubscribeArchivedShellFailure = OrchestrationGetArchivedShellSnapshotFailure
 public typealias OrchestrationSubscribeShellFailure = OrchestrationGetArchivedShellSnapshotFailure
-public typealias OrchestrationSubscribeThreadFailure = OrchestrationGetArchivedShellSnapshotFailure
+public typealias OrchestrationSubscribeThreadFailure = OrchestrationGetTurnItemFailure
 
 /// One `RpcSpec` per method of `WsRpcGroup` (packages/contracts/src/rpc.ts).
 /// Tags are the literal wire tags, e.g. `subscribeServerConfig`, not a dotted guess.
@@ -119,6 +150,10 @@ public enum Rpc {
   public static let providerConsumeResetCredit = RpcSpec<ProviderConsumeResetCreditInput, ProviderConsumeResetCreditResult, ProviderConsumeResetCreditFailure>(tag: "provider.consumeResetCredit", isStream: false)
   public static let providerAuthStart = RpcSpec<ProviderAuthStartInput, ProviderAuthState, ProviderAuthStartFailure>(tag: "provider.auth.start", isStream: false)
   public static let providerAuthComplete = RpcSpec<ProviderAuthCompleteInput, ProviderAuthState, ProviderAuthCompleteFailure>(tag: "provider.auth.complete", isStream: false)
+  public static let providerChatgptReconnectProfile = RpcSpec<ChatGptReconnectProfileInput, ChatGptReconnectProfile?, ProviderChatgptReconnectProfileFailure>(tag: "provider.chatgpt.reconnect-profile", isStream: false)
+  public static let providerChatgptImportProfile = RpcSpec<ChatGptImportProfileInput, ProviderAuthState, ProviderChatgptImportProfileFailure>(tag: "provider.chatgpt.import-profile", isStream: false)
+  public static let providerChatgptHandoffSubscribe = RpcSpec<ChatGptHandoffInput, ChatGptHandoffState, ProviderChatgptHandoffSubscribeFailure>(tag: "provider.chatgpt.handoff.subscribe", isStream: true)
+  public static let providerCodexAuthCallbackSubscribe = RpcSpec<CodexAuthCallbackInput, CodexAuthCallbackState, ProviderCodexAuthCallbackSubscribeFailure>(tag: "provider.codex.auth-callback.subscribe", isStream: true)
   public static let providerAuthRespond = RpcSpec<ProviderAuthRespondInput, ProviderAuthState, ProviderAuthRespondFailure>(tag: "provider.auth.respond", isStream: false)
   public static let providerAuthCancel = RpcSpec<ProviderAuthCancelInput, ProviderAuthState, ProviderAuthCancelFailure>(tag: "provider.auth.cancel", isStream: false)
   public static let providerAuthLogout = RpcSpec<ProviderSetupInput, ProviderAuthState, ProviderAuthLogoutFailure>(tag: "provider.auth.logout", isStream: false)
@@ -130,11 +165,22 @@ public enum Rpc {
   public static let serverUpdateServer = RpcSpec<ServerSelfUpdateInput, ServerSelfUpdateResult, ServerUpdateServerFailure>(tag: "server.updateServer", isStream: false)
   public static let serverUpdateServerWithProgress = RpcSpec<ServerSelfUpdateInput, ServerSelfUpdateProgressEvent, ServerUpdateServerWithProgressFailure>(tag: "server.updateServerWithProgress", isStream: true)
   public static let serverCommitDesktopUpdate = RpcSpec<DesktopUpdateCommitInput, ServerSelfUpdateResult, ServerCommitDesktopUpdateFailure>(tag: "server.commitDesktopUpdate", isStream: false)
-  public static let serverUpsertKeybinding = RpcSpec<ServerUpsertKeybindingInput, ServerRemoveKeybindingResult, ServerUpsertKeybindingFailure>(tag: "server.upsertKeybinding", isStream: false)
-  public static let serverRemoveKeybinding = RpcSpec<ServerRemoveKeybindingInput, ServerRemoveKeybindingResult, ServerRemoveKeybindingFailure>(tag: "server.removeKeybinding", isStream: false)
+  public static let serverUpsertKeybinding = RpcSpec<ServerUpsertKeybindingInput, ServerUpsertKeybindingResult, ServerUpsertKeybindingFailure>(tag: "server.upsertKeybinding", isStream: false)
+  public static let serverRemoveKeybinding = RpcSpec<ServerRemoveKeybindingInput, ServerUpsertKeybindingResult, ServerRemoveKeybindingFailure>(tag: "server.removeKeybinding", isStream: false)
   public static let serverGetSettings = RpcSpec<EmptyObject, ServerSettings, ServerGetSettingsFailure>(tag: "server.getSettings", isStream: false)
   public static let serverUpdateSettings = RpcSpec<ServerUpdateSettingsPayload, ServerSettings, ServerUpdateSettingsFailure>(tag: "server.updateSettings", isStream: false)
   public static let serverDiscoverSourceControl = RpcSpec<EmptyObject, SourceControlDiscoveryResult, ServerDiscoverSourceControlFailure>(tag: "server.discoverSourceControl", isStream: false)
+  public static let serverSearchAcpRegistry = RpcSpec<AcpRegistrySearchInput, AcpRegistrySearchResult, ServerSearchAcpRegistryFailure>(tag: "server.searchAcpRegistry", isStream: false)
+  public static let serverPrepareAcpRegistryAgent = RpcSpec<AcpRegistryPrepareInput, AcpRegistryPrepareResult, ServerPrepareAcpRegistryAgentFailure>(tag: "server.prepareAcpRegistryAgent", isStream: false)
+  public static let serverUninstallAcpRegistryManagedBinary = RpcSpec<AcpRegistryManagedBinaryUninstallInput, AcpRegistryManagedBinaryUninstallResult, ServerUninstallAcpRegistryManagedBinaryFailure>(tag: "server.uninstallAcpRegistryManagedBinary", isStream: false)
+  public static let serverAcceptAcpRegistryUrlAuth = RpcSpec<AcpRegistryAcceptUrlAuthInput, AcpRegistryAcceptUrlAuthResult, ServerAcceptAcpRegistryUrlAuthFailure>(tag: "server.acceptAcpRegistryUrlAuth", isStream: false)
+  public static let serverListAcpRegistrySessions = RpcSpec<AcpRegistryListSessionsInput, AcpRegistryListSessionsResult, ServerListAcpRegistrySessionsFailure>(tag: "server.listAcpRegistrySessions", isStream: false)
+  public static let serverImportAcpRegistrySession = RpcSpec<AcpRegistryImportSessionInput, AcpRegistryImportSessionResult, ServerImportAcpRegistrySessionFailure>(tag: "server.importAcpRegistrySession", isStream: false)
+  public static let serverDeleteAcpRegistrySession = RpcSpec<AcpRegistryDeleteSessionInput, AcpRegistryDeleteSessionResult, ServerDeleteAcpRegistrySessionFailure>(tag: "server.deleteAcpRegistrySession", isStream: false)
+  public static let serverListAcpRegistryProviders = RpcSpec<AcpRegistryListProvidersInput, AcpRegistryListProvidersResult, ServerListAcpRegistryProvidersFailure>(tag: "server.listAcpRegistryProviders", isStream: false)
+  public static let serverSetAcpRegistryProvider = RpcSpec<AcpRegistrySetProviderInput, AcpRegistrySetProviderResult, ServerSetAcpRegistryProviderFailure>(tag: "server.setAcpRegistryProvider", isStream: false)
+  public static let serverDisableAcpRegistryProvider = RpcSpec<AcpRegistryDisableProviderInput, AcpRegistryDisableProviderResult, ServerDisableAcpRegistryProviderFailure>(tag: "server.disableAcpRegistryProvider", isStream: false)
+  public static let serverLogoutAcpRegistry = RpcSpec<AcpRegistryLogoutInput, AcpRegistryLogoutResult, ServerLogoutAcpRegistryFailure>(tag: "server.logoutAcpRegistry", isStream: false)
   public static let serverGetTraceDiagnostics = RpcSpec<EmptyObject, ServerTraceDiagnosticsResult, ServerGetTraceDiagnosticsFailure>(tag: "server.getTraceDiagnostics", isStream: false)
   public static let serverGetProcessDiagnostics = RpcSpec<EmptyObject, ServerProcessDiagnosticsResult, ServerGetProcessDiagnosticsFailure>(tag: "server.getProcessDiagnostics", isStream: false)
   public static let serverGetHostResources = RpcSpec<EmptyObject, HostResourcesSnapshot, ServerGetHostResourcesFailure>(tag: "server.getHostResources", isStream: false)
@@ -144,6 +190,16 @@ public enum Rpc {
   public static let serverGetUsageSummary = RpcSpec<UsageSummaryInput, UsageSummary, ServerGetUsageSummaryFailure>(tag: "server.getUsageSummary", isStream: false)
   public static let serverRefreshUsageRates = RpcSpec<EmptyObject, UsagePricing, ServerRefreshUsageRatesFailure>(tag: "server.refreshUsageRates", isStream: false)
   public static let serverSignalProcess = RpcSpec<ServerSignalProcessInput, ServerSignalProcessResult, ServerSignalProcessFailure>(tag: "server.signalProcess", isStream: false)
+  public static let scheduledTasksList = RpcSpec<EmptyObject, ScheduledTaskListResult, ScheduledTasksListFailure>(tag: "scheduledTasks.list", isStream: false)
+  public static let scheduledTasksSubscribe = RpcSpec<EmptyObject, ScheduledTaskListResult, ScheduledTasksSubscribeFailure>(tag: "scheduledTasks.subscribe", isStream: true)
+  public static let scheduledTasksUpsert = RpcSpec<ScheduledTaskUpsertInput, ScheduledTaskMutationResult, ScheduledTasksUpsertFailure>(tag: "scheduledTasks.upsert", isStream: false)
+  public static let scheduledTasksSetEnabled = RpcSpec<ScheduledTaskSetEnabledInput, ScheduledTaskMutationResult, ScheduledTasksSetEnabledFailure>(tag: "scheduledTasks.setEnabled", isStream: false)
+  public static let scheduledTasksDelete = RpcSpec<ScheduledTaskDeleteInput, ScheduledTaskDeleteResult, ScheduledTasksDeleteFailure>(tag: "scheduledTasks.delete", isStream: false)
+  public static let scheduledTasksRunNow = RpcSpec<ScheduledTaskRunNowInput, ScheduledTaskRunNowResult, ScheduledTasksRunNowFailure>(tag: "scheduledTasks.runNow", isStream: false)
+  public static let scheduledTasksRotateWebhookToken = RpcSpec<ScheduledTaskRotateWebhookTokenInput, ScheduledTaskMutationResult, ScheduledTasksRotateWebhookTokenFailure>(tag: "scheduledTasks.rotateWebhookToken", isStream: false)
+  public static let secretsAnswerRequest = RpcSpec<SecretRequestAnswerInput, VoidValue, SecretsAnswerRequestFailure>(tag: "secrets.answerRequest", isStream: false)
+  public static let scheduledTasksListWebhookDeliveries = RpcSpec<ScheduledTaskListWebhookDeliveriesInput, ScheduledTaskListWebhookDeliveriesResult, ScheduledTasksListWebhookDeliveriesFailure>(tag: "scheduledTasks.listWebhookDeliveries", isStream: false)
+  public static let scheduledTasksGetWebhookDelivery = RpcSpec<ScheduledTaskGetWebhookDeliveryInput, ScheduledTaskGetWebhookDeliveryResult, ScheduledTasksGetWebhookDeliveryFailure>(tag: "scheduledTasks.getWebhookDelivery", isStream: false)
   public static let serverReportClientActivity = RpcSpec<ClientActivityReportInput, VoidValue, ServerReportClientActivityFailure>(tag: "server.reportClientActivity", isStream: false)
   public static let serverReportHostPowerState = RpcSpec<HostPowerSnapshot, VoidValue, ServerReportHostPowerStateFailure>(tag: "server.reportHostPowerState", isStream: false)
   public static let serverGetBackgroundPolicy = RpcSpec<EmptyObject, BackgroundPolicySnapshot, ServerGetBackgroundPolicyFailure>(tag: "server.getBackgroundPolicy", isStream: false)
@@ -158,6 +214,7 @@ public enum Rpc {
   public static let pullRequestsLinkedThreads = RpcSpec<PullRequestRef, PullRequestLinkedThreadsResult, PullRequestsLinkedThreadsFailure>(tag: "pullRequests.linkedThreads", isStream: false)
   public static let pullRequestsDetail = RpcSpec<PullRequestRef, PullRequestDetail, PullRequestsDetailFailure>(tag: "pullRequests.detail", isStream: false)
   public static let pullRequestsPreview = RpcSpec<PullRequestRef, PullRequestPreview, PullRequestsPreviewFailure>(tag: "pullRequests.preview", isStream: false)
+  public static let pullRequestsChecks = RpcSpec<PullRequestRef, PullRequestChecks?, PullRequestsChecksFailure>(tag: "pullRequests.checks", isStream: false)
   public static let pullRequestsActivity = RpcSpec<PullRequestRef, PullRequestActivity, PullRequestsActivityFailure>(tag: "pullRequests.activity", isStream: false)
   public static let pullRequestsThreadComments = RpcSpec<PullRequestThreadCommentsInput, PullRequestThreadCommentsResult, PullRequestsThreadCommentsFailure>(tag: "pullRequests.threadComments", isStream: false)
   public static let pullRequestsDiffFileContents = RpcSpec<PullRequestDiffFileContentsInput, PullRequestDiffFileContentsResult, PullRequestsDiffFileContentsFailure>(tag: "pullRequests.diffFileContents", isStream: false)
@@ -188,16 +245,24 @@ public enum Rpc {
   public static let projectsReadFile = RpcSpec<ProjectReadFileInput, ProjectReadFileResult, ProjectsReadFileFailure>(tag: "projects.readFile", isStream: false)
   public static let projectsSearchContents = RpcSpec<ProjectSearchContentsInput, ProjectSearchContentsResult, ProjectsSearchContentsFailure>(tag: "projects.searchContents", isStream: false)
   public static let projectsSearchEntries = RpcSpec<ProjectSearchEntriesInput, ProjectSearchEntriesResult, ProjectsSearchEntriesFailure>(tag: "projects.searchEntries", isStream: false)
+  public static let projectsEnsureScratch = RpcSpec<EmptyObject, ProjectEnsureScratchResult, ProjectsEnsureScratchFailure>(tag: "projects.ensureScratch", isStream: false)
+  public static let projectsCreateNew = RpcSpec<ProjectCreateNewInput, ProjectCreateNewResult, ProjectsCreateNewFailure>(tag: "projects.createNew", isStream: false)
   public static let projectsWriteFile = RpcSpec<ProjectWriteFileInput, ProjectWriteFileResult, ProjectsWriteFileFailure>(tag: "projects.writeFile", isStream: false)
+  public static let projectsMutate = RpcSpec<ProjectMutation, Project, ProjectsMutateFailure>(tag: "projects.mutate", isStream: false)
   public static let shellOpenInEditor = RpcSpec<LaunchEditorInput, VoidValue, ShellOpenInEditorFailure>(tag: "shell.openInEditor", isStream: false)
   public static let filesystemBrowse = RpcSpec<FilesystemBrowseInput, FilesystemBrowseResult, FilesystemBrowseFailure>(tag: "filesystem.browse", isStream: false)
   public static let agentSessionsScan = RpcSpec<EmptyObject, AgentSessionScanResult, AgentSessionsScanFailure>(tag: "agentSessions.scan", isStream: false)
   public static let agentSessionsImport = RpcSpec<AgentSessionImportInput, AgentSessionImportResult, AgentSessionsImportFailure>(tag: "agentSessions.import", isStream: false)
   public static let assetsCreateUrl = RpcSpec<AssetCreateUrlInput, AssetCreateUrlResult, AssetsCreateUrlFailure>(tag: "assets.createUrl", isStream: false)
+  public static let assetsPersistChatAttachments = RpcSpec<PersistChatAttachmentsInput, PersistChatAttachmentsResult, AssetsPersistChatAttachmentsFailure>(tag: "assets.persistChatAttachments", isStream: false)
   public static let attachmentsCreateUploadUrl = RpcSpec<AttachmentCreateUploadUrlInput, AttachmentCreateUploadUrlResult, AttachmentsCreateUploadUrlFailure>(tag: "attachments.createUploadUrl", isStream: false)
   public static let attachmentsDelete = RpcSpec<AttachmentDeleteInput, VoidValue, AttachmentsDeleteFailure>(tag: "attachments.delete", isStream: false)
+  public static let mcpAppsCallTool = RpcSpec<McpAppCallToolInput, McpAppCallToolResult, McpAppsCallToolFailure>(tag: "mcpApps.callTool", isStream: false)
+  public static let mcpAppsToolInfo = RpcSpec<McpAppToolInfoInput, McpAppToolInfo, McpAppsToolInfoFailure>(tag: "mcpApps.toolInfo", isStream: false)
+  public static let mcpAppsReadResource = RpcSpec<McpAppReadResourceInput, McpAppReadResourceResult, McpAppsReadResourceFailure>(tag: "mcpApps.readResource", isStream: false)
+  public static let mcpAppsUpdateModelContext = RpcSpec<McpAppUpdateModelContextInput, VoidValue, McpAppsUpdateModelContextFailure>(tag: "mcpApps.updateModelContext", isStream: false)
   public static let providerUploadFeedback = RpcSpec<ProviderUploadFeedbackInput, ProviderUploadFeedbackResult, ProviderUploadFeedbackFailure>(tag: "provider.uploadFeedback", isStream: false)
-  public static let subscribeVcsStatus = RpcSpec<VcsStatusInput, VcsStatusStreamEvent, SubscribeVcsStatusFailure>(tag: "subscribeVcsStatus", isStream: true)
+  public static let subscribeVcsStatus = RpcSpec<VcsStatusSubscriptionInput, VcsStatusStreamEvent, SubscribeVcsStatusFailure>(tag: "subscribeVcsStatus", isStream: true)
   public static let subscribeWorktreeSetup = RpcSpec<WorktreeSetupSubscribeInput, WorktreeSetupSnapshot?, SubscribeWorktreeSetupFailure>(tag: "subscribeWorktreeSetup", isStream: true)
   public static let worktreeSetupCancel = RpcSpec<WorktreeSetupCancelInput, WorktreeSetupCancelResult, WorktreeSetupCancelFailure>(tag: "worktreeSetup.cancel", isStream: false)
   public static let vcsPull = RpcSpec<VcsPullInput, VcsPullResult, VcsPullFailure>(tag: "vcs.pull", isStream: false)
@@ -215,6 +280,7 @@ public enum Rpc {
   public static let reviewGetDiffFileContents = RpcSpec<ReviewDiffFileContentsInput, ReviewDiffFileContentsResult, ReviewGetDiffFileContentsFailure>(tag: "review.getDiffFileContents", isStream: false)
   public static let terminalOpen = RpcSpec<TerminalOpenInput, TerminalSessionSnapshot, TerminalOpenFailure>(tag: "terminal.open", isStream: false)
   public static let terminalAttach = RpcSpec<TerminalAttachInput, TerminalAttachStreamEvent, TerminalAttachFailure>(tag: "terminal.attach", isStream: true)
+  public static let terminalObserve = RpcSpec<TerminalClearInput, TerminalAttachStreamEvent, TerminalObserveFailure>(tag: "terminal.observe", isStream: true)
   public static let terminalWrite = RpcSpec<TerminalWriteInput, VoidValue, TerminalWriteFailure>(tag: "terminal.write", isStream: false)
   public static let terminalResize = RpcSpec<TerminalResizeInput, VoidValue, TerminalResizeFailure>(tag: "terminal.resize", isStream: false)
   public static let terminalClear = RpcSpec<TerminalClearInput, VoidValue, TerminalClearFailure>(tag: "terminal.clear", isStream: false)
@@ -225,13 +291,13 @@ public enum Rpc {
   public static let previewOpen = RpcSpec<PreviewOpenInput, PreviewSessionSnapshot, PreviewOpenFailure>(tag: "preview.open", isStream: false)
   public static let previewNavigate = RpcSpec<PreviewNavigateInput, PreviewSessionSnapshot, PreviewNavigateFailure>(tag: "preview.navigate", isStream: false)
   public static let previewResize = RpcSpec<PreviewResizeInput, PreviewSessionSnapshot, PreviewResizeFailure>(tag: "preview.resize", isStream: false)
+  public static let previewAdjust = RpcSpec<PreviewAdjustInput, PreviewSessionSnapshot, PreviewAdjustFailure>(tag: "preview.adjust", isStream: false)
   public static let previewRefresh = RpcSpec<PreviewRefreshInput, VoidValue, PreviewRefreshFailure>(tag: "preview.refresh", isStream: false)
   public static let previewClose = RpcSpec<PreviewCloseInput, VoidValue, PreviewCloseFailure>(tag: "preview.close", isStream: false)
   public static let previewList = RpcSpec<PreviewListInput, PreviewListResult, PreviewListFailure>(tag: "preview.list", isStream: false)
+  public static let previewClearProfile = RpcSpec<PreviewClearProfileInput, VoidValue, PreviewClearProfileFailure>(tag: "preview.clearProfile", isStream: false)
+  public static let previewReportProfiles = RpcSpec<PreviewReportProfilesInput, VoidValue, PreviewReportProfilesFailure>(tag: "preview.reportProfiles", isStream: false)
   public static let previewReportStatus = RpcSpec<PreviewReportStatusInput, VoidValue, PreviewReportStatusFailure>(tag: "preview.reportStatus", isStream: false)
-  public static let previewAutomationConnect = RpcSpec<PreviewAutomationHost, PreviewAutomationStreamEvent, PreviewAutomationConnectFailure>(tag: "previewAutomation.connect", isStream: true)
-  public static let previewAutomationRespond = RpcSpec<PreviewAutomationResponse, VoidValue, PreviewAutomationRespondFailure>(tag: "previewAutomation.respond", isStream: false)
-  public static let previewAutomationFocusHost = RpcSpec<PreviewAutomationHostFocus, VoidValue, PreviewAutomationFocusHostFailure>(tag: "previewAutomation.focusHost", isStream: false)
   public static let subscribePreviewEvents = RpcSpec<EmptyObject, PreviewEvent, SubscribePreviewEventsFailure>(tag: "subscribePreviewEvents", isStream: true)
   public static let subscribeDiscoveredLocalServers = RpcSpec<SubscribeDiscoveredLocalServersPayload, DiscoveredLocalServerList, SubscribeDiscoveredLocalServersFailure>(tag: "subscribeDiscoveredLocalServers", isStream: true)
   public static let deviceConfigure = RpcSpec<DeviceConfigureInput, DeviceServiceState, DeviceConfigureFailure>(tag: "device.configure", isStream: false)
@@ -248,14 +314,20 @@ public enum Rpc {
   public static let subscribeAuthAccess = RpcSpec<EmptyObject, AuthAccessStreamEvent, SubscribeAuthAccessFailure>(tag: "subscribeAuthAccess", isStream: true)
   public static let subscribeBackgroundPolicy = RpcSpec<EmptyObject, BackgroundPolicySnapshot, SubscribeBackgroundPolicyFailure>(tag: "subscribeBackgroundPolicy", isStream: true)
   public static let subscribeResourceTelemetry = RpcSpec<EmptyObject, ResourceTelemetrySnapshot, SubscribeResourceTelemetryFailure>(tag: "subscribeResourceTelemetry", isStream: true)
-  public static let orchestrationDispatchCommand = RpcSpec<ClientOrchestrationCommand, DispatchResult, OrchestrationDispatchCommandFailure>(tag: "orchestration.dispatchCommand", isStream: false)
-  public static let orchestrationGetWorkflowScript = RpcSpec<OrchestrationGetWorkflowScriptInput, OrchestrationGetWorkflowScriptResult, OrchestrationGetWorkflowScriptFailure>(tag: "orchestration.getWorkflowScript", isStream: false)
+  public static let orchestrationDispatchCommand = RpcSpec<OrchestrationV2Command, OrchestrationV2DispatchCommandResult, OrchestrationDispatchCommandFailure>(tag: "orchestration.dispatchCommand", isStream: false)
+  public static let orchestrationGetWorkflowScript = RpcSpec<OrchestrationV2GetWorkflowScriptInput, OrchestrationV2GetWorkflowScriptResult, OrchestrationGetWorkflowScriptFailure>(tag: "orchestration.getWorkflowScript", isStream: false)
+  public static let orchestrationGetTurnItem = RpcSpec<OrchestrationV2GetTurnItemInput, OrchestrationV2GetTurnItemResult, OrchestrationGetTurnItemFailure>(tag: "orchestration.getTurnItem", isStream: false)
   public static let orchestrationGetTurnDiff = RpcSpec<OrchestrationGetTurnDiffInput, ThreadTurnDiff, OrchestrationGetTurnDiffFailure>(tag: "orchestration.getTurnDiff", isStream: false)
   public static let orchestrationGetFullThreadDiff = RpcSpec<OrchestrationGetFullThreadDiffInput, ThreadTurnDiff, OrchestrationGetFullThreadDiffFailure>(tag: "orchestration.getFullThreadDiff", isStream: false)
   public static let orchestrationSearchThreads = RpcSpec<OrchestrationSearchThreadsInput, OrchestrationSearchThreadsResult, OrchestrationSearchThreadsFailure>(tag: "orchestration.searchThreads", isStream: false)
-  public static let orchestrationGetArchivedShellSnapshot = RpcSpec<EmptyObject, OrchestrationShellSnapshot, OrchestrationGetArchivedShellSnapshotFailure>(tag: "orchestration.getArchivedShellSnapshot", isStream: false)
-  public static let orchestrationSubscribeShell = RpcSpec<OrchestrationSubscribeShellInput, OrchestrationShellStreamItem, OrchestrationSubscribeShellFailure>(tag: "orchestration.subscribeShell", isStream: true)
-  public static let orchestrationSubscribeThread = RpcSpec<OrchestrationSubscribeThreadInput, OrchestrationThreadStreamItem, OrchestrationSubscribeThreadFailure>(tag: "orchestration.subscribeThread", isStream: true)
+  public static let orchestrationSearchThread = RpcSpec<OrchestrationV2SearchThreadInput, OrchestrationV2SearchThreadResult, OrchestrationSearchThreadFailure>(tag: "orchestration.searchThread", isStream: false)
+  public static let orchestrationSearchThreadStream = RpcSpec<OrchestrationV2SearchThreadInput, OrchestrationV2SearchThreadResult, OrchestrationSearchThreadStreamFailure>(tag: "orchestration.searchThreadStream", isStream: true)
+  public static let orchestrationGetArchivedShellSnapshot = RpcSpec<EmptyObject, OrchestrationV2ArchivedShellSnapshot, OrchestrationGetArchivedShellSnapshotFailure>(tag: "orchestration.getArchivedShellSnapshot", isStream: false)
+  public static let orchestrationGetThreadProjection = RpcSpec<OrchestrationV2GetThreadProjectionInput, OrchestrationV2ThreadProjection, OrchestrationGetThreadProjectionFailure>(tag: "orchestration.getThreadProjection", isStream: false)
+  public static let orchestrationLaunchThread = RpcSpec<OrchestrationV2ThreadLaunchInput, OrchestrationV2ThreadLaunchResult, OrchestrationLaunchThreadFailure>(tag: "orchestration.launchThread", isStream: false)
+  public static let orchestrationSubscribeArchivedShell = RpcSpec<EmptyObject, OrchestrationV2ArchivedShellStreamItem, OrchestrationSubscribeArchivedShellFailure>(tag: "orchestration.subscribeArchivedShell", isStream: true)
+  public static let orchestrationSubscribeShell = RpcSpec<OrchestrationV2SubscribeShellInput, OrchestrationV2ShellStreamItem, OrchestrationSubscribeShellFailure>(tag: "orchestration.subscribeShell", isStream: true)
+  public static let orchestrationSubscribeThread = RpcSpec<OrchestrationV2SubscribeThreadInput, OrchestrationV2ThreadStreamItem, OrchestrationSubscribeThreadFailure>(tag: "orchestration.subscribeThread", isStream: true)
 
   /// Every wire tag in `WsRpcGroup`, in declaration order.
   public static let allTags: [String] = [
@@ -266,6 +338,10 @@ public enum Rpc {
     "provider.consumeResetCredit",
     "provider.auth.start",
     "provider.auth.complete",
+    "provider.chatgpt.reconnect-profile",
+    "provider.chatgpt.import-profile",
+    "provider.chatgpt.handoff.subscribe",
+    "provider.codex.auth-callback.subscribe",
     "provider.auth.respond",
     "provider.auth.cancel",
     "provider.auth.logout",
@@ -282,6 +358,17 @@ public enum Rpc {
     "server.getSettings",
     "server.updateSettings",
     "server.discoverSourceControl",
+    "server.searchAcpRegistry",
+    "server.prepareAcpRegistryAgent",
+    "server.uninstallAcpRegistryManagedBinary",
+    "server.acceptAcpRegistryUrlAuth",
+    "server.listAcpRegistrySessions",
+    "server.importAcpRegistrySession",
+    "server.deleteAcpRegistrySession",
+    "server.listAcpRegistryProviders",
+    "server.setAcpRegistryProvider",
+    "server.disableAcpRegistryProvider",
+    "server.logoutAcpRegistry",
     "server.getTraceDiagnostics",
     "server.getProcessDiagnostics",
     "server.getHostResources",
@@ -291,6 +378,16 @@ public enum Rpc {
     "server.getUsageSummary",
     "server.refreshUsageRates",
     "server.signalProcess",
+    "scheduledTasks.list",
+    "scheduledTasks.subscribe",
+    "scheduledTasks.upsert",
+    "scheduledTasks.setEnabled",
+    "scheduledTasks.delete",
+    "scheduledTasks.runNow",
+    "scheduledTasks.rotateWebhookToken",
+    "secrets.answerRequest",
+    "scheduledTasks.listWebhookDeliveries",
+    "scheduledTasks.getWebhookDelivery",
     "server.reportClientActivity",
     "server.reportHostPowerState",
     "server.getBackgroundPolicy",
@@ -305,6 +402,7 @@ public enum Rpc {
     "pullRequests.linkedThreads",
     "pullRequests.detail",
     "pullRequests.preview",
+    "pullRequests.checks",
     "pullRequests.activity",
     "pullRequests.threadComments",
     "pullRequests.diffFileContents",
@@ -335,14 +433,22 @@ public enum Rpc {
     "projects.readFile",
     "projects.searchContents",
     "projects.searchEntries",
+    "projects.ensureScratch",
+    "projects.createNew",
     "projects.writeFile",
+    "projects.mutate",
     "shell.openInEditor",
     "filesystem.browse",
     "agentSessions.scan",
     "agentSessions.import",
     "assets.createUrl",
+    "assets.persistChatAttachments",
     "attachments.createUploadUrl",
     "attachments.delete",
+    "mcpApps.callTool",
+    "mcpApps.toolInfo",
+    "mcpApps.readResource",
+    "mcpApps.updateModelContext",
     "provider.uploadFeedback",
     "subscribeVcsStatus",
     "subscribeWorktreeSetup",
@@ -362,6 +468,7 @@ public enum Rpc {
     "review.getDiffFileContents",
     "terminal.open",
     "terminal.attach",
+    "terminal.observe",
     "terminal.write",
     "terminal.resize",
     "terminal.clear",
@@ -372,13 +479,13 @@ public enum Rpc {
     "preview.open",
     "preview.navigate",
     "preview.resize",
+    "preview.adjust",
     "preview.refresh",
     "preview.close",
     "preview.list",
+    "preview.clearProfile",
+    "preview.reportProfiles",
     "preview.reportStatus",
-    "previewAutomation.connect",
-    "previewAutomation.respond",
-    "previewAutomation.focusHost",
     "subscribePreviewEvents",
     "subscribeDiscoveredLocalServers",
     "device.configure",
@@ -397,10 +504,16 @@ public enum Rpc {
     "subscribeResourceTelemetry",
     "orchestration.dispatchCommand",
     "orchestration.getWorkflowScript",
+    "orchestration.getTurnItem",
     "orchestration.getTurnDiff",
     "orchestration.getFullThreadDiff",
     "orchestration.searchThreads",
+    "orchestration.searchThread",
+    "orchestration.searchThreadStream",
     "orchestration.getArchivedShellSnapshot",
+    "orchestration.getThreadProjection",
+    "orchestration.launchThread",
+    "orchestration.subscribeArchivedShell",
     "orchestration.subscribeShell",
     "orchestration.subscribeThread",
   ]

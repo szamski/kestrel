@@ -25,13 +25,13 @@ import T3Contracts
 
   func threads(_ any: Any) throws -> [EnvironmentThreadShell] {
     try (any as! [[String: Any]]).map { row in
-      EnvironmentThreadShell(environmentId: EnvironmentId(rawValue: row["environmentId"] as! String), shell: try decode(OrchestrationThreadShell.self, row))
+      EnvironmentThreadShell(environmentId: EnvironmentId(rawValue: row["environmentId"] as! String), shell: try decode(V1.OrchestrationThreadShell.self, row))
     }
   }
 
   func projects(_ any: Any) throws -> [EnvironmentProject] {
     try (any as! [[String: Any]]).map { row in
-      EnvironmentProject(environmentId: EnvironmentId(rawValue: row["environmentId"] as! String), project: try decode(OrchestrationProjectShell.self, row))
+      EnvironmentProject(environmentId: EnvironmentId(rawValue: row["environmentId"] as! String), project: try decode(V1.OrchestrationProjectShell.self, row))
     }
   }
 
@@ -93,7 +93,7 @@ import T3Contracts
         ]
       }
     case "pending":
-      let activities = try decode([OrchestrationThreadActivity].self, input["activities"]!)
+      let activities = try decode([V1.OrchestrationThreadActivity].self, input["activities"]!)
       return try toAny(PendingRequestDeriver.derive(activities))
     case "pinKeys":
       return try runPinKeys(input)
@@ -116,7 +116,7 @@ import T3Contracts
       let thread = ThreadId(rawValue: a["threadId"] as! String)
       let model = try (a["model"]).map { try decode(ModelSelection.self, $0) }
       func runtime(_ key: String) -> RuntimeMode { RuntimeMode(rawValue: a[key] as! String) }
-      let command: ClientOrchestrationCommand
+      let command: V1.ClientOrchestrationCommand
       switch name {
       case "create", "create-minimal":
         command = ThreadCommand.create(
@@ -140,23 +140,23 @@ import T3Contracts
       case "runtimeMode": command = ThreadCommand.setRuntimeMode(thread, RuntimeMode(rawValue: a["mode"] as! String), meta: meta)
       case "interactionMode": command = ThreadCommand.setInteractionMode(thread, ProviderInteractionMode(rawValue: a["mode"] as! String), meta: meta)
       case "startTurn", "startTurnAttachments":
-        let attachments = ((a["attachments"] as? [[String: Any]]) ?? []).map { att -> ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem in
+        let attachments = ((a["attachments"] as? [[String: Any]]) ?? []).map { att -> V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem in
           UploadedAttachment(
             attachmentId: att["id"] as! String, name: att["name"] as! String, mimeType: att["mimeType"] as! String, sizeBytes: att["sizeBytes"] as! Int,
             kind: att["kind"] as! String == "image" ? .image : .file
           ).messageAttachment
         }
         command = ThreadCommand.startTurn(
-          thread, message: ClientOrchestrationCommandThreadTurnStartMessage(messageId: MessageId(rawValue: a["messageId"] as! String), text: a["text"] as! String, attachments: attachments),
+          thread, message: V1.ClientOrchestrationCommandThreadTurnStartMessage(messageId: MessageId(rawValue: a["messageId"] as! String), text: a["text"] as! String, attachments: attachments),
           runtimeMode: runtime("runtimeMode"), interactionMode: ProviderInteractionMode(rawValue: a["interactionMode"] as! String), modelSelection: model,
           titleSeed: a["titleSeed"] as? String, meta: meta)
-      case "interrupt", "interruptTurn": command = ThreadCommand.interruptTurn(thread, turnId: (a["turnId"] as? String).map { TurnId(rawValue: $0) }, meta: meta)
+      case "interrupt", "interruptTurn": command = ThreadCommand.interruptTurn(thread, turnId: (a["turnId"] as? String).map { V1.TurnId(rawValue: $0) }, meta: meta)
       case "approval":
-        command = ThreadCommand.respondToApproval(thread, requestId: ApprovalRequestId(rawValue: a["requestId"] as! String), decision: ProviderApprovalDecision(rawValue: a["decision"] as! String), meta: meta)
+        command = ThreadCommand.respondToApproval(thread, requestId: V1.ApprovalRequestId(rawValue: a["requestId"] as! String), decision: ProviderApprovalDecision(rawValue: a["decision"] as! String), meta: meta)
       case "userInput":
         command = ThreadCommand.respondToUserInput(
-          thread, requestId: ApprovalRequestId(rawValue: a["requestId"] as! String), answers: try decode([String: JSONValue].self, a["answers"]!), meta: meta)
-      case "dismissUserInput": command = ThreadCommand.dismissUserInput(thread, requestId: ApprovalRequestId(rawValue: a["requestId"] as! String), meta: meta)
+          thread, requestId: V1.ApprovalRequestId(rawValue: a["requestId"] as! String), answers: try decode([String: JSONValue].self, a["answers"]!), meta: meta)
+      case "dismissUserInput": command = ThreadCommand.dismissUserInput(thread, requestId: V1.ApprovalRequestId(rawValue: a["requestId"] as! String), meta: meta)
       case "revertFiles", "revertConversation":
         command = ThreadCommand.revert(thread, toTurnCount: a["turnCount"] as! Int, restoreFiles: a["restoreFiles"] as! Bool, meta: meta)
       case "stopSession": command = ThreadCommand.stopSession(thread, meta: meta)

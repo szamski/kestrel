@@ -8,9 +8,10 @@ public typealias HttpAuthWebSocketTicketFailure = HttpAuthWebSocketTicketFailure
 public typealias HttpAuthRevokePairingLinkFailure = HttpAuthPairingLinksFailure
 public typealias HttpAuthClientsFailure = HttpAuthPairingLinksFailure
 public typealias HttpAuthRevokeOtherClientsFailure = HttpAuthPairingLinksFailure
-public typealias HttpOrchestrationSnapshotFailure = HttpAuthPairingLinksFailure
 public typealias HttpOrchestrationShellSnapshotFailure = HttpAuthPairingLinksFailure
-public typealias HttpOrchestrationDispatchFailure = HttpAuthPairingCredentialFailure
+public typealias HttpOrchestrationThreadBoundedSnapshotFailure = HttpOrchestrationThreadSnapshotFailure
+public typealias HttpProjectsSnapshotFailure = HttpAuthPairingLinksFailure
+public typealias HttpProjectsMutateFailure = HttpAuthPairingCredentialFailure
 public typealias HttpConnectLinkStateFailure = HttpConnectLinkProofFailure
 public typealias HttpConnectUnlinkFailure = HttpConnectLinkProofFailure
 public typealias HttpConnectPreferencesFailure = HttpConnectLinkProofFailure
@@ -76,30 +77,40 @@ public enum Http {
     bodyContentType: nil,
     errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentScopeRequiredError": 403]
   )
-  public static let orchestrationSnapshot = HttpSpec<EmptyObject, EmptyObject, EmptyObject, OrchestrationReadModel, HttpOrchestrationSnapshotFailure>(
-    group: "orchestration", name: "snapshot", method: "GET", path: "/api/orchestration/snapshot",
-    bodyContentType: nil,
-    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentScopeRequiredError": 403]
-  )
-  public static let orchestrationShellSnapshot = HttpSpec<EmptyObject, EmptyObject, EmptyObject, OrchestrationShellSnapshot, HttpOrchestrationShellSnapshotFailure>(
+  public static let orchestrationShellSnapshot = HttpSpec<EmptyObject, EmptyObject, EmptyObject, OrchestrationV2ShellSnapshot, HttpOrchestrationShellSnapshotFailure>(
     group: "orchestration", name: "shellSnapshot", method: "GET", path: "/api/orchestration/shell",
     bodyContentType: nil,
     errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentScopeRequiredError": 403]
   )
-  public static let orchestrationThreadSnapshot = HttpSpec<HttpOrchestrationThreadSnapshotParams, HttpOrchestrationThreadSnapshotQuery, EmptyObject, OrchestrationThreadDetailSnapshot, HttpOrchestrationThreadSnapshotFailure>(
+  public static let orchestrationThreadSnapshot = HttpSpec<HttpOrchestrationThreadSnapshotParams, EmptyObject, EmptyObject, OrchestrationV2ThreadDetailSnapshot, HttpOrchestrationThreadSnapshotFailure>(
     group: "orchestration", name: "threadSnapshot", method: "GET", path: "/api/orchestration/threads/:threadId",
     bodyContentType: nil,
     errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentResourceNotFoundError": 404, "EnvironmentScopeRequiredError": 403]
   )
-  public static let orchestrationDispatch = HttpSpec<EmptyObject, EmptyObject, ClientOrchestrationCommand, DispatchResult, HttpOrchestrationDispatchFailure>(
-    group: "orchestration", name: "dispatch", method: "POST", path: "/api/orchestration/dispatch",
-    bodyContentType: "application/json",
-    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentRequestInvalidError": 400, "EnvironmentScopeRequiredError": 403]
+  public static let orchestrationThreadBoundedSnapshot = HttpSpec<HttpOrchestrationThreadSnapshotParams, HttpOrchestrationThreadBoundedSnapshotQuery, EmptyObject, OrchestrationV2ThreadBoundedSnapshot, HttpOrchestrationThreadBoundedSnapshotFailure>(
+    group: "orchestration", name: "threadBoundedSnapshot", method: "GET", path: "/api/orchestration/threads/:threadId/bounded",
+    bodyContentType: nil,
+    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentResourceNotFoundError": 404, "EnvironmentScopeRequiredError": 403]
+  )
+  public static let orchestrationThreadHistoryPage = HttpSpec<HttpOrchestrationThreadSnapshotParams, HttpOrchestrationThreadHistoryPageQuery, EmptyObject, OrchestrationV2ThreadHistoryPage, HttpOrchestrationThreadHistoryPageFailure>(
+    group: "orchestration", name: "threadHistoryPage", method: "GET", path: "/api/orchestration/threads/:threadId/history",
+    bodyContentType: nil,
+    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentRequestInvalidError": 400, "EnvironmentResourceNotFoundError": 404, "EnvironmentScopeRequiredError": 403]
   )
   public static let pullRequestsDiff = HttpSpec<EmptyObject, EmptyObject, PullRequestDiffInput, PullRequestDiffResult, HttpPullRequestsDiffFailure>(
     group: "pullRequests", name: "diff", method: "POST", path: "/api/pull-requests/diff",
     bodyContentType: "application/json",
     errorStatuses: ["EnvironmentAuthInvalidError": 401, "EnvironmentInternalError": 500, "EnvironmentScopeRequiredError": 403, "PullRequestOperationError": 502, "PullRequestUnavailableError": 503]
+  )
+  public static let projectsSnapshot = HttpSpec<EmptyObject, EmptyObject, EmptyObject, ProjectSnapshot, HttpProjectsSnapshotFailure>(
+    group: "projects", name: "snapshot", method: "GET", path: "/api/projects",
+    bodyContentType: nil,
+    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentScopeRequiredError": 403]
+  )
+  public static let projectsMutate = HttpSpec<EmptyObject, EmptyObject, ProjectMutation, Project, HttpProjectsMutateFailure>(
+    group: "projects", name: "mutate", method: "POST", path: "/api/projects/mutate",
+    bodyContentType: "application/json",
+    errorStatuses: ["EnvironmentInternalError": 500, "EnvironmentRequestInvalidError": 400, "EnvironmentScopeRequiredError": 403]
   )
   public static let connectLinkProof = HttpSpec<EmptyObject, EmptyObject, RelayLinkProofRequest, String, HttpConnectLinkProofFailure>(
     group: "connect", name: "linkProof", method: "POST", path: "/api/connect/link-proof",
@@ -140,5 +151,25 @@ public enum Http {
     group: "connect", name: "t3MintCredential", method: "POST", path: "/api/t3-connect/mint-credential",
     bodyContentType: "application/json",
     errorStatuses: ["EnvironmentHttpBadRequestError": 400, "EnvironmentHttpConflictError": 409, "EnvironmentHttpForbiddenError": 403, "EnvironmentHttpInternalServerError": 500, "EnvironmentHttpUnauthorizedError": 401, "EnvironmentScopeRequiredError": 403]
+  )
+  public static let webhooksWebhookPost = HttpSpec<HttpWebhooksWebhookPostParams, EmptyObject, EmptyObject, HttpWebhooksWebhookPostSuccess, NeverFailure>(
+    group: "webhooks", name: "webhookPost", method: "POST", path: "/api/hooks/:hookId/:token",
+    bodyContentType: nil,
+    errorStatuses: [:]
+  )
+  public static let webhooksWebhookPut = HttpSpec<HttpWebhooksWebhookPostParams, EmptyObject, EmptyObject, HttpWebhooksWebhookPostSuccess, NeverFailure>(
+    group: "webhooks", name: "webhookPut", method: "PUT", path: "/api/hooks/:hookId/:token",
+    bodyContentType: nil,
+    errorStatuses: [:]
+  )
+  public static let webhooksWebhookPatch = HttpSpec<HttpWebhooksWebhookPostParams, EmptyObject, EmptyObject, HttpWebhooksWebhookPostSuccess, NeverFailure>(
+    group: "webhooks", name: "webhookPatch", method: "PATCH", path: "/api/hooks/:hookId/:token",
+    bodyContentType: nil,
+    errorStatuses: [:]
+  )
+  public static let webhooksWebhookGet = HttpSpec<HttpWebhooksWebhookPostParams, EmptyObject, EmptyObject, HttpWebhooksWebhookPostSuccess, NeverFailure>(
+    group: "webhooks", name: "webhookGet", method: "GET", path: "/api/hooks/:hookId/:token",
+    bodyContentType: nil,
+    errorStatuses: [:]
   )
 }

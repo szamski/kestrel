@@ -12,12 +12,12 @@ final class TimelineHost {
   let key: ScopedThreadKey
   let workspaceRoot: String?
   let assets: AssetStore
-  var toggleTurn: (TurnId) -> Void = { _ in }
+  var toggleTurn: (V1.TurnId) -> Void = { _ in }
   var toggleWorkGroup: (String) -> Void = { _ in }
   var toggleLocal: (String) -> Void = { _ in }
   var openLink: (MarkdownLink) -> Void = { _ in }
   /// "Changed files": open the diff panel on a turn, at a file when given.
-  var openDiff: (TurnId, String?) -> Void = { _, _ in }
+  var openDiff: (V1.TurnId, String?) -> Void = { _, _ in }
   /// "Cancel" on the worktree setup card.
   var cancelWorktreeSetup: () -> Void = {}
 

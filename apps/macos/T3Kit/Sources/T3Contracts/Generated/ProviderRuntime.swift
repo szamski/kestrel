@@ -3,6 +3,37 @@
 
 import Foundation
 
+public enum ToolActivityIcon: Sendable, Hashable, Codable {
+  case website(ToolActivityIconWebsite)
+  case nativeApp(ToolActivityIconNativeApp)
+  case themedLogo(ToolActivityIconThemedLogo)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "website"?: self = .website(try ToolActivityIconWebsite(from: decoder))
+    case "native-app"?: self = .nativeApp(try ToolActivityIconNativeApp(from: decoder))
+    case "themed-logo"?: self = .themedLogo(try ToolActivityIconThemedLogo(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .website(let value): try value.encode(to: encoder)
+    case .nativeApp(let value): try value.encode(to: encoder)
+    case .themedLogo(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum ToolActivityNativeAppReference: Sendable, Hashable, Codable {
   case appId(ToolActivityNativeAppReferenceAppId)
   case displayName(ToolActivityNativeAppReferenceDisplayName)
@@ -26,6 +57,138 @@ public enum ToolActivityNativeAppReference: Sendable, Hashable, Codable {
     switch self {
     case .appId(let value): try value.encode(to: encoder)
     case .displayName(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct ToolActivitySource: Sendable, Hashable, Codable {
+  public var key: String
+  public var name: String
+  public var kind: ToolActivitySourceKind
+  public var icon: ToolActivityIcon?
+
+  public init(key: String, name: String, kind: ToolActivitySourceKind, icon: ToolActivityIcon? = nil) {
+    self.key = key
+    self.name = name
+    self.kind = kind
+    self.icon = icon
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case key
+    case name
+    case kind
+    case icon
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.key = try c.decode(String.self, forKey: .key)
+    self.name = try c.decode(String.self, forKey: .name)
+    self.kind = try c.decode(ToolActivitySourceKind.self, forKey: .kind)
+    self.icon = try c.decodeIfPresent(ToolActivityIcon.self, forKey: .icon)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(key, forKey: .key)
+    try c.encode(name, forKey: .name)
+    try c.encode(kind, forKey: .kind)
+    try c.encodeIfPresent(icon, forKey: .icon)
+  }
+}
+
+public enum ToolActivitySourceKind: Sendable, Hashable, Codable, RawRepresentable {
+  case browser
+  case computer
+  case integration
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "browser": self = .browser
+    case "computer": self = .computer
+    case "integration": self = .integration
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .browser: "browser"
+    case .computer: "computer"
+    case .integration: "integration"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum ToolActivitySurface: Sendable, Hashable, Codable, RawRepresentable {
+  case browser
+  case computer
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "browser": self = .browser
+    case "computer": self = .computer
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .browser: "browser"
+    case .computer: "computer"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum TurnTokenUsage: Sendable, Hashable, Codable {
+  case complete(TurnTokenUsageComplete)
+  case partial(TurnTokenUsagePartial)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "usageStatus" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "complete"?: self = .complete(try TurnTokenUsageComplete(from: decoder))
+    case "partial"?, "unavailable"?: self = .partial(try TurnTokenUsagePartial(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .complete(let value): try value.encode(to: encoder)
+    case .partial(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
   }

@@ -190,7 +190,7 @@ extension ComposerModel {
     services.editDrafts { $0.setProviderModelOptions(target.key, instanceId: entry.instanceId, model: model, options: options, persistSticky: true) }
   }
 
-  public func selectTrait(_ descriptor: ProviderOptionDescriptorSelect, value: String) {
+  public func selectTrait(_ descriptor: SelectProviderOptionDescriptor, value: String) {
     guard let change = Traits.selectChange(traits, descriptor: descriptor, value: value, prompt: draft.prompt) else { return }
     if let prompt = change.prompt {
       setActiveText(prompt)

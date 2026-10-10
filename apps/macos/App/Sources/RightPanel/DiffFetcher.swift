@@ -13,12 +13,12 @@ extension AppModel {
       switch request.source {
       case .turn(let count):
         let result = try await session.call(
-          Rpc.orchestrationGetTurnDiff,
+          V1.Rpc.orchestrationGetTurnDiff,
           OrchestrationGetTurnDiffInput(fromTurnCount: max(0, count - 1), toTurnCount: count, threadId: key.threadId, ignoreWhitespace: request.ignoreWhitespace))
         return DiffFetchResult(patch: result.diff, truncated: false)
       case .allTurns(let count):
         let result = try await session.call(
-          Rpc.orchestrationGetFullThreadDiff,
+          V1.Rpc.orchestrationGetFullThreadDiff,
           OrchestrationGetFullThreadDiffInput(threadId: key.threadId, toTurnCount: count, ignoreWhitespace: request.ignoreWhitespace))
         return DiffFetchResult(patch: result.diff, truncated: false)
       case .workingTree, .branch:

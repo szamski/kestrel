@@ -70,20 +70,24 @@ public struct BearerConnectionDriver: ConnectionDriving {
       guard descriptor.environmentId == entry.environmentId.rawValue else {
         throw ConnectionAttemptError.blocked(.configuration, detail: "Connected environment \(descriptor.environmentId) does not match \(entry.environmentId.rawValue).")
       }
-      if let incompatible = ProtocolCompatibility.check(descriptor) {
+      let negotiated: OrchestrationProtocol
+      switch ProtocolCompatibility.negotiate(descriptor) {
+      case .success(let version): negotiated = version
+      case .failure(let incompatible):
         throw ConnectionAttemptError.blocked(.unsupported, detail: incompatible.message(environmentLabel: descriptor.label))
       }
       let authorization = RequestAuthorization.bearer(credential.accessToken)
       let ticket = try await http.webSocketTicket(auth: authorization)
-      let socketURL = WebSocketURL.make(wsBaseURL: entry.wsBaseURL, ticket: ticket.ticket, metadata: metadata, connectionMethod: .direct)
+      let socketURL = WebSocketURL.make(wsBaseURL: entry.wsBaseURL, ticket: ticket.ticket, metadata: metadata, connectionMethod: .direct, orchestrationProtocol: negotiated)
       let prepared = PreparedConnection(
         environmentId: entry.environmentId, label: descriptor.label, httpBaseURL: entry.httpBaseURL, socketURL: socketURL,
-        authorization: authorization)
+        authorization: authorization, orchestrationProtocol: negotiated)
       progress(.opening(prepared))
       let transport = try await URLSessionWebSocketTransport.open(URLRequest(url: socketURL))
       progress(.synchronizing(prepared))
       let live = try await LiveEnvironmentSession.open(
-        transport: transport, label: descriptor.label, expectedEnvironmentId: entry.environmentId, onConfigEvent: onConfigEvent)
+        transport: transport, label: descriptor.label, expectedEnvironmentId: entry.environmentId, orchestrationProtocol: negotiated,
+        onConfigEvent: onConfigEvent)
       return ConnectionLease(prepared: prepared, session: live)
     } catch let error as EnvironmentHTTPError {
       throw Self.map(error, label: entry.label)

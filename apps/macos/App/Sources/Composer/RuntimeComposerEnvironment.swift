@@ -39,13 +39,7 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
     let capabilities = config?.environment.capabilities
     let server = config?.settings
     var models = ComposerModelSettings(planModeEnabled: preferences.planModeEnabled, favoriteModelKeys: favorites)
-    // Legacy per-driver switches enable the default instances; explicit `providerInstances` override them.
-    if let legacy = server?.providers {
-      models.legacyProviderEnabled = [
-        "codex": legacy.codex.enabled, "claudeAgent": legacy.claudeAgent.enabled, "cursor": legacy.cursor.enabled, "grok": legacy.grok.enabled,
-        "opencode": legacy.opencode.enabled, "antigravity": legacy.antigravity.enabled,
-      ]
-    }
+    // Explicit `providerInstances` enable or disable instances (the legacy per-driver `providers` switches left the contracts).
     for (id, instance) in server?.providerInstances ?? [:] {
       models.instanceEnabled[id] = instance.enabled ?? true
       if case .object(let config)? = instance.config, case .array(let custom)? = config["customModels"] {
@@ -181,12 +175,12 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
 
   // MARK: Commands
 
-  private func dispatch(_ command: ClientOrchestrationCommand, _ environmentId: EnvironmentId, thread: ThreadId) async throws {
+  private func dispatch(_ command: V1.ClientOrchestrationCommand, _ environmentId: EnvironmentId, thread: ThreadId) async throws {
     guard let environment = await runtime.runtime(for: environmentId) else { throw ComposerEnvironmentError("The environment is not connected.") }
     do { try await environment.dispatch(command, thread: thread) } catch { throw ComposerEnvironmentError(error.message) }
   }
 
-  func sendTurn(_ command: ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws {
+  func sendTurn(_ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws {
     let environmentId = EnvironmentId(target.environmentId)
     let key = ScopedThreadKey(environmentId: environmentId, threadId: command.threadId)
     var command = command
@@ -196,8 +190,8 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
       guard let model = command.modelSelection ?? project?.project.defaultModelSelection else { throw ComposerEnvironmentError("Pick a model before sending.") }
       // The thread is created with its first turn, so an abandoned draft never leaves an empty thread behind.
       let send = try draftSend?(target) ?? .init()
-      command.bootstrap = ClientOrchestrationCommandThreadTurnStartBootstrap(
-        createThread: ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread(
+      command.bootstrap = V1.ClientOrchestrationCommandThreadTurnStartBootstrap(
+        createThread: V1.ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread(
           projectId: ProjectId(projectId), title: titleSeed ?? "New thread", modelSelection: model, runtimeMode: command.runtimeMode,
           interactionMode: command.interactionMode, branch: send.branch, worktreePath: send.worktreePath, createdAt: command.createdAt),
         prepareWorktree: send.prepare, runSetupScript: send.prepare == nil ? nil : true)
@@ -222,19 +216,19 @@ final class RuntimeComposerEnvironment: ComposerEnvironment {
     try await dispatch(.threadTurnStart(command), environmentId, thread: command.threadId)
   }
 
-  func interruptTurn(_ command: ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {
+  func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {
     try await dispatch(.threadTurnInterrupt(command), EnvironmentId(target.environmentId), thread: command.threadId)
   }
 
-  func respondToApproval(_ command: ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws {
+  func respondToApproval(_ command: V1.ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws {
     try await dispatch(.threadApprovalRespond(command), EnvironmentId(target.environmentId), thread: command.threadId)
   }
 
-  func respondToUserInput(_ command: ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws {
+  func respondToUserInput(_ command: V1.ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws {
     try await dispatch(.threadUserInputRespond(command), EnvironmentId(target.environmentId), thread: command.threadId)
   }
 
-  func dismissUserInput(requestId: ApprovalRequestId, target: ComposerTarget) async throws {
+  func dismissUserInput(requestId: V1.ApprovalRequestId, target: ComposerTarget) async throws {
     let threadId = ThreadId(target.threadId)
     try await dispatch(ThreadCommand.dismissUserInput(threadId, requestId: requestId), EnvironmentId(target.environmentId), thread: threadId)
   }

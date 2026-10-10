@@ -73,8 +73,8 @@ private func entry(
 }
 
 @Suite struct ToolGroupSummaryTests {
-  @Test(arguments: [ProviderRequestKind.command, .fileRead, .fileChange])
-  func keepsApprovalsOutOfToolExecutionCounts(kind: ProviderRequestKind) {
+  @Test(arguments: [T3Timeline.ProviderRequestKind.command, .fileRead, .fileChange])
+  func keepsApprovalsOutOfToolExecutionCounts(kind: T3Timeline.ProviderRequestKind) {
     var requested = workEntry("a1", label: "Approval requested", tone: .info, kind: "approval.requested")
     requested.requestKind = kind
     var resolved = workEntry("a2", label: "Approval resolved", tone: .info, kind: "approval.resolved")
@@ -89,7 +89,7 @@ private func entry(
   }
 
   @Test func deduplicatesNamedSourcesAheadOfOrdinaryActions() {
-    let source = ToolActivitySource(key: "browser-use:chrome", name: "Chrome", kind: .integration, icon: nil)
+    let source = T3Timeline.ToolActivitySource(key: "browser-use:chrome", name: "Chrome", kind: .integration, icon: nil)
     var open = workEntry("1", label: "Open page")
     open.toolSource = source
     var inspect = workEntry("2", label: "Inspect page")
@@ -102,9 +102,9 @@ private func entry(
 
   @Test func omitsTheIntegrationSuffixForBrowserAndComputerSources() {
     var browser = workEntry("1", label: "Inspect page")
-    browser.toolSource = ToolActivitySource(key: "browser-use", name: "Browser", kind: .browser, icon: nil)
+    browser.toolSource = T3Timeline.ToolActivitySource(key: "browser-use", name: "Browser", kind: .browser, icon: nil)
     var computer = workEntry("2", label: "Click")
-    computer.toolSource = ToolActivitySource(key: "computer-use", name: "Computer Use", kind: .computer, icon: nil)
+    computer.toolSource = T3Timeline.ToolActivitySource(key: "computer-use", name: "Computer Use", kind: .computer, icon: nil)
     #expect(summarizeToolGroup([browser, computer]) == "Used Browser and Computer Use")
   }
 
@@ -163,7 +163,7 @@ private func entry(
     var link = workEntry("1", label: "T3-code · link_pull_request")
     link.itemType = .mcpToolCall
     link.toolLifecycleStatus = .completed
-    link.toolSource = ToolActivitySource(key: "t3-code", name: "T3 Code", kind: .integration, icon: nil)
+    link.toolSource = T3Timeline.ToolActivitySource(key: "t3-code", name: "T3 Code", kind: .integration, icon: nil)
     var list = link
     list.label = "T3-code · list_thread_pull_requests"
     var unlink = link

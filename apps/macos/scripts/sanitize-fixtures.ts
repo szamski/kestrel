@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { userInfo } from "node:os";
 import { join } from "node:path";
 import { macosRoot } from "./lib/load.ts";
-import { buildModel } from "./lib/model.ts";
+import { buildBoth } from "./lib/split.ts";
 import { makeScrubber } from "./lib/scrub.ts";
 
 const raw = (() => {
@@ -18,8 +18,10 @@ const raw = (() => {
 const outDir = join(macosRoot, "T3Kit", "Tests", "T3ContractsTests", "Fixtures");
 const read = (p: string) => JSON.parse(readFileSync(join(raw, p), "utf8"));
 
-const { builder } = await buildModel();
-const scrub = makeScrubber(builder.types);
+// Recordings come from a protocol-1 server: its own types (V1) win over same-named current ones.
+const { current, frozen } = await buildBoth();
+const allTypes = new Map([...current.builder.types, ...frozen.builder.types]);
+const scrub = makeScrubber(allTypes);
 const rootOf = (name: string) => ({ ir: { k: "ref", name } as const, nullable: false });
 const types = {
   descriptor: rootOf("ExecutionEnvironmentDescriptor"),
@@ -33,7 +35,7 @@ const types = {
   threadStream: rootOf("OrchestrationThreadStreamItem"),
 };
 for (const [k, w] of Object.entries(types))
-  if (!builder.types.has((w.ir as any).name)) throw new Error(`missing type for ${k}`);
+  if (!allTypes.has((w.ir as any).name)) throw new Error(`missing type for ${k}`);
 
 // Start clean so removed recordings do not linger (reference/ belongs to encode-reference.ts).
 for (const p of ["threads", "rpc", "descriptor.json", "session.json", "shell.json"])

@@ -13,7 +13,7 @@ import Testing
   static func differences(directory: URL, name: String) throws -> [String] {
     let scenario = try Oracle.load(directory, "scenarios", name)
     let expected = try Oracle.load(directory, "expected", name)
-    let thread = try decode(OrchestrationThread.self, try #require(scenario["thread"]))
+    let thread = try decode(V1.OrchestrationThread.self, try #require(scenario["thread"]))
     let variants = try #require(scenario["variants"] as? [[String: Any]])
     let expectedVariants = try #require(expected["variants"] as? [String: Any])
     var out: [String] = []

@@ -27,6 +27,7 @@ public enum ComposerContextRecord: Sendable, Hashable, Codable {
   case reviewComment(ComposerContextRecordReviewComment)
   case mention(MentionContextRecord)
   case skill(SkillContextRecord)
+  case thread(ComposerContextRecordThread)
   case other(ComposerContextRecordOther)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -45,6 +46,7 @@ public enum ComposerContextRecord: Sendable, Hashable, Codable {
     case "review-comment"?: self = .reviewComment(try ComposerContextRecordReviewComment(from: decoder))
     case "mention"?: self = .mention(try MentionContextRecord(from: decoder))
     case "skill"?: self = .skill(try SkillContextRecord(from: decoder))
+    case "thread"?: self = .thread(try ComposerContextRecordThread(from: decoder))
     default:
       if let other = try? ComposerContextRecordOther(from: decoder) { self = .other(other) } else { self = .unknown(try JSONValue(from: decoder)) }
     }
@@ -60,6 +62,7 @@ public enum ComposerContextRecord: Sendable, Hashable, Codable {
     case .reviewComment(let value): try value.encode(to: encoder)
     case .mention(let value): try value.encode(to: encoder)
     case .skill(let value): try value.encode(to: encoder)
+    case .thread(let value): try value.encode(to: encoder)
     case .other(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -321,6 +324,54 @@ public struct ComposerContextRecordReviewComment: Sendable, Hashable, Codable {
     try c.encode(diff, forKey: .diff)
     try c.encodeIfPresent(fenceLanguage, forKey: .fenceLanguage)
     try c.encodeIfPresent(pullRequest, forKey: .pullRequest)
+  }
+}
+
+public struct ComposerContextRecordThread: Sendable, Hashable, Codable {
+  public var contextId: ComposerContextId
+  public var label: String
+  public var environmentId: EnvironmentId
+  public var threadId: ThreadId
+  public var title: String
+
+  public init(contextId: ComposerContextId, label: String, environmentId: EnvironmentId, threadId: ThreadId, title: String) {
+    self.contextId = contextId
+    self.label = label
+    self.environmentId = environmentId
+    self.threadId = threadId
+    self.title = title
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case version
+    case kind
+    case contextId
+    case label
+    case environmentId
+    case threadId
+    case title
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant(1, forKey: .version)
+    try c.expectConstant("thread", forKey: .kind)
+    self.contextId = try c.decode(ComposerContextId.self, forKey: .contextId)
+    self.label = try c.decode(String.self, forKey: .label)
+    self.environmentId = try c.decode(EnvironmentId.self, forKey: .environmentId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.title = try c.decode(String.self, forKey: .title)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(1, forKey: .version)
+    try c.encode("thread", forKey: .kind)
+    try c.encode(contextId, forKey: .contextId)
+    try c.encode(label, forKey: .label)
+    try c.encode(environmentId, forKey: .environmentId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(title, forKey: .title)
   }
 }
 

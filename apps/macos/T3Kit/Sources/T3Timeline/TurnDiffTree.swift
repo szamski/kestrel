@@ -20,7 +20,7 @@ public indirect enum TurnDiffTreeNode: Sendable, Hashable {
   }
 }
 
-public func summarizeTurnDiffStats(_ files: [OrchestrationCheckpointFile]) -> TurnDiffStat {
+public func summarizeTurnDiffStats(_ files: [V1.OrchestrationCheckpointFile]) -> TurnDiffStat {
   TurnDiffStat(additions: files.reduce(0) { $0 + $1.additions }, deletions: files.reduce(0) { $0 + $1.deletions })
 }
 
@@ -96,7 +96,7 @@ private func treeNodes(_ directory: DirectoryBuilder) -> [TurnDiffTreeNode] {
   return subdirectories + files
 }
 
-public func buildTurnDiffTree(_ files: [OrchestrationCheckpointFile]) -> [TurnDiffTreeNode] {
+public func buildTurnDiffTree(_ files: [V1.OrchestrationCheckpointFile]) -> [TurnDiffTreeNode] {
   let root = DirectoryBuilder(name: "", path: "")
   for file in files {
     let segments = file.path.replacingOccurrences(of: "\\", with: "/").split(separator: "/", omittingEmptySubsequences: true).map(String.init)

@@ -266,35 +266,31 @@ public enum ProviderInstances {
 
   public static func explicitInstances(_ settings: ServerSettings) -> [String: ProviderInstanceConfig] { settings.providerInstances.mapValues(config) }
 
-  private static func legacyBlob(_ settings: ServerSettings) -> [String: JSONValue] { JSONValue(encoding: settings.providers)?.objectValue ?? [:] }
-  private static let legacyDefaults: [String: JSONValue] = JSONValue(encoding: ServerSettingsProviders())?.objectValue ?? [:]
+  /// Built-in drivers that stay off until turned on (DEFAULT_DISABLED_PROVIDER_DRIVERS in packages/contracts/src/settings.ts).
+  /// Upstream dropped the legacy per-driver `providers` blob from `ServerSettings` with orchestrator V2, so a
+  /// protocol-1 server's blob is no longer decoded; these defaults stand in for it.
+  private static let disabledByDefault: Set<String> = ["cursor", "grok", "muse", "pi", "opencode", "antigravity"]
 
   /// Whether an instance is enabled: an explicit false on the envelope or in-config flag wins, then the driver's default.
   public static func isEnabled(_ instance: ProviderInstanceConfig) -> Bool {
     let inConfig = instance.config?["enabled"]?.boolValue
     if instance.enabled == false || inConfig == false { return false }
-    return instance.enabled ?? inConfig ?? legacyDefaults[instance.driver.rawValue]?["enabled"]?.boolValue ?? true
+    return instance.enabled ?? inConfig ?? !disabledByDefault.contains(instance.driver.rawValue)
   }
 
-  /// The rows of the instance list: each built-in driver's default slot (from the explicit instance, else the legacy
-  /// `providers` blob), its custom instances, then instances of drivers this build does not know.
+  /// The rows of the instance list: each built-in driver's default slot (the explicit instance, else a bare one),
+  /// its custom instances, then instances of drivers this build does not know.
   /// `liveInstanceIds` hides Cursor until the server reports it.
   public static func rows(settings: ServerSettings, liveInstanceIds: Set<String>) -> [ProviderInstanceRow] {
     let explicit = explicitInstances(settings)
-    let legacy = legacyBlob(settings)
     let visible = ProviderCatalog.drivers.map(\.slug).filter { $0 != "cursor" || liveInstanceIds.contains("cursor") }
     var rows: [ProviderInstanceRow] = []
     for driver in visible {
       let slot = explicit[driver]
-      if let legacyConfig = legacy[driver], var blob = legacyConfig.objectValue {
-        let flag = blob.removeValue(forKey: "enabled")?.boolValue
-        let effective = slot ?? ProviderInstanceConfig(driver: ProviderDriverKind(driver), enabled: flag, config: .object(blob))
-        rows.append(
-          ProviderInstanceRow(
-            instanceId: driver, instance: effective, driver: driver, isDefault: true, isDirty: slot != nil || legacyConfig != legacyDefaults[driver]))
-      } else if let slot {
-        rows.append(ProviderInstanceRow(instanceId: driver, instance: slot, driver: driver, isDefault: true, isDirty: true))
-      }
+      rows.append(
+        ProviderInstanceRow(
+          instanceId: driver, instance: slot ?? ProviderInstanceConfig(driver: ProviderDriverKind(driver)), driver: driver, isDefault: true,
+          isDirty: slot != nil))
       for (id, instance) in explicit.sorted(by: { $0.key < $1.key }) where instance.driver.rawValue == driver && id != driver {
         rows.append(ProviderInstanceRow(instanceId: id, instance: instance, driver: driver, isDefault: false, isDirty: false))
       }
@@ -308,17 +304,11 @@ public enum ProviderInstances {
 
   // MARK: Patches
 
-  /// `buildProviderInstanceUpdatePatch`: the whole instance map goes back (the server replaces it); editing a default slot
-  /// also resets its legacy blob so the explicit instance becomes the source of truth.
+  /// `buildProviderInstanceUpdatePatch`: the whole instance map goes back (the server replaces it).
   public static func updatePatch(
     settings: ServerSettings, row: ProviderInstanceRow, next: ProviderInstanceConfig, resetTextGeneration: Bool = false
   ) -> ServerSettingsPatch {
     var patch = ServerSettingsPatch()
-    if row.isDefault, let fallback = legacyDefaults[row.driver] {
-      var blob = legacyBlob(settings)
-      blob[row.driver] = fallback
-      patch.providers = JSONValue.object(blob).decoded(ServerSettingsPatchProviders.self)
-    }
     var instances = explicitInstances(settings)
     instances[row.instanceId] = next
     patch.providerInstances = instances
@@ -343,12 +333,8 @@ public enum ProviderInstances {
 
   /// Back to the built-in defaults for a driver's default slot.
   public static func resetDefaultPatch(settings: ServerSettings, driver: String) -> ServerSettingsPatch? {
-    guard let fallback = legacyDefaults[driver] else { return nil }
-    var blob = legacyBlob(settings)
-    blob[driver] = fallback
-    var patch = deletePatch(settings: settings, instanceId: driver)
-    patch.providers = JSONValue.object(blob).decoded(ServerSettingsPatchProviders.self)
-    return patch
+    guard ProviderCatalog.drivers.contains(where: { $0.slug == driver }) else { return nil }
+    return deletePatch(settings: settings, instanceId: driver)
   }
 
   // MARK: Identity

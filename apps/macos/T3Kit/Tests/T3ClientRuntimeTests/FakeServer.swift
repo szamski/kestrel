@@ -102,7 +102,11 @@ final class FakeServer: RpcTransport {
 final class FakeServerDriver: ConnectionDriving {
   private let servers = Mutex<[FakeServer]>([])
   private let created = Mutex<[FakeServer]>([])
-  init(_ servers: [FakeServer]) { self.servers.withLock { $0 = servers } }
+  /// Each connection attempt speaks the next protocol of the list (the last one repeats): the descriptor is re-read per attempt.
+  private let protocols: [OrchestrationProtocol]
+  private let attempts = Mutex(0)
+  init(_ servers: [FakeServer], orchestrationProtocol: OrchestrationProtocol = .v1) { self.servers.withLock { $0 = servers }; protocols = [orchestrationProtocol] }
+  init(_ servers: [FakeServer], protocols: [OrchestrationProtocol]) { self.servers.withLock { $0 = servers }; self.protocols = protocols }
   var connections: [FakeServer] { created.withLock { $0 } }
 
   func connect(
@@ -112,41 +116,70 @@ final class FakeServerDriver: ConnectionDriving {
     progress(.preparing)
     guard let server = servers.withLock({ $0.isEmpty ? nil : $0.removeFirst() }) else { throw ConnectionAttemptError.transient(.network, detail: "no server") }
     created.withLock { $0.append(server) }
+    let attempt = attempts.withLock { n -> Int in defer { n += 1 }; return n }
+    let negotiated = protocols[min(attempt, protocols.count - 1)]
     let prepared = PreparedConnection(
-      environmentId: entry.environmentId, label: entry.label, httpBaseURL: entry.httpBaseURL, socketURL: entry.wsBaseURL, authorization: .bearer("t"))
+      environmentId: entry.environmentId, label: entry.label, httpBaseURL: entry.httpBaseURL, socketURL: entry.wsBaseURL, authorization: .bearer("t"),
+      orchestrationProtocol: negotiated)
     progress(.opening(prepared))
     progress(.synchronizing(prepared))
     let session = try await LiveEnvironmentSession.open(
-      transport: server, label: entry.label, expectedEnvironmentId: entry.environmentId, pingInterval: .seconds(3600), onConfigEvent: onConfigEvent)
+      transport: server, label: entry.label, expectedEnvironmentId: entry.environmentId, orchestrationProtocol: negotiated,
+      pingInterval: .seconds(3600), onConfigEvent: onConfigEvent)
     return ConnectionLease(prepared: prepared, session: session)
   }
 }
 
 /// Canned HTTP snapshots with call counters.
 final class FakeLoader: SnapshotLoading {
-  private struct State { var shell: OrchestrationShellSnapshot?; var thread: OrchestrationThreadDetailSnapshot?; var shellCalls = 0; var threadCalls: [ThreadSnapshotWindow?] = [] }
+  private struct State {
+    var shell: V1.OrchestrationShellSnapshot?
+    var thread: V1.OrchestrationThreadDetailSnapshot?
+    var shellCalls = 0
+    var threadCalls: [ThreadSnapshotWindow?] = []
+    var shellV2: OrchestrationV2ShellSnapshot?
+    var threadV2: ThreadSnapshotLoadResult = .unavailable
+    var historyPages: [String: OrchestrationV2ThreadHistoryPage] = [:]
+    var shellV2Calls = 0
+    var threadV2Calls = 0
+    var historyCursors: [String] = []
+  }
   private let state = Mutex(State())
-  init(shell: OrchestrationShellSnapshot? = nil, thread: OrchestrationThreadDetailSnapshot? = nil) { state.withLock { $0.shell = shell; $0.thread = thread } }
+  init(shell: V1.OrchestrationShellSnapshot? = nil, thread: V1.OrchestrationThreadDetailSnapshot? = nil) { state.withLock { $0.shell = shell; $0.thread = thread } }
+  init(shellV2: OrchestrationV2ShellSnapshot?, threadV2: ThreadSnapshotLoadResult = .unavailable, historyPages: [String: OrchestrationV2ThreadHistoryPage] = [:]) {
+    state.withLock { $0.shellV2 = shellV2; $0.threadV2 = threadV2; $0.historyPages = historyPages }
+  }
+  var shellV2Calls: Int { state.withLock { $0.shellV2Calls } }
+  var threadV2Calls: Int { state.withLock { $0.threadV2Calls } }
+  var historyCursors: [String] { state.withLock { $0.historyCursors } }
+  func loadShellV2(_ prepared: PreparedConnection) async -> OrchestrationV2ShellSnapshot? { state.withLock { $0.shellV2Calls += 1; return $0.shellV2 } }
+  func loadThreadV2(_ prepared: PreparedConnection, threadId: ThreadId) async -> ThreadSnapshotLoadResult { state.withLock { $0.threadV2Calls += 1; return $0.threadV2 } }
+  func loadHistoryPage(_ prepared: PreparedConnection, threadId: ThreadId, cursor: String) async -> Result<OrchestrationV2ThreadHistoryPage, HistoryLoadFailure> {
+    state.withLock { state in
+      state.historyCursors.append(cursor)
+      return state.historyPages[cursor].map { .success($0) } ?? .failure(HistoryLoadFailure("no page"))
+    }
+  }
   var shellCalls: Int { state.withLock { $0.shellCalls } }
   var threadCalls: [ThreadSnapshotWindow?] { state.withLock { $0.threadCalls } }
-  func set(shell: OrchestrationShellSnapshot?) { state.withLock { $0.shell = shell } }
-  func set(thread: OrchestrationThreadDetailSnapshot?) { state.withLock { $0.thread = thread } }
-  func loadShell(_ prepared: PreparedConnection) async -> OrchestrationShellSnapshot? { state.withLock { $0.shellCalls += 1; return $0.shell } }
-  func loadThread(_ prepared: PreparedConnection, threadId: ThreadId, window: ThreadSnapshotWindow?, reasoningMessages: Bool) async -> OrchestrationThreadDetailSnapshot? {
+  func set(shell: V1.OrchestrationShellSnapshot?) { state.withLock { $0.shell = shell } }
+  func set(thread: V1.OrchestrationThreadDetailSnapshot?) { state.withLock { $0.thread = thread } }
+  func loadShell(_ prepared: PreparedConnection) async -> V1.OrchestrationShellSnapshot? { state.withLock { $0.shellCalls += 1; return $0.shell } }
+  func loadThread(_ prepared: PreparedConnection, threadId: ThreadId, window: ThreadSnapshotWindow?, reasoningMessages: Bool) async -> V1.OrchestrationThreadDetailSnapshot? {
     state.withLock { $0.threadCalls.append(window); return $0.thread }
   }
 }
 
 enum Data2 {
-  static func shell() -> OrchestrationShellSnapshot { try! JSONDecoder().decode(OrchestrationShellSnapshot.self, from: Fixtures.contractFixture("shell.json")) }
-  static func threadDetail() -> OrchestrationThreadDetailSnapshot {
-    try! JSONDecoder().decode(OrchestrationThreadDetailSnapshot.self, from: Fixtures.contractFixture("threads/thread-4.json"))
+  static func shell() -> V1.OrchestrationShellSnapshot { try! JSONDecoder().decode(V1.OrchestrationShellSnapshot.self, from: Fixtures.contractFixture("shell.json")) }
+  static func threadDetail() -> V1.OrchestrationThreadDetailSnapshot {
+    try! JSONDecoder().decode(V1.OrchestrationThreadDetailSnapshot.self, from: Fixtures.contractFixture("threads/thread-4.json"))
   }
   /// A thread-upserted shell item for a (possibly new) thread, derived from the first fixture thread.
-  static func threadUpserted(_ sequence: Int, id: String, edit: (inout OrchestrationThreadShell) -> Void = { _ in }) -> OrchestrationShellStreamItem {
+  static func threadUpserted(_ sequence: Int, id: String, edit: (inout V1.OrchestrationThreadShell) -> Void = { _ in }) -> V1.OrchestrationShellStreamItem {
     var thread = shell().threads[0]
     thread.id = ThreadId(rawValue: id)
     edit(&thread)
-    return .threadUpserted(OrchestrationShellStreamItemThreadUpserted(sequence: sequence, thread: thread))
+    return .threadUpserted(V1.OrchestrationShellStreamItemThreadUpserted(sequence: sequence, thread: thread))
   }
 }

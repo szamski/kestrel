@@ -13,8 +13,8 @@ import T3Contracts
   func runShell(_ directory: URL, _ name: String) throws -> Int {
     let scenario = try Oracle.load(directory, "scenarios", name)
     let expected = try Oracle.load(directory, "expected", name)
-    var state = try decode(OrchestrationShellSnapshot.self, try #require(scenario["snapshot"]))
-    let items = try #require(scenario["items"] as? [Any]).map { try decode(OrchestrationShellStreamItem.self, $0) }
+    var state = try decode(V1.OrchestrationShellSnapshot.self, try #require(scenario["snapshot"]))
+    let items = try #require(scenario["items"] as? [Any]).map { try decode(V1.OrchestrationShellStreamItem.self, $0) }
     let perStep = expected["perStep"] as? Bool ?? false
     let steps = try #require(expected["steps"] as? [Any])
     #expect(steps.count == items.count, "\(name): step count")
@@ -43,12 +43,12 @@ import T3Contracts
   func runThread(_ directory: URL, _ name: String) throws -> Int {
     let scenario = try Oracle.load(directory, "scenarios", name)
     let expected = try Oracle.load(directory, "expected", name)
-    let snapshot = try decode(OrchestrationThreadDetailSnapshot.self, try #require(scenario["snapshot"]))
-    let events = try #require(scenario["events"] as? [Any]).map { try decode(OrchestrationEvent.self, $0) }
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, try #require(scenario["snapshot"]))
+    let events = try #require(scenario["events"] as? [Any]).map { try decode(V1.OrchestrationEvent.self, $0) }
     let perStep = expected["perStep"] as? Bool ?? false
     let steps = try #require(expected["steps"] as? [[String: Any]])
     #expect(steps.count == events.count, "\(name): step count")
-    var thread: OrchestrationThread? = snapshot.thread
+    var thread: V1.OrchestrationThread? = snapshot.thread
     for (index, event) in events.enumerated() {
       guard let current = thread else { break }
       var kind = "unchanged"
@@ -77,7 +77,7 @@ import T3Contracts
     return events.count
   }
 
-  func eventType(_ event: OrchestrationEvent) -> String {
+  func eventType(_ event: V1.OrchestrationEvent) -> String {
     ((try? toAny(event)) as? [String: Any])?["type"] as? String ?? "?"
   }
 

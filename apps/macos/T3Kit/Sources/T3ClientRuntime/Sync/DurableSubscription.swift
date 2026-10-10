@@ -78,3 +78,26 @@ private func subscribeToSession<Payload, Item, Failure>(
     }
   }
 }
+
+/// The sessions that speak `version`; a session of another protocol (or none) reads as nil, which stops
+/// the subscription of that protocol. One durable subscription per protocol follows these, so a replacement
+/// session of the other protocol (the server was updated) hands the work to the other subscription.
+func sessions(
+  _ sessions: AsyncStream<(any EnvironmentSession)?>, speaking version: OrchestrationProtocol
+) -> AsyncStream<(any EnvironmentSession)?> {
+  AsyncStream { continuation in
+    let task = Task {
+      for await session in sessions { continuation.yield(session?.orchestrationProtocol == version ? session : nil) }
+      continuation.finish()
+    }
+    continuation.onTermination = { _ in task.cancel() }
+  }
+}
+
+/// A fresh stream of foreground resubscribe signals (a stream has one consumer).
+func resubscribeSignals(_ wakeups: EventHub<ConnectionWakeup>) -> AsyncStream<Void> {
+  AsyncStream { continuation in
+    let task = Task { for await wake in wakeups.events() where wake.shouldResubscribe { continuation.yield() } }
+    continuation.onTermination = { _ in task.cancel() }
+  }
+}

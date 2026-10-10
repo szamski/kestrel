@@ -95,7 +95,7 @@ struct ScenarioContext: Decodable {
     TimelineContext(
       isWorking: isWorking,
       sendStartedAt: sendStartedAt,
-      expandedTurnIds: Set(expandedTurnIds.map { TurnId($0) }),
+      expandedTurnIds: Set(expandedTurnIds.map { V1.TurnId($0) }),
       expandedWorkGroupIds: Set(expandedWorkGroupIds),
       supportsConversationRollback: supportsConversationRollback,
       liveAgentTaskIds: liveAgentTaskIds.map(Set.init),

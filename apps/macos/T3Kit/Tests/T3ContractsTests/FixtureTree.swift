@@ -80,9 +80,15 @@ struct FixtureTree {
     var decoded = 0
     var failures: [Failure] = []
 
-    func check<T: Codable>(_ type: T.Type, _ data: Data, _ name: String) {
+    /// `addedDefaults`: the recording predates the contract. Keys the current schema adds with a default
+    /// (settings added after protocol 1) show up after the re-encode, and the legacy per-driver
+    /// `settings.providers` blob that orchestrator V2 removed no longer survives it.
+    func check<T: Codable>(_ type: T.Type, _ data: Data, _ name: String, addedDefaults: Bool = false) {
       do {
-        let diffs = try JSONCheck.roundTrip(T.self, data)
+        var diffs = try JSONCheck.roundTrip(T.self, data)
+        if addedDefaults {
+          diffs.removeAll { $0.contains("extra after re-encode") || $0.hasSuffix(".providers: missing after re-encode") || $0.contains(".providers: missing after re-encode (was") }
+        }
         decoded += 1
         if !diffs.isEmpty { failures.append(.init(file: name, message: "round trip differs: " + diffs.joined(separator: "; "))) }
       } catch {
@@ -94,7 +100,7 @@ struct FixtureTree {
       check(T.self, data, url.lastPathComponent)
     }
     /// Every value inside `Chunk` messages, or the value of a `Success` exit.
-    func messages<T: Codable>(_ type: T.Type, _ url: URL) {
+    func messages<T: Codable>(_ type: T.Type, _ url: URL, addedDefaults: Bool = false) {
       guard let data = try? Data(contentsOf: url), let msgs = (try? JSONCheck.parse(data)) as? [[String: Any]] else {
         failures.append(.init(file: url.lastPathComponent, message: "not a message array"))
         return
@@ -111,23 +117,23 @@ struct FixtureTree {
         }
         for (j, v) in values.enumerated() {
           guard let d = try? JSONCheck.data(v) else { continue }
-          check(T.self, d, "\(name)[\(j)]")
+          check(T.self, d, "\(name)[\(j)]", addedDefaults: addedDefaults)
         }
       }
     }
 
     for url in files("", prefix: "descriptor") { whole(ExecutionEnvironmentDescriptor.self, url) }
     for url in files("", prefix: "session") { whole(AuthSessionState.self, url) }
-    for url in files("", prefix: "shell") { whole(OrchestrationShellSnapshot.self, url) }
-    for url in files("threads") { whole(OrchestrationThreadDetailSnapshot.self, url) }
+    for url in files("", prefix: "shell") { whole(V1.OrchestrationShellSnapshot.self, url) }
+    for url in files("threads") { whole(V1.OrchestrationThreadDetailSnapshot.self, url) }
     for url in files("rpc") {
       let n = url.lastPathComponent
-      if n.hasPrefix("server.getConfig") { messages(ServerConfig.self, url) }
-      else if n.hasPrefix("server.getSettings") { messages(ServerSettings.self, url) }
-      else if n.hasPrefix("subscribeServerConfig") { messages(ServerConfigStreamEvent.self, url) }
-      else if n.hasPrefix("orchestration.getArchivedShellSnapshot") { messages(OrchestrationShellSnapshot.self, url) }
-      else if n.hasPrefix("orchestration.subscribeShell") { messages(OrchestrationShellStreamItem.self, url) }
-      else if n.hasPrefix("orchestration.subscribeThread") { messages(OrchestrationThreadStreamItem.self, url) }
+      if n.hasPrefix("server.getConfig") { messages(ServerConfig.self, url, addedDefaults: true) }
+      else if n.hasPrefix("server.getSettings") { messages(ServerSettings.self, url, addedDefaults: true) }
+      else if n.hasPrefix("subscribeServerConfig") { messages(ServerConfigStreamEvent.self, url, addedDefaults: true) }
+      else if n.hasPrefix("orchestration.getArchivedShellSnapshot") { messages(V1.OrchestrationShellSnapshot.self, url) }
+      else if n.hasPrefix("orchestration.subscribeShell") { messages(V1.OrchestrationShellStreamItem.self, url) }
+      else if n.hasPrefix("orchestration.subscribeThread") { messages(V1.OrchestrationThreadStreamItem.self, url) }
     }
     return (decoded, failures)
   }

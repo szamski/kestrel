@@ -422,11 +422,13 @@ public struct AuthBrowserSessionRequest: Sendable, Hashable, Codable {
 
 public struct AuthBrowserSessionResult: Sendable, Hashable, Codable {
   public var scopes: [AuthEnvironmentScope]
+  public var permissions: [AuthEnvironmentScope]?
   public var sessionMethod: ServerAuthSessionMethod
   public var expiresAt: IsoDateTime
 
-  public init(scopes: [AuthEnvironmentScope], sessionMethod: ServerAuthSessionMethod, expiresAt: IsoDateTime) {
+  public init(scopes: [AuthEnvironmentScope], permissions: [AuthEnvironmentScope]? = nil, sessionMethod: ServerAuthSessionMethod, expiresAt: IsoDateTime) {
     self.scopes = scopes
+    self.permissions = permissions
     self.sessionMethod = sessionMethod
     self.expiresAt = expiresAt
   }
@@ -434,6 +436,7 @@ public struct AuthBrowserSessionResult: Sendable, Hashable, Codable {
   private enum CodingKeys: String, CodingKey {
     case authenticated
     case scopes
+    case permissions
     case sessionMethod
     case expiresAt
   }
@@ -442,6 +445,7 @@ public struct AuthBrowserSessionResult: Sendable, Hashable, Codable {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     try c.expectConstant(true, forKey: .authenticated)
     self.scopes = try c.decode([AuthEnvironmentScope].self, forKey: .scopes)
+    self.permissions = try c.decodeLossyArrayIfPresent(AuthEnvironmentScope.self, forKey: .permissions)
     self.sessionMethod = try c.decode(ServerAuthSessionMethod.self, forKey: .sessionMethod)
     self.expiresAt = try c.decode(IsoDateTime.self, forKey: .expiresAt)
   }
@@ -450,6 +454,7 @@ public struct AuthBrowserSessionResult: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(true, forKey: .authenticated)
     try c.encode(scopes, forKey: .scopes)
+    try c.encodeIfPresent(permissions, forKey: .permissions)
     try c.encode(sessionMethod, forKey: .sessionMethod)
     try c.encode(expiresAt, forKey: .expiresAt)
   }
@@ -547,6 +552,7 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
   public var sessionId: AuthSessionId
   public var subject: String
   public var scopes: [AuthEnvironmentScope]
+  public var permissions: [AuthEnvironmentScope]?
   public var method: ServerAuthSessionMethod
   public var client: AuthClientMetadata
   public var issuedAt: IsoDateTime
@@ -555,10 +561,11 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
   public var connected: Bool
   public var current: Bool
 
-  public init(sessionId: AuthSessionId, subject: String, scopes: [AuthEnvironmentScope], method: ServerAuthSessionMethod, client: AuthClientMetadata, issuedAt: IsoDateTime, expiresAt: IsoDateTime, lastConnectedAt: IsoDateTime? = nil, connected: Bool, current: Bool) {
+  public init(sessionId: AuthSessionId, subject: String, scopes: [AuthEnvironmentScope], permissions: [AuthEnvironmentScope]? = nil, method: ServerAuthSessionMethod, client: AuthClientMetadata, issuedAt: IsoDateTime, expiresAt: IsoDateTime, lastConnectedAt: IsoDateTime? = nil, connected: Bool, current: Bool) {
     self.sessionId = sessionId
     self.subject = subject
     self.scopes = scopes
+    self.permissions = permissions
     self.method = method
     self.client = client
     self.issuedAt = issuedAt
@@ -572,6 +579,7 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
     case sessionId
     case subject
     case scopes
+    case permissions
     case method
     case client
     case issuedAt
@@ -586,6 +594,7 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
     self.sessionId = try c.decode(AuthSessionId.self, forKey: .sessionId)
     self.subject = try c.decode(String.self, forKey: .subject)
     self.scopes = try c.decode([AuthEnvironmentScope].self, forKey: .scopes)
+    self.permissions = try c.decodeLossyArrayIfPresent(AuthEnvironmentScope.self, forKey: .permissions)
     self.method = try c.decode(ServerAuthSessionMethod.self, forKey: .method)
     self.client = try c.decode(AuthClientMetadata.self, forKey: .client)
     self.issuedAt = try c.decode(IsoDateTime.self, forKey: .issuedAt)
@@ -600,6 +609,7 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
     try c.encode(sessionId, forKey: .sessionId)
     try c.encode(subject, forKey: .subject)
     try c.encode(scopes, forKey: .scopes)
+    try c.encodeIfPresent(permissions, forKey: .permissions)
     try c.encode(method, forKey: .method)
     try c.encode(client, forKey: .client)
     try c.encode(issuedAt, forKey: .issuedAt)
@@ -612,9 +622,9 @@ public struct AuthClientSession: Sendable, Hashable, Codable {
 
 public struct AuthCreatePairingCredentialInput: Sendable, Hashable, Codable {
   public var label: String?
-  public var scopes: [AuthEnvironmentScope]?
+  public var scopes: [AuthGrantScope]?
 
-  public init(label: String? = nil, scopes: [AuthEnvironmentScope]? = nil) {
+  public init(label: String? = nil, scopes: [AuthGrantScope]? = nil) {
     self.label = label
     self.scopes = scopes
   }
@@ -627,7 +637,7 @@ public struct AuthCreatePairingCredentialInput: Sendable, Hashable, Codable {
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.label = try c.decodeIfPresent(String.self, forKey: .label)
-    self.scopes = try c.decodeIfPresent([AuthEnvironmentScope].self, forKey: .scopes)
+    self.scopes = try c.decodeIfPresent([AuthGrantScope].self, forKey: .scopes)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -640,8 +650,17 @@ public struct AuthCreatePairingCredentialInput: Sendable, Hashable, Codable {
 public enum AuthEnvironmentScope: Sendable, Hashable, Codable, RawRepresentable {
   case orchestrationRead
   case orchestrationOperate
+  case settingsWrite
+  case providersManage
+  case environmentMaintain
+  case previewOperate
+  case diagnosticsRead
+  case terminalRead
   case terminalOperate
+  case filesystemRead
+  case filesystemWrite
   case reviewWrite
+  case sourceControlWrite
   case accessRead
   case accessWrite
   case relayRead
@@ -653,8 +672,17 @@ public enum AuthEnvironmentScope: Sendable, Hashable, Codable, RawRepresentable 
     switch rawValue {
     case "orchestration:read": self = .orchestrationRead
     case "orchestration:operate": self = .orchestrationOperate
+    case "settings:write": self = .settingsWrite
+    case "providers:manage": self = .providersManage
+    case "environment:maintain": self = .environmentMaintain
+    case "preview:operate": self = .previewOperate
+    case "diagnostics:read": self = .diagnosticsRead
+    case "terminal:read": self = .terminalRead
     case "terminal:operate": self = .terminalOperate
+    case "filesystem:read": self = .filesystemRead
+    case "filesystem:write": self = .filesystemWrite
     case "review:write": self = .reviewWrite
+    case "source-control:write": self = .sourceControlWrite
     case "access:read": self = .accessRead
     case "access:write": self = .accessWrite
     case "relay:read": self = .relayRead
@@ -667,8 +695,91 @@ public enum AuthEnvironmentScope: Sendable, Hashable, Codable, RawRepresentable 
     switch self {
     case .orchestrationRead: "orchestration:read"
     case .orchestrationOperate: "orchestration:operate"
+    case .settingsWrite: "settings:write"
+    case .providersManage: "providers:manage"
+    case .environmentMaintain: "environment:maintain"
+    case .previewOperate: "preview:operate"
+    case .diagnosticsRead: "diagnostics:read"
+    case .terminalRead: "terminal:read"
     case .terminalOperate: "terminal:operate"
+    case .filesystemRead: "filesystem:read"
+    case .filesystemWrite: "filesystem:write"
     case .reviewWrite: "review:write"
+    case .sourceControlWrite: "source-control:write"
+    case .accessRead: "access:read"
+    case .accessWrite: "access:write"
+    case .relayRead: "relay:read"
+    case .relayWrite: "relay:write"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum AuthGrantScope: Sendable, Hashable, Codable, RawRepresentable {
+  case orchestrationRead
+  case orchestrationOperate
+  case settingsWrite
+  case providersManage
+  case environmentMaintain
+  case previewOperate
+  case diagnosticsRead
+  case terminalRead
+  case terminalOperate
+  case filesystemRead
+  case filesystemWrite
+  case sourceControlWrite
+  case accessRead
+  case accessWrite
+  case relayRead
+  case relayWrite
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "orchestration:read": self = .orchestrationRead
+    case "orchestration:operate": self = .orchestrationOperate
+    case "settings:write": self = .settingsWrite
+    case "providers:manage": self = .providersManage
+    case "environment:maintain": self = .environmentMaintain
+    case "preview:operate": self = .previewOperate
+    case "diagnostics:read": self = .diagnosticsRead
+    case "terminal:read": self = .terminalRead
+    case "terminal:operate": self = .terminalOperate
+    case "filesystem:read": self = .filesystemRead
+    case "filesystem:write": self = .filesystemWrite
+    case "source-control:write": self = .sourceControlWrite
+    case "access:read": self = .accessRead
+    case "access:write": self = .accessWrite
+    case "relay:read": self = .relayRead
+    case "relay:write": self = .relayWrite
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .orchestrationRead: "orchestration:read"
+    case .orchestrationOperate: "orchestration:operate"
+    case .settingsWrite: "settings:write"
+    case .providersManage: "providers:manage"
+    case .environmentMaintain: "environment:maintain"
+    case .previewOperate: "preview:operate"
+    case .diagnosticsRead: "diagnostics:read"
+    case .terminalRead: "terminal:read"
+    case .terminalOperate: "terminal:operate"
+    case .filesystemRead: "filesystem:read"
+    case .filesystemWrite: "filesystem:write"
+    case .sourceControlWrite: "source-control:write"
     case .accessRead: "access:read"
     case .accessWrite: "access:write"
     case .relayRead: "relay:read"
@@ -727,14 +838,16 @@ public struct AuthPairingCredentialResult: Sendable, Hashable, Codable {
 public struct AuthPairingLink: Sendable, Hashable, Codable {
   public var id: String
   public var scopes: [AuthEnvironmentScope]
+  public var permissions: [AuthEnvironmentScope]?
   public var subject: String
   public var label: String?
   public var createdAt: IsoDateTime
   public var expiresAt: IsoDateTime
 
-  public init(id: String, scopes: [AuthEnvironmentScope], subject: String, label: String? = nil, createdAt: IsoDateTime, expiresAt: IsoDateTime) {
+  public init(id: String, scopes: [AuthEnvironmentScope], permissions: [AuthEnvironmentScope]? = nil, subject: String, label: String? = nil, createdAt: IsoDateTime, expiresAt: IsoDateTime) {
     self.id = id
     self.scopes = scopes
+    self.permissions = permissions
     self.subject = subject
     self.label = label
     self.createdAt = createdAt
@@ -744,6 +857,7 @@ public struct AuthPairingLink: Sendable, Hashable, Codable {
   private enum CodingKeys: String, CodingKey {
     case id
     case scopes
+    case permissions
     case subject
     case label
     case createdAt
@@ -754,6 +868,7 @@ public struct AuthPairingLink: Sendable, Hashable, Codable {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.id = try c.decode(String.self, forKey: .id)
     self.scopes = try c.decode([AuthEnvironmentScope].self, forKey: .scopes)
+    self.permissions = try c.decodeLossyArrayIfPresent(AuthEnvironmentScope.self, forKey: .permissions)
     self.subject = try c.decode(String.self, forKey: .subject)
     self.label = try c.decodeIfPresent(String.self, forKey: .label)
     self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
@@ -764,6 +879,7 @@ public struct AuthPairingLink: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(id, forKey: .id)
     try c.encode(scopes, forKey: .scopes)
+    try c.encodeIfPresent(permissions, forKey: .permissions)
     try c.encode(subject, forKey: .subject)
     try c.encodeIfPresent(label, forKey: .label)
     try c.encode(createdAt, forKey: .createdAt)
@@ -819,13 +935,15 @@ public struct AuthSessionState: Sendable, Hashable, Codable {
   public var authenticated: Bool
   public var auth: ServerAuthDescriptor
   public var scopes: [AuthEnvironmentScope]?
+  public var permissions: [AuthEnvironmentScope]?
   public var sessionMethod: AuthSessionStateSessionMethod?
   public var expiresAt: IsoDateTime?
 
-  public init(authenticated: Bool, auth: ServerAuthDescriptor, scopes: [AuthEnvironmentScope]? = nil, sessionMethod: AuthSessionStateSessionMethod? = nil, expiresAt: IsoDateTime? = nil) {
+  public init(authenticated: Bool, auth: ServerAuthDescriptor, scopes: [AuthEnvironmentScope]? = nil, permissions: [AuthEnvironmentScope]? = nil, sessionMethod: AuthSessionStateSessionMethod? = nil, expiresAt: IsoDateTime? = nil) {
     self.authenticated = authenticated
     self.auth = auth
     self.scopes = scopes
+    self.permissions = permissions
     self.sessionMethod = sessionMethod
     self.expiresAt = expiresAt
   }
@@ -834,6 +952,7 @@ public struct AuthSessionState: Sendable, Hashable, Codable {
     case authenticated
     case auth
     case scopes
+    case permissions
     case sessionMethod
     case expiresAt
   }
@@ -843,6 +962,7 @@ public struct AuthSessionState: Sendable, Hashable, Codable {
     self.authenticated = try c.decode(Bool.self, forKey: .authenticated)
     self.auth = try c.decode(ServerAuthDescriptor.self, forKey: .auth)
     self.scopes = try c.decodeIfPresent([AuthEnvironmentScope].self, forKey: .scopes)
+    self.permissions = try c.decodeLossyArrayIfPresent(AuthEnvironmentScope.self, forKey: .permissions)
     self.sessionMethod = try c.decodeIfPresent(AuthSessionStateSessionMethod.self, forKey: .sessionMethod)
     self.expiresAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .expiresAt)
   }
@@ -852,6 +972,7 @@ public struct AuthSessionState: Sendable, Hashable, Codable {
     try c.encode(authenticated, forKey: .authenticated)
     try c.encode(auth, forKey: .auth)
     try c.encodeIfPresent(scopes, forKey: .scopes)
+    try c.encodeIfPresent(permissions, forKey: .permissions)
     try c.encodeIfPresent(sessionMethod, forKey: .sessionMethod)
     try c.encodeIfPresent(expiresAt, forKey: .expiresAt)
   }
@@ -947,16 +1068,19 @@ public enum CloudGetRelayClientStatusFailureWrapper: Sendable, Hashable, Codable
 public struct EnvironmentAuthorizationError: Sendable, Hashable, Codable, Error {
   public var message: String
   public var requiredScope: AuthEnvironmentScope
+  public var requiredPermission: String?
 
-  public init(message: String, requiredScope: AuthEnvironmentScope) {
+  public init(message: String, requiredScope: AuthEnvironmentScope, requiredPermission: String? = nil) {
     self.message = message
     self.requiredScope = requiredScope
+    self.requiredPermission = requiredPermission
   }
 
   private enum CodingKeys: String, CodingKey {
     case _tag
     case message
     case requiredScope
+    case requiredPermission
   }
 
   public init(from decoder: any Decoder) throws {
@@ -964,6 +1088,7 @@ public struct EnvironmentAuthorizationError: Sendable, Hashable, Codable, Error 
     try c.expectConstant("EnvironmentAuthorizationError", forKey: ._tag)
     self.message = try c.decode(String.self, forKey: .message)
     self.requiredScope = try c.decode(AuthEnvironmentScope.self, forKey: .requiredScope)
+    self.requiredPermission = try c.decodeIfPresent(String.self, forKey: .requiredPermission)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -971,10 +1096,11 @@ public struct EnvironmentAuthorizationError: Sendable, Hashable, Codable, Error 
     try c.encode("EnvironmentAuthorizationError", forKey: ._tag)
     try c.encode(message, forKey: .message)
     try c.encode(requiredScope, forKey: .requiredScope)
+    try c.encodeIfPresent(requiredPermission, forKey: .requiredPermission)
   }
 }
 
-public enum PreviewAutomationFocusHostFailureWrapper: Sendable, Hashable, Codable, Error {
+public enum PreviewListFailureWrapper: Sendable, Hashable, Codable, Error {
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -999,7 +1125,7 @@ public enum PreviewAutomationFocusHostFailureWrapper: Sendable, Hashable, Codabl
   }
 }
 
-public enum PreviewListFailureWrapper: Sendable, Hashable, Codable, Error {
+public enum PreviewReportProfilesFailureWrapper: Sendable, Hashable, Codable, Error {
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -1074,6 +1200,31 @@ public enum PullRequestsSubscribeRefreshesFailureWrapper: Sendable, Hashable, Co
   }
 }
 
+public enum ServerAcceptAcpRegistryUrlAuthFailureWrapper: Sendable, Hashable, Codable, Error {
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum ServerAuthBootstrapMethod: Sendable, Hashable, Codable, RawRepresentable {
   case desktopBootstrap
   case oneTimeToken
@@ -1111,12 +1262,14 @@ public struct ServerAuthDescriptor: Sendable, Hashable, Codable {
   public var bootstrapMethods: [ServerAuthBootstrapMethod]
   public var sessionMethods: [ServerAuthSessionMethod]
   public var sessionCookieName: String
+  public var serverUpdateScope: String?
 
-  public init(policy: ServerAuthPolicy, bootstrapMethods: [ServerAuthBootstrapMethod], sessionMethods: [ServerAuthSessionMethod], sessionCookieName: String) {
+  public init(policy: ServerAuthPolicy, bootstrapMethods: [ServerAuthBootstrapMethod], sessionMethods: [ServerAuthSessionMethod], sessionCookieName: String, serverUpdateScope: String? = nil) {
     self.policy = policy
     self.bootstrapMethods = bootstrapMethods
     self.sessionMethods = sessionMethods
     self.sessionCookieName = sessionCookieName
+    self.serverUpdateScope = serverUpdateScope
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -1124,6 +1277,7 @@ public struct ServerAuthDescriptor: Sendable, Hashable, Codable {
     case bootstrapMethods
     case sessionMethods
     case sessionCookieName
+    case serverUpdateScope
   }
 
   public init(from decoder: any Decoder) throws {
@@ -1132,6 +1286,7 @@ public struct ServerAuthDescriptor: Sendable, Hashable, Codable {
     self.bootstrapMethods = try c.decode([ServerAuthBootstrapMethod].self, forKey: .bootstrapMethods)
     self.sessionMethods = try c.decode([ServerAuthSessionMethod].self, forKey: .sessionMethods)
     self.sessionCookieName = try c.decode(String.self, forKey: .sessionCookieName)
+    self.serverUpdateScope = try c.decodeIfPresent(String.self, forKey: .serverUpdateScope)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -1140,6 +1295,7 @@ public struct ServerAuthDescriptor: Sendable, Hashable, Codable {
     try c.encode(bootstrapMethods, forKey: .bootstrapMethods)
     try c.encode(sessionMethods, forKey: .sessionMethods)
     try c.encode(sessionCookieName, forKey: .sessionCookieName)
+    try c.encodeIfPresent(serverUpdateScope, forKey: .serverUpdateScope)
   }
 }
 

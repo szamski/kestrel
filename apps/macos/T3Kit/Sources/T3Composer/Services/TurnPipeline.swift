@@ -26,7 +26,7 @@ public struct ComposerTurnError: Error, LocalizedError, Sendable {
 /// A draft turned into the pieces of `thread.turn.start`.
 struct OutgoingTurn {
   var text: String
-  var attachments: [ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem]
+  var attachments: [V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem]
   var context: OrchestrationMessageContext?
   var titleSeed: String
   /// Local attachment id to the id the server will know it by.
@@ -99,7 +99,7 @@ extension ComposerServices {
       for attachment in attachments { startUpload(attachment, target: target) }
       await awaitUploads(attachments.map(\.id))
     }
-    var wire: [ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem] = []
+    var wire: [V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem] = []
     var ids: [String: String] = [:]
     for attachment in attachments {
       if usesUploads {
@@ -119,7 +119,7 @@ extension ComposerServices {
         ids[attachment.id] = attachment.id
         wire.append(
           .option1(
-            ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItemOption1(
+            V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItemOption1(
               id: attachment.id, name: attachment.name, mimeType: attachment.mimeType, sizeBytes: attachment.sizeBytes,
               dataUrl: ImageCompression.dataURL(data: data, mimeType: attachment.mimeType))))
       }
@@ -132,11 +132,11 @@ extension ComposerServices {
 
   func turnCommand(
     target: ComposerTarget, turn: OutgoingTurn, settings: QueuedMessageSendSettings, includeTitleSeed: Bool
-  ) -> ClientOrchestrationCommandThreadTurnStart {
+  ) -> V1.ClientOrchestrationCommandThreadTurnStart {
     let createdAt = IsoDateTime(date: Date())
-    return ClientOrchestrationCommandThreadTurnStart(
+    return V1.ClientOrchestrationCommandThreadTurnStart(
       commandId: CommandId(Self.newId("cmd")), threadId: ThreadId(target.threadId),
-      message: ClientOrchestrationCommandThreadTurnStartMessage(
+      message: V1.ClientOrchestrationCommandThreadTurnStartMessage(
         messageId: MessageId(Self.newId()), text: turn.text, attachments: turn.attachments,
         context: catalog.capabilities.inlineMessageContext ? turn.context : nil),
       modelSelection: settings.modelSelection, titleSeed: includeTitleSeed ? turn.titleSeed : nil, runtimeMode: settings.runtimeMode,

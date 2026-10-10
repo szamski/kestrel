@@ -213,7 +213,7 @@ final class DiffPanelModel {
   // MARK: Tree
 
   private static func treeRows(_ files: [DiffFile]) -> [DiffTreeRow] {
-    let checkpoint = files.map { OrchestrationCheckpointFile(path: $0.path, kind: $0.changeType.rawValue, additions: $0.additions, deletions: $0.deletions) }
+    let checkpoint = files.map { V1.OrchestrationCheckpointFile(path: $0.path, kind: $0.changeType.rawValue, additions: $0.additions, deletions: $0.deletions) }
     var rows: [DiffTreeRow] = []
     func walk(_ nodes: [TurnDiffTreeNode], depth: Int) {
       for node in nodes {

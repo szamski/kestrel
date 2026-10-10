@@ -43,64 +43,10 @@ public struct BooleanProviderOptionDescriptor: Sendable, Hashable, Codable {
   }
 }
 
-public struct CustomModelEntry: Sendable, Hashable, Codable {
-  public var slug: String
-  public var name: String?
-  public var capabilities: ModelCapabilities?
-
-  public init(slug: String, name: String? = nil, capabilities: ModelCapabilities? = nil) {
-    self.slug = slug
-    self.name = name
-    self.capabilities = capabilities
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case slug
-    case name
-    case capabilities
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.slug = try c.decode(String.self, forKey: .slug)
-    self.name = try c.decodeIfPresent(String.self, forKey: .name)
-    self.capabilities = try c.decodeIfPresent(ModelCapabilities.self, forKey: .capabilities)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(slug, forKey: .slug)
-    try c.encodeIfPresent(name, forKey: .name)
-    try c.encodeIfPresent(capabilities, forKey: .capabilities)
-  }
-}
-
-public enum CustomModelSetting: Sendable, Hashable, Codable {
-  case string(String)
-  case serverSettingsProvidersCodexCustomModelsItemOption2(ServerSettingsProvidersCodexCustomModelsItemOption2)
-  case unknown(JSONValue)
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.singleValueContainer()
-    if let value = try? c.decode(String.self) { self = .string(value); return }
-    if let value = try? c.decode(ServerSettingsProvidersCodexCustomModelsItemOption2.self) { self = .serverSettingsProvidersCodexCustomModelsItemOption2(value); return }
-    self = .unknown(try c.decode(JSONValue.self))
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    switch self {
-    case .string(let value): try c.encode(value)
-    case .serverSettingsProvidersCodexCustomModelsItemOption2(let value): try c.encode(value)
-    case .unknown(let value): try c.encode(value)
-    }
-  }
-}
-
 public struct ModelCapabilities: Sendable, Hashable, Codable {
-  public var optionDescriptors: [ProviderOptionDescriptor2]?
+  public var optionDescriptors: [ProviderOptionDescriptor]?
 
-  public init(optionDescriptors: [ProviderOptionDescriptor2]? = nil) {
+  public init(optionDescriptors: [ProviderOptionDescriptor]? = nil) {
     self.optionDescriptors = optionDescriptors
   }
 
@@ -110,7 +56,7 @@ public struct ModelCapabilities: Sendable, Hashable, Codable {
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.optionDescriptors = try c.decodeIfPresent([ProviderOptionDescriptor2].self, forKey: .optionDescriptors)
+    self.optionDescriptors = try c.decodeIfPresent([ProviderOptionDescriptor].self, forKey: .optionDescriptors)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -157,34 +103,6 @@ public struct ProviderOptionChoice: Sendable, Hashable, Codable {
 }
 
 public enum ProviderOptionDescriptor: Sendable, Hashable, Codable {
-  case select(ProviderOptionDescriptorSelect)
-  case boolean(ProviderOptionDescriptorBoolean)
-  /// A variant this build does not know; kept verbatim so it round-trips.
-  case unknown(JSONValue)
-
-  private enum TagKeys: String, CodingKey { case tag = "type" }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: TagKeys.self)
-    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
-    switch tag {
-    case "select"?: self = .select(try ProviderOptionDescriptorSelect(from: decoder))
-    case "boolean"?: self = .boolean(try ProviderOptionDescriptorBoolean(from: decoder))
-    default:
-      self = .unknown(try JSONValue(from: decoder))
-    }
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    switch self {
-    case .select(let value): try value.encode(to: encoder)
-    case .boolean(let value): try value.encode(to: encoder)
-    case .unknown(let value): try value.encode(to: encoder)
-    }
-  }
-}
-
-public enum ProviderOptionDescriptor2: Sendable, Hashable, Codable {
   case select(SelectProviderOptionDescriptor)
   case boolean(BooleanProviderOptionDescriptor)
   /// A variant this build does not know; kept verbatim so it round-trips.

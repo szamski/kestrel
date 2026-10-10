@@ -6,24 +6,24 @@ import T3Contracts
 
 /// The slice of a latest turn that timing decisions read (`LatestTurnTiming`).
 public struct LatestTurnTiming: Sendable, Hashable {
-  public var turnId: TurnId?
-  public var state: OrchestrationLatestTurnState?
+  public var turnId: V1.TurnId?
+  public var state: V1.OrchestrationLatestTurnState?
   public var startedAt: String?
   public var completedAt: String?
 
-  public init(turnId: TurnId?, state: OrchestrationLatestTurnState? = nil, startedAt: String?, completedAt: String?) {
+  public init(turnId: V1.TurnId?, state: V1.OrchestrationLatestTurnState? = nil, startedAt: String?, completedAt: String?) {
     self.turnId = turnId
     self.state = state
     self.startedAt = startedAt
     self.completedAt = completedAt
   }
 
-  public init(_ turn: OrchestrationLatestTurn) {
+  public init(_ turn: V1.OrchestrationLatestTurn) {
     self.init(turnId: turn.turnId, state: turn.state, startedAt: turn.startedAt?.rawValue, completedAt: turn.completedAt?.rawValue)
   }
 }
 
-public func isLatestTurnSettled(latestTurn: LatestTurnTiming?, session: OrchestrationSession?) -> Bool {
+public func isLatestTurnSettled(latestTurn: LatestTurnTiming?, session: V1.OrchestrationSession?) -> Bool {
   guard let latestTurn, !(latestTurn.startedAt ?? "").isEmpty else { return false }
   if (latestTurn.completedAt ?? "").isEmpty { return false }
   guard let session else { return true }
@@ -33,7 +33,7 @@ public func isLatestTurnSettled(latestTurn: LatestTurnTiming?, session: Orchestr
 /// When the working indicator should count from (`deriveActiveWorkStartedAt`).
 public func deriveActiveWorkStartedAt(
   latestTurn: LatestTurnTiming?,
-  session: OrchestrationSession?,
+  session: V1.OrchestrationSession?,
   sendStartedAt: String?,
   latestUserMessageAt: String? = nil
 ) -> String? {
@@ -49,7 +49,7 @@ public func deriveActiveWorkStartedAt(
   return sendStartedAt
 }
 
-public func derivePhase(_ session: OrchestrationSession?) -> SessionPhase {
+public func derivePhase(_ session: V1.OrchestrationSession?) -> SessionPhase {
   guard let session else { return .disconnected }
   switch session.status {
   case .stopped, .interrupted, .error: return .disconnected
@@ -64,7 +64,7 @@ public func derivePhase(_ session: OrchestrationSession?) -> SessionPhase {
 /// Interleaves messages, plans and work rows by creation time. Ties keep source order
 /// (messages, then plans, then work), like the stable sort of the TypeScript.
 public func deriveTimelineEntries(
-  messages: [OrchestrationMessage],
+  messages: [V1.OrchestrationMessage],
   proposedPlans: [ProposedPlan],
   workEntries: [WorkLogEntry]
 ) -> [TimelineEntry] {
@@ -81,16 +81,16 @@ public func deriveTimelineEntries(
 }
 
 /// `inferCheckpointTurnCountByTurnId`: the position of each turn among completed checkpoints.
-public func inferCheckpointTurnCountByTurnId(_ summaries: [OrchestrationCheckpointSummary]) -> [TurnId: Int] {
+public func inferCheckpointTurnCountByTurnId(_ summaries: [V1.OrchestrationCheckpointSummary]) -> [V1.TurnId: Int] {
   let sorted = summaries.stableSorted { jsLocaleCompare($0.completedAt.rawValue, $1.completedAt.rawValue) }
-  var result: [TurnId: Int] = [:]
+  var result: [V1.TurnId: Int] = [:]
   for (index, summary) in sorted.enumerated() { result[summary.turnId] = index + 1 }
   return result
 }
 
 // MARK: - Plans
 
-private func planStateFromActivity(_ activity: OrchestrationThreadActivity) -> ActivePlanState? {
+private func planStateFromActivity(_ activity: V1.OrchestrationThreadActivity) -> ActivePlanState? {
   let payload = activity.payload.looseRecord
   guard let rawPlan = payload?["plan"]?.arrayOrNil else { return nil }
   var steps: [ActivePlanState.Step] = []
@@ -115,7 +115,7 @@ private func keyedSteps(_ steps: [ActivePlanState.Step]) -> [(key: String, step:
   }
 }
 
-private func addPlanStepDurations(_ plan: ActivePlanState, _ activities: [OrchestrationThreadActivity]) -> ActivePlanState {
+private func addPlanStepDurations(_ plan: ActivePlanState, _ activities: [V1.OrchestrationThreadActivity]) -> ActivePlanState {
   var timings: [(key: String, startedAt: Double?, completedAt: Double?)] = []
   var timingIndex: [String: Int] = [:]
   var planStartedAt: Double?
@@ -163,7 +163,7 @@ private func addPlanStepDurations(_ plan: ActivePlanState, _ activities: [Orches
 }
 
 /// The checklist the agent is working through, preferring the latest turn's plan.
-public func deriveActivePlanState(activities: [OrchestrationThreadActivity], latestTurnId: TurnId?) -> ActivePlanState? {
+public func deriveActivePlanState(activities: [V1.OrchestrationThreadActivity], latestTurnId: V1.TurnId?) -> ActivePlanState? {
   let allPlanActivities = activities.filter { $0.kind == "turn.plan.updated" }.stableSorted(by: compareActivitiesByOrder)
   // Prefer the plan from the current turn; fall back to the most recent plan from any turn so
   // that TodoWrite tasks persist across follow-up messages.
@@ -187,7 +187,7 @@ private func latestProposedPlanState(_ plan: ProposedPlan) -> LatestProposedPlan
   )
 }
 
-public func findLatestProposedPlan(_ proposedPlans: [ProposedPlan], latestTurnId: TurnId?) -> LatestProposedPlanState? {
+public func findLatestProposedPlan(_ proposedPlans: [ProposedPlan], latestTurnId: V1.TurnId?) -> LatestProposedPlanState? {
   func order(_ left: ProposedPlan, _ right: ProposedPlan) -> Int {
     let updated = jsLocaleCompare(left.updatedAt.rawValue, right.updatedAt.rawValue)
     return updated != 0 ? updated : jsLocaleCompare(left.id, right.id)

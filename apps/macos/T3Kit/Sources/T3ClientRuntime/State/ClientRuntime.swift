@@ -230,7 +230,10 @@ public final class ClientRuntime {
 
   private var allThreads: [EnvironmentThreadShell] {
     order.flatMap { id in
-      (shells[id]?.snapshot?.threads ?? []).filter { $0.archivedAt == nil }.map { EnvironmentThreadShell(environmentId: id, shell: $0) }
+      let pending = Set((shells[id]?.v2?.threads ?? []).filter { ShellPresentation.isPending($0.status) }.map(\.id))
+      return (shells[id]?.snapshot?.threads ?? []).filter { $0.archivedAt == nil }.map {
+        EnvironmentThreadShell(environmentId: id, shell: $0, startPending: pending.contains($0.id))
+      }
     }
   }
 
@@ -315,7 +318,7 @@ public final class ClientRuntime {
     let lease = await runtime.threads.acquire(key.threadId)
     let shellChanges = runtime.shell.changes()
     let threadId = key.threadId
-    let shells = AsyncStream<OrchestrationThreadShell?> { continuation in
+    let shells = AsyncStream<V1.OrchestrationThreadShell?> { continuation in
       let task = Task {
         for await state in shellChanges { continuation.yield(state.snapshot?.threads.first { $0.id == threadId }) }
       }
@@ -330,6 +333,11 @@ public final class ClientRuntime {
     shells[key.environmentId]?.snapshot?.threads.first { $0.id == key.threadId }.map {
       EnvironmentThreadShell(environmentId: key.environmentId, shell: $0)
     }
+  }
+
+  /// The protocol-2 record behind a thread row (queue state, goal, visited watermark, ...); nil on protocol 1.
+  public func threadShellV2(_ key: ScopedThreadKey) -> OrchestrationV2ThreadShell? {
+    shells[key.environmentId]?.v2?.threads.first { $0.id == key.threadId }
   }
 
   // MARK: Unread

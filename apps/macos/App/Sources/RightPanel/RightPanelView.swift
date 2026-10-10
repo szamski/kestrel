@@ -6,7 +6,7 @@ import T3Contracts
 struct RightPanelView: View {
   let app: AppModel
   let key: ScopedThreadKey
-  let turns: [OrchestrationCheckpointSummary]
+  let turns: [V1.OrchestrationCheckpointSummary]
   let store: RightPanelStore
   let diff: DiffPanelModel
   /// A file tab with unsaved edits that the user asked to close.

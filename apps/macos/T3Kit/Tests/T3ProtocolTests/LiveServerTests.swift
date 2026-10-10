@@ -20,18 +20,18 @@ private let liveEnabled = ProcessInfo.processInfo.environment["T3_LIVE_SERVER"] 
 
     let http = EnvironmentHTTPClient(baseURL: baseURL)
     let descriptor = try await http.descriptor()
-    #expect(ProtocolCompatibility.check(descriptor) == nil)
+    let negotiated = try ProtocolCompatibility.negotiate(descriptor).get()
 
     let metadata = ClientMetadata(label: "T3 Code macOS protocol tests", appVersion: "0.0.0-test")
     let token = try await http.exchangeToken(credential: credential, clientMetadata: metadata)
     let auth = RequestAuthorization.bearer(token.accessToken)
     #expect(try await http.authSession(auth: auth).authenticated)
 
-    let shell: RawJSON = try await http.get("/api/orchestration/shell", auth: auth)
+    let shell: RawJSON = try await http.get("/api/orchestration/shell", auth: auth, orchestrationProtocol: negotiated)
     let afterSequence = try #require(shell["snapshotSequence"]?.numberValue)
 
     let ticket = try await http.webSocketTicket(auth: auth)
-    let wsURL = WebSocketURL.make(wsBaseURL: wsBase(baseURL), ticket: ticket.ticket, metadata: metadata)
+    let wsURL = WebSocketURL.make(wsBaseURL: wsBase(baseURL), ticket: ticket.ticket, metadata: metadata, orchestrationProtocol: negotiated)
     let transport = try await URLSessionWebSocketTransport.open(URLRequest(url: wsURL))
 
     // Readiness: the first subscribeServerConfig snapshot must be for the environment we paired with.

@@ -98,4 +98,6 @@ public struct PreparedConnection: Sendable, Equatable {
   public var httpBaseURL: URL
   public var socketURL: URL
   public var authorization: RequestAuthorization
+  /// What the descriptor negotiated; the socket URL and orchestration HTTP calls speak it.
+  public var orchestrationProtocol: OrchestrationProtocol = .v1
 }

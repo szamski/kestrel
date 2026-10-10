@@ -84,7 +84,7 @@ struct ThreadReader: View {
     }
   }
 
-  private func chat(shell: OrchestrationThreadShell?) -> some View {
+  private func chat(shell: V1.OrchestrationThreadShell?) -> some View {
     VStack(spacing: 0) {
       ZStack {
         #if DEBUG
@@ -123,7 +123,7 @@ struct ThreadReader: View {
     }
   }
 
-  private func subtitle(_ shell: OrchestrationThreadShell?) -> String {
+  private func subtitle(_ shell: V1.OrchestrationThreadShell?) -> String {
     guard let shell, let thread = app.runtime.threadShell(detail.key) else { return "" }
     var parts = [app.projectTitle(of: thread)]
     if let branch = shell.branch, !branch.isEmpty { parts.append(branch) }
@@ -132,7 +132,7 @@ struct ThreadReader: View {
 }
 
 struct SessionStatusLabel: View {
-  let shell: OrchestrationThreadShell?
+  let shell: V1.OrchestrationThreadShell?
 
   var body: some View {
     if let shell {

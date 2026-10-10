@@ -141,6 +141,7 @@ extension ComposerContextRecord {
     case .reviewComment(let value): value.contextId.rawValue
     case .mention(let value): value.contextId.rawValue
     case .skill(let value): value.contextId.rawValue
+    case .thread(let value): value.contextId.rawValue
     case .other(let value): value.contextId.rawValue
     case .unknown(let value): value["contextId"]?.stringValue ?? ""
     }
@@ -156,6 +157,7 @@ extension ComposerContextRecord {
     case .reviewComment: "review-comment"
     case .mention: "mention"
     case .skill: "skill"
+    case .thread: "thread"
     case .other(let value): value.kind
     case .unknown(let value): value["kind"]?.stringValue ?? ""
     }
@@ -171,6 +173,7 @@ extension ComposerContextRecord {
     case .reviewComment(let value): value.label
     case .mention(let value): value.label
     case .skill(let value): value.label
+    case .thread(let value): value.label
     case .other(let value): value.label
     case .unknown(let value): value["label"]?.stringValue ?? ""
     }

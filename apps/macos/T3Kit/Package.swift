@@ -22,7 +22,8 @@ let package = Package(
     .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.9.0"),
   ],
   targets: [
-    // Generated from packages/contracts. Do not edit Generated/*.swift by hand.
+    // Generated from packages/contracts (Generated/) and the frozen protocol-1 schemas in
+    // apps/macos/scripts/frozen-v1 (GeneratedV1/, namespace `V1`). Do not edit either by hand.
     .target(name: "T3Contracts"),
     // Effect RPC over WebSocket, environment HTTP, auth and credential storage.
     .target(name: "T3Protocol", dependencies: ["T3Contracts"]),

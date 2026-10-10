@@ -64,7 +64,7 @@ public enum ModelOptions {
     return trimmed
   }
 
-  private static func resolveChoice(_ descriptor: ProviderOptionDescriptorSelect, raw: String?) -> String? {
+  private static func resolveChoice(_ descriptor: SelectProviderOptionDescriptor, raw: String?) -> String? {
     guard let trimmed = trimOrNil(raw) else {
       return descriptor.currentValue ?? descriptor.options.first(where: { $0.isDefault == true })?.id
     }
@@ -215,7 +215,7 @@ public enum ModelOptions {
     let caps = capabilities(models: models, model: model, driver: driver, planModeEnabled: planModeEnabled)
     let selections = withImplicitFastModeDefault(caps, selections: modelOptions)
     let resolved = resolvedDescriptors(caps, selections: selections)
-    var primary: ProviderOptionDescriptorSelect?
+    var primary: SelectProviderOptionDescriptor?
     for descriptor in resolved {
       if case .select(let value) = descriptor {
         primary = value

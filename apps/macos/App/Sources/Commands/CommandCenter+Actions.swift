@@ -39,7 +39,7 @@ extension CommandCenter {
       let projectId = ProjectId(rawValue: UUID().uuidString.lowercased())
       try await runtime.dispatch(
         .projectCreate(
-          ProjectCreateCommand(commandId: meta.commandId, projectId: projectId, title: url.lastPathComponent, workspaceRoot: path, createdAt: meta.createdAt)))
+          V1.ProjectCreateCommand(commandId: meta.commandId, projectId: projectId, title: url.lastPathComponent, workspaceRoot: path, createdAt: meta.createdAt)))
       // The project reaches the shell through the event stream; open its draft as soon as it does.
       for _ in 0..<60 {
         if let created = app.runtime.projects.first(where: { $0.environmentId == environmentId && $0.projectId == projectId }) {

@@ -277,8 +277,9 @@ public struct UsageSource: Sendable, Hashable, Codable {
   public var distinctSessions: Int
   public var message: String?
   public var action: String?
+  public var refreshing: Bool?
 
-  public init(fingerprint: UsageSourceFingerprint, status: UsageSourceStatus, scannedFiles: Int, skippedFiles: Int, malformedRecords: Int, distinctSessions: Int, message: String? = nil, action: String? = nil) {
+  public init(fingerprint: UsageSourceFingerprint, status: UsageSourceStatus, scannedFiles: Int, skippedFiles: Int, malformedRecords: Int, distinctSessions: Int, message: String? = nil, action: String? = nil, refreshing: Bool? = nil) {
     self.fingerprint = fingerprint
     self.status = status
     self.scannedFiles = scannedFiles
@@ -287,6 +288,7 @@ public struct UsageSource: Sendable, Hashable, Codable {
     self.distinctSessions = distinctSessions
     self.message = message
     self.action = action
+    self.refreshing = refreshing
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -298,6 +300,7 @@ public struct UsageSource: Sendable, Hashable, Codable {
     case distinctSessions
     case message
     case action
+    case refreshing
   }
 
   public init(from decoder: any Decoder) throws {
@@ -310,6 +313,7 @@ public struct UsageSource: Sendable, Hashable, Codable {
     self.distinctSessions = try c.decode(Int.self, forKey: .distinctSessions)
     self.message = try c.decodeIfPresent(String.self, forKey: .message)
     self.action = try c.decodeIfPresent(String.self, forKey: .action)
+    self.refreshing = try c.decodeIfPresent(Bool.self, forKey: .refreshing)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -322,6 +326,7 @@ public struct UsageSource: Sendable, Hashable, Codable {
     try c.encode(distinctSessions, forKey: .distinctSessions)
     try c.encode(message, forKey: .message)
     try c.encodeIfPresent(action, forKey: .action)
+    try c.encodeIfPresent(refreshing, forKey: .refreshing)
   }
 }
 
@@ -471,12 +476,16 @@ public struct UsageSummaryBucketsItem: Sendable, Hashable, Codable {
   public var totals: UsageTokenTotals
   public var costUsd: Double
   public var cacheSavingsUsd: Double
+  public var categoryCostUsd: UsageSummaryBucketsItemCategoryCostUsd?
+  public var fastCostUsd: Double?
+  public var ultrafastCostUsd: Double?
+  public var speedPremiumUsd: Double?
   public var costSource: UsageCostSource
   public var records: Int
   public var unpricedRecords: Int
   public var sessions: Int
 
-  public init(day: UsageDay, hourStart: String? = nil, provider: UsageProviderKind, model: String, sourcePath: String? = nil, totals: UsageTokenTotals, costUsd: Double, cacheSavingsUsd: Double, costSource: UsageCostSource, records: Int, unpricedRecords: Int, sessions: Int) {
+  public init(day: UsageDay, hourStart: String? = nil, provider: UsageProviderKind, model: String, sourcePath: String? = nil, totals: UsageTokenTotals, costUsd: Double, cacheSavingsUsd: Double, categoryCostUsd: UsageSummaryBucketsItemCategoryCostUsd? = nil, fastCostUsd: Double? = nil, ultrafastCostUsd: Double? = nil, speedPremiumUsd: Double? = nil, costSource: UsageCostSource, records: Int, unpricedRecords: Int, sessions: Int) {
     self.day = day
     self.hourStart = hourStart
     self.provider = provider
@@ -485,6 +494,10 @@ public struct UsageSummaryBucketsItem: Sendable, Hashable, Codable {
     self.totals = totals
     self.costUsd = costUsd
     self.cacheSavingsUsd = cacheSavingsUsd
+    self.categoryCostUsd = categoryCostUsd
+    self.fastCostUsd = fastCostUsd
+    self.ultrafastCostUsd = ultrafastCostUsd
+    self.speedPremiumUsd = speedPremiumUsd
     self.costSource = costSource
     self.records = records
     self.unpricedRecords = unpricedRecords
@@ -500,6 +513,10 @@ public struct UsageSummaryBucketsItem: Sendable, Hashable, Codable {
     case totals
     case costUsd
     case cacheSavingsUsd
+    case categoryCostUsd
+    case fastCostUsd
+    case ultrafastCostUsd
+    case speedPremiumUsd
     case costSource
     case records
     case unpricedRecords
@@ -516,6 +533,10 @@ public struct UsageSummaryBucketsItem: Sendable, Hashable, Codable {
     self.totals = try c.decode(UsageTokenTotals.self, forKey: .totals)
     self.costUsd = try c.decode(Double.self, forKey: .costUsd)
     self.cacheSavingsUsd = try c.decode(Double.self, forKey: .cacheSavingsUsd)
+    self.categoryCostUsd = try c.decodeIfPresent(UsageSummaryBucketsItemCategoryCostUsd.self, forKey: .categoryCostUsd)
+    self.fastCostUsd = try c.decodeIfPresent(Double.self, forKey: .fastCostUsd)
+    self.ultrafastCostUsd = try c.decodeIfPresent(Double.self, forKey: .ultrafastCostUsd)
+    self.speedPremiumUsd = try c.decodeIfPresent(Double.self, forKey: .speedPremiumUsd)
     self.costSource = try c.decode(UsageCostSource.self, forKey: .costSource)
     self.records = try c.decode(Int.self, forKey: .records)
     self.unpricedRecords = try c.decode(Int.self, forKey: .unpricedRecords)
@@ -532,10 +553,51 @@ public struct UsageSummaryBucketsItem: Sendable, Hashable, Codable {
     try c.encode(totals, forKey: .totals)
     try c.encode(costUsd, forKey: .costUsd)
     try c.encode(cacheSavingsUsd, forKey: .cacheSavingsUsd)
+    try c.encodeIfPresent(categoryCostUsd, forKey: .categoryCostUsd)
+    try c.encodeIfPresent(fastCostUsd, forKey: .fastCostUsd)
+    try c.encodeIfPresent(ultrafastCostUsd, forKey: .ultrafastCostUsd)
+    try c.encodeIfPresent(speedPremiumUsd, forKey: .speedPremiumUsd)
     try c.encode(costSource, forKey: .costSource)
     try c.encode(records, forKey: .records)
     try c.encode(unpricedRecords, forKey: .unpricedRecords)
     try c.encode(sessions, forKey: .sessions)
+  }
+}
+
+public struct UsageSummaryBucketsItemCategoryCostUsd: Sendable, Hashable, Codable {
+  public var input: Double
+  public var cacheRead: Double
+  public var cacheWrite: Double
+  public var output: Double
+
+  public init(input: Double, cacheRead: Double, cacheWrite: Double, output: Double) {
+    self.input = input
+    self.cacheRead = cacheRead
+    self.cacheWrite = cacheWrite
+    self.output = output
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case input
+    case cacheRead
+    case cacheWrite
+    case output
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.input = try c.decode(Double.self, forKey: .input)
+    self.cacheRead = try c.decode(Double.self, forKey: .cacheRead)
+    self.cacheWrite = try c.decode(Double.self, forKey: .cacheWrite)
+    self.output = try c.decode(Double.self, forKey: .output)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(input, forKey: .input)
+    try c.encode(cacheRead, forKey: .cacheRead)
+    try c.encode(cacheWrite, forKey: .cacheWrite)
+    try c.encode(output, forKey: .output)
   }
 }
 
@@ -546,14 +608,16 @@ public struct UsageSummaryInput: Sendable, Hashable, Codable {
   public var resolution: UsageResolution?
   public var sinceTime: String?
   public var untilTime: String?
+  public var awaitRefresh: Bool?
 
-  public init(sinceDay: UsageDay, untilDay: UsageDay, timeZone: String, resolution: UsageResolution? = nil, sinceTime: String? = nil, untilTime: String? = nil) {
+  public init(sinceDay: UsageDay, untilDay: UsageDay, timeZone: String, resolution: UsageResolution? = nil, sinceTime: String? = nil, untilTime: String? = nil, awaitRefresh: Bool? = nil) {
     self.sinceDay = sinceDay
     self.untilDay = untilDay
     self.timeZone = timeZone
     self.resolution = resolution
     self.sinceTime = sinceTime
     self.untilTime = untilTime
+    self.awaitRefresh = awaitRefresh
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -563,6 +627,7 @@ public struct UsageSummaryInput: Sendable, Hashable, Codable {
     case resolution
     case sinceTime
     case untilTime
+    case awaitRefresh
   }
 
   public init(from decoder: any Decoder) throws {
@@ -573,6 +638,7 @@ public struct UsageSummaryInput: Sendable, Hashable, Codable {
     self.resolution = try c.decodeIfPresent(UsageResolution.self, forKey: .resolution)
     self.sinceTime = try c.decodeIfPresent(String.self, forKey: .sinceTime)
     self.untilTime = try c.decodeIfPresent(String.self, forKey: .untilTime)
+    self.awaitRefresh = try c.decodeIfPresent(Bool.self, forKey: .awaitRefresh)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -583,6 +649,7 @@ public struct UsageSummaryInput: Sendable, Hashable, Codable {
     try c.encodeIfPresent(resolution, forKey: .resolution)
     try c.encodeIfPresent(sinceTime, forKey: .sinceTime)
     try c.encodeIfPresent(untilTime, forKey: .untilTime)
+    try c.encodeIfPresent(awaitRefresh, forKey: .awaitRefresh)
   }
 }
 

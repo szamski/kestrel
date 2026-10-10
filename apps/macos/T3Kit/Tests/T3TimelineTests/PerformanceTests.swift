@@ -7,10 +7,10 @@ import Testing
 /// A 500-turn thread of tool-heavy turns. The budget in the issue is 5 ms in release; debug
 /// builds are far slower, so the assertion only guards against accidental quadratic behavior.
 @Suite struct PerformanceTests {
-  static func largeThread(turns: Int) -> (messages: [OrchestrationMessage], activities: [OrchestrationThreadActivity], checkpoints: [OrchestrationCheckpointSummary]) {
-    var messages: [OrchestrationMessage] = []
-    var activities: [OrchestrationThreadActivity] = []
-    var checkpoints: [OrchestrationCheckpointSummary] = []
+  static func largeThread(turns: Int) -> (messages: [V1.OrchestrationMessage], activities: [V1.OrchestrationThreadActivity], checkpoints: [V1.OrchestrationCheckpointSummary]) {
+    var messages: [V1.OrchestrationMessage] = []
+    var activities: [V1.OrchestrationThreadActivity] = []
+    var checkpoints: [V1.OrchestrationCheckpointSummary] = []
     func time(_ turn: Int, _ offset: Int) -> String {
       let seconds = turn * 40 + offset
       return String(format: "2026-03-%02dT%02d:%02d:%02d.000Z", 1 + seconds / 86_400, seconds / 3_600 % 24, seconds / 60 % 60, seconds % 60)
@@ -53,7 +53,7 @@ import Testing
 
   @Test func deriverReusesTheWorkLogWhileActivitiesAreUnchanged() {
     let data = Self.largeThread(turns: 50)
-    var thread: OrchestrationThread = decodeJSON(
+    var thread: V1.OrchestrationThread = decodeJSON(
       """
       {"id":"t","projectId":"p","title":"t","modelSelection":{"instanceId":"codex","model":"m"},"runtimeMode":"full-access","interactionMode":"default",
        "branch":null,"worktreePath":null,"pullRequests":[],"latestTurn":null,"createdAt":"2026-03-01T00:00:00.000Z","updatedAt":"2026-03-01T00:00:00.000Z",

@@ -8,7 +8,7 @@ public enum ThreadSort {
 
   /// The timestamp a settled row sorts and labels by: settledAt when stamped, otherwise the
   /// latest message or turn stamp, then updatedAt.
-  public static func resolveSettledThreadTimestamp(_ thread: OrchestrationThreadShell) -> IsoDateTime? {
+  public static func resolveSettledThreadTimestamp(_ thread: V1.OrchestrationThreadShell) -> IsoDateTime? {
     if let settledAt = thread.settledAt, sortable(settledAt) != nil { return settledAt }
     var latest: IsoDateTime?
     var latestMs = -Double.infinity
@@ -35,7 +35,7 @@ public enum ThreadSort {
   }
 
   /// Sort anchor for the active list: creation time, re-anchored to unsettledAt on re-entry.
-  private static func activeAnchor(_ shell: OrchestrationThreadShell) -> Double {
+  private static func activeAnchor(_ shell: V1.OrchestrationThreadShell) -> Double {
     max(sortable(shell.createdAt) ?? 0, sortable(optionalValue(shell.unsettledAt)) ?? 0)
   }
 
@@ -85,7 +85,7 @@ public enum ThreadSort {
   /// Timestamp for `updated_at` / `created_at` list orders.
   public enum SortOrder: String, Sendable { case updatedAt = "updated_at", createdAt = "created_at" }
 
-  public static func sortTimestamp(_ shell: OrchestrationThreadShell, order: SortOrder) -> Double {
+  public static func sortTimestamp(_ shell: V1.OrchestrationThreadShell, order: SortOrder) -> Double {
     if order == .createdAt { return sortable(shell.createdAt) ?? sortable(shell.updatedAt) ?? -.infinity }
     if let latest = sortable(shell.latestUserMessageAt) { return latest }
     return sortable(shell.updatedAt) ?? sortable(shell.createdAt) ?? -.infinity

@@ -22,7 +22,7 @@ public struct ApprovalOption: Sendable, Hashable {
 }
 
 public struct ApprovalPrompt: Sendable, Hashable, Identifiable {
-  public var requestId: ApprovalRequestId
+  public var requestId: V1.ApprovalRequestId
   public var requestKind: ProviderRequestKind
   public var createdAt: String
   public var detail: String?
@@ -93,7 +93,7 @@ public struct UserInputQuestion: Sendable, Hashable, Codable, Identifiable {
 }
 
 public struct UserInputPrompt: Sendable, Hashable, Identifiable {
-  public var requestId: ApprovalRequestId
+  public var requestId: V1.ApprovalRequestId
   public var createdAt: String
   public var questions: [UserInputQuestion]
   /// Async questions can be dismissed without a reply; native callbacks cannot.
@@ -175,7 +175,7 @@ private func parseQuestions(_ value: JSONValue?) -> [UserInputQuestion] {
 
 /// Reduces request state once: a terminal event stays final even when provider sequences and
 /// server-generated activities arrive in a different order.
-public func derivePendingPrompts(_ activities: [OrchestrationThreadActivity]) -> PendingPrompts {
+public func derivePendingPrompts(_ activities: [V1.OrchestrationThreadActivity]) -> PendingPrompts {
   var approvals: [String: ApprovalPrompt] = [:]
   var approvalOrder: [String] = []
   var userInputs: [String: UserInputPrompt] = [:]
@@ -194,7 +194,7 @@ public func derivePendingPrompts(_ activities: [OrchestrationThreadActivity]) ->
       let options = parseApprovalOptions(payload["options"])
       if approvals[requestId] == nil { approvalOrder.append(requestId) }
       approvals[requestId] = ApprovalPrompt(
-        requestId: ApprovalRequestId(requestId),
+        requestId: V1.ApprovalRequestId(requestId),
         // Older OpenCode approvals do not always include a recognized kind.
         requestKind: kind ?? .command,
         createdAt: activity.createdAt.rawValue,
@@ -208,7 +208,7 @@ public func derivePendingPrompts(_ activities: [OrchestrationThreadActivity]) ->
       if questions.isEmpty { continue }
       if userInputs[requestId] == nil { userInputOrder.append(requestId) }
       userInputs[requestId] = UserInputPrompt(
-        requestId: ApprovalRequestId(requestId),
+        requestId: V1.ApprovalRequestId(requestId),
         createdAt: activity.createdAt.rawValue,
         questions: questions,
         dismissible: payload["responseMode"]?.stringOrNil == "message"

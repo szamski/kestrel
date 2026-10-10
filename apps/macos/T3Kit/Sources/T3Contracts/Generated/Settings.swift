@@ -214,6 +214,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
   public var fontFamilyTerminal: String
   public var fontSmoothing: Bool
   public var onboardingCompletedAt: String?
+  public var persistComposerContextStrip: Bool
   public var favorites: [ClientSettingsSchemaFavoritesItem]
   public var providerModelPreferences: [String: ClientSettingsSchemaProviderModelPreferencesValue]
   public var pullRequestMergeMethodOverrides: [String: PullRequestMergeMethod]
@@ -226,6 +227,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
   public var proactivePanelsEnabled: Bool
   public var showSkillsInSlashMenu: Bool
   public var legacySidebarEnabled: Bool
+  public var sidebarWorkingShelfEnabled: Bool
   public var sidebarProjectGroupingMode: ClientSettingsSchemaSidebarProjectGroupingMode
   public var sidebarProjectGroupingOverrides: [String: SidebarProjectGroupingMode]
   public var sidebarProjectSortOrder: ClientSettingsSchemaSidebarProjectSortOrder
@@ -241,7 +243,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
   public var snapShotAnimations: Bool
   public var wordWrap: Bool
 
-  public init(notificationMode: ClientSettingsSchemaNotificationMode = WireDefault.value(ClientSettingsSchemaNotificationMode.self, json: "\"off\""), inAppNotificationsEnabled: Bool = false, diffColorScheme: ClientSettingsSchemaDiffColorScheme = WireDefault.value(ClientSettingsSchemaDiffColorScheme.self, json: "\"red-green\""), chatWidth: ClientSettingsSchemaChatWidth = WireDefault.value(ClientSettingsSchemaChatWidth.self, json: "\"comfortable\""), loadBalancingEnabled: Bool = false, loadBalancingWeights: [String: Int] = [:], appearanceContrast: Int = 100, panelAnimationDurationMs: Int = 0, browserDefaultViewport: PreviewViewportSetting = WireDefault.value(PreviewViewportSetting.self, json: "{\"_tag\":\"fill\"}"), browserDefaultZoomFactor: Double = 1, browserDefaultAppearance: ClientSettingsSchemaBrowserDefaultAppearance = WireDefault.value(ClientSettingsSchemaBrowserDefaultAppearance.self, json: "\"system\""), browserRecordingFrameRate: Int = 30, browserRecordingShowKeyPresses: Bool = false, browserRecordingShowMousePresses: Bool = false, browserLinkTarget: ClientSettingsSchemaBrowserLinkTarget = WireDefault.value(ClientSettingsSchemaBrowserLinkTarget.self, json: "\"system\""), browserAutoShowFloatingPreview: Bool = true, browserProfiles: [BrowserProfile] = [], browserDefaultProfileId: String = "default", confirmQuit: ClientSettingsSchemaConfirmQuit = WireDefault.value(ClientSettingsSchemaConfirmQuit.self, json: "\"hold\""), confirmThreadArchive: Bool = false, confirmThreadDelete: Bool = true, confirmThreadUnpin: Bool = false, dismissedProviderUpdateNotificationKeys: [String] = [], diffFilesCollapsed: Bool = true, diffIgnoreWhitespace: Bool = true, diffLayout: ClientSettingsSchemaDiffLayout = WireDefault.value(ClientSettingsSchemaDiffLayout.self, json: "\"stacked\""), environmentIdentificationMode: ClientSettingsSchemaEnvironmentIdentificationMode = WireDefault.value(ClientSettingsSchemaEnvironmentIdentificationMode.self, json: "\"artwork\""), glassOpacity: Int = 80, fontSizeInterface: Int = 16, fontSizePrompt: Int = 14, fontSizeCode: Int = 13, fontSizeTerminal: Int = 12, fontFamilyCode: String = "", fontFamilyComposer: String = "", fontFamilySans: String = "", fontFamilyTerminal: String = "", fontSmoothing: Bool = true, onboardingCompletedAt: String? = nil, favorites: [ClientSettingsSchemaFavoritesItem] = [], providerModelPreferences: [String: ClientSettingsSchemaProviderModelPreferencesValue] = [:], pullRequestMergeMethodOverrides: [String: PullRequestMergeMethod] = [:], planModeEnabled: Bool = false, contextWindowMeterEnabled: Bool = false, composerCollapseOnScroll: Bool = true, composerRichTextEnabled: Bool = true, sendShortcut: ClientSettingsSchemaSendShortcut = WireDefault.value(ClientSettingsSchemaSendShortcut.self, json: "\"enter\""), followUpBehavior: ClientSettingsSchemaFollowUpBehavior = WireDefault.value(ClientSettingsSchemaFollowUpBehavior.self, json: "\"queue\""), proactivePanelsEnabled: Bool = false, showSkillsInSlashMenu: Bool = true, legacySidebarEnabled: Bool = false, sidebarProjectGroupingMode: ClientSettingsSchemaSidebarProjectGroupingMode = WireDefault.value(ClientSettingsSchemaSidebarProjectGroupingMode.self, json: "\"repository\""), sidebarProjectGroupingOverrides: [String: SidebarProjectGroupingMode] = [:], sidebarProjectSortOrder: ClientSettingsSchemaSidebarProjectSortOrder = WireDefault.value(ClientSettingsSchemaSidebarProjectSortOrder.self, json: "\"updated_at\""), sidebarThreadSortOrder: ClientSettingsSchemaSidebarThreadSortOrder = WireDefault.value(ClientSettingsSchemaSidebarThreadSortOrder.self, json: "\"updated_at\""), sidebarThreadPreviewCount: Int = 6, timestampFormat: ClientSettingsSchemaTimestampFormat = WireDefault.value(ClientSettingsSchemaTimestampFormat.self, json: "\"locale\""), snapShotEnabled: Bool = false, snapShotIncludeAccessibility: Bool = true, snapShotShortcut: SnapShotShortcut = WireDefault.value(SnapShotShortcut.self, json: "{\"kind\":\"both-shift-keys\"}"), snapShotPlaySound: Bool = true, snapShotSound: ClientSettingsSchemaSnapShotSound = WireDefault.value(ClientSettingsSchemaSnapShotSound.self, json: "\"soft-pop\""), snapShotFlash: Bool = true, snapShotAnimations: Bool = true, wordWrap: Bool = true) {
+  public init(notificationMode: ClientSettingsSchemaNotificationMode = WireDefault.value(ClientSettingsSchemaNotificationMode.self, json: "\"off\""), inAppNotificationsEnabled: Bool = false, diffColorScheme: ClientSettingsSchemaDiffColorScheme = WireDefault.value(ClientSettingsSchemaDiffColorScheme.self, json: "\"red-green\""), chatWidth: ClientSettingsSchemaChatWidth = WireDefault.value(ClientSettingsSchemaChatWidth.self, json: "\"comfortable\""), loadBalancingEnabled: Bool = false, loadBalancingWeights: [String: Int] = [:], appearanceContrast: Int = 100, panelAnimationDurationMs: Int = 0, browserDefaultViewport: PreviewViewportSetting = WireDefault.value(PreviewViewportSetting.self, json: "{\"_tag\":\"fill\"}"), browserDefaultZoomFactor: Double = 1, browserDefaultAppearance: ClientSettingsSchemaBrowserDefaultAppearance = WireDefault.value(ClientSettingsSchemaBrowserDefaultAppearance.self, json: "\"system\""), browserRecordingFrameRate: Int = 30, browserRecordingShowKeyPresses: Bool = false, browserRecordingShowMousePresses: Bool = false, browserLinkTarget: ClientSettingsSchemaBrowserLinkTarget = WireDefault.value(ClientSettingsSchemaBrowserLinkTarget.self, json: "\"system\""), browserAutoShowFloatingPreview: Bool = true, browserProfiles: [BrowserProfile] = [], browserDefaultProfileId: String = "default", confirmQuit: ClientSettingsSchemaConfirmQuit = WireDefault.value(ClientSettingsSchemaConfirmQuit.self, json: "\"hold\""), confirmThreadArchive: Bool = false, confirmThreadDelete: Bool = true, confirmThreadUnpin: Bool = false, dismissedProviderUpdateNotificationKeys: [String] = [], diffFilesCollapsed: Bool = true, diffIgnoreWhitespace: Bool = true, diffLayout: ClientSettingsSchemaDiffLayout = WireDefault.value(ClientSettingsSchemaDiffLayout.self, json: "\"stacked\""), environmentIdentificationMode: ClientSettingsSchemaEnvironmentIdentificationMode = WireDefault.value(ClientSettingsSchemaEnvironmentIdentificationMode.self, json: "\"artwork\""), glassOpacity: Int = 80, fontSizeInterface: Int = 16, fontSizePrompt: Int = 14, fontSizeCode: Int = 13, fontSizeTerminal: Int = 12, fontFamilyCode: String = "", fontFamilyComposer: String = "", fontFamilySans: String = "", fontFamilyTerminal: String = "", fontSmoothing: Bool = true, onboardingCompletedAt: String? = nil, persistComposerContextStrip: Bool = false, favorites: [ClientSettingsSchemaFavoritesItem] = [], providerModelPreferences: [String: ClientSettingsSchemaProviderModelPreferencesValue] = [:], pullRequestMergeMethodOverrides: [String: PullRequestMergeMethod] = [:], planModeEnabled: Bool = false, contextWindowMeterEnabled: Bool = false, composerCollapseOnScroll: Bool = true, composerRichTextEnabled: Bool = true, sendShortcut: ClientSettingsSchemaSendShortcut = WireDefault.value(ClientSettingsSchemaSendShortcut.self, json: "\"enter\""), followUpBehavior: ClientSettingsSchemaFollowUpBehavior = WireDefault.value(ClientSettingsSchemaFollowUpBehavior.self, json: "\"queue\""), proactivePanelsEnabled: Bool = false, showSkillsInSlashMenu: Bool = true, legacySidebarEnabled: Bool = false, sidebarWorkingShelfEnabled: Bool = false, sidebarProjectGroupingMode: ClientSettingsSchemaSidebarProjectGroupingMode = WireDefault.value(ClientSettingsSchemaSidebarProjectGroupingMode.self, json: "\"repository\""), sidebarProjectGroupingOverrides: [String: SidebarProjectGroupingMode] = [:], sidebarProjectSortOrder: ClientSettingsSchemaSidebarProjectSortOrder = WireDefault.value(ClientSettingsSchemaSidebarProjectSortOrder.self, json: "\"updated_at\""), sidebarThreadSortOrder: ClientSettingsSchemaSidebarThreadSortOrder = WireDefault.value(ClientSettingsSchemaSidebarThreadSortOrder.self, json: "\"updated_at\""), sidebarThreadPreviewCount: Int = 6, timestampFormat: ClientSettingsSchemaTimestampFormat = WireDefault.value(ClientSettingsSchemaTimestampFormat.self, json: "\"locale\""), snapShotEnabled: Bool = false, snapShotIncludeAccessibility: Bool = true, snapShotShortcut: SnapShotShortcut = WireDefault.value(SnapShotShortcut.self, json: "{\"kind\":\"both-shift-keys\"}"), snapShotPlaySound: Bool = true, snapShotSound: ClientSettingsSchemaSnapShotSound = WireDefault.value(ClientSettingsSchemaSnapShotSound.self, json: "\"soft-pop\""), snapShotFlash: Bool = true, snapShotAnimations: Bool = true, wordWrap: Bool = true) {
     self.notificationMode = notificationMode
     self.inAppNotificationsEnabled = inAppNotificationsEnabled
     self.diffColorScheme = diffColorScheme
@@ -280,6 +282,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     self.fontFamilyTerminal = fontFamilyTerminal
     self.fontSmoothing = fontSmoothing
     self.onboardingCompletedAt = onboardingCompletedAt
+    self.persistComposerContextStrip = persistComposerContextStrip
     self.favorites = favorites
     self.providerModelPreferences = providerModelPreferences
     self.pullRequestMergeMethodOverrides = pullRequestMergeMethodOverrides
@@ -292,6 +295,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     self.proactivePanelsEnabled = proactivePanelsEnabled
     self.showSkillsInSlashMenu = showSkillsInSlashMenu
     self.legacySidebarEnabled = legacySidebarEnabled
+    self.sidebarWorkingShelfEnabled = sidebarWorkingShelfEnabled
     self.sidebarProjectGroupingMode = sidebarProjectGroupingMode
     self.sidebarProjectGroupingOverrides = sidebarProjectGroupingOverrides
     self.sidebarProjectSortOrder = sidebarProjectSortOrder
@@ -347,6 +351,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     case fontFamilyTerminal
     case fontSmoothing
     case onboardingCompletedAt
+    case persistComposerContextStrip
     case favorites
     case providerModelPreferences
     case pullRequestMergeMethodOverrides
@@ -359,6 +364,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     case proactivePanelsEnabled
     case showSkillsInSlashMenu
     case legacySidebarEnabled
+    case sidebarWorkingShelfEnabled
     case sidebarProjectGroupingMode
     case sidebarProjectGroupingOverrides
     case sidebarProjectSortOrder
@@ -415,6 +421,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     self.fontFamilyTerminal = (try c.decodeIfPresent(String.self, forKey: .fontFamilyTerminal)) ?? ""
     self.fontSmoothing = (try c.decodeIfPresent(Bool.self, forKey: .fontSmoothing)) ?? true
     self.onboardingCompletedAt = try c.decodeIfPresent(String.self, forKey: .onboardingCompletedAt)
+    self.persistComposerContextStrip = (try c.decodeIfPresent(Bool.self, forKey: .persistComposerContextStrip)) ?? false
     self.favorites = (try c.decodeIfPresent([ClientSettingsSchemaFavoritesItem].self, forKey: .favorites)) ?? []
     self.providerModelPreferences = (try c.decodeIfPresent([String: ClientSettingsSchemaProviderModelPreferencesValue].self, forKey: .providerModelPreferences)) ?? [:]
     self.pullRequestMergeMethodOverrides = (try c.decodeIfPresent([String: PullRequestMergeMethod].self, forKey: .pullRequestMergeMethodOverrides)) ?? [:]
@@ -427,6 +434,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     self.proactivePanelsEnabled = (try c.decodeIfPresent(Bool.self, forKey: .proactivePanelsEnabled)) ?? false
     self.showSkillsInSlashMenu = (try c.decodeIfPresent(Bool.self, forKey: .showSkillsInSlashMenu)) ?? true
     self.legacySidebarEnabled = (try c.decodeIfPresent(Bool.self, forKey: .legacySidebarEnabled)) ?? false
+    self.sidebarWorkingShelfEnabled = (try c.decodeIfPresent(Bool.self, forKey: .sidebarWorkingShelfEnabled)) ?? false
     self.sidebarProjectGroupingMode = (try c.decodeIfPresent(ClientSettingsSchemaSidebarProjectGroupingMode.self, forKey: .sidebarProjectGroupingMode)) ?? WireDefault.value(ClientSettingsSchemaSidebarProjectGroupingMode.self, json: "\"repository\"")
     self.sidebarProjectGroupingOverrides = (try c.decodeIfPresent([String: SidebarProjectGroupingMode].self, forKey: .sidebarProjectGroupingOverrides)) ?? [:]
     self.sidebarProjectSortOrder = (try c.decodeIfPresent(ClientSettingsSchemaSidebarProjectSortOrder.self, forKey: .sidebarProjectSortOrder)) ?? WireDefault.value(ClientSettingsSchemaSidebarProjectSortOrder.self, json: "\"updated_at\"")
@@ -483,6 +491,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     try c.encode(fontFamilyTerminal, forKey: .fontFamilyTerminal)
     try c.encode(fontSmoothing, forKey: .fontSmoothing)
     try c.encode(onboardingCompletedAt, forKey: .onboardingCompletedAt)
+    try c.encode(persistComposerContextStrip, forKey: .persistComposerContextStrip)
     try c.encode(favorites, forKey: .favorites)
     try c.encode(providerModelPreferences, forKey: .providerModelPreferences)
     try c.encode(pullRequestMergeMethodOverrides, forKey: .pullRequestMergeMethodOverrides)
@@ -495,6 +504,7 @@ public struct ClientSettingsSchema: Sendable, Hashable, Codable {
     try c.encode(proactivePanelsEnabled, forKey: .proactivePanelsEnabled)
     try c.encode(showSkillsInSlashMenu, forKey: .showSkillsInSlashMenu)
     try c.encode(legacySidebarEnabled, forKey: .legacySidebarEnabled)
+    try c.encode(sidebarWorkingShelfEnabled, forKey: .sidebarWorkingShelfEnabled)
     try c.encode(sidebarProjectGroupingMode, forKey: .sidebarProjectGroupingMode)
     try c.encode(sidebarProjectGroupingOverrides, forKey: .sidebarProjectGroupingOverrides)
     try c.encode(sidebarProjectSortOrder, forKey: .sidebarProjectSortOrder)
@@ -1076,25 +1086,30 @@ public enum ClientSettingsSchemaTimestampFormat: Sendable, Hashable, Codable, Ra
   }
 }
 
-public enum CustomModelSetting2: Sendable, Hashable, Codable {
-  case string(String)
-  case customModelEntry(CustomModelEntry)
-  case unknown(JSONValue)
+public struct GitHubHostSettings: Sendable, Hashable, Codable {
+  public var account: String?
+  public var enabled: Bool
+
+  public init(account: String? = nil, enabled: Bool = true) {
+    self.account = account
+    self.enabled = enabled
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case account
+    case enabled
+  }
 
   public init(from decoder: any Decoder) throws {
-    let c = try decoder.singleValueContainer()
-    if let value = try? c.decode(String.self) { self = .string(value); return }
-    if let value = try? c.decode(CustomModelEntry.self) { self = .customModelEntry(value); return }
-    self = .unknown(try c.decode(JSONValue.self))
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.account = try c.decodeIfPresent(String.self, forKey: .account)
+    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? true
   }
 
   public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    switch self {
-    case .string(let value): try c.encode(value)
-    case .customModelEntry(let value): try c.encode(value)
-    case .unknown(let value): try c.encode(value)
-    }
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(account, forKey: .account)
+    try c.encode(enabled, forKey: .enabled)
   }
 }
 
@@ -1112,13 +1127,17 @@ public struct ProjectSettingsOverrides: Sendable, Hashable, Codable {
   public var textGenerationModelSelection: ProjectSettingsOverridesTextGenerationModelSelection?
   public var sourceControlWriterModelSelection: ModelSelection??
   public var sourceControlWritingStyle: ProjectSettingsOverridesSourceControlWritingStyle?
+  public var removeAgentCreditsOnMerge: Bool?
+  public var branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode?
+  public var branchNamePrefix: String?
+  public var branchNameInstructions: String?
   public var pullRequestMergeMethod: PullRequestMergeMethod??
   public var sidebarAutoSettleOnMerge: Bool?
   public var sidebarAutoSettleAfterDays: Double??
   public var continueThreadsAfterServerUpdate: Bool?
   public var responseStreamingMode: ServerSettingsResponseStreamingMode?
 
-  public init(worktreeCleanup: WorktreeCleanup?? = nil, defaultModelSelection: ModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, defaultThreadEnvMode: ServerSettingsProjectSettingsOverridesValueDefaultThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ProjectScript]? = nil, enableAgentBrowserAccess: Bool? = nil, enableAgentDeviceAccess: Bool? = nil, textGenerationModelSelection: ProjectSettingsOverridesTextGenerationModelSelection? = nil, sourceControlWriterModelSelection: ModelSelection?? = nil, sourceControlWritingStyle: ProjectSettingsOverridesSourceControlWritingStyle? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, sidebarAutoSettleAfterDays: Double?? = nil, continueThreadsAfterServerUpdate: Bool? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil) {
+  public init(worktreeCleanup: WorktreeCleanup?? = nil, defaultModelSelection: ModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, defaultThreadEnvMode: ServerSettingsProjectSettingsOverridesValueDefaultThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ProjectScript]? = nil, enableAgentBrowserAccess: Bool? = nil, enableAgentDeviceAccess: Bool? = nil, textGenerationModelSelection: ProjectSettingsOverridesTextGenerationModelSelection? = nil, sourceControlWriterModelSelection: ModelSelection?? = nil, sourceControlWritingStyle: ProjectSettingsOverridesSourceControlWritingStyle? = nil, removeAgentCreditsOnMerge: Bool? = nil, branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode? = nil, branchNamePrefix: String? = nil, branchNameInstructions: String? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, sidebarAutoSettleAfterDays: Double?? = nil, continueThreadsAfterServerUpdate: Bool? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil) {
     self.worktreeCleanup = worktreeCleanup
     self.defaultModelSelection = defaultModelSelection
     self.defaultRuntimeMode = defaultRuntimeMode
@@ -1132,6 +1151,10 @@ public struct ProjectSettingsOverrides: Sendable, Hashable, Codable {
     self.textGenerationModelSelection = textGenerationModelSelection
     self.sourceControlWriterModelSelection = sourceControlWriterModelSelection
     self.sourceControlWritingStyle = sourceControlWritingStyle
+    self.removeAgentCreditsOnMerge = removeAgentCreditsOnMerge
+    self.branchNamingMode = branchNamingMode
+    self.branchNamePrefix = branchNamePrefix
+    self.branchNameInstructions = branchNameInstructions
     self.pullRequestMergeMethod = pullRequestMergeMethod
     self.sidebarAutoSettleOnMerge = sidebarAutoSettleOnMerge
     self.sidebarAutoSettleAfterDays = sidebarAutoSettleAfterDays
@@ -1153,6 +1176,10 @@ public struct ProjectSettingsOverrides: Sendable, Hashable, Codable {
     case textGenerationModelSelection
     case sourceControlWriterModelSelection
     case sourceControlWritingStyle
+    case removeAgentCreditsOnMerge
+    case branchNamingMode
+    case branchNamePrefix
+    case branchNameInstructions
     case pullRequestMergeMethod
     case sidebarAutoSettleOnMerge
     case sidebarAutoSettleAfterDays
@@ -1175,6 +1202,10 @@ public struct ProjectSettingsOverrides: Sendable, Hashable, Codable {
     self.textGenerationModelSelection = try c.decodeIfPresent(ProjectSettingsOverridesTextGenerationModelSelection.self, forKey: .textGenerationModelSelection)
     self.sourceControlWriterModelSelection = try c.decodeTriState(ModelSelection.self, forKey: .sourceControlWriterModelSelection)
     self.sourceControlWritingStyle = try c.decodeIfPresent(ProjectSettingsOverridesSourceControlWritingStyle.self, forKey: .sourceControlWritingStyle)
+    self.removeAgentCreditsOnMerge = try c.decodeIfPresent(Bool.self, forKey: .removeAgentCreditsOnMerge)
+    self.branchNamingMode = try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, forKey: .branchNamingMode)
+    self.branchNamePrefix = try c.decodeIfPresent(String.self, forKey: .branchNamePrefix)
+    self.branchNameInstructions = try c.decodeIfPresent(String.self, forKey: .branchNameInstructions)
     self.pullRequestMergeMethod = try c.decodeTriState(PullRequestMergeMethod.self, forKey: .pullRequestMergeMethod)
     self.sidebarAutoSettleOnMerge = try c.decodeIfPresent(Bool.self, forKey: .sidebarAutoSettleOnMerge)
     self.sidebarAutoSettleAfterDays = try c.decodeTriState(Double.self, forKey: .sidebarAutoSettleAfterDays)
@@ -1197,6 +1228,10 @@ public struct ProjectSettingsOverrides: Sendable, Hashable, Codable {
     try c.encodeIfPresent(textGenerationModelSelection, forKey: .textGenerationModelSelection)
     try c.encodeTriState(sourceControlWriterModelSelection, forKey: .sourceControlWriterModelSelection)
     try c.encodeIfPresent(sourceControlWritingStyle, forKey: .sourceControlWritingStyle)
+    try c.encodeIfPresent(removeAgentCreditsOnMerge, forKey: .removeAgentCreditsOnMerge)
+    try c.encodeIfPresent(branchNamingMode, forKey: .branchNamingMode)
+    try c.encodeIfPresent(branchNamePrefix, forKey: .branchNamePrefix)
+    try c.encodeIfPresent(branchNameInstructions, forKey: .branchNameInstructions)
     try c.encodeTriState(pullRequestMergeMethod, forKey: .pullRequestMergeMethod)
     try c.encodeIfPresent(sidebarAutoSettleOnMerge, forKey: .sidebarAutoSettleOnMerge)
     try c.encodeTriState(sidebarAutoSettleAfterDays, forKey: .sidebarAutoSettleAfterDays)
@@ -1272,6 +1307,8 @@ public struct ProjectSettingsOverridesTextGenerationModelSelection: Sendable, Ha
 public struct ServerSettings: Sendable, Hashable, Codable {
   public var worktreeCleanup: WorktreeCleanup?
   public var storageCleanup: ServerSettingsStorageCleanup
+  public var worktreesDirectory: String
+  public var previousWorktreesDirectories: [String]
   public var responseStreamingMode: ServerSettingsResponseStreamingMode
   public var enableProviderUpdateChecks: Bool
   public var continueThreadsAfterServerUpdate: Bool
@@ -1290,6 +1327,8 @@ public struct ServerSettings: Sendable, Hashable, Codable {
   public var deviceOnboardingCompleted: Bool
   public var deviceHosts: [ServerSettingsDeviceHostsItem]
   public var sidebarAutoSettleAfterDays: Double?
+  public var snoozeLimitedThreads: Bool
+  public var autoResumeLimitedThreads: Bool
   public var sidebarAutoSettleOnMerge: Bool
   public var backgroundActivity: BackgroundActivitySettings
   public var automaticGitFetchInterval: Double
@@ -1303,19 +1342,27 @@ public struct ServerSettings: Sendable, Hashable, Codable {
   public var worktreeSubmodules: WorktreeSubmodules?
   public var addProjectBaseDirectory: String
   public var textGenerationModelSelection: ServerSettingsTextGenerationModelSelection
+  public var branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode
+  public var branchNamePrefix: String
+  public var branchNameInstructions: String
+  public var removeAgentCreditsOnMerge: Bool
   public var sourceControlWritingStyle: ServerSettingsSourceControlWritingStyle
   public var sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection?
   public var pullRequestMergeMethod: PullRequestMergeMethod?
-  public var providers: ServerSettingsProviders
   public var providerInstances: [String: ServerSettingsProviderInstancesValue]
   public var observability: ServerSettingsObservability
+  public var bitbucket: ServerSettingsBitbucket
+  public var github: ServerSettingsGithub
   public var usageLimitSources: [String: ServerSettingsUsageLimitSourcesValue]
   public var cursorKeychainUsageEnabled: Bool
   public var usagePriceOverrides: [String: UsageModelPriceOverride]
+  public var usageModelAliases: [String: String]
 
-  public init(worktreeCleanup: WorktreeCleanup? = nil, storageCleanup: ServerSettingsStorageCleanup = WireDefault.value(ServerSettingsStorageCleanup.self, json: "{\"worktreeAfterDays\":null,\"worktreeOnMerge\":false,\"worktreeOnDelete\":false,\"worktreeUnchanged\":false,\"browserArtifactsAfterDays\":null,\"logsAfterDays\":null}"), responseStreamingMode: ServerSettingsResponseStreamingMode = WireDefault.value(ServerSettingsResponseStreamingMode.self, json: "\"paragraph\""), enableProviderUpdateChecks: Bool = true, continueThreadsAfterServerUpdate: Bool = false, enableAgentBrowserAccess: Bool = true, projectAgentBrowserAccessOverrides: [String: Bool] = [:], defaultAutoPull: Bool = false, defaultProjectScripts: [ServerSettingsDefaultProjectScriptsItem] = [], projectScriptOverrides: [String: [ServerSettingsDefaultProjectScriptsItem]?] = [:], projectAutoPullOverrides: [String: Bool] = [:], defaultModelSelection: ServerSettingsDefaultModelSelection? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode = WireDefault.value(ServerSettingsDefaultRuntimeMode.self, json: "\"full-access\""), projectSettingsOverrides: [String: ServerSettingsProjectSettingsOverridesValue] = [:], projectSettingsFolded: Bool = false, enableAgentDeviceAccess: Bool = false, enableDeviceSupport: Bool = false, deviceOnboardingCompleted: Bool = false, deviceHosts: [ServerSettingsDeviceHostsItem] = [], sidebarAutoSettleAfterDays: Double? = 3, sidebarAutoSettleOnMerge: Bool = true, backgroundActivity: BackgroundActivitySettings = WireDefault.value(BackgroundActivitySettings.self, json: "{}"), automaticGitFetchInterval: Double = 30000, providerHealthRefreshInterval: Double = 300000, backgroundActivityProfile: BackgroundActivitySettingsBaseProfile = WireDefault.value(BackgroundActivitySettingsBaseProfile.self, json: "\"balanced\""), defaultTheme: String = "", defaultThemeSetAt: String = "", environmentIcon: EnvironmentMachineKind? = nil, defaultThreadEnvMode: ThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool = true, worktreeSubmodules: WorktreeSubmodules? = nil, addProjectBaseDirectory: String = "", textGenerationModelSelection: ServerSettingsTextGenerationModelSelection = WireDefault.value(ServerSettingsTextGenerationModelSelection.self, json: "{\"instanceId\":\"codex\",\"model\":\"gpt-6-luna\",\"options\":[{\"id\":\"reasoningEffort\",\"value\":\"low\"}]}"), sourceControlWritingStyle: ServerSettingsSourceControlWritingStyle = WireDefault.value(ServerSettingsSourceControlWritingStyle.self, json: "{}"), sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection? = nil, pullRequestMergeMethod: PullRequestMergeMethod? = nil, providers: ServerSettingsProviders = WireDefault.value(ServerSettingsProviders.self, json: "{}"), providerInstances: [String: ServerSettingsProviderInstancesValue] = [:], observability: ServerSettingsObservability = WireDefault.value(ServerSettingsObservability.self, json: "{}"), usageLimitSources: [String: ServerSettingsUsageLimitSourcesValue] = [:], cursorKeychainUsageEnabled: Bool = false, usagePriceOverrides: [String: UsageModelPriceOverride] = [:]) {
+  public init(worktreeCleanup: WorktreeCleanup? = nil, storageCleanup: ServerSettingsStorageCleanup = WireDefault.value(ServerSettingsStorageCleanup.self, json: "{\"worktreeAfterDays\":null,\"worktreeOnMerge\":false,\"worktreeOnDelete\":false,\"worktreeUnchanged\":false,\"browserArtifactsAfterDays\":null,\"logsAfterDays\":null}"), worktreesDirectory: String = "", previousWorktreesDirectories: [String] = [], responseStreamingMode: ServerSettingsResponseStreamingMode = WireDefault.value(ServerSettingsResponseStreamingMode.self, json: "\"paragraph\""), enableProviderUpdateChecks: Bool = true, continueThreadsAfterServerUpdate: Bool = false, enableAgentBrowserAccess: Bool = true, projectAgentBrowserAccessOverrides: [String: Bool] = [:], defaultAutoPull: Bool = false, defaultProjectScripts: [ServerSettingsDefaultProjectScriptsItem] = [], projectScriptOverrides: [String: [ServerSettingsDefaultProjectScriptsItem]?] = [:], projectAutoPullOverrides: [String: Bool] = [:], defaultModelSelection: ServerSettingsDefaultModelSelection? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode = WireDefault.value(ServerSettingsDefaultRuntimeMode.self, json: "\"full-access\""), projectSettingsOverrides: [String: ServerSettingsProjectSettingsOverridesValue] = [:], projectSettingsFolded: Bool = false, enableAgentDeviceAccess: Bool = false, enableDeviceSupport: Bool = false, deviceOnboardingCompleted: Bool = false, deviceHosts: [ServerSettingsDeviceHostsItem] = [], sidebarAutoSettleAfterDays: Double? = 3, snoozeLimitedThreads: Bool = false, autoResumeLimitedThreads: Bool = false, sidebarAutoSettleOnMerge: Bool = true, backgroundActivity: BackgroundActivitySettings = WireDefault.value(BackgroundActivitySettings.self, json: "{}"), automaticGitFetchInterval: Double = 30000, providerHealthRefreshInterval: Double = 300000, backgroundActivityProfile: BackgroundActivitySettingsBaseProfile = WireDefault.value(BackgroundActivitySettingsBaseProfile.self, json: "\"balanced\""), defaultTheme: String = "", defaultThemeSetAt: String = "", environmentIcon: EnvironmentMachineKind? = nil, defaultThreadEnvMode: ThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool = true, worktreeSubmodules: WorktreeSubmodules? = nil, addProjectBaseDirectory: String = "", textGenerationModelSelection: ServerSettingsTextGenerationModelSelection = WireDefault.value(ServerSettingsTextGenerationModelSelection.self, json: "{\"instanceId\":\"codex\",\"model\":\"gpt-6-luna\",\"options\":[{\"id\":\"reasoningEffort\",\"value\":\"low\"}]}"), branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode = WireDefault.value(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, json: "\"static\""), branchNamePrefix: String = "t3", branchNameInstructions: String = "", removeAgentCreditsOnMerge: Bool = false, sourceControlWritingStyle: ServerSettingsSourceControlWritingStyle = WireDefault.value(ServerSettingsSourceControlWritingStyle.self, json: "{}"), sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection? = nil, pullRequestMergeMethod: PullRequestMergeMethod? = nil, providerInstances: [String: ServerSettingsProviderInstancesValue] = [:], observability: ServerSettingsObservability = WireDefault.value(ServerSettingsObservability.self, json: "{}"), bitbucket: ServerSettingsBitbucket = WireDefault.value(ServerSettingsBitbucket.self, json: "{}"), github: ServerSettingsGithub = WireDefault.value(ServerSettingsGithub.self, json: "{}"), usageLimitSources: [String: ServerSettingsUsageLimitSourcesValue] = [:], cursorKeychainUsageEnabled: Bool = false, usagePriceOverrides: [String: UsageModelPriceOverride] = [:], usageModelAliases: [String: String] = [:]) {
     self.worktreeCleanup = worktreeCleanup
     self.storageCleanup = storageCleanup
+    self.worktreesDirectory = worktreesDirectory
+    self.previousWorktreesDirectories = previousWorktreesDirectories
     self.responseStreamingMode = responseStreamingMode
     self.enableProviderUpdateChecks = enableProviderUpdateChecks
     self.continueThreadsAfterServerUpdate = continueThreadsAfterServerUpdate
@@ -1334,6 +1381,8 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     self.deviceOnboardingCompleted = deviceOnboardingCompleted
     self.deviceHosts = deviceHosts
     self.sidebarAutoSettleAfterDays = sidebarAutoSettleAfterDays
+    self.snoozeLimitedThreads = snoozeLimitedThreads
+    self.autoResumeLimitedThreads = autoResumeLimitedThreads
     self.sidebarAutoSettleOnMerge = sidebarAutoSettleOnMerge
     self.backgroundActivity = backgroundActivity
     self.automaticGitFetchInterval = automaticGitFetchInterval
@@ -1347,20 +1396,28 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     self.worktreeSubmodules = worktreeSubmodules
     self.addProjectBaseDirectory = addProjectBaseDirectory
     self.textGenerationModelSelection = textGenerationModelSelection
+    self.branchNamingMode = branchNamingMode
+    self.branchNamePrefix = branchNamePrefix
+    self.branchNameInstructions = branchNameInstructions
+    self.removeAgentCreditsOnMerge = removeAgentCreditsOnMerge
     self.sourceControlWritingStyle = sourceControlWritingStyle
     self.sourceControlWriterModelSelection = sourceControlWriterModelSelection
     self.pullRequestMergeMethod = pullRequestMergeMethod
-    self.providers = providers
     self.providerInstances = providerInstances
     self.observability = observability
+    self.bitbucket = bitbucket
+    self.github = github
     self.usageLimitSources = usageLimitSources
     self.cursorKeychainUsageEnabled = cursorKeychainUsageEnabled
     self.usagePriceOverrides = usagePriceOverrides
+    self.usageModelAliases = usageModelAliases
   }
 
   private enum CodingKeys: String, CodingKey {
     case worktreeCleanup
     case storageCleanup
+    case worktreesDirectory
+    case previousWorktreesDirectories
     case responseStreamingMode
     case enableProviderUpdateChecks
     case continueThreadsAfterServerUpdate
@@ -1379,6 +1436,8 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     case deviceOnboardingCompleted
     case deviceHosts
     case sidebarAutoSettleAfterDays
+    case snoozeLimitedThreads
+    case autoResumeLimitedThreads
     case sidebarAutoSettleOnMerge
     case backgroundActivity
     case automaticGitFetchInterval
@@ -1392,21 +1451,29 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     case worktreeSubmodules
     case addProjectBaseDirectory
     case textGenerationModelSelection
+    case branchNamingMode
+    case branchNamePrefix
+    case branchNameInstructions
+    case removeAgentCreditsOnMerge
     case sourceControlWritingStyle
     case sourceControlWriterModelSelection
     case pullRequestMergeMethod
-    case providers
     case providerInstances
     case observability
+    case bitbucket
+    case github
     case usageLimitSources
     case cursorKeychainUsageEnabled
     case usagePriceOverrides
+    case usageModelAliases
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.worktreeCleanup = try c.decodeIfPresent(WorktreeCleanup.self, forKey: .worktreeCleanup)
     self.storageCleanup = (try c.decodeIfPresent(ServerSettingsStorageCleanup.self, forKey: .storageCleanup)) ?? WireDefault.value(ServerSettingsStorageCleanup.self, json: "{\"worktreeAfterDays\":null,\"worktreeOnMerge\":false,\"worktreeOnDelete\":false,\"worktreeUnchanged\":false,\"browserArtifactsAfterDays\":null,\"logsAfterDays\":null}")
+    self.worktreesDirectory = (try c.decodeIfPresent(String.self, forKey: .worktreesDirectory)) ?? ""
+    self.previousWorktreesDirectories = (try c.decodeIfPresent([String].self, forKey: .previousWorktreesDirectories)) ?? []
     self.responseStreamingMode = (try c.decodeIfPresent(ServerSettingsResponseStreamingMode.self, forKey: .responseStreamingMode)) ?? WireDefault.value(ServerSettingsResponseStreamingMode.self, json: "\"paragraph\"")
     self.enableProviderUpdateChecks = (try c.decodeIfPresent(Bool.self, forKey: .enableProviderUpdateChecks)) ?? true
     self.continueThreadsAfterServerUpdate = (try c.decodeIfPresent(Bool.self, forKey: .continueThreadsAfterServerUpdate)) ?? false
@@ -1425,6 +1492,8 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     self.deviceOnboardingCompleted = (try c.decodeIfPresent(Bool.self, forKey: .deviceOnboardingCompleted)) ?? false
     self.deviceHosts = (try c.decodeIfPresent([ServerSettingsDeviceHostsItem].self, forKey: .deviceHosts)) ?? []
     self.sidebarAutoSettleAfterDays = c.contains(.sidebarAutoSettleAfterDays) ? (try c.decodeIfPresent(Double.self, forKey: .sidebarAutoSettleAfterDays)) : 3
+    self.snoozeLimitedThreads = (try c.decodeIfPresent(Bool.self, forKey: .snoozeLimitedThreads)) ?? false
+    self.autoResumeLimitedThreads = (try c.decodeIfPresent(Bool.self, forKey: .autoResumeLimitedThreads)) ?? false
     self.sidebarAutoSettleOnMerge = (try c.decodeIfPresent(Bool.self, forKey: .sidebarAutoSettleOnMerge)) ?? true
     self.backgroundActivity = (try c.decodeIfPresent(BackgroundActivitySettings.self, forKey: .backgroundActivity)) ?? WireDefault.value(BackgroundActivitySettings.self, json: "{}")
     self.automaticGitFetchInterval = (try c.decodeIfPresent(Double.self, forKey: .automaticGitFetchInterval)) ?? 30000
@@ -1438,21 +1507,29 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     self.worktreeSubmodules = try c.decodeIfPresent(WorktreeSubmodules.self, forKey: .worktreeSubmodules)
     self.addProjectBaseDirectory = (try c.decodeIfPresent(String.self, forKey: .addProjectBaseDirectory)) ?? ""
     self.textGenerationModelSelection = (try c.decodeIfPresent(ServerSettingsTextGenerationModelSelection.self, forKey: .textGenerationModelSelection)) ?? WireDefault.value(ServerSettingsTextGenerationModelSelection.self, json: "{\"instanceId\":\"codex\",\"model\":\"gpt-6-luna\",\"options\":[{\"id\":\"reasoningEffort\",\"value\":\"low\"}]}")
+    self.branchNamingMode = (try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, forKey: .branchNamingMode)) ?? WireDefault.value(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, json: "\"static\"")
+    self.branchNamePrefix = (try c.decodeIfPresent(String.self, forKey: .branchNamePrefix)) ?? "t3"
+    self.branchNameInstructions = (try c.decodeIfPresent(String.self, forKey: .branchNameInstructions)) ?? ""
+    self.removeAgentCreditsOnMerge = (try c.decodeIfPresent(Bool.self, forKey: .removeAgentCreditsOnMerge)) ?? false
     self.sourceControlWritingStyle = (try c.decodeIfPresent(ServerSettingsSourceControlWritingStyle.self, forKey: .sourceControlWritingStyle)) ?? WireDefault.value(ServerSettingsSourceControlWritingStyle.self, json: "{}")
     self.sourceControlWriterModelSelection = try c.decodeIfPresent(ServerSettingsDefaultModelSelection.self, forKey: .sourceControlWriterModelSelection)
     self.pullRequestMergeMethod = try c.decodeIfPresent(PullRequestMergeMethod.self, forKey: .pullRequestMergeMethod)
-    self.providers = (try c.decodeIfPresent(ServerSettingsProviders.self, forKey: .providers)) ?? WireDefault.value(ServerSettingsProviders.self, json: "{}")
     self.providerInstances = (try c.decodeIfPresent([String: ServerSettingsProviderInstancesValue].self, forKey: .providerInstances)) ?? [:]
     self.observability = (try c.decodeIfPresent(ServerSettingsObservability.self, forKey: .observability)) ?? WireDefault.value(ServerSettingsObservability.self, json: "{}")
+    self.bitbucket = (try c.decodeIfPresent(ServerSettingsBitbucket.self, forKey: .bitbucket)) ?? WireDefault.value(ServerSettingsBitbucket.self, json: "{}")
+    self.github = (try c.decodeIfPresent(ServerSettingsGithub.self, forKey: .github)) ?? WireDefault.value(ServerSettingsGithub.self, json: "{}")
     self.usageLimitSources = (try c.decodeIfPresent([String: ServerSettingsUsageLimitSourcesValue].self, forKey: .usageLimitSources)) ?? [:]
     self.cursorKeychainUsageEnabled = (try c.decodeIfPresent(Bool.self, forKey: .cursorKeychainUsageEnabled)) ?? false
     self.usagePriceOverrides = (try c.decodeIfPresent([String: UsageModelPriceOverride].self, forKey: .usagePriceOverrides)) ?? [:]
+    self.usageModelAliases = (try c.decodeIfPresent([String: String].self, forKey: .usageModelAliases)) ?? [:]
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(worktreeCleanup, forKey: .worktreeCleanup)
     try c.encode(storageCleanup, forKey: .storageCleanup)
+    try c.encode(worktreesDirectory, forKey: .worktreesDirectory)
+    try c.encode(previousWorktreesDirectories, forKey: .previousWorktreesDirectories)
     try c.encode(responseStreamingMode, forKey: .responseStreamingMode)
     try c.encode(enableProviderUpdateChecks, forKey: .enableProviderUpdateChecks)
     try c.encode(continueThreadsAfterServerUpdate, forKey: .continueThreadsAfterServerUpdate)
@@ -1471,6 +1548,8 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     try c.encode(deviceOnboardingCompleted, forKey: .deviceOnboardingCompleted)
     try c.encode(deviceHosts, forKey: .deviceHosts)
     try c.encode(sidebarAutoSettleAfterDays, forKey: .sidebarAutoSettleAfterDays)
+    try c.encode(snoozeLimitedThreads, forKey: .snoozeLimitedThreads)
+    try c.encode(autoResumeLimitedThreads, forKey: .autoResumeLimitedThreads)
     try c.encode(sidebarAutoSettleOnMerge, forKey: .sidebarAutoSettleOnMerge)
     try c.encode(backgroundActivity, forKey: .backgroundActivity)
     try c.encode(automaticGitFetchInterval, forKey: .automaticGitFetchInterval)
@@ -1484,15 +1563,53 @@ public struct ServerSettings: Sendable, Hashable, Codable {
     try c.encode(worktreeSubmodules, forKey: .worktreeSubmodules)
     try c.encode(addProjectBaseDirectory, forKey: .addProjectBaseDirectory)
     try c.encode(textGenerationModelSelection, forKey: .textGenerationModelSelection)
+    try c.encode(branchNamingMode, forKey: .branchNamingMode)
+    try c.encode(branchNamePrefix, forKey: .branchNamePrefix)
+    try c.encode(branchNameInstructions, forKey: .branchNameInstructions)
+    try c.encode(removeAgentCreditsOnMerge, forKey: .removeAgentCreditsOnMerge)
     try c.encode(sourceControlWritingStyle, forKey: .sourceControlWritingStyle)
     try c.encode(sourceControlWriterModelSelection, forKey: .sourceControlWriterModelSelection)
     try c.encode(pullRequestMergeMethod, forKey: .pullRequestMergeMethod)
-    try c.encode(providers, forKey: .providers)
     try c.encode(providerInstances, forKey: .providerInstances)
     try c.encode(observability, forKey: .observability)
+    try c.encode(bitbucket, forKey: .bitbucket)
+    try c.encode(github, forKey: .github)
     try c.encode(usageLimitSources, forKey: .usageLimitSources)
     try c.encode(cursorKeychainUsageEnabled, forKey: .cursorKeychainUsageEnabled)
     try c.encode(usagePriceOverrides, forKey: .usagePriceOverrides)
+    try c.encode(usageModelAliases, forKey: .usageModelAliases)
+  }
+}
+
+public struct ServerSettingsBitbucket: Sendable, Hashable, Codable {
+  public var email: String
+  public var accessToken: String
+  public var apiToken: String
+
+  public init(email: String = "", accessToken: String = "", apiToken: String = "") {
+    self.email = email
+    self.accessToken = accessToken
+    self.apiToken = apiToken
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case email
+    case accessToken
+    case apiToken
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.email = (try c.decodeIfPresent(String.self, forKey: .email)) ?? ""
+    self.accessToken = (try c.decodeIfPresent(String.self, forKey: .accessToken)) ?? ""
+    self.apiToken = (try c.decodeIfPresent(String.self, forKey: .apiToken)) ?? ""
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(email, forKey: .email)
+    try c.encode(accessToken, forKey: .accessToken)
+    try c.encode(apiToken, forKey: .apiToken)
   }
 }
 
@@ -1534,16 +1651,18 @@ public struct ServerSettingsDefaultProjectScriptsItem: Sendable, Hashable, Codab
   public var command: String
   public var icon: ProjectScriptIcon
   public var runOnWorktreeCreate: Bool
+  public var runOnSettle: Bool?
   public var async: Bool?
   public var previewUrl: String?
   public var autoOpenPreview: Bool?
 
-  public init(id: String, name: String, command: String, icon: ProjectScriptIcon, runOnWorktreeCreate: Bool, async: Bool? = nil, previewUrl: String? = nil, autoOpenPreview: Bool? = nil) {
+  public init(id: String, name: String, command: String, icon: ProjectScriptIcon, runOnWorktreeCreate: Bool, runOnSettle: Bool? = nil, async: Bool? = nil, previewUrl: String? = nil, autoOpenPreview: Bool? = nil) {
     self.id = id
     self.name = name
     self.command = command
     self.icon = icon
     self.runOnWorktreeCreate = runOnWorktreeCreate
+    self.runOnSettle = runOnSettle
     self.async = async
     self.previewUrl = previewUrl
     self.autoOpenPreview = autoOpenPreview
@@ -1555,6 +1674,7 @@ public struct ServerSettingsDefaultProjectScriptsItem: Sendable, Hashable, Codab
     case command
     case icon
     case runOnWorktreeCreate
+    case runOnSettle
     case async
     case previewUrl
     case autoOpenPreview
@@ -1567,6 +1687,7 @@ public struct ServerSettingsDefaultProjectScriptsItem: Sendable, Hashable, Codab
     self.command = try c.decode(String.self, forKey: .command)
     self.icon = try c.decode(ProjectScriptIcon.self, forKey: .icon)
     self.runOnWorktreeCreate = try c.decode(Bool.self, forKey: .runOnWorktreeCreate)
+    self.runOnSettle = try c.decodeIfPresent(Bool.self, forKey: .runOnSettle)
     self.async = try c.decodeIfPresent(Bool.self, forKey: .async)
     self.previewUrl = try c.decodeIfPresent(String.self, forKey: .previewUrl)
     self.autoOpenPreview = try c.decodeIfPresent(Bool.self, forKey: .autoOpenPreview)
@@ -1579,6 +1700,7 @@ public struct ServerSettingsDefaultProjectScriptsItem: Sendable, Hashable, Codab
     try c.encode(command, forKey: .command)
     try c.encode(icon, forKey: .icon)
     try c.encode(runOnWorktreeCreate, forKey: .runOnWorktreeCreate)
+    try c.encodeIfPresent(runOnSettle, forKey: .runOnSettle)
     try c.encodeIfPresent(async, forKey: .async)
     try c.encodeIfPresent(previewUrl, forKey: .previewUrl)
     try c.encodeIfPresent(autoOpenPreview, forKey: .autoOpenPreview)
@@ -1670,9 +1792,9 @@ public struct ServerSettingsError: Sendable, Hashable, Codable, Error {
   public var operation: ServerSettingsOperation
   public var providerInstanceId: String?
   public var environmentVariable: String?
-  public var cause: JSONValue
+  public var cause: JSONValue?
 
-  public init(settingsPath: String, operation: ServerSettingsOperation, providerInstanceId: String? = nil, environmentVariable: String? = nil, cause: JSONValue) {
+  public init(settingsPath: String, operation: ServerSettingsOperation, providerInstanceId: String? = nil, environmentVariable: String? = nil, cause: JSONValue? = nil) {
     self.settingsPath = settingsPath
     self.operation = operation
     self.providerInstanceId = providerInstanceId
@@ -1696,7 +1818,7 @@ public struct ServerSettingsError: Sendable, Hashable, Codable, Error {
     self.operation = try c.decode(ServerSettingsOperation.self, forKey: .operation)
     self.providerInstanceId = try c.decodeIfPresent(String.self, forKey: .providerInstanceId)
     self.environmentVariable = try c.decodeIfPresent(String.self, forKey: .environmentVariable)
-    self.cause = try c.decode(JSONValue.self, forKey: .cause)
+    self.cause = try c.decodeIfPresent(JSONValue.self, forKey: .cause)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -1706,7 +1828,61 @@ public struct ServerSettingsError: Sendable, Hashable, Codable, Error {
     try c.encode(operation, forKey: .operation)
     try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
     try c.encodeIfPresent(environmentVariable, forKey: .environmentVariable)
-    try c.encode(cause, forKey: .cause)
+    try c.encodeIfPresent(cause, forKey: .cause)
+  }
+}
+
+public struct ServerSettingsGithub: Sendable, Hashable, Codable {
+  public var hosts: [String: ServerSettingsGithubHostsValue]
+  public var tokens: [String: String]
+
+  public init(hosts: [String: ServerSettingsGithubHostsValue] = [:], tokens: [String: String] = [:]) {
+    self.hosts = hosts
+    self.tokens = tokens
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case hosts
+    case tokens
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.hosts = (try c.decodeIfPresent([String: ServerSettingsGithubHostsValue].self, forKey: .hosts)) ?? [:]
+    self.tokens = (try c.decodeIfPresent([String: String].self, forKey: .tokens)) ?? [:]
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(hosts, forKey: .hosts)
+    try c.encode(tokens, forKey: .tokens)
+  }
+}
+
+public struct ServerSettingsGithubHostsValue: Sendable, Hashable, Codable {
+  public var account: String?
+  public var enabled: Bool
+
+  public init(account: String? = nil, enabled: Bool = true) {
+    self.account = account
+    self.enabled = enabled
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case account
+    case enabled
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.account = try c.decodeIfPresent(String.self, forKey: .account)
+    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? true
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(account, forKey: .account)
+    try c.encode(enabled, forKey: .enabled)
   }
 }
 
@@ -1745,6 +1921,7 @@ public struct ServerSettingsObservability: Sendable, Hashable, Codable {
 public enum ServerSettingsOperation: Sendable, Hashable, Codable, RawRepresentable {
   case normalize
   case checkExists
+  case createProviderInstance
   case readFile
   case readProviderHistory
   case readProjectSettings
@@ -1761,6 +1938,7 @@ public enum ServerSettingsOperation: Sendable, Hashable, Codable, RawRepresentab
     switch rawValue {
     case "normalize": self = .normalize
     case "check-exists": self = .checkExists
+    case "create-provider-instance": self = .createProviderInstance
     case "read-file": self = .readFile
     case "read-provider-history": self = .readProviderHistory
     case "read-project-settings": self = .readProjectSettings
@@ -1778,6 +1956,7 @@ public enum ServerSettingsOperation: Sendable, Hashable, Codable, RawRepresentab
     switch self {
     case .normalize: "normalize"
     case .checkExists: "check-exists"
+    case .createProviderInstance: "create-provider-instance"
     case .readFile: "read-file"
     case .readProviderHistory: "read-provider-history"
     case .readProjectSettings: "read-project-settings"
@@ -1804,6 +1983,7 @@ public enum ServerSettingsOperation: Sendable, Hashable, Codable, RawRepresentab
 public struct ServerSettingsPatch: Sendable, Hashable, Codable {
   public var worktreeCleanup: WorktreeCleanup2??
   public var storageCleanup: ServerSettingsPatchStorageCleanup?
+  public var worktreesDirectory: String?
   public var responseStreamingMode: ServerSettingsResponseStreamingMode?
   public var enableProviderUpdateChecks: Bool?
   public var continueThreadsAfterServerUpdate: Bool?
@@ -1822,6 +2002,8 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
   public var deviceHosts: [SshDeviceHostConfig]?
   public var sidebarAutoSettleAfterDays: Double??
   public var sidebarAutoSettleOnMerge: Bool?
+  public var autoResumeLimitedThreads: Bool?
+  public var snoozeLimitedThreads: Bool?
   public var backgroundActivity: ServerSettingsPatchBackgroundActivity?
   public var automaticGitFetchInterval: Double?
   public var providerHealthRefreshInterval: Double?
@@ -1832,19 +2014,26 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
   public var worktreeSubmodules: WorktreeSubmodules??
   public var addProjectBaseDirectory: String?
   public var textGenerationModelSelection: ServerSettingsPatchTextGenerationModelSelection?
+  public var branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode?
+  public var branchNamePrefix: String?
+  public var branchNameInstructions: String?
+  public var removeAgentCreditsOnMerge: Bool?
   public var sourceControlWritingStyle: ServerSettingsPatchSourceControlWritingStyle?
   public var sourceControlWriterModelSelection: ModelSelection??
   public var pullRequestMergeMethod: PullRequestMergeMethod??
   public var observability: ServerSettingsPatchObservability?
-  public var providers: ServerSettingsPatchProviders?
+  public var bitbucket: ServerSettingsPatchBitbucket?
+  public var github: ServerSettingsPatchGithub?
   public var providerInstances: [String: ProviderInstanceConfig]?
   public var usageLimitSources: [String: UsageLimitSourceConfig?]?
   public var cursorKeychainUsageEnabled: Bool?
   public var usagePriceOverrides: [String: UsageModelPriceOverride?]?
+  public var usageModelAliases: [String: String?]?
 
-  public init(worktreeCleanup: WorktreeCleanup2?? = nil, storageCleanup: ServerSettingsPatchStorageCleanup? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil, enableProviderUpdateChecks: Bool? = nil, continueThreadsAfterServerUpdate: Bool? = nil, enableAgentBrowserAccess: Bool? = nil, projectAgentBrowserAccessOverrides: [String: Bool?]? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ProjectScript]? = nil, projectScriptOverrides: [String: [ProjectScript]?]? = nil, projectAutoPullOverrides: [String: Bool?]? = nil, defaultModelSelection: ModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, projectSettingsOverrides: [String: ProjectSettingsOverrides?]? = nil, enableAgentDeviceAccess: Bool? = nil, enableDeviceSupport: Bool? = nil, deviceOnboardingCompleted: Bool? = nil, deviceHosts: [SshDeviceHostConfig]? = nil, sidebarAutoSettleAfterDays: Double?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, backgroundActivity: ServerSettingsPatchBackgroundActivity? = nil, automaticGitFetchInterval: Double? = nil, providerHealthRefreshInterval: Double? = nil, backgroundActivityProfile: BackgroundActivitySettingsBaseProfile? = nil, environmentIcon: EnvironmentMachineKind?? = nil, defaultThreadEnvMode: ThreadEnvMode?? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules?? = nil, addProjectBaseDirectory: String? = nil, textGenerationModelSelection: ServerSettingsPatchTextGenerationModelSelection? = nil, sourceControlWritingStyle: ServerSettingsPatchSourceControlWritingStyle? = nil, sourceControlWriterModelSelection: ModelSelection?? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, observability: ServerSettingsPatchObservability? = nil, providers: ServerSettingsPatchProviders? = nil, providerInstances: [String: ProviderInstanceConfig]? = nil, usageLimitSources: [String: UsageLimitSourceConfig?]? = nil, cursorKeychainUsageEnabled: Bool? = nil, usagePriceOverrides: [String: UsageModelPriceOverride?]? = nil) {
+  public init(worktreeCleanup: WorktreeCleanup2?? = nil, storageCleanup: ServerSettingsPatchStorageCleanup? = nil, worktreesDirectory: String? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil, enableProviderUpdateChecks: Bool? = nil, continueThreadsAfterServerUpdate: Bool? = nil, enableAgentBrowserAccess: Bool? = nil, projectAgentBrowserAccessOverrides: [String: Bool?]? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ProjectScript]? = nil, projectScriptOverrides: [String: [ProjectScript]?]? = nil, projectAutoPullOverrides: [String: Bool?]? = nil, defaultModelSelection: ModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, projectSettingsOverrides: [String: ProjectSettingsOverrides?]? = nil, enableAgentDeviceAccess: Bool? = nil, enableDeviceSupport: Bool? = nil, deviceOnboardingCompleted: Bool? = nil, deviceHosts: [SshDeviceHostConfig]? = nil, sidebarAutoSettleAfterDays: Double?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, autoResumeLimitedThreads: Bool? = nil, snoozeLimitedThreads: Bool? = nil, backgroundActivity: ServerSettingsPatchBackgroundActivity? = nil, automaticGitFetchInterval: Double? = nil, providerHealthRefreshInterval: Double? = nil, backgroundActivityProfile: BackgroundActivitySettingsBaseProfile? = nil, environmentIcon: EnvironmentMachineKind?? = nil, defaultThreadEnvMode: ThreadEnvMode?? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules?? = nil, addProjectBaseDirectory: String? = nil, textGenerationModelSelection: ServerSettingsPatchTextGenerationModelSelection? = nil, branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode? = nil, branchNamePrefix: String? = nil, branchNameInstructions: String? = nil, removeAgentCreditsOnMerge: Bool? = nil, sourceControlWritingStyle: ServerSettingsPatchSourceControlWritingStyle? = nil, sourceControlWriterModelSelection: ModelSelection?? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, observability: ServerSettingsPatchObservability? = nil, bitbucket: ServerSettingsPatchBitbucket? = nil, github: ServerSettingsPatchGithub? = nil, providerInstances: [String: ProviderInstanceConfig]? = nil, usageLimitSources: [String: UsageLimitSourceConfig?]? = nil, cursorKeychainUsageEnabled: Bool? = nil, usagePriceOverrides: [String: UsageModelPriceOverride?]? = nil, usageModelAliases: [String: String?]? = nil) {
     self.worktreeCleanup = worktreeCleanup
     self.storageCleanup = storageCleanup
+    self.worktreesDirectory = worktreesDirectory
     self.responseStreamingMode = responseStreamingMode
     self.enableProviderUpdateChecks = enableProviderUpdateChecks
     self.continueThreadsAfterServerUpdate = continueThreadsAfterServerUpdate
@@ -1863,6 +2052,8 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     self.deviceHosts = deviceHosts
     self.sidebarAutoSettleAfterDays = sidebarAutoSettleAfterDays
     self.sidebarAutoSettleOnMerge = sidebarAutoSettleOnMerge
+    self.autoResumeLimitedThreads = autoResumeLimitedThreads
+    self.snoozeLimitedThreads = snoozeLimitedThreads
     self.backgroundActivity = backgroundActivity
     self.automaticGitFetchInterval = automaticGitFetchInterval
     self.providerHealthRefreshInterval = providerHealthRefreshInterval
@@ -1873,20 +2064,27 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     self.worktreeSubmodules = worktreeSubmodules
     self.addProjectBaseDirectory = addProjectBaseDirectory
     self.textGenerationModelSelection = textGenerationModelSelection
+    self.branchNamingMode = branchNamingMode
+    self.branchNamePrefix = branchNamePrefix
+    self.branchNameInstructions = branchNameInstructions
+    self.removeAgentCreditsOnMerge = removeAgentCreditsOnMerge
     self.sourceControlWritingStyle = sourceControlWritingStyle
     self.sourceControlWriterModelSelection = sourceControlWriterModelSelection
     self.pullRequestMergeMethod = pullRequestMergeMethod
     self.observability = observability
-    self.providers = providers
+    self.bitbucket = bitbucket
+    self.github = github
     self.providerInstances = providerInstances
     self.usageLimitSources = usageLimitSources
     self.cursorKeychainUsageEnabled = cursorKeychainUsageEnabled
     self.usagePriceOverrides = usagePriceOverrides
+    self.usageModelAliases = usageModelAliases
   }
 
   private enum CodingKeys: String, CodingKey {
     case worktreeCleanup
     case storageCleanup
+    case worktreesDirectory
     case responseStreamingMode
     case enableProviderUpdateChecks
     case continueThreadsAfterServerUpdate
@@ -1905,6 +2103,8 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     case deviceHosts
     case sidebarAutoSettleAfterDays
     case sidebarAutoSettleOnMerge
+    case autoResumeLimitedThreads
+    case snoozeLimitedThreads
     case backgroundActivity
     case automaticGitFetchInterval
     case providerHealthRefreshInterval
@@ -1915,21 +2115,28 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     case worktreeSubmodules
     case addProjectBaseDirectory
     case textGenerationModelSelection
+    case branchNamingMode
+    case branchNamePrefix
+    case branchNameInstructions
+    case removeAgentCreditsOnMerge
     case sourceControlWritingStyle
     case sourceControlWriterModelSelection
     case pullRequestMergeMethod
     case observability
-    case providers
+    case bitbucket
+    case github
     case providerInstances
     case usageLimitSources
     case cursorKeychainUsageEnabled
     case usagePriceOverrides
+    case usageModelAliases
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.worktreeCleanup = try c.decodeTriState(WorktreeCleanup2.self, forKey: .worktreeCleanup)
     self.storageCleanup = try c.decodeIfPresent(ServerSettingsPatchStorageCleanup.self, forKey: .storageCleanup)
+    self.worktreesDirectory = try c.decodeIfPresent(String.self, forKey: .worktreesDirectory)
     self.responseStreamingMode = try c.decodeIfPresent(ServerSettingsResponseStreamingMode.self, forKey: .responseStreamingMode)
     self.enableProviderUpdateChecks = try c.decodeIfPresent(Bool.self, forKey: .enableProviderUpdateChecks)
     self.continueThreadsAfterServerUpdate = try c.decodeIfPresent(Bool.self, forKey: .continueThreadsAfterServerUpdate)
@@ -1948,6 +2155,8 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     self.deviceHosts = try c.decodeIfPresent([SshDeviceHostConfig].self, forKey: .deviceHosts)
     self.sidebarAutoSettleAfterDays = try c.decodeTriState(Double.self, forKey: .sidebarAutoSettleAfterDays)
     self.sidebarAutoSettleOnMerge = try c.decodeIfPresent(Bool.self, forKey: .sidebarAutoSettleOnMerge)
+    self.autoResumeLimitedThreads = try c.decodeIfPresent(Bool.self, forKey: .autoResumeLimitedThreads)
+    self.snoozeLimitedThreads = try c.decodeIfPresent(Bool.self, forKey: .snoozeLimitedThreads)
     self.backgroundActivity = try c.decodeIfPresent(ServerSettingsPatchBackgroundActivity.self, forKey: .backgroundActivity)
     self.automaticGitFetchInterval = try c.decodeIfPresent(Double.self, forKey: .automaticGitFetchInterval)
     self.providerHealthRefreshInterval = try c.decodeIfPresent(Double.self, forKey: .providerHealthRefreshInterval)
@@ -1958,21 +2167,28 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     self.worktreeSubmodules = try c.decodeTriState(WorktreeSubmodules.self, forKey: .worktreeSubmodules)
     self.addProjectBaseDirectory = try c.decodeIfPresent(String.self, forKey: .addProjectBaseDirectory)
     self.textGenerationModelSelection = try c.decodeIfPresent(ServerSettingsPatchTextGenerationModelSelection.self, forKey: .textGenerationModelSelection)
+    self.branchNamingMode = try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, forKey: .branchNamingMode)
+    self.branchNamePrefix = try c.decodeIfPresent(String.self, forKey: .branchNamePrefix)
+    self.branchNameInstructions = try c.decodeIfPresent(String.self, forKey: .branchNameInstructions)
+    self.removeAgentCreditsOnMerge = try c.decodeIfPresent(Bool.self, forKey: .removeAgentCreditsOnMerge)
     self.sourceControlWritingStyle = try c.decodeIfPresent(ServerSettingsPatchSourceControlWritingStyle.self, forKey: .sourceControlWritingStyle)
     self.sourceControlWriterModelSelection = try c.decodeTriState(ModelSelection.self, forKey: .sourceControlWriterModelSelection)
     self.pullRequestMergeMethod = try c.decodeTriState(PullRequestMergeMethod.self, forKey: .pullRequestMergeMethod)
     self.observability = try c.decodeIfPresent(ServerSettingsPatchObservability.self, forKey: .observability)
-    self.providers = try c.decodeIfPresent(ServerSettingsPatchProviders.self, forKey: .providers)
+    self.bitbucket = try c.decodeIfPresent(ServerSettingsPatchBitbucket.self, forKey: .bitbucket)
+    self.github = try c.decodeIfPresent(ServerSettingsPatchGithub.self, forKey: .github)
     self.providerInstances = try c.decodeIfPresent([String: ProviderInstanceConfig].self, forKey: .providerInstances)
     self.usageLimitSources = try c.decodeIfPresent([String: UsageLimitSourceConfig?].self, forKey: .usageLimitSources)
     self.cursorKeychainUsageEnabled = try c.decodeIfPresent(Bool.self, forKey: .cursorKeychainUsageEnabled)
     self.usagePriceOverrides = try c.decodeIfPresent([String: UsageModelPriceOverride?].self, forKey: .usagePriceOverrides)
+    self.usageModelAliases = try c.decodeIfPresent([String: String?].self, forKey: .usageModelAliases)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encodeTriState(worktreeCleanup, forKey: .worktreeCleanup)
     try c.encodeIfPresent(storageCleanup, forKey: .storageCleanup)
+    try c.encodeIfPresent(worktreesDirectory, forKey: .worktreesDirectory)
     try c.encodeIfPresent(responseStreamingMode, forKey: .responseStreamingMode)
     try c.encodeIfPresent(enableProviderUpdateChecks, forKey: .enableProviderUpdateChecks)
     try c.encodeIfPresent(continueThreadsAfterServerUpdate, forKey: .continueThreadsAfterServerUpdate)
@@ -1991,6 +2207,8 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     try c.encodeIfPresent(deviceHosts, forKey: .deviceHosts)
     try c.encodeTriState(sidebarAutoSettleAfterDays, forKey: .sidebarAutoSettleAfterDays)
     try c.encodeIfPresent(sidebarAutoSettleOnMerge, forKey: .sidebarAutoSettleOnMerge)
+    try c.encodeIfPresent(autoResumeLimitedThreads, forKey: .autoResumeLimitedThreads)
+    try c.encodeIfPresent(snoozeLimitedThreads, forKey: .snoozeLimitedThreads)
     try c.encodeIfPresent(backgroundActivity, forKey: .backgroundActivity)
     try c.encodeIfPresent(automaticGitFetchInterval, forKey: .automaticGitFetchInterval)
     try c.encodeIfPresent(providerHealthRefreshInterval, forKey: .providerHealthRefreshInterval)
@@ -2001,15 +2219,21 @@ public struct ServerSettingsPatch: Sendable, Hashable, Codable {
     try c.encodeTriState(worktreeSubmodules, forKey: .worktreeSubmodules)
     try c.encodeIfPresent(addProjectBaseDirectory, forKey: .addProjectBaseDirectory)
     try c.encodeIfPresent(textGenerationModelSelection, forKey: .textGenerationModelSelection)
+    try c.encodeIfPresent(branchNamingMode, forKey: .branchNamingMode)
+    try c.encodeIfPresent(branchNamePrefix, forKey: .branchNamePrefix)
+    try c.encodeIfPresent(branchNameInstructions, forKey: .branchNameInstructions)
+    try c.encodeIfPresent(removeAgentCreditsOnMerge, forKey: .removeAgentCreditsOnMerge)
     try c.encodeIfPresent(sourceControlWritingStyle, forKey: .sourceControlWritingStyle)
     try c.encodeTriState(sourceControlWriterModelSelection, forKey: .sourceControlWriterModelSelection)
     try c.encodeTriState(pullRequestMergeMethod, forKey: .pullRequestMergeMethod)
     try c.encodeIfPresent(observability, forKey: .observability)
-    try c.encodeIfPresent(providers, forKey: .providers)
+    try c.encodeIfPresent(bitbucket, forKey: .bitbucket)
+    try c.encodeIfPresent(github, forKey: .github)
     try c.encodeIfPresent(providerInstances, forKey: .providerInstances)
     try c.encodeIfPresent(usageLimitSources, forKey: .usageLimitSources)
     try c.encodeIfPresent(cursorKeychainUsageEnabled, forKey: .cursorKeychainUsageEnabled)
     try c.encodeIfPresent(usagePriceOverrides, forKey: .usagePriceOverrides)
+    try c.encodeIfPresent(usageModelAliases, forKey: .usageModelAliases)
   }
 }
 
@@ -2112,6 +2336,65 @@ public struct ServerSettingsPatchBackgroundActivityOverrides: Sendable, Hashable
   }
 }
 
+public struct ServerSettingsPatchBitbucket: Sendable, Hashable, Codable {
+  public var email: String?
+  public var accessToken: String?
+  public var apiToken: String?
+
+  public init(email: String? = nil, accessToken: String? = nil, apiToken: String? = nil) {
+    self.email = email
+    self.accessToken = accessToken
+    self.apiToken = apiToken
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case email
+    case accessToken
+    case apiToken
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.email = try c.decodeIfPresent(String.self, forKey: .email)
+    self.accessToken = try c.decodeIfPresent(String.self, forKey: .accessToken)
+    self.apiToken = try c.decodeIfPresent(String.self, forKey: .apiToken)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(email, forKey: .email)
+    try c.encodeIfPresent(accessToken, forKey: .accessToken)
+    try c.encodeIfPresent(apiToken, forKey: .apiToken)
+  }
+}
+
+public struct ServerSettingsPatchGithub: Sendable, Hashable, Codable {
+  public var hosts: [String: GitHubHostSettings]?
+  public var tokens: [String: String]?
+
+  public init(hosts: [String: GitHubHostSettings]? = nil, tokens: [String: String]? = nil) {
+    self.hosts = hosts
+    self.tokens = tokens
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case hosts
+    case tokens
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.hosts = try c.decodeIfPresent([String: GitHubHostSettings].self, forKey: .hosts)
+    self.tokens = try c.decodeIfPresent([String: String].self, forKey: .tokens)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(hosts, forKey: .hosts)
+    try c.encodeIfPresent(tokens, forKey: .tokens)
+  }
+}
+
 public struct ServerSettingsPatchObservability: Sendable, Hashable, Codable {
   public var otlpTracesUrl: String?
   public var otlpMetricsUrl: String?
@@ -2141,310 +2424,6 @@ public struct ServerSettingsPatchObservability: Sendable, Hashable, Codable {
     try c.encodeIfPresent(otlpTracesUrl, forKey: .otlpTracesUrl)
     try c.encodeIfPresent(otlpMetricsUrl, forKey: .otlpMetricsUrl)
     try c.encodeIfPresent(otlpLogsUrl, forKey: .otlpLogsUrl)
-  }
-}
-
-public struct ServerSettingsPatchProviders: Sendable, Hashable, Codable {
-  public var codex: ServerSettingsPatchProvidersCodex?
-  public var claudeAgent: ServerSettingsPatchProvidersClaudeAgent?
-  public var cursor: ServerSettingsPatchProvidersCursor?
-  public var grok: ServerSettingsPatchProvidersGrok?
-  public var opencode: ServerSettingsPatchProvidersOpencode?
-  public var antigravity: ServerSettingsPatchProvidersAntigravity?
-
-  public init(codex: ServerSettingsPatchProvidersCodex? = nil, claudeAgent: ServerSettingsPatchProvidersClaudeAgent? = nil, cursor: ServerSettingsPatchProvidersCursor? = nil, grok: ServerSettingsPatchProvidersGrok? = nil, opencode: ServerSettingsPatchProvidersOpencode? = nil, antigravity: ServerSettingsPatchProvidersAntigravity? = nil) {
-    self.codex = codex
-    self.claudeAgent = claudeAgent
-    self.cursor = cursor
-    self.grok = grok
-    self.opencode = opencode
-    self.antigravity = antigravity
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case codex
-    case claudeAgent
-    case cursor
-    case grok
-    case opencode
-    case antigravity
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.codex = try c.decodeIfPresent(ServerSettingsPatchProvidersCodex.self, forKey: .codex)
-    self.claudeAgent = try c.decodeIfPresent(ServerSettingsPatchProvidersClaudeAgent.self, forKey: .claudeAgent)
-    self.cursor = try c.decodeIfPresent(ServerSettingsPatchProvidersCursor.self, forKey: .cursor)
-    self.grok = try c.decodeIfPresent(ServerSettingsPatchProvidersGrok.self, forKey: .grok)
-    self.opencode = try c.decodeIfPresent(ServerSettingsPatchProvidersOpencode.self, forKey: .opencode)
-    self.antigravity = try c.decodeIfPresent(ServerSettingsPatchProvidersAntigravity.self, forKey: .antigravity)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(codex, forKey: .codex)
-    try c.encodeIfPresent(claudeAgent, forKey: .claudeAgent)
-    try c.encodeIfPresent(cursor, forKey: .cursor)
-    try c.encodeIfPresent(grok, forKey: .grok)
-    try c.encodeIfPresent(opencode, forKey: .opencode)
-    try c.encodeIfPresent(antigravity, forKey: .antigravity)
-  }
-}
-
-public struct ServerSettingsPatchProvidersAntigravity: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var authMethod: ServerSettingsProvidersAntigravityAuthMethod?
-  public var apiKey: String?
-  public var gcpProject: String?
-  public var gcpLocation: String?
-  public var binaryPath: String?
-  public var customModels: [CustomModelSetting2]?
-
-  public init(enabled: Bool? = nil, authMethod: ServerSettingsProvidersAntigravityAuthMethod? = nil, apiKey: String? = nil, gcpProject: String? = nil, gcpLocation: String? = nil, binaryPath: String? = nil, customModels: [CustomModelSetting2]? = nil) {
-    self.enabled = enabled
-    self.authMethod = authMethod
-    self.apiKey = apiKey
-    self.gcpProject = gcpProject
-    self.gcpLocation = gcpLocation
-    self.binaryPath = binaryPath
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case authMethod
-    case apiKey
-    case gcpProject
-    case gcpLocation
-    case binaryPath
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.authMethod = try c.decodeIfPresent(ServerSettingsProvidersAntigravityAuthMethod.self, forKey: .authMethod)
-    self.apiKey = try c.decodeIfPresent(String.self, forKey: .apiKey)
-    self.gcpProject = try c.decodeIfPresent(String.self, forKey: .gcpProject)
-    self.gcpLocation = try c.decodeIfPresent(String.self, forKey: .gcpLocation)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(authMethod, forKey: .authMethod)
-    try c.encodeIfPresent(apiKey, forKey: .apiKey)
-    try c.encodeIfPresent(gcpProject, forKey: .gcpProject)
-    try c.encodeIfPresent(gcpLocation, forKey: .gcpLocation)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsPatchProvidersClaudeAgent: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var binaryPath: String?
-  public var homePath: String?
-  public var customModels: [CustomModelSetting2]?
-  public var launchArgs: String?
-  public var autoCompactWindow: String?
-
-  public init(enabled: Bool? = nil, binaryPath: String? = nil, homePath: String? = nil, customModels: [CustomModelSetting2]? = nil, launchArgs: String? = nil, autoCompactWindow: String? = nil) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.homePath = homePath
-    self.customModels = customModels
-    self.launchArgs = launchArgs
-    self.autoCompactWindow = autoCompactWindow
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case homePath
-    case customModels
-    case launchArgs
-    case autoCompactWindow
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.homePath = try c.decodeIfPresent(String.self, forKey: .homePath)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-    self.launchArgs = try c.decodeIfPresent(String.self, forKey: .launchArgs)
-    self.autoCompactWindow = try c.decodeIfPresent(String.self, forKey: .autoCompactWindow)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(homePath, forKey: .homePath)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
-    try c.encodeIfPresent(launchArgs, forKey: .launchArgs)
-    try c.encodeIfPresent(autoCompactWindow, forKey: .autoCompactWindow)
-  }
-}
-
-public struct ServerSettingsPatchProvidersCodex: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var binaryPath: String?
-  public var homePath: String?
-  public var shadowHomePath: String?
-  public var launchArgs: String?
-  public var customModels: [CustomModelSetting2]?
-
-  public init(enabled: Bool? = nil, binaryPath: String? = nil, homePath: String? = nil, shadowHomePath: String? = nil, launchArgs: String? = nil, customModels: [CustomModelSetting2]? = nil) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.homePath = homePath
-    self.shadowHomePath = shadowHomePath
-    self.launchArgs = launchArgs
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case homePath
-    case shadowHomePath
-    case launchArgs
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.homePath = try c.decodeIfPresent(String.self, forKey: .homePath)
-    self.shadowHomePath = try c.decodeIfPresent(String.self, forKey: .shadowHomePath)
-    self.launchArgs = try c.decodeIfPresent(String.self, forKey: .launchArgs)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(homePath, forKey: .homePath)
-    try c.encodeIfPresent(shadowHomePath, forKey: .shadowHomePath)
-    try c.encodeIfPresent(launchArgs, forKey: .launchArgs)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsPatchProvidersCursor: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var binaryPath: String?
-  public var apiEndpoint: String?
-  public var customModels: [CustomModelSetting2]?
-
-  public init(enabled: Bool? = nil, binaryPath: String? = nil, apiEndpoint: String? = nil, customModels: [CustomModelSetting2]? = nil) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.apiEndpoint = apiEndpoint
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case apiEndpoint
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.apiEndpoint = try c.decodeIfPresent(String.self, forKey: .apiEndpoint)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(apiEndpoint, forKey: .apiEndpoint)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsPatchProvidersGrok: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var binaryPath: String?
-  public var customModels: [CustomModelSetting2]?
-
-  public init(enabled: Bool? = nil, binaryPath: String? = nil, customModels: [CustomModelSetting2]? = nil) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsPatchProvidersOpencode: Sendable, Hashable, Codable {
-  public var enabled: Bool?
-  public var binaryPath: String?
-  public var serverUrl: String?
-  public var serverPassword: String?
-  public var customModels: [CustomModelSetting2]?
-
-  public init(enabled: Bool? = nil, binaryPath: String? = nil, serverUrl: String? = nil, serverPassword: String? = nil, customModels: [CustomModelSetting2]? = nil) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.serverUrl = serverUrl
-    self.serverPassword = serverPassword
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case serverUrl
-    case serverPassword
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled)
-    self.binaryPath = try c.decodeIfPresent(String.self, forKey: .binaryPath)
-    self.serverUrl = try c.decodeIfPresent(String.self, forKey: .serverUrl)
-    self.serverPassword = try c.decodeIfPresent(String.self, forKey: .serverPassword)
-    self.customModels = try c.decodeIfPresent([CustomModelSetting2].self, forKey: .customModels)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(enabled, forKey: .enabled)
-    try c.encodeIfPresent(binaryPath, forKey: .binaryPath)
-    try c.encodeIfPresent(serverUrl, forKey: .serverUrl)
-    try c.encodeIfPresent(serverPassword, forKey: .serverPassword)
-    try c.encodeIfPresent(customModels, forKey: .customModels)
   }
 }
 
@@ -2573,13 +2552,17 @@ public struct ServerSettingsProjectSettingsOverridesValue: Sendable, Hashable, C
   public var textGenerationModelSelection: ServerSettingsProjectSettingsOverridesValueTextGenerationModelSelection?
   public var sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection??
   public var sourceControlWritingStyle: ServerSettingsProjectSettingsOverridesValueSourceControlWritingStyle?
+  public var removeAgentCreditsOnMerge: Bool?
+  public var branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode?
+  public var branchNamePrefix: String?
+  public var branchNameInstructions: String?
   public var pullRequestMergeMethod: PullRequestMergeMethod??
   public var sidebarAutoSettleOnMerge: Bool?
   public var sidebarAutoSettleAfterDays: Double??
   public var continueThreadsAfterServerUpdate: Bool?
   public var responseStreamingMode: ServerSettingsResponseStreamingMode?
 
-  public init(worktreeCleanup: WorktreeCleanup?? = nil, defaultModelSelection: ServerSettingsDefaultModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, defaultThreadEnvMode: ServerSettingsProjectSettingsOverridesValueDefaultThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ServerSettingsDefaultProjectScriptsItem]? = nil, enableAgentBrowserAccess: Bool? = nil, enableAgentDeviceAccess: Bool? = nil, textGenerationModelSelection: ServerSettingsProjectSettingsOverridesValueTextGenerationModelSelection? = nil, sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection?? = nil, sourceControlWritingStyle: ServerSettingsProjectSettingsOverridesValueSourceControlWritingStyle? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, sidebarAutoSettleAfterDays: Double?? = nil, continueThreadsAfterServerUpdate: Bool? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil) {
+  public init(worktreeCleanup: WorktreeCleanup?? = nil, defaultModelSelection: ServerSettingsDefaultModelSelection?? = nil, defaultRuntimeMode: ServerSettingsDefaultRuntimeMode? = nil, defaultThreadEnvMode: ServerSettingsProjectSettingsOverridesValueDefaultThreadEnvMode? = nil, newWorktreesStartFromOrigin: Bool? = nil, worktreeSubmodules: WorktreeSubmodules? = nil, defaultAutoPull: Bool? = nil, defaultProjectScripts: [ServerSettingsDefaultProjectScriptsItem]? = nil, enableAgentBrowserAccess: Bool? = nil, enableAgentDeviceAccess: Bool? = nil, textGenerationModelSelection: ServerSettingsProjectSettingsOverridesValueTextGenerationModelSelection? = nil, sourceControlWriterModelSelection: ServerSettingsDefaultModelSelection?? = nil, sourceControlWritingStyle: ServerSettingsProjectSettingsOverridesValueSourceControlWritingStyle? = nil, removeAgentCreditsOnMerge: Bool? = nil, branchNamingMode: ServerSettingsProjectSettingsOverridesValueBranchNamingMode? = nil, branchNamePrefix: String? = nil, branchNameInstructions: String? = nil, pullRequestMergeMethod: PullRequestMergeMethod?? = nil, sidebarAutoSettleOnMerge: Bool? = nil, sidebarAutoSettleAfterDays: Double?? = nil, continueThreadsAfterServerUpdate: Bool? = nil, responseStreamingMode: ServerSettingsResponseStreamingMode? = nil) {
     self.worktreeCleanup = worktreeCleanup
     self.defaultModelSelection = defaultModelSelection
     self.defaultRuntimeMode = defaultRuntimeMode
@@ -2593,6 +2576,10 @@ public struct ServerSettingsProjectSettingsOverridesValue: Sendable, Hashable, C
     self.textGenerationModelSelection = textGenerationModelSelection
     self.sourceControlWriterModelSelection = sourceControlWriterModelSelection
     self.sourceControlWritingStyle = sourceControlWritingStyle
+    self.removeAgentCreditsOnMerge = removeAgentCreditsOnMerge
+    self.branchNamingMode = branchNamingMode
+    self.branchNamePrefix = branchNamePrefix
+    self.branchNameInstructions = branchNameInstructions
     self.pullRequestMergeMethod = pullRequestMergeMethod
     self.sidebarAutoSettleOnMerge = sidebarAutoSettleOnMerge
     self.sidebarAutoSettleAfterDays = sidebarAutoSettleAfterDays
@@ -2614,6 +2601,10 @@ public struct ServerSettingsProjectSettingsOverridesValue: Sendable, Hashable, C
     case textGenerationModelSelection
     case sourceControlWriterModelSelection
     case sourceControlWritingStyle
+    case removeAgentCreditsOnMerge
+    case branchNamingMode
+    case branchNamePrefix
+    case branchNameInstructions
     case pullRequestMergeMethod
     case sidebarAutoSettleOnMerge
     case sidebarAutoSettleAfterDays
@@ -2636,6 +2627,10 @@ public struct ServerSettingsProjectSettingsOverridesValue: Sendable, Hashable, C
     self.textGenerationModelSelection = try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueTextGenerationModelSelection.self, forKey: .textGenerationModelSelection)
     self.sourceControlWriterModelSelection = try c.decodeTriState(ServerSettingsDefaultModelSelection.self, forKey: .sourceControlWriterModelSelection)
     self.sourceControlWritingStyle = try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueSourceControlWritingStyle.self, forKey: .sourceControlWritingStyle)
+    self.removeAgentCreditsOnMerge = try c.decodeIfPresent(Bool.self, forKey: .removeAgentCreditsOnMerge)
+    self.branchNamingMode = try c.decodeIfPresent(ServerSettingsProjectSettingsOverridesValueBranchNamingMode.self, forKey: .branchNamingMode)
+    self.branchNamePrefix = try c.decodeIfPresent(String.self, forKey: .branchNamePrefix)
+    self.branchNameInstructions = try c.decodeIfPresent(String.self, forKey: .branchNameInstructions)
     self.pullRequestMergeMethod = try c.decodeTriState(PullRequestMergeMethod.self, forKey: .pullRequestMergeMethod)
     self.sidebarAutoSettleOnMerge = try c.decodeIfPresent(Bool.self, forKey: .sidebarAutoSettleOnMerge)
     self.sidebarAutoSettleAfterDays = try c.decodeTriState(Double.self, forKey: .sidebarAutoSettleAfterDays)
@@ -2658,11 +2653,50 @@ public struct ServerSettingsProjectSettingsOverridesValue: Sendable, Hashable, C
     try c.encodeIfPresent(textGenerationModelSelection, forKey: .textGenerationModelSelection)
     try c.encodeTriState(sourceControlWriterModelSelection, forKey: .sourceControlWriterModelSelection)
     try c.encodeIfPresent(sourceControlWritingStyle, forKey: .sourceControlWritingStyle)
+    try c.encodeIfPresent(removeAgentCreditsOnMerge, forKey: .removeAgentCreditsOnMerge)
+    try c.encodeIfPresent(branchNamingMode, forKey: .branchNamingMode)
+    try c.encodeIfPresent(branchNamePrefix, forKey: .branchNamePrefix)
+    try c.encodeIfPresent(branchNameInstructions, forKey: .branchNameInstructions)
     try c.encodeTriState(pullRequestMergeMethod, forKey: .pullRequestMergeMethod)
     try c.encodeIfPresent(sidebarAutoSettleOnMerge, forKey: .sidebarAutoSettleOnMerge)
     try c.encodeTriState(sidebarAutoSettleAfterDays, forKey: .sidebarAutoSettleAfterDays)
     try c.encodeIfPresent(continueThreadsAfterServerUpdate, forKey: .continueThreadsAfterServerUpdate)
     try c.encodeIfPresent(responseStreamingMode, forKey: .responseStreamingMode)
+  }
+}
+
+public enum ServerSettingsProjectSettingsOverridesValueBranchNamingMode: Sendable, Hashable, Codable, RawRepresentable {
+  case `static`
+  case semantic
+  case custom
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "static": self = .`static`
+    case "semantic": self = .semantic
+    case "custom": self = .custom
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .`static`: "static"
+    case .semantic: "semantic"
+    case .custom: "custom"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -2881,384 +2915,9 @@ public struct ServerSettingsProviderInstancesValueEnvironmentItem: Sendable, Has
   }
 }
 
-public struct ServerSettingsProviders: Sendable, Hashable, Codable {
-  public var codex: ServerSettingsProvidersCodex
-  public var claudeAgent: ServerSettingsProvidersClaudeAgent
-  public var cursor: ServerSettingsProvidersCursor
-  public var grok: ServerSettingsProvidersGrok
-  public var opencode: ServerSettingsProvidersOpencode
-  public var antigravity: ServerSettingsProvidersAntigravity
-
-  public init(codex: ServerSettingsProvidersCodex = WireDefault.value(ServerSettingsProvidersCodex.self, json: "{}"), claudeAgent: ServerSettingsProvidersClaudeAgent = WireDefault.value(ServerSettingsProvidersClaudeAgent.self, json: "{}"), cursor: ServerSettingsProvidersCursor = WireDefault.value(ServerSettingsProvidersCursor.self, json: "{}"), grok: ServerSettingsProvidersGrok = WireDefault.value(ServerSettingsProvidersGrok.self, json: "{}"), opencode: ServerSettingsProvidersOpencode = WireDefault.value(ServerSettingsProvidersOpencode.self, json: "{}"), antigravity: ServerSettingsProvidersAntigravity = WireDefault.value(ServerSettingsProvidersAntigravity.self, json: "{}")) {
-    self.codex = codex
-    self.claudeAgent = claudeAgent
-    self.cursor = cursor
-    self.grok = grok
-    self.opencode = opencode
-    self.antigravity = antigravity
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case codex
-    case claudeAgent
-    case cursor
-    case grok
-    case opencode
-    case antigravity
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.codex = (try c.decodeIfPresent(ServerSettingsProvidersCodex.self, forKey: .codex)) ?? WireDefault.value(ServerSettingsProvidersCodex.self, json: "{}")
-    self.claudeAgent = (try c.decodeIfPresent(ServerSettingsProvidersClaudeAgent.self, forKey: .claudeAgent)) ?? WireDefault.value(ServerSettingsProvidersClaudeAgent.self, json: "{}")
-    self.cursor = (try c.decodeIfPresent(ServerSettingsProvidersCursor.self, forKey: .cursor)) ?? WireDefault.value(ServerSettingsProvidersCursor.self, json: "{}")
-    self.grok = (try c.decodeIfPresent(ServerSettingsProvidersGrok.self, forKey: .grok)) ?? WireDefault.value(ServerSettingsProvidersGrok.self, json: "{}")
-    self.opencode = (try c.decodeIfPresent(ServerSettingsProvidersOpencode.self, forKey: .opencode)) ?? WireDefault.value(ServerSettingsProvidersOpencode.self, json: "{}")
-    self.antigravity = (try c.decodeIfPresent(ServerSettingsProvidersAntigravity.self, forKey: .antigravity)) ?? WireDefault.value(ServerSettingsProvidersAntigravity.self, json: "{}")
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(codex, forKey: .codex)
-    try c.encode(claudeAgent, forKey: .claudeAgent)
-    try c.encode(cursor, forKey: .cursor)
-    try c.encode(grok, forKey: .grok)
-    try c.encode(opencode, forKey: .opencode)
-    try c.encode(antigravity, forKey: .antigravity)
-  }
-}
-
-public struct ServerSettingsProvidersAntigravity: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var authMethod: ServerSettingsProvidersAntigravityAuthMethod
-  public var apiKey: String
-  public var gcpProject: String
-  public var gcpLocation: String
-  public var binaryPath: String
-  public var customModels: [CustomModelSetting]
-
-  public init(enabled: Bool = false, authMethod: ServerSettingsProvidersAntigravityAuthMethod = WireDefault.value(ServerSettingsProvidersAntigravityAuthMethod.self, json: "\"oauth-personal\""), apiKey: String = "", gcpProject: String = "", gcpLocation: String = "", binaryPath: String = "", customModels: [CustomModelSetting] = []) {
-    self.enabled = enabled
-    self.authMethod = authMethod
-    self.apiKey = apiKey
-    self.gcpProject = gcpProject
-    self.gcpLocation = gcpLocation
-    self.binaryPath = binaryPath
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case authMethod
-    case apiKey
-    case gcpProject
-    case gcpLocation
-    case binaryPath
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? false
-    self.authMethod = (try c.decodeIfPresent(ServerSettingsProvidersAntigravityAuthMethod.self, forKey: .authMethod)) ?? WireDefault.value(ServerSettingsProvidersAntigravityAuthMethod.self, json: "\"oauth-personal\"")
-    self.apiKey = (try c.decodeIfPresent(String.self, forKey: .apiKey)) ?? ""
-    self.gcpProject = (try c.decodeIfPresent(String.self, forKey: .gcpProject)) ?? ""
-    self.gcpLocation = (try c.decodeIfPresent(String.self, forKey: .gcpLocation)) ?? ""
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? ""
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(authMethod, forKey: .authMethod)
-    try c.encode(apiKey, forKey: .apiKey)
-    try c.encode(gcpProject, forKey: .gcpProject)
-    try c.encode(gcpLocation, forKey: .gcpLocation)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(customModels, forKey: .customModels)
-  }
-}
-
-public enum ServerSettingsProvidersAntigravityAuthMethod: Sendable, Hashable, Codable, RawRepresentable {
-  case oauthPersonal
-  case oauthBusiness
-  case geminiApiKey
-  case agentPlatform
-  /// A value this build does not know; kept verbatim so it round-trips.
-  case unknown(String)
-
-  public init(rawValue: String) {
-    switch rawValue {
-    case "oauth-personal": self = .oauthPersonal
-    case "oauth-business": self = .oauthBusiness
-    case "gemini-api-key": self = .geminiApiKey
-    case "agent-platform": self = .agentPlatform
-    default: self = .unknown(rawValue)
-    }
-  }
-
-  public var rawValue: String {
-    switch self {
-    case .oauthPersonal: "oauth-personal"
-    case .oauthBusiness: "oauth-business"
-    case .geminiApiKey: "gemini-api-key"
-    case .agentPlatform: "agent-platform"
-    case .unknown(let value): value
-    }
-  }
-
-  public init(from decoder: any Decoder) throws {
-    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-}
-
-public struct ServerSettingsProvidersClaudeAgent: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var binaryPath: String
-  public var homePath: String
-  public var customModels: [CustomModelSetting]
-  public var launchArgs: String
-  public var autoCompactWindow: String
-
-  public init(enabled: Bool = true, binaryPath: String = "claude", homePath: String = "", customModels: [CustomModelSetting] = [], launchArgs: String = "", autoCompactWindow: String = "") {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.homePath = homePath
-    self.customModels = customModels
-    self.launchArgs = launchArgs
-    self.autoCompactWindow = autoCompactWindow
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case homePath
-    case customModels
-    case launchArgs
-    case autoCompactWindow
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? true
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? "claude"
-    self.homePath = (try c.decodeIfPresent(String.self, forKey: .homePath)) ?? ""
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-    self.launchArgs = (try c.decodeIfPresent(String.self, forKey: .launchArgs)) ?? ""
-    self.autoCompactWindow = (try c.decodeIfPresent(String.self, forKey: .autoCompactWindow)) ?? ""
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(homePath, forKey: .homePath)
-    try c.encode(customModels, forKey: .customModels)
-    try c.encode(launchArgs, forKey: .launchArgs)
-    try c.encode(autoCompactWindow, forKey: .autoCompactWindow)
-  }
-}
-
-public struct ServerSettingsProvidersCodex: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var binaryPath: String
-  public var homePath: String
-  public var shadowHomePath: String
-  public var launchArgs: String
-  public var customModels: [CustomModelSetting]
-
-  public init(enabled: Bool = true, binaryPath: String = "codex", homePath: String = "", shadowHomePath: String = "", launchArgs: String = "", customModels: [CustomModelSetting] = []) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.homePath = homePath
-    self.shadowHomePath = shadowHomePath
-    self.launchArgs = launchArgs
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case homePath
-    case shadowHomePath
-    case launchArgs
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? true
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? "codex"
-    self.homePath = (try c.decodeIfPresent(String.self, forKey: .homePath)) ?? ""
-    self.shadowHomePath = (try c.decodeIfPresent(String.self, forKey: .shadowHomePath)) ?? ""
-    self.launchArgs = (try c.decodeIfPresent(String.self, forKey: .launchArgs)) ?? ""
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(homePath, forKey: .homePath)
-    try c.encode(shadowHomePath, forKey: .shadowHomePath)
-    try c.encode(launchArgs, forKey: .launchArgs)
-    try c.encode(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsProvidersCodexCustomModelsItemOption2: Sendable, Hashable, Codable {
-  public var slug: String
-  public var name: String?
-  public var capabilities: ServerConfigProvidersItemModelsItemCapabilities?
-
-  public init(slug: String, name: String? = nil, capabilities: ServerConfigProvidersItemModelsItemCapabilities? = nil) {
-    self.slug = slug
-    self.name = name
-    self.capabilities = capabilities
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case slug
-    case name
-    case capabilities
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.slug = try c.decode(String.self, forKey: .slug)
-    self.name = try c.decodeIfPresent(String.self, forKey: .name)
-    self.capabilities = try c.decodeIfPresent(ServerConfigProvidersItemModelsItemCapabilities.self, forKey: .capabilities)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(slug, forKey: .slug)
-    try c.encodeIfPresent(name, forKey: .name)
-    try c.encodeIfPresent(capabilities, forKey: .capabilities)
-  }
-}
-
-public struct ServerSettingsProvidersCursor: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var binaryPath: String
-  public var apiEndpoint: String
-  public var customModels: [CustomModelSetting]
-
-  public init(enabled: Bool = false, binaryPath: String = "cursor-agent", apiEndpoint: String = "", customModels: [CustomModelSetting] = []) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.apiEndpoint = apiEndpoint
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case apiEndpoint
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? false
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? "cursor-agent"
-    self.apiEndpoint = (try c.decodeIfPresent(String.self, forKey: .apiEndpoint)) ?? ""
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(apiEndpoint, forKey: .apiEndpoint)
-    try c.encode(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsProvidersGrok: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var binaryPath: String
-  public var customModels: [CustomModelSetting]
-
-  public init(enabled: Bool = false, binaryPath: String = "grok", customModels: [CustomModelSetting] = []) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? false
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? "grok"
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(customModels, forKey: .customModels)
-  }
-}
-
-public struct ServerSettingsProvidersOpencode: Sendable, Hashable, Codable {
-  public var enabled: Bool
-  public var binaryPath: String
-  public var serverUrl: String
-  public var serverPassword: String
-  public var customModels: [CustomModelSetting]
-
-  public init(enabled: Bool = false, binaryPath: String = "opencode", serverUrl: String = "", serverPassword: String = "", customModels: [CustomModelSetting] = []) {
-    self.enabled = enabled
-    self.binaryPath = binaryPath
-    self.serverUrl = serverUrl
-    self.serverPassword = serverPassword
-    self.customModels = customModels
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case enabled
-    case binaryPath
-    case serverUrl
-    case serverPassword
-    case customModels
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.enabled = (try c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? false
-    self.binaryPath = (try c.decodeIfPresent(String.self, forKey: .binaryPath)) ?? "opencode"
-    self.serverUrl = (try c.decodeIfPresent(String.self, forKey: .serverUrl)) ?? ""
-    self.serverPassword = (try c.decodeIfPresent(String.self, forKey: .serverPassword)) ?? ""
-    self.customModels = (try c.decodeIfPresent([CustomModelSetting].self, forKey: .customModels)) ?? []
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(enabled, forKey: .enabled)
-    try c.encode(binaryPath, forKey: .binaryPath)
-    try c.encode(serverUrl, forKey: .serverUrl)
-    try c.encode(serverPassword, forKey: .serverPassword)
-    try c.encode(customModels, forKey: .customModels)
-  }
-}
-
 public enum ServerSettingsResponseStreamingMode: Sendable, Hashable, Codable, RawRepresentable {
   case turn
   case paragraph
-  case token
   /// A value this build does not know; kept verbatim so it round-trips.
   case unknown(String)
 
@@ -3266,7 +2925,6 @@ public enum ServerSettingsResponseStreamingMode: Sendable, Hashable, Codable, Ra
     switch rawValue {
     case "turn": self = .turn
     case "paragraph": self = .paragraph
-    case "token": self = .token
     default: self = .unknown(rawValue)
     }
   }
@@ -3275,7 +2933,6 @@ public enum ServerSettingsResponseStreamingMode: Sendable, Hashable, Codable, Ra
     switch self {
     case .turn: "turn"
     case .paragraph: "paragraph"
-    case .token: "token"
     case .unknown(let value): value
     }
   }

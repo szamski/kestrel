@@ -28,11 +28,11 @@ public final class FakeComposerEnvironment: ComposerEnvironment, @unchecked Send
 
   // MARK: Recordings
 
-  public private(set) var sentTurns: [(command: ClientOrchestrationCommandThreadTurnStart, titleSeed: String?, isFirstMessage: Bool)] = []
-  public private(set) var interrupts: [ClientOrchestrationCommandThreadTurnInterrupt] = []
-  public private(set) var approvalResponses: [ClientOrchestrationCommandThreadApprovalRespond] = []
-  public private(set) var userInputResponses: [ClientOrchestrationCommandThreadUserInputRespond] = []
-  public private(set) var dismissedUserInputs: [ApprovalRequestId] = []
+  public private(set) var sentTurns: [(command: V1.ClientOrchestrationCommandThreadTurnStart, titleSeed: String?, isFirstMessage: Bool)] = []
+  public private(set) var interrupts: [V1.ClientOrchestrationCommandThreadTurnInterrupt] = []
+  public private(set) var approvalResponses: [V1.ClientOrchestrationCommandThreadApprovalRespond] = []
+  public private(set) var userInputResponses: [V1.ClientOrchestrationCommandThreadUserInputRespond] = []
+  public private(set) var dismissedUserInputs: [V1.ApprovalRequestId] = []
   public private(set) var uploads: [ComposerUploadRequest] = []
   public private(set) var deletedUploads: [String] = []
   public private(set) var searches: [String] = []
@@ -131,24 +131,24 @@ public final class FakeComposerEnvironment: ComposerEnvironment, @unchecked Send
 
   // MARK: Turn actions
 
-  public func sendTurn(_ command: ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws {
+  public func sendTurn(_ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws {
     if let failure = failSendsWith { throw ComposerEnvironmentError(failure) }
     locked { sentTurns.append((command, titleSeed, isFirstMessage)) }
   }
 
-  public func interruptTurn(_ command: ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {
+  public func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws {
     locked { interrupts.append(command) }
   }
 
-  public func respondToApproval(_ command: ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws {
+  public func respondToApproval(_ command: V1.ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws {
     locked { approvalResponses.append(command) }
   }
 
-  public func respondToUserInput(_ command: ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws {
+  public func respondToUserInput(_ command: V1.ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws {
     locked { userInputResponses.append(command) }
   }
 
-  public func dismissUserInput(requestId: ApprovalRequestId, target: ComposerTarget) async throws {
+  public func dismissUserInput(requestId: V1.ApprovalRequestId, target: ComposerTarget) async throws {
     locked { dismissedUserInputs.append(requestId) }
   }
 

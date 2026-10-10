@@ -97,6 +97,8 @@ export interface RuntimeApi {
   S: any;
   E: any;
   O: any;
+  /** `effect/SchemaGetter`: getters are run through `G.run(getter, input, options)`. */
+  G: any;
 }
 
 const ann = (ast: any) =>
@@ -146,14 +148,20 @@ export class Builder {
   /** Union identity = its (non-null) member ASTs; the same union reached via Suspend or `optional()` is one type. */
   private unionByMembers = new Map<string, Resolved>();
   private exportUnionNames = new Map<string, string>();
+  /** structKey -> exported struct AST, for nested copies the codec rebuilt (e.g. via `Schema.toType`). */
+  private exportStructs = new Map<string, any>();
+  /** Exports whose rebuilt nested copies are folded back into them (see model.ts `NESTED_EXPORTS`). */
+  private twinNames: Set<string>;
 
   constructor(
     rt: RuntimeApi,
     exportNames: Map<any, string>,
     moduleOf: (name: string) => string,
     isoKeys: Set<string>,
+    twinNames: Iterable<string> = [],
   ) {
     this.rt = rt;
+    this.twinNames = new Set(twinNames);
     this.exportNames = exportNames;
     this.moduleOf = moduleOf;
     this.isoKeys = isoKeys;
@@ -171,6 +179,45 @@ export class Builder {
       else this.exportUnionNames.set(key, name);
     }
     for (const key of ambiguous) this.exportUnionNames.delete(key);
+    const ambiguousStructs = new Set<string>();
+    for (const [ast, name] of [...exportNames].sort((a, b) => (a[1] < b[1] ? -1 : 1))) {
+      if (!this.twinNames.has(name)) continue;
+      if (ast._tag !== "Objects" || ast.encoding || ast.propertySignatures.length === 0) continue;
+      const key = this.structKey(ast, 0);
+      if (this.exportStructs.has(key)) ambiguousStructs.add(key);
+      else this.exportStructs.set(key, ast);
+    }
+    for (const key of ambiguousStructs) this.exportStructs.delete(key);
+  }
+
+  /** Deep structural identity (fields, optionality, literals, checks, brands); two ASTs with one key decode the same. */
+  private structKey(ast: any, depth: number): string {
+    if (depth > 8) return ast._tag;
+    const sub = (a: any) => this.structKey(a, depth + 1);
+    const checks = (ast.checks ?? [])
+      .map((c: any) => c.annotations?.brands?.join("+") ?? c.annotations?.expected ?? "?")
+      .join(";");
+    // Encodings are left out: `Schema.toType` copies drop them, and the Swift type is the same.
+    const head = `${ast._tag}${checks ? `[${checks}]` : ""}`;
+    switch (ast._tag) {
+      case "Objects":
+        return `${head}{${ast.propertySignatures
+          .map(
+            (p: any) => `${String(p.name)}${p.type.context?.isOptional ? "?" : ""}:${sub(p.type)}`,
+          )
+          .sort()
+          .join(",")}|${ast.indexSignatures.map((i: any) => sub(i.type)).join(",")}}`;
+      case "Union":
+        return `${head}(${ast.types.map(sub).sort().join("|")})`;
+      case "Arrays":
+        return `${head}(${ast.elements.map(sub).join(",")};${ast.rest.map(sub).join(",")})`;
+      case "Literal":
+        return `${head}${JSON.stringify(ast.literal)}`;
+      case "Suspend":
+        return head;
+      default:
+        return head;
+    }
   }
 
   private shapeKey(members: any[]): string {
@@ -186,6 +233,21 @@ export class Builder {
         .join(",");
     };
     return members.map(one).sort().join("|");
+  }
+
+  /**
+   * The literal-valued properties of a struct. A struct-level `decodeTo` that changes these crosses
+   * the wire in its encoded shape; one that does not (e.g. ModelSelection's legacy `provider` key) is
+   * only a lenient reader, and the Type side stays the contract.
+   */
+  private literalShape(objects: any): string {
+    return objects.propertySignatures
+      .flatMap((p: any) => {
+        const lits = this.litValues(p.type);
+        return lits ? [`${String(p.name)}=${lits.join("/")}`] : [];
+      })
+      .sort()
+      .join(",");
   }
 
   private memberKey(members: any[]): string {
@@ -653,26 +715,45 @@ export class Builder {
     if (ast.elements.length > 0 || ast.rest.length !== 1)
       throw new Error(`Tuples are not supported (${hint})`);
     const wireSide = ast.encoding ? lastTo(ast) : null;
+    // ForwardCompatibleArray: elements that fail to decode are dropped. The wire side is an array of
+    // `Unknown` (earlier Effect builds) or of `Element | undefined` with a catchDecoding chain.
+    const lenient = (e: any) =>
+      e._tag === "Unknown" ||
+      (e._tag === "Union" && !!e.encoding && e.types.some((t: any) => t._tag === "Undefined"));
     const lossy =
       !!wireSide &&
       wireSide._tag === "Arrays" &&
       wireSide.rest.length === 1 &&
-      wireSide.rest[0]._tag === "Unknown";
+      lenient(wireSide.rest[0]);
     const el = this.resolve(ast.rest[0], `${hint}Item`, mod);
     return this.plain({ k: "array", elem: el.wire, lossy });
   }
 
   private objects(ast: any, hint: string, mod: string): Resolved {
-    const props: any[] = ast.propertySignatures;
-    const idx: any[] = ast.indexSignatures;
+    // A struct-level `decodeTo` (e.g. `{kind: "background_task", work: "subagent"}` decoding to
+    // `{kind: "subagent"}`) crosses the wire in its encoded shape, which is what Swift must read and write.
+    const wire = ast.encoding?.[0]?.to;
+    const shapeAst =
+      wire?._tag === "Objects" &&
+      wire.indexSignatures.length === 0 &&
+      wire.propertySignatures.length > 0 &&
+      this.literalShape(wire) !== this.literalShape(ast)
+        ? wire
+        : ast;
+    const props: any[] = shapeAst.propertySignatures;
+    const idx: any[] = shapeAst.indexSignatures;
     if (props.length === 0 && idx.length === 0) return this.plain({ k: "empty" });
     if (props.length === 0 && idx.length === 1) {
       const v = this.resolve(idx[0].type, `${hint}Value`, mod);
       return this.plain({ k: "record", value: v.wire });
     }
     if (idx.length > 0) throw new Error(`Struct with index signature is not supported (${hint})`);
+    if (!this.exportNames.has(ast) && typeof ann(ast)?.identifier !== "string") {
+      const twin = this.exportStructs.get(this.structKey(ast, 0));
+      if (twin && twin !== ast) return this.resolve(twin, hint, mod);
+    }
     const { name } = this.nameFor(ast, hint);
-    return this.struct(ast, ast, name, mod, false);
+    return this.struct(ast, shapeAst, name, mod, false);
   }
 
   /** `keyAst` is what later lookups use; `shapeAst` supplies the properties. */
@@ -735,7 +816,7 @@ export class Builder {
 
   private runGetter(getter: any, input: any): { some: true; value: any } | { some: false } | null {
     try {
-      const out = this.rt.E.runSync(getter.run(input, {}));
+      const out = this.rt.E.runSync(this.rt.G.run(getter, input, {}));
       return this.rt.O.isSome(out) ? { some: true, value: out.value } : { some: false };
     } catch {
       return null;
@@ -757,7 +838,8 @@ export class Builder {
     let hasDefault = false;
     let dflt: unknown;
     let encode: EncodeMode | "omitNull" = "always";
-    if (encs && wireOptional && !typeOptional) {
+    // A default on an already-optional type (`optional(X).pipe(withDecodingDefault(..))`) still fills the key on decode.
+    if (encs && wireOptional) {
       for (let i = encs.length - 1; i >= 0; i--) {
         const d = this.runGetter(encs[i].transformation.decode, this.rt.O.none());
         if (d?.some) {
@@ -774,6 +856,7 @@ export class Builder {
       }
     }
 
+    const keyOptional = typeOptional && !hasDefault;
     const ir = r.wire.ir;
     // Required single literal with no default: a constant of the type, not stored.
     if (ir.k === "literal" && !typeOptional && !hasDefault && !r.undef && !r.wire.nullable) {
@@ -787,9 +870,9 @@ export class Builder {
       wire = { ir, nullable: true };
     }
 
-    const optional = typeOptional || (r.undef && !hasDefault);
+    const optional = keyOptional || (r.undef && !hasDefault);
     const nullable = wire.nullable;
-    const tri = typeOptional && nullable && ir.k !== "option";
+    const tri = keyOptional && nullable && ir.k !== "option";
     let mode: EncodeMode;
     if (encode === "never") mode = "never";
     else if (optional) mode = "omitNil";
@@ -852,27 +935,67 @@ export class Builder {
     return out;
   }
 
+  /**
+   * Points every reference to `from` at `to` and drops `from`. Used to fold the protocol-1 model's
+   * anonymous enums into same-valued current ones, whose names only differ by discovery order.
+   */
+  renameTypes(rename: Map<string, string>): void {
+    const wire = (w: Wire | null | undefined) => w && ir(w.ir);
+    const ir = (x: IR): void => {
+      if (x.k === "ref") x.name = rename.get(x.name) ?? x.name;
+      else if (x.k === "array") wire(x.elem);
+      else if (x.k === "record") wire(x.value);
+      else if (x.k === "option") wire(x.inner);
+    };
+    for (const from of rename.keys()) this.types.delete(from);
+    for (const d of this.types.values()) {
+      if (d.kind === "struct") d.fields.forEach((f) => wire(f.wire));
+      else if (d.kind === "union") {
+        for (const v of d.variants) if (v.ref) v.ref = rename.get(v.ref) ?? v.ref;
+        if (d.fallback) d.fallback.ref = rename.get(d.fallback.ref) ?? d.fallback.ref;
+      } else if (d.kind === "untagged") d.members.forEach((m) => wire(m.wire));
+    }
+  }
+
+  /** Names of the types `name` refers to directly. */
+  depsOf(name: string): string[] {
+    const out: string[] = [];
+    const visitIr = (ir: IR) => {
+      if (ir.k === "ref") out.push(ir.name);
+      else if (ir.k === "array") visitIr(ir.elem.ir);
+      else if (ir.k === "record") visitIr(ir.value.ir);
+      else if (ir.k === "option") visitIr(ir.inner.ir);
+    };
+    const d = this.types.get(name);
+    if (!d) return out; // folded into another model's type (see renameTypes)
+    if (d.kind === "struct") d.fields.forEach((f) => visitIr(f.wire.ir));
+    else if (d.kind === "union") {
+      d.variants.forEach((v) => v.ref && out.push(v.ref));
+      if (d.fallback) out.push(d.fallback.ref);
+    } else if (d.kind === "untagged") d.members.forEach((m) => visitIr(m.wire.ir));
+    return out;
+  }
+
   /** Types reachable from `roots`; used to drop variant structs folded into payload-less cases. */
   reachable(roots: Iterable<Wire>): Set<string> {
     const seen = new Set<string>();
-    const visitWire = (w: Wire) => visitIr(w.ir);
-    const visitIr = (ir: IR) => {
-      if (ir.k === "ref") visitName(ir.name);
-      else if (ir.k === "array") visitWire(ir.elem);
-      else if (ir.k === "record") visitWire(ir.value);
-      else if (ir.k === "option") visitWire(ir.inner);
-    };
     const visitName = (name: string) => {
       if (seen.has(name)) return;
       seen.add(name);
-      const d = this.types.get(name)!;
-      if (d.kind === "struct") d.fields.forEach((f) => visitWire(f.wire));
-      else if (d.kind === "union") {
-        d.variants.forEach((v) => v.ref && visitName(v.ref));
-        if (d.fallback) visitName(d.fallback.ref);
-      } else if (d.kind === "untagged") d.members.forEach((m) => visitWire(m.wire));
+      this.depsOf(name).forEach(visitName);
     };
-    for (const w of roots) visitWire(w);
+    for (const w of roots) {
+      const ir = w.ir;
+      // Roots may be wrapped (array/record/option) around refs, like fields.
+      const stack: IR[] = [ir];
+      while (stack.length) {
+        const x = stack.pop()!;
+        if (x.k === "ref") visitName(x.name);
+        else if (x.k === "array") stack.push(x.elem.ir);
+        else if (x.k === "record") stack.push(x.value.ir);
+        else if (x.k === "option") stack.push(x.inner.ir);
+      }
+    }
     return seen;
   }
 

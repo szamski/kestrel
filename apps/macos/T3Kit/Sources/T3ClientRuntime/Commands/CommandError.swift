@@ -19,13 +19,59 @@ public enum CommandError: Error, Sendable, Equatable {
     }
   }
 
-  static func map(_ error: RpcError<OrchestrationDispatchCommandFailure>) -> CommandError {
+  static func map(_ error: RpcError<V1.OrchestrationDispatchCommandFailure>) -> CommandError {
     switch error {
     case .failure(.orchestrationDispatchCommandError(let e)): .rejected(message: e.message)
     case .failure(.environmentAuthorizationError(let e)): .unauthorized(message: "\(e)")
     case .failure(.unknown): .rejected(message: "The server refused the command.")
     case .transportClosed(let reason): .transport(message: "The connection closed before the command completed (\(reason)).")
     case .defect, .interrupted: .transport(message: "The command could not be completed.")
+    }
+  }
+}
+
+extension CommandError {
+  /// Protocol-2 failures: the same three outcomes (refused, unauthorized, transport) from each call's own error type.
+  private static func transportOrDefect<F>(_ error: RpcError<F>) -> CommandError {
+    switch error {
+    case .transportClosed(let reason): .transport(message: "The connection closed before the command completed (\(reason)).")
+    default: .transport(message: "The command could not be completed.")
+    }
+  }
+
+  static func map(_ error: RpcError<OrchestrationDispatchCommandFailure>) -> CommandError {
+    switch error {
+    case .failure(.orchestrationV2DispatchCommandError(let e)): .rejected(message: e.message)
+    case .failure(.environmentAuthorizationError(let e)): .unauthorized(message: "\(e)")
+    case .failure(.unknown): .rejected(message: "The server refused the command.")
+    default: transportOrDefect(error)
+    }
+  }
+
+  static func map(_ error: RpcError<OrchestrationLaunchThreadFailure>) -> CommandError {
+    switch error {
+    case .failure(.orchestrationV2ThreadLaunchError(let e)): .rejected(message: e.message)
+    case .failure(.environmentAuthorizationError(let e)): .unauthorized(message: "\(e)")
+    case .failure(.unknown): .rejected(message: "The server refused the command.")
+    default: transportOrDefect(error)
+    }
+  }
+
+  static func map(_ error: RpcError<ProjectsMutateFailure>) -> CommandError {
+    switch error {
+    case .failure(.projectMutationError(let e)): .rejected(message: e.message)
+    case .failure(.environmentAuthorizationError(let e)): .unauthorized(message: "\(e)")
+    case .failure(.unknown): .rejected(message: "The server refused the command.")
+    default: transportOrDefect(error)
+    }
+  }
+
+  static func map(_ error: RpcError<OrchestrationGetThreadProjectionFailure>) -> CommandError {
+    switch error {
+    case .failure(.orchestrationV2GetThreadProjectionError(let e)): .rejected(message: e.message)
+    case .failure(.environmentAuthorizationError(let e)): .unauthorized(message: "\(e)")
+    case .failure(.unknown): .rejected(message: "The server could not read the thread.")
+    default: transportOrDefect(error)
     }
   }
 }

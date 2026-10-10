@@ -12,7 +12,7 @@ struct DiffPanelView: View {
   let app: AppModel
   let key: ScopedThreadKey
   /// The thread's checkpoints, one per turn that changed files.
-  let turns: [OrchestrationCheckpointSummary]
+  let turns: [V1.OrchestrationCheckpointSummary]
   let store: RightPanelStore
   let model: DiffPanelModel
 
@@ -26,7 +26,7 @@ struct DiffPanelView: View {
   private var dockedTree: Bool { panelWidth >= Self.inlineTreeMinimum && !model.tree.isEmpty }
 
   /// Checkpoint turns, newest first (`DiffPanel.tsx` `orderedTurnDiffSummaries`).
-  private var orderedTurns: [OrchestrationCheckpointSummary] {
+  private var orderedTurns: [V1.OrchestrationCheckpointSummary] {
     turns.sorted {
       $0.checkpointTurnCount != $1.checkpointTurnCount ? $0.checkpointTurnCount > $1.checkpointTurnCount : $0.completedAt.rawValue > $1.completedAt.rawValue
     }
@@ -42,7 +42,7 @@ struct DiffPanelView: View {
     var label: String
   }
 
-  private func resolve(_ scope: DiffScope, turns: [OrchestrationCheckpointSummary]) -> Resolved? {
+  private func resolve(_ scope: DiffScope, turns: [V1.OrchestrationCheckpointSummary]) -> Resolved? {
     let ignore = model.ignoreWhitespace
     switch scope {
     case .workingTree:
@@ -103,7 +103,7 @@ struct DiffPanelView: View {
     case turn(String)
   }
 
-  private func choice(for scope: DiffScope, turns: [OrchestrationCheckpointSummary]) -> Choice {
+  private func choice(for scope: DiffScope, turns: [V1.OrchestrationCheckpointSummary]) -> Choice {
     switch scope {
     case .workingTree: .workingTree
     case .branch: .branch
@@ -112,7 +112,7 @@ struct DiffPanelView: View {
     }
   }
 
-  private func select(_ choice: Choice, turns: [OrchestrationCheckpointSummary]) {
+  private func select(_ choice: Choice, turns: [V1.OrchestrationCheckpointSummary]) {
     switch choice {
     case .workingTree: store.selectScope(.workingTree, in: key)
     case .branch: store.selectScope(.branch, in: key)
@@ -123,7 +123,7 @@ struct DiffPanelView: View {
     model.clearSelection()
   }
 
-  private func header(resolved: Resolved?, turns: [OrchestrationCheckpointSummary], scope: DiffScope) -> some View {
+  private func header(resolved: Resolved?, turns: [V1.OrchestrationCheckpointSummary], scope: DiffScope) -> some View {
     let current = choice(for: scope, turns: turns)
     let binding = Binding<Choice>(get: { current }, set: { select($0, turns: turns) })
     return VStack(spacing: 6) {

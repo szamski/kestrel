@@ -27,7 +27,7 @@ final class TimelineModel {
   }
 
   /// Folds ("Worked for ..."), work groups and reasoning blocks the reader opened.
-  private var expandedTurnIds: Set<TurnId> = []
+  private var expandedTurnIds: Set<V1.TurnId> = []
   private var expandedWorkGroupIds: Set<String> = []
   private var expandedLocal: Set<String> = []
 
@@ -51,7 +51,7 @@ final class TimelineModel {
 
   isolated deinit { observation?.cancel() }
 
-  func toggleTurn(_ id: TurnId) {
+  func toggleTurn(_ id: V1.TurnId) {
     if !expandedTurnIds.insert(id).inserted { expandedTurnIds.remove(id) }
     schedule()
   }
@@ -94,7 +94,7 @@ final class TimelineModel {
 
 private actor DeriveWorker {
   private var deriver = ThreadTimelineDeriver()
-  func derive(_ thread: OrchestrationThread, context: TimelineContext) -> ThreadTimeline { deriver.derive(thread, context: context) }
+  func derive(_ thread: V1.OrchestrationThread, context: TimelineContext) -> ThreadTimeline { deriver.derive(thread, context: context) }
 }
 
 #if DEBUG

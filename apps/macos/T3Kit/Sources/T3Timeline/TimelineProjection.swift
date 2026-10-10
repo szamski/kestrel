@@ -79,7 +79,7 @@ extension WorkLogEntry {
   }
 }
 
-extension OrchestrationCheckpointSummary {
+extension V1.OrchestrationCheckpointSummary {
   var projection: JSONValue {
     object([
       ("turnId", .string(turnId.rawValue)),
@@ -124,7 +124,7 @@ extension WorktreeSetupSnapshot {
   }
 }
 
-private func messageStub(_ message: OrchestrationMessage) -> JSONValue {
+private func messageStub(_ message: V1.OrchestrationMessage) -> JSONValue {
   object([("id", .string(message.id.rawValue)), ("role", .string(message.role.rawValue)), ("streaming", .bool(message.streaming))])
 }
 

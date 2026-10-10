@@ -3,6 +3,88 @@
 
 import Foundation
 
+public struct Project: Sendable, Hashable, Codable {
+  public var id: ProjectId
+  public var title: String
+  public var workspaceRoot: String
+  public var repositoryIdentity: RepositoryIdentity??
+  public var faviconPath: String??
+  public var projectIcon: ReceivedProjectIcon??
+  public var defaultModelSelection: ModelSelection?
+  public var defaultThreadEnvMode: ThreadEnvMode??
+  public var autoPull: Bool?
+  public var scripts: [ProjectScript]
+  public var createdAt: IsoDateTime
+  public var updatedAt: IsoDateTime
+  public var deletedAt: IsoDateTime?
+
+  public init(id: ProjectId, title: String, workspaceRoot: String, repositoryIdentity: RepositoryIdentity?? = nil, faviconPath: String?? = nil, projectIcon: ReceivedProjectIcon?? = nil, defaultModelSelection: ModelSelection? = nil, defaultThreadEnvMode: ThreadEnvMode?? = nil, autoPull: Bool? = nil, scripts: [ProjectScript], createdAt: IsoDateTime, updatedAt: IsoDateTime, deletedAt: IsoDateTime? = nil) {
+    self.id = id
+    self.title = title
+    self.workspaceRoot = workspaceRoot
+    self.repositoryIdentity = repositoryIdentity
+    self.faviconPath = faviconPath
+    self.projectIcon = projectIcon
+    self.defaultModelSelection = defaultModelSelection
+    self.defaultThreadEnvMode = defaultThreadEnvMode
+    self.autoPull = autoPull
+    self.scripts = scripts
+    self.createdAt = createdAt
+    self.updatedAt = updatedAt
+    self.deletedAt = deletedAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case title
+    case workspaceRoot
+    case repositoryIdentity
+    case faviconPath
+    case projectIcon
+    case defaultModelSelection
+    case defaultThreadEnvMode
+    case autoPull
+    case scripts
+    case createdAt
+    case updatedAt
+    case deletedAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(ProjectId.self, forKey: .id)
+    self.title = try c.decode(String.self, forKey: .title)
+    self.workspaceRoot = try c.decode(String.self, forKey: .workspaceRoot)
+    self.repositoryIdentity = try c.decodeTriState(RepositoryIdentity.self, forKey: .repositoryIdentity)
+    self.faviconPath = try c.decodeTriState(String.self, forKey: .faviconPath)
+    self.projectIcon = try c.decodeTriState(ReceivedProjectIcon.self, forKey: .projectIcon)
+    self.defaultModelSelection = try c.decodeIfPresent(ModelSelection.self, forKey: .defaultModelSelection)
+    self.defaultThreadEnvMode = try c.decodeTriState(ThreadEnvMode.self, forKey: .defaultThreadEnvMode)
+    self.autoPull = try c.decodeIfPresent(Bool.self, forKey: .autoPull)
+    self.scripts = try c.decode([ProjectScript].self, forKey: .scripts)
+    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
+    self.updatedAt = try c.decode(IsoDateTime.self, forKey: .updatedAt)
+    self.deletedAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .deletedAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(title, forKey: .title)
+    try c.encode(workspaceRoot, forKey: .workspaceRoot)
+    try c.encodeTriState(repositoryIdentity, forKey: .repositoryIdentity)
+    try c.encodeTriState(faviconPath, forKey: .faviconPath)
+    try c.encodeTriState(projectIcon, forKey: .projectIcon)
+    try c.encode(defaultModelSelection, forKey: .defaultModelSelection)
+    try c.encodeTriState(defaultThreadEnvMode, forKey: .defaultThreadEnvMode)
+    try c.encodeIfPresent(autoPull, forKey: .autoPull)
+    try c.encode(scripts, forKey: .scripts)
+    try c.encode(createdAt, forKey: .createdAt)
+    try c.encode(updatedAt, forKey: .updatedAt)
+    try c.encode(deletedAt, forKey: .deletedAt)
+  }
+}
+
 public struct ProjectContentMatch: Sendable, Hashable, Codable {
   public var path: String
   public var lineNumber: Int
@@ -64,6 +146,82 @@ public struct ProjectContentMatchRange: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(start, forKey: .start)
     try c.encode(end, forKey: .end)
+  }
+}
+
+public struct ProjectCreateNewInput: Sendable, Hashable, Codable {
+  public var name: String
+
+  public init(name: String) {
+    self.name = name
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case name
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.name = try c.decode(String.self, forKey: .name)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(name, forKey: .name)
+  }
+}
+
+public struct ProjectCreateNewResult: Sendable, Hashable, Codable {
+  public var projectId: ProjectId
+  public var workspaceRoot: String
+  public var commitError: String?
+
+  public init(projectId: ProjectId, workspaceRoot: String, commitError: String? = nil) {
+    self.projectId = projectId
+    self.workspaceRoot = workspaceRoot
+    self.commitError = commitError
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case projectId
+    case workspaceRoot
+    case commitError
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.workspaceRoot = try c.decode(String.self, forKey: .workspaceRoot)
+    self.commitError = try c.decodeIfPresent(String.self, forKey: .commitError)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encode(workspaceRoot, forKey: .workspaceRoot)
+    try c.encodeIfPresent(commitError, forKey: .commitError)
+  }
+}
+
+public struct ProjectEnsureScratchResult: Sendable, Hashable, Codable {
+  public var projectId: ProjectId
+
+  public init(projectId: ProjectId) {
+    self.projectId = projectId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case projectId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(projectId, forKey: .projectId)
   }
 }
 
@@ -272,6 +430,117 @@ public enum ProjectFileOperation: Sendable, Hashable, Codable, RawRepresentable 
   }
 }
 
+public enum ProjectIconColor: Sendable, Hashable, Codable, RawRepresentable {
+  case gray
+  case red
+  case orange
+  case amber
+  case yellow
+  case lime
+  case green
+  case emerald
+  case teal
+  case cyan
+  case sky
+  case blue
+  case indigo
+  case violet
+  case purple
+  case fuchsia
+  case pink
+  case rose
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "gray": self = .gray
+    case "red": self = .red
+    case "orange": self = .orange
+    case "amber": self = .amber
+    case "yellow": self = .yellow
+    case "lime": self = .lime
+    case "green": self = .green
+    case "emerald": self = .emerald
+    case "teal": self = .teal
+    case "cyan": self = .cyan
+    case "sky": self = .sky
+    case "blue": self = .blue
+    case "indigo": self = .indigo
+    case "violet": self = .violet
+    case "purple": self = .purple
+    case "fuchsia": self = .fuchsia
+    case "pink": self = .pink
+    case "rose": self = .rose
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .gray: "gray"
+    case .red: "red"
+    case .orange: "orange"
+    case .amber: "amber"
+    case .yellow: "yellow"
+    case .lime: "lime"
+    case .green: "green"
+    case .emerald: "emerald"
+    case .teal: "teal"
+    case .cyan: "cyan"
+    case .sky: "sky"
+    case .blue: "blue"
+    case .indigo: "indigo"
+    case .violet: "violet"
+    case .purple: "purple"
+    case .fuchsia: "fuchsia"
+    case .pink: "pink"
+    case .rose: "rose"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum ProjectIconOverride: Sendable, Hashable, Codable {
+  case lucide(ProjectIconOverrideLucide)
+  case emoji(ProjectIconOverrideEmoji)
+  case monogram(ProjectIconOverrideMonogram)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "kind" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "lucide"?: self = .lucide(try ProjectIconOverrideLucide(from: decoder))
+    case "emoji"?: self = .emoji(try ProjectIconOverrideEmoji(from: decoder))
+    case "monogram"?: self = .monogram(try ProjectIconOverrideMonogram(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .lucide(let value): try value.encode(to: encoder)
+    case .emoji(let value): try value.encode(to: encoder)
+    case .monogram(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public struct ProjectListEntriesError: Sendable, Hashable, Codable, Error {
   public var cwd: String?
   public var failure: ProjectEntriesFailure?
@@ -378,6 +647,72 @@ public struct ProjectListEntriesResult: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(entries, forKey: .entries)
     try c.encode(truncated, forKey: .truncated)
+  }
+}
+
+public enum ProjectMutation: Sendable, Hashable, Codable {
+  case projectCreate(ProjectMutationProjectCreate)
+  case projectUpdate(ProjectMutationProjectUpdate)
+  case projectDelete(ProjectMutationProjectDelete)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "type" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "project.create"?: self = .projectCreate(try ProjectMutationProjectCreate(from: decoder))
+    case "project.update"?: self = .projectUpdate(try ProjectMutationProjectUpdate(from: decoder))
+    case "project.delete"?: self = .projectDelete(try ProjectMutationProjectDelete(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .projectCreate(let value): try value.encode(to: encoder)
+    case .projectUpdate(let value): try value.encode(to: encoder)
+    case .projectDelete(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct ProjectMutationError: Sendable, Hashable, Codable, Error {
+  public var commandId: CommandId
+  public var message: String
+  public var cause: JSONValue?
+
+  public init(commandId: CommandId, message: String, cause: JSONValue? = nil) {
+    self.commandId = commandId
+    self.message = message
+    self.cause = cause
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case _tag
+    case commandId
+    case message
+    case cause
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("ProjectMutationError", forKey: ._tag)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.message = try c.decode(String.self, forKey: .message)
+    self.cause = try c.decodeIfPresent(JSONValue.self, forKey: .cause)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("ProjectMutationError", forKey: ._tag)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(message, forKey: .message)
+    try c.encodeIfPresent(cause, forKey: .cause)
   }
 }
 
@@ -507,6 +842,112 @@ public struct ProjectReadFileResult: Sendable, Hashable, Codable {
     try c.encode(contents, forKey: .contents)
     try c.encode(byteLength, forKey: .byteLength)
     try c.encode(truncated, forKey: .truncated)
+  }
+}
+
+public struct ProjectScript: Sendable, Hashable, Codable {
+  public var id: String
+  public var name: String
+  public var command: String
+  public var icon: ProjectScriptIcon
+  public var runOnWorktreeCreate: Bool
+  public var runOnSettle: Bool?
+  public var async: Bool?
+  public var previewUrl: String?
+  public var autoOpenPreview: Bool?
+
+  public init(id: String, name: String, command: String, icon: ProjectScriptIcon, runOnWorktreeCreate: Bool, runOnSettle: Bool? = nil, async: Bool? = nil, previewUrl: String? = nil, autoOpenPreview: Bool? = nil) {
+    self.id = id
+    self.name = name
+    self.command = command
+    self.icon = icon
+    self.runOnWorktreeCreate = runOnWorktreeCreate
+    self.runOnSettle = runOnSettle
+    self.async = async
+    self.previewUrl = previewUrl
+    self.autoOpenPreview = autoOpenPreview
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case name
+    case command
+    case icon
+    case runOnWorktreeCreate
+    case runOnSettle
+    case async
+    case previewUrl
+    case autoOpenPreview
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(String.self, forKey: .id)
+    self.name = try c.decode(String.self, forKey: .name)
+    self.command = try c.decode(String.self, forKey: .command)
+    self.icon = try c.decode(ProjectScriptIcon.self, forKey: .icon)
+    self.runOnWorktreeCreate = try c.decode(Bool.self, forKey: .runOnWorktreeCreate)
+    self.runOnSettle = try c.decodeIfPresent(Bool.self, forKey: .runOnSettle)
+    self.async = try c.decodeIfPresent(Bool.self, forKey: .async)
+    self.previewUrl = try c.decodeIfPresent(String.self, forKey: .previewUrl)
+    self.autoOpenPreview = try c.decodeIfPresent(Bool.self, forKey: .autoOpenPreview)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(name, forKey: .name)
+    try c.encode(command, forKey: .command)
+    try c.encode(icon, forKey: .icon)
+    try c.encode(runOnWorktreeCreate, forKey: .runOnWorktreeCreate)
+    try c.encodeIfPresent(runOnSettle, forKey: .runOnSettle)
+    try c.encodeIfPresent(async, forKey: .async)
+    try c.encodeIfPresent(previewUrl, forKey: .previewUrl)
+    try c.encodeIfPresent(autoOpenPreview, forKey: .autoOpenPreview)
+  }
+}
+
+public enum ProjectScriptIcon: Sendable, Hashable, Codable, RawRepresentable {
+  case play
+  case test
+  case lint
+  case configure
+  case build
+  case debug
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "play": self = .play
+    case "test": self = .test
+    case "lint": self = .lint
+    case "configure": self = .configure
+    case "build": self = .build
+    case "debug": self = .debug
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .play: "play"
+    case .test: "test"
+    case .lint: "lint"
+    case .configure: "configure"
+    case .build: "build"
+    case .debug: "debug"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -788,6 +1229,33 @@ public struct ProjectSearchEntriesResult: Sendable, Hashable, Codable {
   }
 }
 
+public struct ProjectSnapshot: Sendable, Hashable, Codable {
+  public var projects: [Project]
+  public var updatedAt: IsoDateTime
+
+  public init(projects: [Project], updatedAt: IsoDateTime) {
+    self.projects = projects
+    self.updatedAt = updatedAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case projects
+    case updatedAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.projects = try c.decode([Project].self, forKey: .projects)
+    self.updatedAt = try c.decode(IsoDateTime.self, forKey: .updatedAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(projects, forKey: .projects)
+    try c.encode(updatedAt, forKey: .updatedAt)
+  }
+}
+
 public struct ProjectWriteFileError: Sendable, Hashable, Codable, Error {
   public var cwd: String?
   public var relativePath: String?
@@ -904,5 +1372,121 @@ public struct ProjectWriteFileResult: Sendable, Hashable, Codable {
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(relativePath, forKey: .relativePath)
+  }
+}
+
+public enum ReceivedProjectIcon: Sendable, Hashable, Codable {
+  case lucide(ReceivedProjectIconLucide)
+  case emoji(ReceivedProjectIconEmoji)
+  case monogram(ReceivedProjectIconMonogram)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "kind" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "lucide"?: self = .lucide(try ReceivedProjectIconLucide(from: decoder))
+    case "emoji"?: self = .emoji(try ReceivedProjectIconEmoji(from: decoder))
+    case "monogram"?: self = .monogram(try ReceivedProjectIconMonogram(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .lucide(let value): try value.encode(to: encoder)
+    case .emoji(let value): try value.encode(to: encoder)
+    case .monogram(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct ReceivedProjectIconEmoji: Sendable, Hashable, Codable {
+  public var emoji: String
+
+  public init(emoji: String) {
+    self.emoji = emoji
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case emoji
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("emoji", forKey: .kind)
+    self.emoji = try c.decode(String.self, forKey: .emoji)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("emoji", forKey: .kind)
+    try c.encode(emoji, forKey: .emoji)
+  }
+}
+
+public struct ReceivedProjectIconLucide: Sendable, Hashable, Codable {
+  public var name: String
+  public var color: ProjectIconColor
+
+  public init(name: String, color: ProjectIconColor) {
+    self.name = name
+    self.color = color
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case name
+    case color
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("lucide", forKey: .kind)
+    self.name = try c.decode(String.self, forKey: .name)
+    self.color = try c.decode(ProjectIconColor.self, forKey: .color)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("lucide", forKey: .kind)
+    try c.encode(name, forKey: .name)
+    try c.encode(color, forKey: .color)
+  }
+}
+
+public struct ReceivedProjectIconMonogram: Sendable, Hashable, Codable {
+  public var text: String
+  public var color: ProjectIconColor
+
+  public init(text: String, color: ProjectIconColor) {
+    self.text = text
+    self.color = color
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case text
+    case color
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("monogram", forKey: .kind)
+    self.text = try c.decode(String.self, forKey: .text)
+    self.color = try c.decode(ProjectIconColor.self, forKey: .color)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("monogram", forKey: .kind)
+    try c.encode(text, forKey: .text)
+    try c.encode(color, forKey: .color)
   }
 }

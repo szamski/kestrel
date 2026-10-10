@@ -84,7 +84,7 @@ public enum ThreadList {
   }
 
   /// Search terms of a thread's visible pull request links (`threadPullRequestSearchTerms`).
-  static func pullRequestSearchTerms(_ shell: OrchestrationThreadShell) -> [String] {
+  static func pullRequestSearchTerms(_ shell: V1.OrchestrationThreadShell) -> [String] {
     if !shell.pullRequests.isEmpty {
       return shell.pullRequests.filter { $0.source != .stackDismissed }.flatMap { link in
         ["#\(link.number)", "\(link.repository)#\(link.number)", link.url, link.snapshot?.title ?? ""]
@@ -178,7 +178,7 @@ public enum ThreadRowStatus: String, Sendable { case approval, input, working, m
 
 extension ThreadList {
   /// `resolveSidebarThreadStatus` (web Sidebar.logic.ts): approval > input > working > failed > background > ready.
-  public static func status(_ shell: OrchestrationThreadShell) -> ThreadRowStatus {
+  public static func status(_ shell: V1.OrchestrationThreadShell) -> ThreadRowStatus {
     if shell.hasPendingApprovals { return .approval }
     if shell.hasPendingUserInput { return .input }
     if shell.session?.status == .running || shell.session?.status == .starting { return .working }
@@ -191,7 +191,7 @@ extension ThreadList {
   }
 
   /// `hasUnseenCompletion`: a never-visited thread counts as read.
-  public static func hasUnseenCompletion(_ shell: OrchestrationThreadShell, lastVisitedAt: IsoDateTime?) -> Bool {
+  public static func hasUnseenCompletion(_ shell: V1.OrchestrationThreadShell, lastVisitedAt: IsoDateTime?) -> Bool {
     guard let completedAt = shell.latestTurn?.completedAt, let completed = IsoTimestamp.parse(completedAt) else { return false }
     guard let lastVisitedAt else { return false }
     guard let visited = IsoTimestamp.parse(lastVisitedAt) else { return true }
@@ -199,7 +199,7 @@ extension ThreadList {
   }
 
   /// The "Woke" pill: the thread woke after the user last visited it and is not settled.
-  public static func isWoke(_ shell: OrchestrationThreadShell, wokeAt: IsoDateTime?, lastVisitedAt: IsoDateTime?) -> Bool {
+  public static func isWoke(_ shell: V1.OrchestrationThreadShell, wokeAt: IsoDateTime?, lastVisitedAt: IsoDateTime?) -> Bool {
     guard let wokeAt, let woke = IsoTimestamp.parse(wokeAt), shell.settledOverride != .settled else { return false }
     guard let lastVisitedAt, let visited = IsoTimestamp.parse(lastVisitedAt) else { return true }
     return visited < woke

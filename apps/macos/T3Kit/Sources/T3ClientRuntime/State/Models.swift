@@ -5,11 +5,15 @@ import T3Contracts
 /// environment, so every cross-environment list carries this pair.
 public struct EnvironmentThreadShell: Sendable, Hashable, Identifiable {
   public let environmentId: EnvironmentId
-  public var shell: OrchestrationThreadShell
+  public var shell: V1.OrchestrationThreadShell
+  /// Protocol 2: the server accepted a run that is still preparing, queued or starting. Such a thread cannot be
+  /// snoozed (its pending work is not yet visible as a running session). Always false on protocol 1.
+  public var startPending: Bool
 
-  public init(environmentId: EnvironmentId, shell: OrchestrationThreadShell) {
+  public init(environmentId: EnvironmentId, shell: V1.OrchestrationThreadShell, startPending: Bool = false) {
     self.environmentId = environmentId
     self.shell = shell
+    self.startPending = startPending
   }
 
   public var threadId: ThreadId { shell.id }
@@ -20,8 +24,8 @@ public struct EnvironmentThreadShell: Sendable, Hashable, Identifiable {
 
 public struct EnvironmentProject: Sendable, Hashable, Identifiable {
   public let environmentId: EnvironmentId
-  public var project: OrchestrationProjectShell
-  public init(environmentId: EnvironmentId, project: OrchestrationProjectShell) {
+  public var project: V1.OrchestrationProjectShell
+  public init(environmentId: EnvironmentId, project: V1.OrchestrationProjectShell) {
     self.environmentId = environmentId
     self.project = project
   }

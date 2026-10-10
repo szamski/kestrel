@@ -39,7 +39,7 @@ import Testing
     }
     for f in failures.prefix(25) { Issue.record("\(f)") }
     #expect(failures.isEmpty, "\(failures.count) of \(samples.count) samples differ over \(covered.count) types")
-    #expect(covered.contains("OrchestrationEvent") && covered.contains("ClientOrchestrationCommand"))
+    #expect(covered.isSuperset(of: ["V1.OrchestrationEvent", "V1.ClientOrchestrationCommand", "OrchestrationV2DomainEvent", "OrchestrationV2Command"]))
     #expect(exactCount > samples.count * 9 / 10, "too many samples are normalised by Effect: \(samples.count - exactCount)")
   }
 
@@ -51,7 +51,7 @@ import Testing
   /// The same commands built from typed Swift values must encode exactly as Effect encodes them.
   @Test func constructedCommandsEncodeLikeEffect() throws {
     let at = IsoDateTime("2026-01-01T00:00:00.000Z")
-    let typed: [String: ClientOrchestrationCommand] = [
+    let typed: [String: V1.ClientOrchestrationCommand] = [
       "projectCreate": .projectCreate(.init(
         commandId: "cmd-1", projectId: "proj-1", title: "Project", workspaceRoot: "/tmp/project",
         createWorkspaceRootIfMissing: true,

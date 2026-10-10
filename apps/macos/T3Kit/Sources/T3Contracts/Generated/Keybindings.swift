@@ -13,8 +13,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
   case terminalNew
   case terminalClose
   case rightPanelToggle
+  case rightPanelNew
+  case threadPanelToggle
   case rightPanelToggleMaximized
   case rightPanelClose
+  case viewReopenClosed
   case pullRequestCopyNumber
   case diffToggle
   case previewToggle
@@ -31,7 +34,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
   case appearanceCycle
   case themeEditorToggle
   case composerStash
+  case composerSendAlternate
+  case composerSendBackground
+  case composerSendAndNewThread
   case composerHost
+  case composerCycleHost
   case composerEffort
   case composerMode
   case composerWorkspace
@@ -39,6 +46,8 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
   case composerBranch
   case chatNew
   case chatNewLocal
+  case chatNewWithoutProject
+  case chatFind
   case editorOpenFavorite
   case usageCost
   case usageTokens
@@ -61,6 +70,7 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
   case modelPickerJump9
   case threadStop
   case threadSteerQueuedMessage
+  case threadEditQueuedMessage
   case threadPrevious
   case threadNext
   case threadCopyReference
@@ -90,8 +100,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case "terminal.new": self = .terminalNew
     case "terminal.close": self = .terminalClose
     case "rightPanel.toggle": self = .rightPanelToggle
+    case "rightPanel.new": self = .rightPanelNew
+    case "threadPanel.toggle": self = .threadPanelToggle
     case "rightPanel.toggleMaximized": self = .rightPanelToggleMaximized
     case "rightPanel.close": self = .rightPanelClose
+    case "view.reopenClosed": self = .viewReopenClosed
     case "pullRequest.copyNumber": self = .pullRequestCopyNumber
     case "diff.toggle": self = .diffToggle
     case "preview.toggle": self = .previewToggle
@@ -108,7 +121,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case "appearance.cycle": self = .appearanceCycle
     case "themeEditor.toggle": self = .themeEditorToggle
     case "composer.stash": self = .composerStash
+    case "composer.sendAlternate": self = .composerSendAlternate
+    case "composer.sendBackground": self = .composerSendBackground
+    case "composer.sendAndNewThread": self = .composerSendAndNewThread
     case "composer.host": self = .composerHost
+    case "composer.cycleHost": self = .composerCycleHost
     case "composer.effort": self = .composerEffort
     case "composer.mode": self = .composerMode
     case "composer.workspace": self = .composerWorkspace
@@ -116,6 +133,8 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case "composer.branch": self = .composerBranch
     case "chat.new": self = .chatNew
     case "chat.newLocal": self = .chatNewLocal
+    case "chat.newWithoutProject": self = .chatNewWithoutProject
+    case "chat.find": self = .chatFind
     case "editor.openFavorite": self = .editorOpenFavorite
     case "usage.cost": self = .usageCost
     case "usage.tokens": self = .usageTokens
@@ -138,6 +157,7 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case "modelPicker.jump.9": self = .modelPickerJump9
     case "thread.stop": self = .threadStop
     case "thread.steerQueuedMessage": self = .threadSteerQueuedMessage
+    case "thread.editQueuedMessage": self = .threadEditQueuedMessage
     case "thread.previous": self = .threadPrevious
     case "thread.next": self = .threadNext
     case "thread.copyReference": self = .threadCopyReference
@@ -168,8 +188,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case .terminalNew: "terminal.new"
     case .terminalClose: "terminal.close"
     case .rightPanelToggle: "rightPanel.toggle"
+    case .rightPanelNew: "rightPanel.new"
+    case .threadPanelToggle: "threadPanel.toggle"
     case .rightPanelToggleMaximized: "rightPanel.toggleMaximized"
     case .rightPanelClose: "rightPanel.close"
+    case .viewReopenClosed: "view.reopenClosed"
     case .pullRequestCopyNumber: "pullRequest.copyNumber"
     case .diffToggle: "diff.toggle"
     case .previewToggle: "preview.toggle"
@@ -186,7 +209,11 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case .appearanceCycle: "appearance.cycle"
     case .themeEditorToggle: "themeEditor.toggle"
     case .composerStash: "composer.stash"
+    case .composerSendAlternate: "composer.sendAlternate"
+    case .composerSendBackground: "composer.sendBackground"
+    case .composerSendAndNewThread: "composer.sendAndNewThread"
     case .composerHost: "composer.host"
+    case .composerCycleHost: "composer.cycleHost"
     case .composerEffort: "composer.effort"
     case .composerMode: "composer.mode"
     case .composerWorkspace: "composer.workspace"
@@ -194,6 +221,8 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case .composerBranch: "composer.branch"
     case .chatNew: "chat.new"
     case .chatNewLocal: "chat.newLocal"
+    case .chatNewWithoutProject: "chat.newWithoutProject"
+    case .chatFind: "chat.find"
     case .editorOpenFavorite: "editor.openFavorite"
     case .usageCost: "usage.cost"
     case .usageTokens: "usage.tokens"
@@ -216,6 +245,7 @@ public enum KeybindingCommand: Sendable, Hashable, Codable, RawRepresentable {
     case .modelPickerJump9: "modelPicker.jump.9"
     case .threadStop: "thread.stop"
     case .threadSteerQueuedMessage: "thread.steerQueuedMessage"
+    case .threadEditQueuedMessage: "thread.editQueuedMessage"
     case .threadPrevious: "thread.previous"
     case .threadNext: "thread.next"
     case .threadCopyReference: "thread.copyReference"

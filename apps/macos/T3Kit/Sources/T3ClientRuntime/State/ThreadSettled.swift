@@ -11,7 +11,7 @@ public enum ThreadSettled {
   private static func ms(_ value: IsoDateTime?) -> Double { value.flatMap(IsoTimestamp.parse) ?? .nan }
 
   /// A user message no turn has picked up yet, within the adoption grace window.
-  public static func hasQueuedTurnStart(_ shell: OrchestrationThreadShell, now: IsoDateTime) -> Bool {
+  public static func hasQueuedTurnStart(_ shell: V1.OrchestrationThreadShell, now: IsoDateTime) -> Bool {
     guard let latestUserMessageAt = shell.latestUserMessageAt else { return false }
     if shell.session?.status == .error { return false }
     guard let messageAt = IsoTimestamp.parse(latestUserMessageAt), let nowMs = IsoTimestamp.parse(now) else { return false }
@@ -26,7 +26,7 @@ public enum ThreadSettled {
 
   /// Something outranks the user's snooze: the agent is blocked, the session failed after the
   /// snooze, or a run completed after the snooze was set.
-  public static func threadRaisedHandWhileSnoozed(_ shell: OrchestrationThreadShell) -> Bool {
+  public static func threadRaisedHandWhileSnoozed(_ shell: V1.OrchestrationThreadShell) -> Bool {
     if shell.hasPendingApprovals || shell.hasPendingUserInput { return true }
     let snoozedAt = optionalValue(shell.snoozedAt)
     if shell.session?.status == .error, snoozedAt == nil || ms(shell.session?.updatedAt) > ms(snoozedAt) { return true }
@@ -39,13 +39,13 @@ public enum ThreadSettled {
   }
 
   /// A thread may be snoozed unless the agent is blocked on the user or a turn start is queued.
-  public static func canSnooze(_ shell: OrchestrationThreadShell, now: IsoDateTime) -> Bool {
+  public static func canSnooze(_ shell: V1.OrchestrationThreadShell, now: IsoDateTime) -> Bool {
     if shell.hasPendingApprovals || shell.hasPendingUserInput { return false }
     return !hasQueuedTurnStart(shell, now: now)
   }
 
   /// Hidden from the inbox while the wake time is in the future and the thread has not raised its hand.
-  public static func effectiveSnoozed(_ shell: OrchestrationThreadShell, now: IsoDateTime) -> Bool {
+  public static func effectiveSnoozed(_ shell: V1.OrchestrationThreadShell, now: IsoDateTime) -> Bool {
     guard let until = optionalValue(shell.snoozedUntil) else { return false }
     let wakeAt = ms(until)
     if wakeAt.isNaN { return false }  // malformed data never hides a thread
@@ -54,7 +54,7 @@ public enum ThreadSettled {
   }
 
   /// When a previously snoozed thread woke, or nil when it never snoozed / is still snoozed.
-  public static func threadWokeAt(_ shell: OrchestrationThreadShell, now: IsoDateTime) -> IsoDateTime? {
+  public static func threadWokeAt(_ shell: V1.OrchestrationThreadShell, now: IsoDateTime) -> IsoDateTime? {
     guard let until = optionalValue(shell.snoozedUntil) else { return nil }
     let wakeAt = ms(until)
     if wakeAt.isNaN { return nil }

@@ -1,0 +1,30 @@
+{
+  "baseline": "recordings of T3 Code 0.0.45 (orchestration protocol 1)",
+  "sha256": {
+    "descriptor.json": "1ac2ea19001a07bbdb7d6cf6b00aa1bff36f787dc200443447d276ca479c2c06",
+    "rpc/orchestration.getArchivedShellSnapshot.json": "e5c7dc77aebb258785f74d183ae5d34492da4c2d1847b1d99f8e1b12a9b0c0b7",
+    "rpc/orchestration.subscribeShell-replay.json": "afeea42e15e88ece7bc1b4eebb80a206fc9aeb28d791b86536c7b05331a14569",
+    "rpc/orchestration.subscribeShell.json": "3888d4c986dff755f7dc31299438ade17007f30c9b4a1fcd76cb1317b5be79bb",
+    "rpc/orchestration.subscribeThread-0.json": "a59c98e910f299e5e72473c39f035aee6990c1f00372c1d823fbe3f4415255d3",
+    "rpc/orchestration.subscribeThread-1.json": "ab3e632cdbdeeb6d7ce67d46bbcb96fac28ae3215632cccb68f23d36ff8a1243",
+    "rpc/orchestration.subscribeThread-2.json": "6332fd7c25aaa0650066b05cfb495d79718a0d96cb8b3868bf13fac54e72730b",
+    "rpc/orchestration.subscribeThread-3.json": "bc3e9225db6956756714a3d6efbe1be135ccf942f7fb155cc9efa2f806429d1b",
+    "rpc/orchestration.subscribeThread-4.json": "8dcf3ed73fe2cf106b3bfd7db1e97af6db53b91ebcbb56e73fb10c9ab1319831",
+    "rpc/orchestration.subscribeThread-events-1.json": "a7b5d0f48b0bb409645fd127cf8b9fab0e6ea8bc341b62e9e7051b42c76327a6",
+    "rpc/orchestration.subscribeThread-replay-0.json": "f3e6259ead28a0d7e5823ba1949f9f525dc377dc146488f0d7e191400aa60663",
+    "rpc/orchestration.subscribeThread-replay-1.json": "f3e6259ead28a0d7e5823ba1949f9f525dc377dc146488f0d7e191400aa60663",
+    "rpc/orchestration.subscribeThread-replay-2.json": "f3e6259ead28a0d7e5823ba1949f9f525dc377dc146488f0d7e191400aa60663",
+    "rpc/orchestration.subscribeThread-replay-3.json": "0dd6e498f6f4c6e0da7421914bb5c7320642136b70fa40e8e7eff653238a9930",
+    "rpc/orchestration.subscribeThread-replay-4.json": "acc25448eb7321949849bd3eacde156c0db081e94cf0df03a7128fd860f965c0",
+    "rpc/server.getConfig.json": "69f8adeac43f1910ea3f8b8a66ad3c958e1c67f700ce529c98ed41553df89540",
+    "rpc/server.getSettings.json": "44984d4a58aae1bc45e7130e381a1bee1fc58caa3d1052a5ca3071d020a4558a",
+    "rpc/subscribeServerConfig.json": "f6cf3b241339932de03efc8941cfb87339b753b7af9279fa5f18c76af9cd6272",
+    "session.json": "6cd129645b6345ca045a5b2aaa5aa9e9e2cd27a5bd2c8aebf02a193373ced581",
+    "shell.json": "7c5880c2b7b4aee21ebb9f9cc2dae7f5cdb94a491c96ae38c59bda502a028f7b",
+    "threads/thread-1.json": "12d53e8f0becc99b0227bf5715bd419e8706d23cc470e63b4f1b4246554e4af0",
+    "threads/thread-2.json": "5af5d25eb191b709259ba981a23ef877c9edd86cf0c691ae71e11e53602ad31c",
+    "threads/thread-3.json": "0d4fc20ed4988dcd6f1c653f2f0941b49deda65286eefad41562464077e5882f",
+    "threads/thread-4.json": "5b58ae5716a69c1292f54305a6959d80e328ccae1894636ad50e2ac967467032",
+    "threads/thread-5.json": "406ccd674c85907121386e16fe09123db1f7e1c9b4a352786721d1f00be36d8e"
+  }
+}

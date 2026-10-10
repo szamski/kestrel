@@ -111,7 +111,7 @@ struct MessageRowView: View {
 }
 
 struct UserBubble: View {
-  let message: OrchestrationMessage
+  let message: V1.OrchestrationMessage
   @Environment(\.timelineHost) private var host
 
   var body: some View {
@@ -187,7 +187,7 @@ struct AttachmentChip: View {
 }
 
 struct AssistantMetaView: View {
-  let message: OrchestrationMessage
+  let message: V1.OrchestrationMessage
   let duration: String?
   let showsCopy: Bool
   let streaming: Bool
@@ -241,7 +241,7 @@ struct ReasoningDisclosure: View {
 // MARK: - Changed files, plan, setup
 
 struct TurnDiffCard: View {
-  let summary: OrchestrationCheckpointSummary
+  let summary: V1.OrchestrationCheckpointSummary
   @Environment(\.timelineHost) private var host
   private static let shown = 8
 
@@ -646,7 +646,7 @@ struct ActivityGroupView: View {
 
   private enum Run {
     case work([WorkLogEntry])
-    case thoughts([OrchestrationMessage])
+    case thoughts([V1.OrchestrationMessage])
   }
 
   private var runs: [Run] {

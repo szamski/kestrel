@@ -76,7 +76,7 @@ public struct AgentSpawn: Sendable, Hashable {
 /// Answers of an asynchronous user-input request, folded into one work row
 /// (`UserInputAttachmentAnswerPayload`).
 public struct UserInputAnswer: Sendable, Hashable, Codable {
-  public var requestId: ApprovalRequestId
+  public var requestId: V1.ApprovalRequestId
   public var questionTextById: [String: String]?
   public var answers: [String: JSONValue]
   public var attachmentsByQuestionId: [String: [ChatAttachment]]
@@ -87,7 +87,7 @@ public struct WorkLogEntry: Sendable, Hashable, Identifiable {
   public var questionAnswer: UserInputAnswer?
   public var id: String
   public var createdAt: String
-  public var turnId: TurnId?
+  public var turnId: V1.TurnId?
   /// Stable provider identity across in-progress and completed lifecycle updates.
   public var toolCallId: String?
   public var label: String
@@ -116,7 +116,7 @@ public struct WorkLogEntry: Sendable, Hashable, Identifiable {
   public init(
     id: String,
     createdAt: String,
-    turnId: TurnId? = nil,
+    turnId: V1.TurnId? = nil,
     label: String,
     tone: WorkLogTone,
     sourceActivityKind: String? = nil
@@ -145,7 +145,7 @@ public struct ActivePlanState: Sendable, Hashable {
   }
 
   public var createdAt: String
-  public var turnId: TurnId?
+  public var turnId: V1.TurnId?
   /// `nil` when the payload had no `explanation` key; `.some(nil)` when it was null.
   public var explanation: String??
   public var steps: [Step]
@@ -156,17 +156,17 @@ public struct LatestProposedPlanState: Sendable, Hashable {
   public var id: String
   public var createdAt: String
   public var updatedAt: String
-  public var turnId: TurnId?
+  public var turnId: V1.TurnId?
   public var planMarkdown: String
   public var implementedAt: String?
   public var implementationThreadId: ThreadId?
 }
 
-public typealias ProposedPlan = OrchestrationProposedPlan
+public typealias ProposedPlan = V1.OrchestrationProposedPlan
 
-extension OrchestrationProposedPlan {
+extension V1.OrchestrationProposedPlan {
   /// The thread read model carries plans as a structurally identical generated type.
-  public init(_ item: OrchestrationThreadProposedPlansItem) {
+  public init(_ item: V1.OrchestrationThreadProposedPlansItem) {
     self.init(
       id: item.id,
       turnId: item.turnId,
@@ -181,7 +181,7 @@ extension OrchestrationProposedPlan {
 
 /// A message, plan or work row in thread order (`TimelineEntry`).
 public enum TimelineEntry: Sendable, Hashable, Identifiable {
-  case message(OrchestrationMessage)
+  case message(V1.OrchestrationMessage)
   case proposedPlan(ProposedPlan)
   case work(WorkLogEntry)
 

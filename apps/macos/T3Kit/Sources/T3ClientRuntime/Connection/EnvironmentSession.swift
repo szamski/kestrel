@@ -10,6 +10,8 @@ public protocol EnvironmentSession: Sendable {
   /// Distinguishes replacement sessions: a cursor is only trusted on the session that produced it.
   var id: Int { get }
   var initialConfig: ServerConfig { get }
+  /// The wire protocol this connection was negotiated at (re-read from the descriptor on every connect).
+  var orchestrationProtocol: OrchestrationProtocol { get }
   func call<Payload, Success, Failure>(_ spec: RpcSpec<Payload, Success, Failure>, _ payload: Payload) async throws(RpcError<Failure>) -> Success
   func subscribe<Payload, Success, Failure>(_ spec: RpcSpec<Payload, Success, Failure>, _ payload: Payload) -> AsyncThrowingStream<Success, any Error>
   /// Health check of an established connection (server.probe, or getConfig on older servers).
@@ -25,14 +27,16 @@ private let nextSessionID = Mutex(0)
 public final class LiveEnvironmentSession: EnvironmentSession {
   public let id: Int
   public let initialConfig: ServerConfig
+  public let orchestrationProtocol: OrchestrationProtocol
   private let rpc: RpcSession
   private let label: String
   private let pump: Task<Void, Never>
   /// `RpcSession.waitUntilClosed` cannot be cancelled, so waiters wait on this instead.
   private let closed = Deferred<ConnectionAttemptError>()
 
-  private init(rpc: RpcSession, label: String, config: ServerConfig, pump: Task<Void, Never>) {
+  private init(rpc: RpcSession, label: String, config: ServerConfig, orchestrationProtocol: OrchestrationProtocol, pump: Task<Void, Never>) {
     id = nextSessionID.withLock { $0 += 1; return $0 }
+    self.orchestrationProtocol = orchestrationProtocol
     self.rpc = rpc
     self.label = label
     initialConfig = config
@@ -48,7 +52,7 @@ public final class LiveEnvironmentSession: EnvironmentSession {
   /// for the session's lifetime and feeds `onConfigEvent`; if it ends, the session closes (a
   /// healthy socket without server config is not a usable environment).
   public static func open(
-    transport: any RpcTransport, label: String, expectedEnvironmentId: EnvironmentId,
+    transport: any RpcTransport, label: String, expectedEnvironmentId: EnvironmentId, orchestrationProtocol: OrchestrationProtocol = .v1,
     pingInterval: Duration = .seconds(5),
     onConfigEvent: @escaping @Sendable (ServerConfigStreamEvent) -> Void
   ) async throws -> LiveEnvironmentSession {
@@ -84,7 +88,7 @@ public final class LiveEnvironmentSession: EnvironmentSession {
       } onCancel: {
         pump.cancel()
       }
-      return LiveEnvironmentSession(rpc: rpc, label: label, config: config, pump: pump)
+      return LiveEnvironmentSession(rpc: rpc, label: label, config: config, orchestrationProtocol: orchestrationProtocol, pump: pump)
     } catch {
       pump.cancel()
       await rpc.close()

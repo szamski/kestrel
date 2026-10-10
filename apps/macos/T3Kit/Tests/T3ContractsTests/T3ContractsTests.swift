@@ -23,7 +23,7 @@ enum Fixtures {
     var activityKinds = Set<String>()
     var hasCheckpoints = false
     for name in names {
-      let snapshot = try JSONDecoder().decode(OrchestrationThreadDetailSnapshot.self, from: Fixtures.data("threads/\(name)"))
+      let snapshot = try JSONDecoder().decode(V1.OrchestrationThreadDetailSnapshot.self, from: Fixtures.data("threads/\(name)"))
       activityKinds.formUnion(snapshot.thread.activities.map { "\($0.kind)" })
       hasCheckpoints = hasCheckpoints || !snapshot.thread.checkpoints.isEmpty
     }
@@ -32,7 +32,7 @@ enum Fixtures {
   }
 
   @Test func shellSnapshotExposesProjectsAndThreads() throws {
-    let shell = try JSONDecoder().decode(OrchestrationShellSnapshot.self, from: Fixtures.data("shell.json"))
+    let shell = try JSONDecoder().decode(V1.OrchestrationShellSnapshot.self, from: Fixtures.data("shell.json"))
     #expect(!shell.projects.isEmpty)
     #expect(!shell.threads.isEmpty)
     #expect(shell.threads.allSatisfy { thread in shell.projects.contains { $0.id == thread.projectId } })
@@ -51,7 +51,7 @@ enum Fixtures {
   @Test func unknownUnionVariantSurvivesRoundTrip() throws {
     let raw = #"{"type":"thread.from-the-future","sequence":7,"payload":{"nested":[1,2.5,"x",null,true]}}"#
     // Commands are a tagged union on `type`; an unknown tag must not fail decoding.
-    let value = try JSONDecoder().decode(ClientOrchestrationCommand.self, from: Data(raw.utf8))
+    let value = try JSONDecoder().decode(V1.ClientOrchestrationCommand.self, from: Data(raw.utf8))
     guard case .unknown(let json) = value else { Issue.record("expected .unknown, got \(value)"); return }
     #expect(json["type"]?.stringValue == "thread.from-the-future")
     let again = try JSONEncoder().encode(value)
@@ -74,7 +74,7 @@ enum Fixtures {
   }
 
   @Test func unknownFailureTagIsPreservedAndKnownTagDecodes() throws {
-    let spec = Rpc.orchestrationSubscribeShell
+    let spec = V1.Rpc.orchestrationSubscribeShell
     let known = try Self.failure(of: spec, #"{"_tag":"OrchestrationGetSnapshotError","message":"boom"}"#)
     guard case .orchestrationGetSnapshotError(let error) = known else { Issue.record("wrong case \(known)"); return }
     #expect(error.message == "boom")
@@ -84,7 +84,7 @@ enum Fixtures {
     guard case .unknown(let json) = unknown else { Issue.record("wrong case \(unknown)"); return }
     #expect(json["code"] == .int(42))
     let asError: any Error = unknown // the generated union is usable as a Swift Error
-    #expect(asError is OrchestrationSubscribeShellFailure)
+    #expect(asError is V1.OrchestrationGetArchivedShellSnapshotFailure)
   }
 
   private static func failure<P, S, F: Decodable>(of spec: RpcSpec<P, S, F>, _ json: String) throws -> F {
@@ -135,7 +135,7 @@ enum Fixtures {
   }
 
   @Test func triStateKeysDistinguishAbsentNullAndValue() throws {
-    func encode(_ command: ClientOrchestrationCommand) throws -> [String: Any] {
+    func encode(_ command: V1.ClientOrchestrationCommand) throws -> [String: Any] {
       try #require(try JSONCheck.parse(try JSONEncoder().encode(command)) as? [String: Any])
     }
     let absent = try encode(.threadMetaUpdate(.init(commandId: "c", threadId: "t")))
@@ -144,7 +144,7 @@ enum Fixtures {
     #expect(null["branch"] is NSNull)
     let value = try encode(.threadMetaUpdate(.init(commandId: "c", threadId: "t", branch: .some("main"))))
     #expect(value["branch"] as? String == "main")
-    let back = try JSONDecoder().decode(ClientOrchestrationCommand.self, from: JSONSerialization.data(withJSONObject: null))
+    let back = try JSONDecoder().decode(V1.ClientOrchestrationCommand.self, from: JSONSerialization.data(withJSONObject: null))
     guard case .threadMetaUpdate(let update) = back else { Issue.record("wrong case"); return }
     #expect(update.branch == .some(nil))
   }
@@ -152,7 +152,7 @@ enum Fixtures {
   @Test func missingKeyUsesSchemaDefault() throws {
     // `interactionMode` has a decoding default of "default" on thread.create.
     let raw = #"{"type":"thread.create","commandId":"c","threadId":"t","projectId":"p","title":"x","modelSelection":{"instanceId":"codex","model":"m"},"runtimeMode":"full-access","createdAt":"2026-01-01T00:00:00.000Z"}"#
-    guard case .threadCreate(let create) = try JSONDecoder().decode(ClientOrchestrationCommand.self, from: Data(raw.utf8)) else {
+    guard case .threadCreate(let create) = try JSONDecoder().decode(V1.ClientOrchestrationCommand.self, from: Data(raw.utf8)) else {
       Issue.record("wrong case")
       return
     }
@@ -164,10 +164,10 @@ enum Fixtures {
     #expect(Rpc.subscribeServerConfig.isStream)
     #expect(Rpc.serverGetConfig.tag == "server.getConfig")
     #expect(!Rpc.serverGetConfig.isStream)
-    #expect(Rpc.orchestrationSubscribeShell.tag == "orchestration.subscribeShell")
-    #expect(Rpc.orchestrationSubscribeShell.isStream)
-    #expect(Rpc.allTags.count == 144)
-    #expect(Set(Rpc.allTags).count == 144)
+    #expect(V1.Rpc.orchestrationSubscribeShell.tag == "orchestration.subscribeShell")
+    #expect(V1.Rpc.orchestrationSubscribeShell.isStream)
+    #expect(Rpc.allTags.count == 185 && V1.Rpc.allTags.count == 8)
+    #expect(Set(Rpc.allTags).count == 185)
   }
 
   @Test func httpSpecsCarryMethodPathAndStatuses() {
@@ -175,7 +175,7 @@ enum Fixtures {
     #expect(Http.authToken.path == "/oauth/token")
     #expect(Http.authToken.bodyContentType == "application/x-www-form-urlencoded")
     #expect(Http.authToken.errorStatuses["EnvironmentAuthInvalidError"] == 401)
-    #expect(Http.orchestrationThreadSnapshot.path == "/api/orchestration/threads/:threadId")
+    #expect(V1.Http.orchestrationThreadSnapshot.path == "/api/orchestration/threads/:threadId")
   }
 }
 

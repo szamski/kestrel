@@ -7,7 +7,7 @@ import Testing
 // Ported from packages/client-runtime/src/pendingRequests.test.ts and
 // apps/web/src/pendingUserInput.test.ts.
 
-private func request(_ id: String, _ kind: String, at: String, tone: String = "approval", _ payload: String) -> OrchestrationThreadActivity {
+private func request(_ id: String, _ kind: String, at: String, tone: String = "approval", _ payload: String) -> V1.OrchestrationThreadActivity {
   activity(id, kind, summary: "Request", tone: tone, at: at, payload)
 }
 
@@ -38,7 +38,7 @@ private func request(_ id: String, _ kind: String, at: String, tone: String = "a
   }
 
   @Test func mapsCanonicalRequestTypesIntoPendingApprovals() {
-    let types: [(String, ProviderRequestKind)] = [
+    let types: [(String, T3Timeline.ProviderRequestKind)] = [
       ("command_execution_approval", .command), ("exec_command_approval", .command), ("dynamic_tool_call", .command),
       ("file_read_approval", .fileRead), ("file_change_approval", .fileChange), ("apply_patch_approval", .fileChange),
       ("mcp_elicitation_approval", .mcpElicitation), ("permission_approval", .permission),
@@ -75,7 +75,7 @@ private func request(_ id: String, _ kind: String, at: String, tone: String = "a
 
   @Test func clearsStaleApprovalsButKeepsARetryableFailureOpen() {
     let open = request("a", "approval.requested", at: "2026-02-23T00:00:01.000Z", #"{"requestId":"req-1","requestKind":"command"}"#)
-    func failure(_ detail: String) -> OrchestrationThreadActivity {
+    func failure(_ detail: String) -> V1.OrchestrationThreadActivity {
       request("f", "provider.approval.respond.failed", at: "2026-02-23T00:00:02.000Z", tone: "error", #"{"requestId":"req-1","detail":"\#(detail)"}"#)
     }
     #expect(derivePendingPrompts([open, failure("Stale pending approval request: req-1")]).approvals.isEmpty)
@@ -233,7 +233,7 @@ private func request(_ id: String, _ kind: String, at: String, tone: String = "a
 }
 
 @Suite struct LiveAgentTests {
-  func agent(_ kind: String, _ id: String, _ extra: String = "", turn: String = "turn-1", at: Int = 0) -> OrchestrationThreadActivity {
+  func agent(_ kind: String, _ id: String, _ extra: String = "", turn: String = "turn-1", at: Int = 0) -> V1.OrchestrationThreadActivity {
     activity("\(kind)-\(id)-\(at)", kind, tone: "info", turn: turn, at: "2026-02-23T00:00:\(String(format: "%02d", at)).000Z", #"{"taskId":"\#(id)","agentKind":"agent"\#(extra)}"#)
   }
 

@@ -61,7 +61,7 @@ private let taskCompletedStatus: [String: AgentStatus] = ["completed": .complete
 ///
 /// `sessionLive` is false once the provider session is gone; background tasks die with it, so
 /// agents whose terminal rows were lost must not read as running forever.
-public func deriveLiveAgentTaskIds(activities: [OrchestrationThreadActivity], sessionLive: Bool) -> Set<String> {
+public func deriveLiveAgentTaskIds(activities: [V1.OrchestrationThreadActivity], sessionLive: Bool) -> Set<String> {
   var agents: [String: Agent] = [:]
   var order: [String] = []
 

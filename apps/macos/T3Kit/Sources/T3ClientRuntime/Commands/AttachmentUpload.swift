@@ -17,8 +17,16 @@ public struct UploadedAttachment: Sendable, Equatable {
   public let sizeBytes: Int
   public let kind: Kind
 
+  /// The attachment as a protocol-2 message attachment (`message.dispatch`, queued-run edits).
+  public var chatAttachment: ChatAttachment {
+    switch kind {
+    case .image: .image(ChatImageAttachment(id: attachmentId, name: name, mimeType: mimeType, sizeBytes: sizeBytes))
+    case .file: .file(ChatFileAttachment(id: attachmentId, name: name, mimeType: mimeType, sizeBytes: sizeBytes))
+    }
+  }
+
   /// The attachment as a `thread.turn.start` message attachment.
-  public var messageAttachment: ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem {
+  public var messageAttachment: V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem {
     switch kind {
     case .image: .chatImageAttachment(ChatImageAttachment(id: attachmentId, name: name, mimeType: mimeType, sizeBytes: sizeBytes))
     case .file: .chatFileAttachment(ChatFileAttachment(id: attachmentId, name: name, mimeType: mimeType, sizeBytes: sizeBytes))

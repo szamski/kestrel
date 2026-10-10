@@ -15,7 +15,7 @@ public enum OptimisticAction: Sendable, Equatable {
   case reorderActive(orderKey: String)
 
   /// `accepted` is true once the server acknowledged the command (its guards then already passed).
-  func apply(_ thread: OrchestrationThreadShell, now: IsoDateTime, accepted: Bool) -> OrchestrationThreadShell {
+  func apply(_ thread: V1.OrchestrationThreadShell, now: IsoDateTime, accepted: Bool) -> V1.OrchestrationThreadShell {
     var t = thread
     switch self {
     case .settle:
@@ -95,7 +95,7 @@ public struct OptimisticOverlay: Sendable, Equatable {
     if let index = updates.firstIndex(where: { $0.id == id }) { updates[index].sequence = sequence }
   }
   /// Drops updates whose acknowledged sequence the snapshot already reached.
-  public mutating func reconcile(with snapshot: OrchestrationShellSnapshot?) {
+  public mutating func reconcile(with snapshot: V1.OrchestrationShellSnapshot?) {
     updates.removeAll { update in
       guard let sequence = update.sequence else { return false }
       return snapshot.map { $0.snapshotSequence >= sequence } ?? true
@@ -103,7 +103,7 @@ public struct OptimisticOverlay: Sendable, Equatable {
   }
 
   /// The snapshot as the user should see it: pending updates layered over the synchronised data.
-  public func apply(to snapshot: OrchestrationShellSnapshot) -> OrchestrationShellSnapshot {
+  public func apply(to snapshot: V1.OrchestrationShellSnapshot) -> V1.OrchestrationShellSnapshot {
     var byThread: [ThreadId: [Update]] = [:]
     for update in updates {
       if let sequence = update.sequence, sequence <= snapshot.snapshotSequence { continue }

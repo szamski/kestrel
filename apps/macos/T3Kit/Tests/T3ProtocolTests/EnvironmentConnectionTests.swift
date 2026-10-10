@@ -61,7 +61,8 @@ import Testing
     let url = WebSocketURL.make(
       wsBaseURL: URL(string: "ws://localhost:13773/")!,
       ticket: "tk-1_x",
-      metadata: ClientMetadata(label: "Mac", appVersion: "1.2+3"))
+      metadata: ClientMetadata(label: "Mac", appVersion: "1.2+3"),
+      orchestrationProtocol: .v1)
     #expect(url.path == "/ws")
     #expect(
       url.absoluteString == "ws://localhost:13773/ws?wsTicket=tk-1_x&clientSurface=desktop"
@@ -94,10 +95,27 @@ import Testing
         EnvironmentDescriptorInfo.self,
         from: Data(#"{"environmentId":"e","label":"L","serverVersion":"1"\#(field),"capabilities":{}}"#.utf8))
     }
-    #expect(ProtocolCompatibility.check(try descriptor(nil)) == nil)
-    #expect(ProtocolCompatibility.check(try descriptor(1)) == nil)
-    #expect(ProtocolCompatibility.check(try descriptor(2)) == .clientTooOld(serverVersion: 2))
-    #expect(ProtocolCompatibility.check(try descriptor(0)) == .serverTooOld(serverVersion: 0))
+    // Servers without negotiation speak protocol 1; 1 and 2 are both supported, anything newer is refused.
+    #expect(try ProtocolCompatibility.negotiate(descriptor(nil)) == .success(.v1))
+    #expect(try ProtocolCompatibility.negotiate(descriptor(1)) == .success(.v1))
+    #expect(try ProtocolCompatibility.negotiate(descriptor(2)) == .success(.v2))
+    #expect(try ProtocolCompatibility.negotiate(descriptor(3)) == .failure(.clientTooOld(serverVersion: 3)))
+    #expect(try ProtocolCompatibility.negotiate(descriptor(0)) == .failure(.serverTooOld(serverVersion: 0)))
+    #expect(ProtocolCompatibility.check(try descriptor(2)) == nil)
+    #expect(ProtocolCompatibility.check(try descriptor(3))?.message(environmentLabel: "Box") == "This client is not supported by this server. Update your app or use a compatible release to connect to Box.")
+    #expect(ProtocolCompatibility.check(try descriptor(0))?.message(environmentLabel: "Box") == "This client requires a newer server. Update T3 Code on Box to connect.")
+  }
+
+  @Test func negotiatedProtocolIsSentOnTheSocketAndOrchestrationRequests() {
+    let url = WebSocketURL.make(
+      wsBaseURL: URL(string: "ws://localhost:13773/ws")!, ticket: "t", metadata: ClientMetadata(), orchestrationProtocol: .v2)
+    #expect(url.query?.hasSuffix("&orchestrationProtocol=2") == true)
+    var headers: [String: String] = [:]
+    EnvironmentHTTPClient.addOrchestrationProtocol(.v1, to: &headers)
+    EnvironmentHTTPClient.addOrchestrationProtocol(nil, to: &headers)
+    #expect(headers.isEmpty, "protocol-1 servers predate the header")
+    EnvironmentHTTPClient.addOrchestrationProtocol(.v2, to: &headers)
+    #expect(headers == ["x-t3-orchestration-protocol": "2"])
   }
 }
 

@@ -155,7 +155,7 @@ final class StubProtocol: URLProtocol {
   @Test func rejectedCodesAndIncompatibleServersAreNotSaved() async throws {
     installServer(host: "expired.test", tokenStatus: 401)
     installServer(host: "old-server.test", protocolVersion: 0)
-    installServer(host: "future-server.test", protocolVersion: 2)
+    installServer(host: "future-server.test", protocolVersion: 3)
     let dir = directory()
     let (registry, credentials, _, _) = try makeRegistry(directory: dir)
     do { _ = try await registry.add(pairingURL: "http://expired.test/pair#token=x"); Issue.record("expected rejection") } catch {

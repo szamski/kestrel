@@ -28,7 +28,7 @@ private func questionFingerprint(turnId: String, questions: [JSONValue?]) -> Que
   return !texts.isEmpty && texts.allSatisfy({ !$0.isEmpty }) ? QuestionFingerprint(turnId: turnId, texts: jsCodeUnitSorted(texts)) : nil
 }
 
-private func hasTurn(_ activity: OrchestrationThreadActivity) -> String? {
+private func hasTurn(_ activity: V1.OrchestrationThreadActivity) -> String? {
   guard let turnId = activity.turnId?.rawValue, !turnId.isEmpty else { return nil }
   return turnId
 }
@@ -57,7 +57,7 @@ func questionToolQuestions(data: JSObject, title: JSONValue?) -> [JSONValue?]? {
   }
 }
 
-private func withoutDuplicateQuestionTools(_ activities: [OrchestrationThreadActivity]) -> [OrchestrationThreadActivity] {
+private func withoutDuplicateQuestionTools(_ activities: [V1.OrchestrationThreadActivity]) -> [V1.OrchestrationThreadActivity] {
   var questions = Set<QuestionFingerprint>()
   for activity in activities where activity.kind == "user-input.answer-submitted" {
     guard let turnId = hasTurn(activity) else { continue }
@@ -90,7 +90,7 @@ private func withoutDuplicateQuestionTools(_ activities: [OrchestrationThreadAct
 }
 
 /// Keep a question and its answer at the original tool position in the work log.
-func foldUserInputActivities(_ activities: [OrchestrationThreadActivity]) -> [OrchestrationThreadActivity] {
+func foldUserInputActivities(_ activities: [V1.OrchestrationThreadActivity]) -> [V1.OrchestrationThreadActivity] {
   var groupOrder: [String] = []
   var groups: [String: [Int]] = [:]
   for (index, activity) in activities.enumerated() {
@@ -100,7 +100,7 @@ func foldUserInputActivities(_ activities: [OrchestrationThreadActivity]) -> [Or
     if groups[requestId] == nil { groupOrder.append(requestId) }
     groups[requestId, default: []].append(index)
   }
-  var replacements: [Int: OrchestrationThreadActivity] = [:]
+  var replacements: [Int: V1.OrchestrationThreadActivity] = [:]
   var removed = Set<Int>()
   for requestId in groupOrder {
     let group = groups[requestId]!
@@ -158,7 +158,7 @@ func foldUserInputActivities(_ activities: [OrchestrationThreadActivity]) -> [Or
     leader.payload = answer
     replacements[group[0]] = leader
   }
-  var folded: [OrchestrationThreadActivity] = []
+  var folded: [V1.OrchestrationThreadActivity] = []
   folded.reserveCapacity(activities.count)
   for (index, activity) in activities.enumerated() {
     if let replacement = replacements[index] {

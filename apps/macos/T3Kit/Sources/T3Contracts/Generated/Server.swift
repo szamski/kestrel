@@ -281,133 +281,6 @@ public struct ProviderInstanceId: RawRepresentable, Hashable, Codable, Sendable,
   public var description: String { rawValue }
 }
 
-public struct ProviderOptionDescriptorBoolean: Sendable, Hashable, Codable {
-  public var id: String
-  public var label: String
-  public var description: String?
-  public var currentValue: Bool?
-
-  public init(id: String, label: String, description: String? = nil, currentValue: Bool? = nil) {
-    self.id = id
-    self.label = label
-    self.description = description
-    self.currentValue = currentValue
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case id
-    case label
-    case description
-    case currentValue
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("boolean", forKey: .type)
-    self.id = try c.decode(String.self, forKey: .id)
-    self.label = try c.decode(String.self, forKey: .label)
-    self.description = try c.decodeIfPresent(String.self, forKey: .description)
-    self.currentValue = try c.decodeIfPresent(Bool.self, forKey: .currentValue)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("boolean", forKey: .type)
-    try c.encode(id, forKey: .id)
-    try c.encode(label, forKey: .label)
-    try c.encodeIfPresent(description, forKey: .description)
-    try c.encodeIfPresent(currentValue, forKey: .currentValue)
-  }
-}
-
-public struct ProviderOptionDescriptorSelect: Sendable, Hashable, Codable {
-  public var id: String
-  public var label: String
-  public var description: String?
-  public var options: [ProviderOptionDescriptorSelectOptionsItem]
-  public var currentValue: String?
-  public var promptInjectedValues: [String]?
-
-  public init(id: String, label: String, description: String? = nil, options: [ProviderOptionDescriptorSelectOptionsItem], currentValue: String? = nil, promptInjectedValues: [String]? = nil) {
-    self.id = id
-    self.label = label
-    self.description = description
-    self.options = options
-    self.currentValue = currentValue
-    self.promptInjectedValues = promptInjectedValues
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case id
-    case label
-    case description
-    case options
-    case currentValue
-    case promptInjectedValues
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("select", forKey: .type)
-    self.id = try c.decode(String.self, forKey: .id)
-    self.label = try c.decode(String.self, forKey: .label)
-    self.description = try c.decodeIfPresent(String.self, forKey: .description)
-    self.options = try c.decode([ProviderOptionDescriptorSelectOptionsItem].self, forKey: .options)
-    self.currentValue = try c.decodeIfPresent(String.self, forKey: .currentValue)
-    self.promptInjectedValues = try c.decodeIfPresent([String].self, forKey: .promptInjectedValues)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("select", forKey: .type)
-    try c.encode(id, forKey: .id)
-    try c.encode(label, forKey: .label)
-    try c.encodeIfPresent(description, forKey: .description)
-    try c.encode(options, forKey: .options)
-    try c.encodeIfPresent(currentValue, forKey: .currentValue)
-    try c.encodeIfPresent(promptInjectedValues, forKey: .promptInjectedValues)
-  }
-}
-
-public struct ProviderOptionDescriptorSelectOptionsItem: Sendable, Hashable, Codable {
-  public var id: String
-  public var label: String
-  public var description: String?
-  public var isDefault: Bool?
-
-  public init(id: String, label: String, description: String? = nil, isDefault: Bool? = nil) {
-    self.id = id
-    self.label = label
-    self.description = description
-    self.isDefault = isDefault
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case id
-    case label
-    case description
-    case isDefault
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.id = try c.decode(String.self, forKey: .id)
-    self.label = try c.decode(String.self, forKey: .label)
-    self.description = try c.decodeIfPresent(String.self, forKey: .description)
-    self.isDefault = try c.decodeIfPresent(Bool.self, forKey: .isDefault)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(id, forKey: .id)
-    try c.encode(label, forKey: .label)
-    try c.encodeIfPresent(description, forKey: .description)
-    try c.encodeIfPresent(isDefault, forKey: .isDefault)
-  }
-}
-
 public struct ServerConfig: Sendable, Hashable, Codable {
   public var environment: ExecutionEnvironmentDescriptor
   public var auth: ServerAuthDescriptor
@@ -418,6 +291,7 @@ public struct ServerConfig: Sendable, Hashable, Codable {
   public var providers: [ServerConfigProvidersItem]
   public var availableEditors: [EditorId]
   public var remoteOpenTargets: [RemoteOpenTarget]?
+  public var directEndpoints: [ServerConfigDirectEndpointsItem]?
   public var observability: ServerObservability
   public var settings: ServerSettings
   public var shellResumeCompletionMarker: Bool?
@@ -426,10 +300,14 @@ public struct ServerConfig: Sendable, Hashable, Codable {
   public var threadResumeCompletionMarker: Bool?
   public var threadSnapshotPagination: Bool?
   public var reasoningMessages: Bool?
+  public var threadFind: Bool?
+  public var threadFindProgressive: Bool?
+  public var scratchWorkspaceRoot: String?
+  public var newProjectsRoot: String?
   public var environmentThemes: [EnvironmentTheme]?
   public var usageLimitSources: [ServerConfigUsageLimitSourcesItem]?
 
-  public init(environment: ExecutionEnvironmentDescriptor, auth: ServerAuthDescriptor, cwd: String, keybindingsConfigPath: String, keybindings: [ServerConfigKeybindingsItem], issues: [ServerConfigIssue], providers: [ServerConfigProvidersItem], availableEditors: [EditorId], remoteOpenTargets: [RemoteOpenTarget]? = nil, observability: ServerObservability, settings: ServerSettings, shellResumeCompletionMarker: Bool? = nil, shellRevealInFileManager: Bool? = nil, shellRevealInFileManagerKind: ServerConfigShellRevealInFileManagerKind? = nil, threadResumeCompletionMarker: Bool? = nil, threadSnapshotPagination: Bool? = nil, reasoningMessages: Bool? = nil, environmentThemes: [EnvironmentTheme]? = nil, usageLimitSources: [ServerConfigUsageLimitSourcesItem]? = nil) {
+  public init(environment: ExecutionEnvironmentDescriptor, auth: ServerAuthDescriptor, cwd: String, keybindingsConfigPath: String, keybindings: [ServerConfigKeybindingsItem], issues: [ServerConfigIssue], providers: [ServerConfigProvidersItem], availableEditors: [EditorId], remoteOpenTargets: [RemoteOpenTarget]? = nil, directEndpoints: [ServerConfigDirectEndpointsItem]? = nil, observability: ServerObservability, settings: ServerSettings, shellResumeCompletionMarker: Bool? = nil, shellRevealInFileManager: Bool? = nil, shellRevealInFileManagerKind: ServerConfigShellRevealInFileManagerKind? = nil, threadResumeCompletionMarker: Bool? = nil, threadSnapshotPagination: Bool? = nil, reasoningMessages: Bool? = nil, threadFind: Bool? = nil, threadFindProgressive: Bool? = nil, scratchWorkspaceRoot: String? = nil, newProjectsRoot: String? = nil, environmentThemes: [EnvironmentTheme]? = nil, usageLimitSources: [ServerConfigUsageLimitSourcesItem]? = nil) {
     self.environment = environment
     self.auth = auth
     self.cwd = cwd
@@ -439,6 +317,7 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     self.providers = providers
     self.availableEditors = availableEditors
     self.remoteOpenTargets = remoteOpenTargets
+    self.directEndpoints = directEndpoints
     self.observability = observability
     self.settings = settings
     self.shellResumeCompletionMarker = shellResumeCompletionMarker
@@ -447,6 +326,10 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     self.threadResumeCompletionMarker = threadResumeCompletionMarker
     self.threadSnapshotPagination = threadSnapshotPagination
     self.reasoningMessages = reasoningMessages
+    self.threadFind = threadFind
+    self.threadFindProgressive = threadFindProgressive
+    self.scratchWorkspaceRoot = scratchWorkspaceRoot
+    self.newProjectsRoot = newProjectsRoot
     self.environmentThemes = environmentThemes
     self.usageLimitSources = usageLimitSources
   }
@@ -461,6 +344,7 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     case providers
     case availableEditors
     case remoteOpenTargets
+    case directEndpoints
     case observability
     case settings
     case shellResumeCompletionMarker
@@ -469,6 +353,10 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     case threadResumeCompletionMarker
     case threadSnapshotPagination
     case reasoningMessages
+    case threadFind
+    case threadFindProgressive
+    case scratchWorkspaceRoot
+    case newProjectsRoot
     case environmentThemes
     case usageLimitSources
   }
@@ -484,6 +372,7 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     self.providers = try c.decodeLossyArray(ServerConfigProvidersItem.self, forKey: .providers)
     self.availableEditors = try c.decodeLossyArray(EditorId.self, forKey: .availableEditors)
     self.remoteOpenTargets = try c.decodeLossyArrayIfPresent(RemoteOpenTarget.self, forKey: .remoteOpenTargets)
+    self.directEndpoints = try c.decodeLossyArrayIfPresent(ServerConfigDirectEndpointsItem.self, forKey: .directEndpoints)
     self.observability = try c.decode(ServerObservability.self, forKey: .observability)
     self.settings = try c.decode(ServerSettings.self, forKey: .settings)
     self.shellResumeCompletionMarker = try c.decodeIfPresent(Bool.self, forKey: .shellResumeCompletionMarker)
@@ -492,6 +381,10 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     self.threadResumeCompletionMarker = try c.decodeIfPresent(Bool.self, forKey: .threadResumeCompletionMarker)
     self.threadSnapshotPagination = try c.decodeIfPresent(Bool.self, forKey: .threadSnapshotPagination)
     self.reasoningMessages = try c.decodeIfPresent(Bool.self, forKey: .reasoningMessages)
+    self.threadFind = try c.decodeIfPresent(Bool.self, forKey: .threadFind)
+    self.threadFindProgressive = try c.decodeIfPresent(Bool.self, forKey: .threadFindProgressive)
+    self.scratchWorkspaceRoot = try c.decodeIfPresent(String.self, forKey: .scratchWorkspaceRoot)
+    self.newProjectsRoot = try c.decodeIfPresent(String.self, forKey: .newProjectsRoot)
     self.environmentThemes = try c.decodeIfPresent([EnvironmentTheme].self, forKey: .environmentThemes)
     self.usageLimitSources = try c.decodeLossyArrayIfPresent(ServerConfigUsageLimitSourcesItem.self, forKey: .usageLimitSources)
   }
@@ -507,6 +400,7 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     try c.encode(providers, forKey: .providers)
     try c.encode(availableEditors, forKey: .availableEditors)
     try c.encodeIfPresent(remoteOpenTargets, forKey: .remoteOpenTargets)
+    try c.encodeIfPresent(directEndpoints, forKey: .directEndpoints)
     try c.encode(observability, forKey: .observability)
     try c.encode(settings, forKey: .settings)
     try c.encodeIfPresent(shellResumeCompletionMarker, forKey: .shellResumeCompletionMarker)
@@ -515,8 +409,39 @@ public struct ServerConfig: Sendable, Hashable, Codable {
     try c.encodeIfPresent(threadResumeCompletionMarker, forKey: .threadResumeCompletionMarker)
     try c.encodeIfPresent(threadSnapshotPagination, forKey: .threadSnapshotPagination)
     try c.encodeIfPresent(reasoningMessages, forKey: .reasoningMessages)
+    try c.encodeIfPresent(threadFind, forKey: .threadFind)
+    try c.encodeIfPresent(threadFindProgressive, forKey: .threadFindProgressive)
+    try c.encodeIfPresent(scratchWorkspaceRoot, forKey: .scratchWorkspaceRoot)
+    try c.encodeIfPresent(newProjectsRoot, forKey: .newProjectsRoot)
     try c.encodeIfPresent(environmentThemes, forKey: .environmentThemes)
     try c.encodeIfPresent(usageLimitSources, forKey: .usageLimitSources)
+  }
+}
+
+public struct ServerConfigDirectEndpointsItem: Sendable, Hashable, Codable {
+  public var kind: ServerDirectEndpointKind
+  public var httpBaseUrl: String
+
+  public init(kind: ServerDirectEndpointKind, httpBaseUrl: String) {
+    self.kind = kind
+    self.httpBaseUrl = httpBaseUrl
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case httpBaseUrl
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.kind = try c.decode(ServerDirectEndpointKind.self, forKey: .kind)
+    self.httpBaseUrl = try c.decode(String.self, forKey: .httpBaseUrl)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(kind, forKey: .kind)
+    try c.encode(httpBaseUrl, forKey: .httpBaseUrl)
   }
 }
 
@@ -711,14 +636,19 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
   public var driver: ProviderDriverKind
   public var displayName: String?
   public var accentColor: String?
+  public var iconUrl: String?
   public var badgeLabel: String?
   public var continuation: ServerProviderContinuation?
   public var showInteractionModeToggle: Bool?
   public var reportsContextWindow: Bool?
+  public var supportedRuntimeModes: [RuntimeMode]?
   public var requiresNewThreadForModelChange: Bool?
   public var supportsConversationRollback: Bool?
   public var supportsTextGeneration: Bool?
   public var setup: ServerConfigProvidersItemSetup?
+  public var nativeSessions: ServerConfigProvidersItemNativeSessions?
+  public var configurableProviders: Bool?
+  public var runtimePaths: ServerConfigProvidersItemRuntimePaths?
   public var enabled: Bool
   public var installed: Bool
   public var version: String?
@@ -729,6 +659,7 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
   public var availability: ServerProviderAvailability?
   public var unavailableReason: String?
   public var models: [ServerConfigProvidersItemModelsItem]
+  public var updateRequiredModels: [ServerConfigProvidersItemUpdateRequiredModelsItem]?
   public var slashCommands: [ServerConfigProvidersItemSlashCommandsItem]
   public var skills: [ServerConfigProvidersItemSkillsItem]
   public var workspaceSnapshots: [ServerConfigProvidersItemWorkspaceSnapshotsItem]?
@@ -737,19 +668,24 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
   public var compatibilityAdvisory: ServerConfigProvidersItemCompatibilityAdvisory?
   public var updateState: ServerConfigProvidersItemUpdateState?
 
-  public init(instanceId: ProviderInstanceId, driver: ProviderDriverKind, displayName: String? = nil, accentColor: String? = nil, badgeLabel: String? = nil, continuation: ServerProviderContinuation? = nil, showInteractionModeToggle: Bool? = nil, reportsContextWindow: Bool? = nil, requiresNewThreadForModelChange: Bool? = nil, supportsConversationRollback: Bool? = nil, supportsTextGeneration: Bool? = nil, setup: ServerConfigProvidersItemSetup? = nil, enabled: Bool, installed: Bool, version: String? = nil, status: ServerProviderState, auth: ServerConfigProvidersItemAuth, checkedAt: IsoDateTime, message: String? = nil, availability: ServerProviderAvailability? = nil, unavailableReason: String? = nil, models: [ServerConfigProvidersItemModelsItem], slashCommands: [ServerConfigProvidersItemSlashCommandsItem] = [], skills: [ServerConfigProvidersItemSkillsItem] = [], workspaceSnapshots: [ServerConfigProvidersItemWorkspaceSnapshotsItem]? = nil, usageLimits: ServerConfigProvidersItemUsageLimits? = nil, versionAdvisory: ServerConfigProvidersItemVersionAdvisory? = nil, compatibilityAdvisory: ServerConfigProvidersItemCompatibilityAdvisory? = nil, updateState: ServerConfigProvidersItemUpdateState? = nil) {
+  public init(instanceId: ProviderInstanceId, driver: ProviderDriverKind, displayName: String? = nil, accentColor: String? = nil, iconUrl: String? = nil, badgeLabel: String? = nil, continuation: ServerProviderContinuation? = nil, showInteractionModeToggle: Bool? = nil, reportsContextWindow: Bool? = nil, supportedRuntimeModes: [RuntimeMode]? = nil, requiresNewThreadForModelChange: Bool? = nil, supportsConversationRollback: Bool? = nil, supportsTextGeneration: Bool? = nil, setup: ServerConfigProvidersItemSetup? = nil, nativeSessions: ServerConfigProvidersItemNativeSessions? = nil, configurableProviders: Bool? = nil, runtimePaths: ServerConfigProvidersItemRuntimePaths? = nil, enabled: Bool, installed: Bool, version: String? = nil, status: ServerProviderState, auth: ServerConfigProvidersItemAuth, checkedAt: IsoDateTime, message: String? = nil, availability: ServerProviderAvailability? = nil, unavailableReason: String? = nil, models: [ServerConfigProvidersItemModelsItem], updateRequiredModels: [ServerConfigProvidersItemUpdateRequiredModelsItem]? = nil, slashCommands: [ServerConfigProvidersItemSlashCommandsItem], skills: [ServerConfigProvidersItemSkillsItem], workspaceSnapshots: [ServerConfigProvidersItemWorkspaceSnapshotsItem]? = nil, usageLimits: ServerConfigProvidersItemUsageLimits? = nil, versionAdvisory: ServerConfigProvidersItemVersionAdvisory? = nil, compatibilityAdvisory: ServerConfigProvidersItemCompatibilityAdvisory? = nil, updateState: ServerConfigProvidersItemUpdateState? = nil) {
     self.instanceId = instanceId
     self.driver = driver
     self.displayName = displayName
     self.accentColor = accentColor
+    self.iconUrl = iconUrl
     self.badgeLabel = badgeLabel
     self.continuation = continuation
     self.showInteractionModeToggle = showInteractionModeToggle
     self.reportsContextWindow = reportsContextWindow
+    self.supportedRuntimeModes = supportedRuntimeModes
     self.requiresNewThreadForModelChange = requiresNewThreadForModelChange
     self.supportsConversationRollback = supportsConversationRollback
     self.supportsTextGeneration = supportsTextGeneration
     self.setup = setup
+    self.nativeSessions = nativeSessions
+    self.configurableProviders = configurableProviders
+    self.runtimePaths = runtimePaths
     self.enabled = enabled
     self.installed = installed
     self.version = version
@@ -760,6 +696,7 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     self.availability = availability
     self.unavailableReason = unavailableReason
     self.models = models
+    self.updateRequiredModels = updateRequiredModels
     self.slashCommands = slashCommands
     self.skills = skills
     self.workspaceSnapshots = workspaceSnapshots
@@ -774,14 +711,19 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     case driver
     case displayName
     case accentColor
+    case iconUrl
     case badgeLabel
     case continuation
     case showInteractionModeToggle
     case reportsContextWindow
+    case supportedRuntimeModes
     case requiresNewThreadForModelChange
     case supportsConversationRollback
     case supportsTextGeneration
     case setup
+    case nativeSessions
+    case configurableProviders
+    case runtimePaths
     case enabled
     case installed
     case version
@@ -792,6 +734,7 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     case availability
     case unavailableReason
     case models
+    case updateRequiredModels
     case slashCommands
     case skills
     case workspaceSnapshots
@@ -807,14 +750,19 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     self.driver = try c.decode(ProviderDriverKind.self, forKey: .driver)
     self.displayName = try c.decodeIfPresent(String.self, forKey: .displayName)
     self.accentColor = try c.decodeIfPresent(String.self, forKey: .accentColor)
+    self.iconUrl = try c.decodeIfPresent(String.self, forKey: .iconUrl)
     self.badgeLabel = try c.decodeIfPresent(String.self, forKey: .badgeLabel)
     self.continuation = try c.decodeIfPresent(ServerProviderContinuation.self, forKey: .continuation)
     self.showInteractionModeToggle = try c.decodeIfPresent(Bool.self, forKey: .showInteractionModeToggle)
     self.reportsContextWindow = try c.decodeIfPresent(Bool.self, forKey: .reportsContextWindow)
+    self.supportedRuntimeModes = try c.decodeIfPresent([RuntimeMode].self, forKey: .supportedRuntimeModes)
     self.requiresNewThreadForModelChange = try c.decodeIfPresent(Bool.self, forKey: .requiresNewThreadForModelChange)
     self.supportsConversationRollback = try c.decodeIfPresent(Bool.self, forKey: .supportsConversationRollback)
     self.supportsTextGeneration = try c.decodeIfPresent(Bool.self, forKey: .supportsTextGeneration)
     self.setup = try c.decodeIfPresent(ServerConfigProvidersItemSetup.self, forKey: .setup)
+    self.nativeSessions = try c.decodeIfPresent(ServerConfigProvidersItemNativeSessions.self, forKey: .nativeSessions)
+    self.configurableProviders = try c.decodeIfPresent(Bool.self, forKey: .configurableProviders)
+    self.runtimePaths = try c.decodeIfPresent(ServerConfigProvidersItemRuntimePaths.self, forKey: .runtimePaths)
     self.enabled = try c.decode(Bool.self, forKey: .enabled)
     self.installed = try c.decode(Bool.self, forKey: .installed)
     self.version = try c.decodeIfPresent(String.self, forKey: .version)
@@ -825,8 +773,9 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     self.availability = try c.decodeIfPresent(ServerProviderAvailability.self, forKey: .availability)
     self.unavailableReason = try c.decodeIfPresent(String.self, forKey: .unavailableReason)
     self.models = try c.decode([ServerConfigProvidersItemModelsItem].self, forKey: .models)
-    self.slashCommands = (try c.decodeIfPresent([ServerConfigProvidersItemSlashCommandsItem].self, forKey: .slashCommands)) ?? []
-    self.skills = (try c.decodeIfPresent([ServerConfigProvidersItemSkillsItem].self, forKey: .skills)) ?? []
+    self.updateRequiredModels = try c.decodeIfPresent([ServerConfigProvidersItemUpdateRequiredModelsItem].self, forKey: .updateRequiredModels)
+    self.slashCommands = try c.decode([ServerConfigProvidersItemSlashCommandsItem].self, forKey: .slashCommands)
+    self.skills = try c.decode([ServerConfigProvidersItemSkillsItem].self, forKey: .skills)
     self.workspaceSnapshots = try c.decodeIfPresent([ServerConfigProvidersItemWorkspaceSnapshotsItem].self, forKey: .workspaceSnapshots)
     self.usageLimits = try c.decodeIfPresent(ServerConfigProvidersItemUsageLimits.self, forKey: .usageLimits)
     self.versionAdvisory = try c.decodeIfPresent(ServerConfigProvidersItemVersionAdvisory.self, forKey: .versionAdvisory)
@@ -840,14 +789,19 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     try c.encode(driver, forKey: .driver)
     try c.encodeIfPresent(displayName, forKey: .displayName)
     try c.encodeIfPresent(accentColor, forKey: .accentColor)
+    try c.encodeIfPresent(iconUrl, forKey: .iconUrl)
     try c.encodeIfPresent(badgeLabel, forKey: .badgeLabel)
     try c.encodeIfPresent(continuation, forKey: .continuation)
     try c.encodeIfPresent(showInteractionModeToggle, forKey: .showInteractionModeToggle)
     try c.encodeIfPresent(reportsContextWindow, forKey: .reportsContextWindow)
+    try c.encodeIfPresent(supportedRuntimeModes, forKey: .supportedRuntimeModes)
     try c.encodeIfPresent(requiresNewThreadForModelChange, forKey: .requiresNewThreadForModelChange)
     try c.encodeIfPresent(supportsConversationRollback, forKey: .supportsConversationRollback)
     try c.encodeIfPresent(supportsTextGeneration, forKey: .supportsTextGeneration)
     try c.encodeIfPresent(setup, forKey: .setup)
+    try c.encodeIfPresent(nativeSessions, forKey: .nativeSessions)
+    try c.encodeIfPresent(configurableProviders, forKey: .configurableProviders)
+    try c.encodeIfPresent(runtimePaths, forKey: .runtimePaths)
     try c.encode(enabled, forKey: .enabled)
     try c.encode(installed, forKey: .installed)
     try c.encode(version, forKey: .version)
@@ -858,6 +812,7 @@ public struct ServerConfigProvidersItem: Sendable, Hashable, Codable {
     try c.encodeIfPresent(availability, forKey: .availability)
     try c.encodeIfPresent(unavailableReason, forKey: .unavailableReason)
     try c.encode(models, forKey: .models)
+    try c.encodeIfPresent(updateRequiredModels, forKey: .updateRequiredModels)
     try c.encode(slashCommands, forKey: .slashCommands)
     try c.encode(skills, forKey: .skills)
     try c.encodeIfPresent(workspaceSnapshots, forKey: .workspaceSnapshots)
@@ -873,12 +828,20 @@ public struct ServerConfigProvidersItemAuth: Sendable, Hashable, Codable {
   public var type: String?
   public var label: String?
   public var email: String?
+  public var action: ServerConfigProvidersItemAuthAction?
+  public var canLogout: Bool?
+  public var subscriptionSharing: Bool?
+  public var profileId: String?
 
-  public init(status: ServerProviderAuthStatus, type: String? = nil, label: String? = nil, email: String? = nil) {
+  public init(status: ServerProviderAuthStatus, type: String? = nil, label: String? = nil, email: String? = nil, action: ServerConfigProvidersItemAuthAction? = nil, canLogout: Bool? = nil, subscriptionSharing: Bool? = nil, profileId: String? = nil) {
     self.status = status
     self.type = type
     self.label = label
     self.email = email
+    self.action = action
+    self.canLogout = canLogout
+    self.subscriptionSharing = subscriptionSharing
+    self.profileId = profileId
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -886,6 +849,10 @@ public struct ServerConfigProvidersItemAuth: Sendable, Hashable, Codable {
     case type
     case label
     case email
+    case action
+    case canLogout
+    case subscriptionSharing
+    case profileId
   }
 
   public init(from decoder: any Decoder) throws {
@@ -894,6 +861,10 @@ public struct ServerConfigProvidersItemAuth: Sendable, Hashable, Codable {
     self.type = try c.decodeIfPresent(String.self, forKey: .type)
     self.label = try c.decodeIfPresent(String.self, forKey: .label)
     self.email = try c.decodeIfPresent(String.self, forKey: .email)
+    self.action = try c.decodeIfPresent(ServerConfigProvidersItemAuthAction.self, forKey: .action)
+    self.canLogout = try c.decodeIfPresent(Bool.self, forKey: .canLogout)
+    self.subscriptionSharing = try c.decodeIfPresent(Bool.self, forKey: .subscriptionSharing)
+    self.profileId = try c.decodeIfPresent(String.self, forKey: .profileId)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -902,6 +873,52 @@ public struct ServerConfigProvidersItemAuth: Sendable, Hashable, Codable {
     try c.encodeIfPresent(type, forKey: .type)
     try c.encodeIfPresent(label, forKey: .label)
     try c.encodeIfPresent(email, forKey: .email)
+    try c.encodeIfPresent(action, forKey: .action)
+    try c.encodeIfPresent(canLogout, forKey: .canLogout)
+    try c.encodeIfPresent(subscriptionSharing, forKey: .subscriptionSharing)
+    try c.encodeIfPresent(profileId, forKey: .profileId)
+  }
+}
+
+public struct ServerConfigProvidersItemAuthAction: Sendable, Hashable, Codable {
+  public var elicitationId: String
+  public var url: String
+  public var message: String
+  public var createdAt: IsoDateTime?
+  public var expiresAt: IsoDateTime?
+
+  public init(elicitationId: String, url: String, message: String, createdAt: IsoDateTime? = nil, expiresAt: IsoDateTime? = nil) {
+    self.elicitationId = elicitationId
+    self.url = url
+    self.message = message
+    self.createdAt = createdAt
+    self.expiresAt = expiresAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case elicitationId
+    case url
+    case message
+    case createdAt
+    case expiresAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.elicitationId = try c.decode(String.self, forKey: .elicitationId)
+    self.url = try c.decode(String.self, forKey: .url)
+    self.message = try c.decode(String.self, forKey: .message)
+    self.createdAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .createdAt)
+    self.expiresAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .expiresAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(elicitationId, forKey: .elicitationId)
+    try c.encode(url, forKey: .url)
+    try c.encode(message, forKey: .message)
+    try c.encodeIfPresent(createdAt, forKey: .createdAt)
+    try c.encodeIfPresent(expiresAt, forKey: .expiresAt)
   }
 }
 
@@ -998,9 +1015,9 @@ public struct ServerConfigProvidersItemModelsItem: Sendable, Hashable, Codable {
   public var isCustom: Bool
   public var isDefault: Bool?
   public var isLegacy: Bool?
-  public var capabilities: ServerConfigProvidersItemModelsItemCapabilities?
+  public var capabilities: ModelCapabilities?
 
-  public init(slug: String, name: String, shortName: String? = nil, subProvider: String? = nil, aliases: [String]? = nil, badge: String? = nil, isCustom: Bool, isDefault: Bool? = nil, isLegacy: Bool? = nil, capabilities: ServerConfigProvidersItemModelsItemCapabilities? = nil) {
+  public init(slug: String, name: String, shortName: String? = nil, subProvider: String? = nil, aliases: [String]? = nil, badge: String? = nil, isCustom: Bool, isDefault: Bool? = nil, isLegacy: Bool? = nil, capabilities: ModelCapabilities? = nil) {
     self.slug = slug
     self.name = name
     self.shortName = shortName
@@ -1037,7 +1054,7 @@ public struct ServerConfigProvidersItemModelsItem: Sendable, Hashable, Codable {
     self.isCustom = try c.decode(Bool.self, forKey: .isCustom)
     self.isDefault = try c.decodeIfPresent(Bool.self, forKey: .isDefault)
     self.isLegacy = try c.decodeIfPresent(Bool.self, forKey: .isLegacy)
-    self.capabilities = try c.decodeIfPresent(ServerConfigProvidersItemModelsItemCapabilities.self, forKey: .capabilities)
+    self.capabilities = try c.decodeIfPresent(ModelCapabilities.self, forKey: .capabilities)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -1055,52 +1072,99 @@ public struct ServerConfigProvidersItemModelsItem: Sendable, Hashable, Codable {
   }
 }
 
-public struct ServerConfigProvidersItemModelsItemCapabilities: Sendable, Hashable, Codable {
-  public var optionDescriptors: [ProviderOptionDescriptor]?
+public struct ServerConfigProvidersItemNativeSessions: Sendable, Hashable, Codable {
+  public var canList: Bool
+  public var canLoad: Bool
+  public var canResume: Bool
+  public var canDelete: Bool?
 
-  public init(optionDescriptors: [ProviderOptionDescriptor]? = nil) {
-    self.optionDescriptors = optionDescriptors
+  public init(canList: Bool, canLoad: Bool, canResume: Bool, canDelete: Bool? = nil) {
+    self.canList = canList
+    self.canLoad = canLoad
+    self.canResume = canResume
+    self.canDelete = canDelete
   }
 
   private enum CodingKeys: String, CodingKey {
-    case optionDescriptors
+    case canList
+    case canLoad
+    case canResume
+    case canDelete
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.optionDescriptors = try c.decodeIfPresent([ProviderOptionDescriptor].self, forKey: .optionDescriptors)
+    self.canList = try c.decode(Bool.self, forKey: .canList)
+    self.canLoad = try c.decode(Bool.self, forKey: .canLoad)
+    self.canResume = try c.decode(Bool.self, forKey: .canResume)
+    self.canDelete = try c.decodeIfPresent(Bool.self, forKey: .canDelete)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(optionDescriptors, forKey: .optionDescriptors)
+    try c.encode(canList, forKey: .canList)
+    try c.encode(canLoad, forKey: .canLoad)
+    try c.encode(canResume, forKey: .canResume)
+    try c.encodeIfPresent(canDelete, forKey: .canDelete)
+  }
+}
+
+public struct ServerConfigProvidersItemRuntimePaths: Sendable, Hashable, Codable {
+  public var homePath: String
+  public var shadowHomePath: String?
+
+  public init(homePath: String, shadowHomePath: String? = nil) {
+    self.homePath = homePath
+    self.shadowHomePath = shadowHomePath
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case homePath
+    case shadowHomePath
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.homePath = try c.decode(String.self, forKey: .homePath)
+    self.shadowHomePath = try c.decodeIfPresent(String.self, forKey: .shadowHomePath)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(homePath, forKey: .homePath)
+    try c.encode(shadowHomePath, forKey: .shadowHomePath)
   }
 }
 
 public struct ServerConfigProvidersItemSetup: Sendable, Hashable, Codable {
   public var canAuthenticate: Bool
   public var canInstall: Bool
+  public var documentationUrl: String?
 
-  public init(canAuthenticate: Bool, canInstall: Bool) {
+  public init(canAuthenticate: Bool, canInstall: Bool, documentationUrl: String? = nil) {
     self.canAuthenticate = canAuthenticate
     self.canInstall = canInstall
+    self.documentationUrl = documentationUrl
   }
 
   private enum CodingKeys: String, CodingKey {
     case canAuthenticate
     case canInstall
+    case documentationUrl
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.canAuthenticate = try c.decode(Bool.self, forKey: .canAuthenticate)
     self.canInstall = try c.decode(Bool.self, forKey: .canInstall)
+    self.documentationUrl = try c.decodeIfPresent(String.self, forKey: .documentationUrl)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(canAuthenticate, forKey: .canAuthenticate)
     try c.encode(canInstall, forKey: .canInstall)
+    try c.encodeIfPresent(documentationUrl, forKey: .documentationUrl)
   }
 }
 
@@ -1198,6 +1262,43 @@ public struct ServerConfigProvidersItemSlashCommandsItem: Sendable, Hashable, Co
   }
 }
 
+public struct ServerConfigProvidersItemUpdateRequiredModelsItem: Sendable, Hashable, Codable {
+  public var slug: String
+  public var name: String
+  public var badge: String?
+  public var minVersion: String
+
+  public init(slug: String, name: String, badge: String? = nil, minVersion: String) {
+    self.slug = slug
+    self.name = name
+    self.badge = badge
+    self.minVersion = minVersion
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case slug
+    case name
+    case badge
+    case minVersion
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.slug = try c.decode(String.self, forKey: .slug)
+    self.name = try c.decode(String.self, forKey: .name)
+    self.badge = try c.decodeIfPresent(String.self, forKey: .badge)
+    self.minVersion = try c.decode(String.self, forKey: .minVersion)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(slug, forKey: .slug)
+    try c.encode(name, forKey: .name)
+    try c.encodeIfPresent(badge, forKey: .badge)
+    try c.encode(minVersion, forKey: .minVersion)
+  }
+}
+
 public struct ServerConfigProvidersItemUpdateState: Sendable, Hashable, Codable {
   public var status: ServerProviderUpdateStatus
   public var startedAt: IsoDateTime?
@@ -1243,28 +1344,36 @@ public struct ServerConfigProvidersItemUpdateState: Sendable, Hashable, Codable 
 public struct ServerConfigProvidersItemUsageLimits: Sendable, Hashable, Codable {
   public var checkedAt: IsoDateTime
   public var windows: [ServerConfigProvidersItemUsageLimitsWindowsItem]
+  public var credentialFingerprint: String?
   public var resetCredits: ServerConfigProvidersItemUsageLimitsResetCredits?
+  public var externalUsage: ServerConfigProvidersItemUsageLimitsExternalUsage?
   public var unavailable: ServerConfigProvidersItemUsageLimitsUnavailable?
 
-  public init(checkedAt: IsoDateTime, windows: [ServerConfigProvidersItemUsageLimitsWindowsItem], resetCredits: ServerConfigProvidersItemUsageLimitsResetCredits? = nil, unavailable: ServerConfigProvidersItemUsageLimitsUnavailable? = nil) {
+  public init(checkedAt: IsoDateTime, windows: [ServerConfigProvidersItemUsageLimitsWindowsItem], credentialFingerprint: String? = nil, resetCredits: ServerConfigProvidersItemUsageLimitsResetCredits? = nil, externalUsage: ServerConfigProvidersItemUsageLimitsExternalUsage? = nil, unavailable: ServerConfigProvidersItemUsageLimitsUnavailable? = nil) {
     self.checkedAt = checkedAt
     self.windows = windows
+    self.credentialFingerprint = credentialFingerprint
     self.resetCredits = resetCredits
+    self.externalUsage = externalUsage
     self.unavailable = unavailable
   }
 
   private enum CodingKeys: String, CodingKey {
     case checkedAt
     case windows
+    case credentialFingerprint
     case resetCredits
+    case externalUsage
     case unavailable
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.checkedAt = try c.decode(IsoDateTime.self, forKey: .checkedAt)
-    self.windows = try c.decodeLossyArray(ServerConfigProvidersItemUsageLimitsWindowsItem.self, forKey: .windows)
+    self.windows = try c.decode([ServerConfigProvidersItemUsageLimitsWindowsItem].self, forKey: .windows)
+    self.credentialFingerprint = try c.decodeIfPresent(String.self, forKey: .credentialFingerprint)
     self.resetCredits = try c.decodeIfPresent(ServerConfigProvidersItemUsageLimitsResetCredits.self, forKey: .resetCredits)
+    self.externalUsage = try c.decodeIfPresent(ServerConfigProvidersItemUsageLimitsExternalUsage.self, forKey: .externalUsage)
     self.unavailable = try c.decodeIfPresent(ServerConfigProvidersItemUsageLimitsUnavailable.self, forKey: .unavailable)
   }
 
@@ -1272,8 +1381,37 @@ public struct ServerConfigProvidersItemUsageLimits: Sendable, Hashable, Codable 
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(checkedAt, forKey: .checkedAt)
     try c.encode(windows, forKey: .windows)
+    try c.encodeIfPresent(credentialFingerprint, forKey: .credentialFingerprint)
     try c.encodeIfPresent(resetCredits, forKey: .resetCredits)
+    try c.encodeIfPresent(externalUsage, forKey: .externalUsage)
     try c.encodeIfPresent(unavailable, forKey: .unavailable)
+  }
+}
+
+public struct ServerConfigProvidersItemUsageLimitsExternalUsage: Sendable, Hashable, Codable {
+  public var label: String
+  public var url: String
+
+  public init(label: String, url: String) {
+    self.label = label
+    self.url = url
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case label
+    case url
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.label = try c.decode(String.self, forKey: .label)
+    self.url = try c.decode(String.self, forKey: .url)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(label, forKey: .label)
+    try c.encode(url, forKey: .url)
   }
 }
 
@@ -1463,7 +1601,7 @@ public struct ServerConfigProvidersItemVersionAdvisory: Sendable, Hashable, Coda
   public var checkedAt: IsoDateTime?
   public var message: String?
 
-  public init(status: ServerProviderVersionAdvisoryStatus, currentVersion: String? = nil, latestVersion: String? = nil, updateCommand: String? = nil, canUpdate: Bool = false, canInstallVersion: Bool? = nil, checkedAt: IsoDateTime? = nil, message: String? = nil) {
+  public init(status: ServerProviderVersionAdvisoryStatus, currentVersion: String? = nil, latestVersion: String? = nil, updateCommand: String? = nil, canUpdate: Bool, canInstallVersion: Bool? = nil, checkedAt: IsoDateTime? = nil, message: String? = nil) {
     self.status = status
     self.currentVersion = currentVersion
     self.latestVersion = latestVersion
@@ -1491,7 +1629,7 @@ public struct ServerConfigProvidersItemVersionAdvisory: Sendable, Hashable, Coda
     self.currentVersion = try c.decodeIfPresent(String.self, forKey: .currentVersion)
     self.latestVersion = try c.decodeIfPresent(String.self, forKey: .latestVersion)
     self.updateCommand = try c.decodeIfPresent(String.self, forKey: .updateCommand)
-    self.canUpdate = (try c.decodeIfPresent(Bool.self, forKey: .canUpdate)) ?? false
+    self.canUpdate = try c.decode(Bool.self, forKey: .canUpdate)
     self.canInstallVersion = try c.decodeIfPresent(Bool.self, forKey: .canInstallVersion)
     self.checkedAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .checkedAt)
     self.message = try c.decodeIfPresent(String.self, forKey: .message)
@@ -1514,12 +1652,14 @@ public struct ServerConfigProvidersItemWorkspaceSnapshotsItem: Sendable, Hashabl
   public var cwd: String
   public var checkedAt: IsoDateTime
   public var slashCommands: [ServerConfigProvidersItemSlashCommandsItem]
+  public var slashCommandsPending: Bool?
   public var skills: [ServerConfigProvidersItemSkillsItem]
 
-  public init(cwd: String, checkedAt: IsoDateTime, slashCommands: [ServerConfigProvidersItemSlashCommandsItem], skills: [ServerConfigProvidersItemSkillsItem]) {
+  public init(cwd: String, checkedAt: IsoDateTime, slashCommands: [ServerConfigProvidersItemSlashCommandsItem], slashCommandsPending: Bool? = nil, skills: [ServerConfigProvidersItemSkillsItem]) {
     self.cwd = cwd
     self.checkedAt = checkedAt
     self.slashCommands = slashCommands
+    self.slashCommandsPending = slashCommandsPending
     self.skills = skills
   }
 
@@ -1527,6 +1667,7 @@ public struct ServerConfigProvidersItemWorkspaceSnapshotsItem: Sendable, Hashabl
     case cwd
     case checkedAt
     case slashCommands
+    case slashCommandsPending
     case skills
   }
 
@@ -1535,6 +1676,7 @@ public struct ServerConfigProvidersItemWorkspaceSnapshotsItem: Sendable, Hashabl
     self.cwd = try c.decode(String.self, forKey: .cwd)
     self.checkedAt = try c.decode(IsoDateTime.self, forKey: .checkedAt)
     self.slashCommands = try c.decode([ServerConfigProvidersItemSlashCommandsItem].self, forKey: .slashCommands)
+    self.slashCommandsPending = try c.decodeIfPresent(Bool.self, forKey: .slashCommandsPending)
     self.skills = try c.decode([ServerConfigProvidersItemSkillsItem].self, forKey: .skills)
   }
 
@@ -1543,6 +1685,7 @@ public struct ServerConfigProvidersItemWorkspaceSnapshotsItem: Sendable, Hashabl
     try c.encode(cwd, forKey: .cwd)
     try c.encode(checkedAt, forKey: .checkedAt)
     try c.encode(slashCommands, forKey: .slashCommands)
+    try c.encodeIfPresent(slashCommandsPending, forKey: .slashCommandsPending)
     try c.encode(skills, forKey: .skills)
   }
 }
@@ -1842,7 +1985,7 @@ public struct ServerConfigUsageLimitSourcesItem: Sendable, Hashable, Codable {
     self.id = try c.decode(UsageLimitSourceId.self, forKey: .id)
     self.label = try c.decode(String.self, forKey: .label)
     self.checkedAt = try c.decode(IsoDateTime.self, forKey: .checkedAt)
-    self.accounts = try c.decodeLossyArray(ServerConfigUsageLimitSourcesItemAccountsItem.self, forKey: .accounts)
+    self.accounts = try c.decode([ServerConfigUsageLimitSourcesItemAccountsItem].self, forKey: .accounts)
     self.error = try c.decodeIfPresent(String.self, forKey: .error)
   }
 
@@ -1918,6 +2061,97 @@ public struct ServerConfigUsageLimitSourcesUpdatedPayload: Sendable, Hashable, C
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(sources, forKey: .sources)
+  }
+}
+
+public enum ServerDirectEndpointKind: Sendable, Hashable, Codable, RawRepresentable {
+  case lan
+  case tailnet
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "lan": self = .lan
+    case "tailnet": self = .tailnet
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .lan: "lan"
+    case .tailnet: "tailnet"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct ServerLifecycleLegacyThreadMigrationPayload: Sendable, Hashable, Codable {
+  public var status: ServerLifecycleLegacyThreadMigrationPayloadStatus
+  public var totalThreadCount: Int
+
+  public init(status: ServerLifecycleLegacyThreadMigrationPayloadStatus, totalThreadCount: Int) {
+    self.status = status
+    self.totalThreadCount = totalThreadCount
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case status
+    case totalThreadCount
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.status = try c.decode(ServerLifecycleLegacyThreadMigrationPayloadStatus.self, forKey: .status)
+    self.totalThreadCount = try c.decode(Int.self, forKey: .totalThreadCount)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(status, forKey: .status)
+    try c.encode(totalThreadCount, forKey: .totalThreadCount)
+  }
+}
+
+public enum ServerLifecycleLegacyThreadMigrationPayloadStatus: Sendable, Hashable, Codable, RawRepresentable {
+  case running
+  case complete
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "running": self = .running
+    case "complete": self = .complete
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .running: "running"
+    case .complete: "complete"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
   }
 }
 
@@ -2033,6 +2267,7 @@ public enum ServerLifecycleReadyPayloadUpdateOutcomeStatus: Sendable, Hashable, 
 public enum ServerLifecycleStreamEvent: Sendable, Hashable, Codable {
   case welcome(ServerLifecycleStreamWelcomeEvent)
   case ready(ServerLifecycleStreamReadyEvent)
+  case legacyThreadMigration(ServerLifecycleStreamLegacyThreadMigrationEvent)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
 
@@ -2044,6 +2279,7 @@ public enum ServerLifecycleStreamEvent: Sendable, Hashable, Codable {
     switch tag {
     case "welcome"?: self = .welcome(try ServerLifecycleStreamWelcomeEvent(from: decoder))
     case "ready"?: self = .ready(try ServerLifecycleStreamReadyEvent(from: decoder))
+    case "legacyThreadMigration"?: self = .legacyThreadMigration(try ServerLifecycleStreamLegacyThreadMigrationEvent(from: decoder))
     default:
       self = .unknown(try JSONValue(from: decoder))
     }
@@ -2053,8 +2289,42 @@ public enum ServerLifecycleStreamEvent: Sendable, Hashable, Codable {
     switch self {
     case .welcome(let value): try value.encode(to: encoder)
     case .ready(let value): try value.encode(to: encoder)
+    case .legacyThreadMigration(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
+  }
+}
+
+public struct ServerLifecycleStreamLegacyThreadMigrationEvent: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var payload: ServerLifecycleLegacyThreadMigrationPayload
+
+  public init(sequence: Int, payload: ServerLifecycleLegacyThreadMigrationPayload) {
+    self.sequence = sequence
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case version
+    case type
+    case sequence
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant(1, forKey: .version)
+    try c.expectConstant("legacyThreadMigration", forKey: .type)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.payload = try c.decode(ServerLifecycleLegacyThreadMigrationPayload.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(1, forKey: .version)
+    try c.encode("legacyThreadMigration", forKey: .type)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(payload, forKey: .payload)
   }
 }
 
@@ -3134,33 +3404,6 @@ public struct ServerRemoveKeybindingInput: Sendable, Hashable, Codable {
   }
 }
 
-public struct ServerRemoveKeybindingResult: Sendable, Hashable, Codable {
-  public var keybindings: [ServerConfigKeybindingsItem]
-  public var issues: [ServerConfigIssue]
-
-  public init(keybindings: [ServerConfigKeybindingsItem], issues: [ServerConfigIssue]) {
-    self.keybindings = keybindings
-    self.issues = issues
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case keybindings
-    case issues
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.keybindings = try c.decodeLossyArray(ServerConfigKeybindingsItem.self, forKey: .keybindings)
-    self.issues = try c.decodeLossyArray(ServerConfigIssue.self, forKey: .issues)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(keybindings, forKey: .keybindings)
-    try c.encode(issues, forKey: .issues)
-  }
-}
-
 public struct ServerSelfUpdateError: Sendable, Hashable, Codable, Error {
   public var reason: String
   public var cause: JSONValue?
@@ -3819,6 +4062,33 @@ public struct ServerUpsertKeybindingInput: Sendable, Hashable, Codable {
     try c.encode(command, forKey: .command)
     try c.encodeIfPresent(when, forKey: .when)
     try c.encodeIfPresent(replace, forKey: .replace)
+  }
+}
+
+public struct ServerUpsertKeybindingResult: Sendable, Hashable, Codable {
+  public var keybindings: [ServerConfigKeybindingsItem]
+  public var issues: [ServerConfigIssue]
+
+  public init(keybindings: [ServerConfigKeybindingsItem], issues: [ServerConfigIssue]) {
+    self.keybindings = keybindings
+    self.issues = issues
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case keybindings
+    case issues
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.keybindings = try c.decodeLossyArray(ServerConfigKeybindingsItem.self, forKey: .keybindings)
+    self.issues = try c.decodeLossyArray(ServerConfigIssue.self, forKey: .issues)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(keybindings, forKey: .keybindings)
+    try c.encode(issues, forKey: .issues)
   }
 }
 

@@ -52,7 +52,7 @@ private func maxIsoTimestamp(_ a: String?, _ b: String?) -> String? {
 
 /// Start of the elapsed time shown for each message: the last user message or the end of the
 /// previous settled assistant message.
-public func computeMessageDurationStart(_ messages: [OrchestrationMessage]) -> [String: String] {
+public func computeMessageDurationStart(_ messages: [V1.OrchestrationMessage]) -> [String: String] {
   var result: [String: String] = [:]
   var lastBoundary: String?
   for message in messages {
@@ -66,14 +66,14 @@ public func computeMessageDurationStart(_ messages: [OrchestrationMessage]) -> [
 /// The session's running turn is authoritative when latestTurn briefly lags or regresses behind
 /// it. Otherwise the latest turn counts as unsettled while it is still running (or has not
 /// recorded a completion).
-public func deriveUnsettledTurnId(latestTurn: LatestTurnTiming?, runningTurnId: TurnId?) -> TurnId? {
+public func deriveUnsettledTurnId(latestTurn: LatestTurnTiming?, runningTurnId: V1.TurnId?) -> V1.TurnId? {
   if let runningTurnId { return runningTurnId }
   guard let latestTurn else { return nil }
   let isSettled = latestTurn.completedAt != nil && latestTurn.state != .running
   return isSettled ? nil : latestTurn.turnId
 }
 
-private func timelineEntryTurnId(_ entry: TimelineEntry) -> TurnId? {
+private func timelineEntryTurnId(_ entry: TimelineEntry) -> V1.TurnId? {
   switch entry {
   case .message(let message): message.role == .assistant || message.role == .reasoning ? message.turnId : nil
   case .proposedPlan(let plan): plan.turnId
@@ -127,8 +127,8 @@ private func deriveTerminalAssistantMessageIds(_ entries: [TimelineEntry]) -> Se
 /// A promptless provider restart replaces the native turn without adding a user message. Keep
 /// every provider turn since the latest user message in one visual response until the
 /// replacement turn settles.
-private func deriveActiveVisualResponseTurnIds(entries: [TimelineEntry], unsettledTurnId: TurnId?, isWorking: Bool) -> Set<TurnId> {
-  var turnIds = Set<TurnId>()
+private func deriveActiveVisualResponseTurnIds(entries: [TimelineEntry], unsettledTurnId: V1.TurnId?, isWorking: Bool) -> Set<V1.TurnId> {
+  var turnIds = Set<V1.TurnId>()
   guard let unsettledTurnId else { return turnIds }
   turnIds.insert(unsettledTurnId)
   if !isWorking { return turnIds }
@@ -140,7 +140,7 @@ private func deriveActiveVisualResponseTurnIds(entries: [TimelineEntry], unsettl
 }
 
 private struct TurnFold {
-  var turnId: TurnId
+  var turnId: V1.TurnId
   var anchorEntryId: String
   var createdAt: String
   var hiddenEntryIds: Set<String>
@@ -154,7 +154,7 @@ private func deriveTurnFolds(
   entries: [TimelineEntry],
   terminalAssistantMessageIds: Set<String>,
   latestTurn: LatestTurnTiming?,
-  unfoldedTurnIds: Set<TurnId>
+  unfoldedTurnIds: Set<V1.TurnId>
 ) -> [String: TurnFold] {
   struct TurnGroup {
     var entries: [TimelineEntry] = []
@@ -164,8 +164,8 @@ private func deriveTurnFolds(
     /// The user message that kicked the turn off.
     var startBoundary: String?
   }
-  var groupOrder: [TurnId] = []
-  var groups: [TurnId: TurnGroup] = [:]
+  var groupOrder: [V1.TurnId] = []
+  var groups: [V1.TurnId: TurnGroup] = [:]
 
   var pendingUserBoundary: String?
   for entry in entries {
@@ -174,7 +174,7 @@ private func deriveTurnFolds(
       continue
     }
     // Thinking is work, so it folds with the rest of it.
-    let turnId: TurnId?
+    let turnId: V1.TurnId?
     switch entry {
     case .message(let message): turnId = message.role == .assistant || message.role == .reasoning ? message.turnId : nil
     case .work(let work): turnId = work.turnId
@@ -343,8 +343,8 @@ private func attachTrailingToolGroupsToAssistant(_ rows: [TimelineRow]) -> [Time
 private func buildRevertTurnCountByUserMessageId(
   supportsConversationRollback: Bool,
   entries: [TimelineEntry],
-  summaryByAssistantMessageId: [MessageId: OrchestrationCheckpointSummary],
-  inferredTurnCountByTurnId: [TurnId: Int]
+  summaryByAssistantMessageId: [MessageId: V1.OrchestrationCheckpointSummary],
+  inferredTurnCountByTurnId: [V1.TurnId: Int]
 ) -> [String: Int] {
   var byUserMessageId: [String: Int] = [:]
   guard supportsConversationRollback else { return byUserMessageId }
@@ -370,7 +370,7 @@ private func buildRevertTurnCountByUserMessageId(
 
 public func deriveMessagesTimelineRows(_ input: TimelineRowsInput) -> [TimelineRow] {
   let entries = input.timelineEntries
-  var summaryByAssistantMessageId: [MessageId: OrchestrationCheckpointSummary] = [:]
+  var summaryByAssistantMessageId: [MessageId: V1.OrchestrationCheckpointSummary] = [:]
   for summary in input.turnDiffSummaries {
     if let id = summary.assistantMessageId, !id.rawValue.isEmpty { summaryByAssistantMessageId[id] = summary }
   }

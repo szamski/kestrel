@@ -5,7 +5,7 @@ import T3Contracts
 // the ordered, collapsed rows the chat shows between messages.
 
 /// `compareActivitiesByOrder`: provider sequence first, then time, lifecycle stage and id.
-func compareActivitiesByOrder(_ left: OrchestrationThreadActivity, _ right: OrchestrationThreadActivity) -> Int {
+func compareActivitiesByOrder(_ left: V1.OrchestrationThreadActivity, _ right: V1.OrchestrationThreadActivity) -> Int {
   if let l = left.sequence, let r = right.sequence {
     if l != r { return l - r }
   } else if left.sequence != nil {
@@ -35,15 +35,15 @@ func isBackgroundTaskActivity(_ payload: JSObject) -> Bool {
 
 // MARK: - Activity classification
 
-private func payloadRecord(_ activity: OrchestrationThreadActivity) -> JSObject? { activity.payload.looseRecord }
+private func payloadRecord(_ activity: V1.OrchestrationThreadActivity) -> JSObject? { activity.payload.looseRecord }
 
 /// Agent (non-background) task.started rows seed spawn CTA batches.
-private func isAgentTaskStartedActivity(_ activity: OrchestrationThreadActivity) -> Bool {
+private func isAgentTaskStartedActivity(_ activity: V1.OrchestrationThreadActivity) -> Bool {
   guard let payload = payloadRecord(activity), payload["taskId"]?.stringOrNil != nil else { return false }
   return !isBackgroundTaskActivity(payload)
 }
 
-private func isAgentInternalActivity(_ activity: OrchestrationThreadActivity) -> Bool {
+private func isAgentInternalActivity(_ activity: V1.OrchestrationThreadActivity) -> Bool {
   guard let payload = payloadRecord(activity) else { return false }
   let isTaskRow = ["task.started", "task.progress", "task.updated", "task.completed"].contains(activity.kind)
   // Task rows classify by the server stamp: a subagent's own background shell is
@@ -63,11 +63,11 @@ private func isAgentInternalActivity(_ activity: OrchestrationThreadActivity) ->
 
 /// Adapters forward unknown wire-only SDK messages as runtime warnings; one with no displayable
 /// text carries nothing a user can act on.
-private func isNoContentRuntimeWarning(_ activity: OrchestrationThreadActivity) -> Bool {
+private func isNoContentRuntimeWarning(_ activity: V1.OrchestrationThreadActivity) -> Bool {
   activity.kind == "runtime.warning" && activity.summary.hasSuffix("(no displayable text content)")
 }
 
-private func isPlanBoundaryToolActivity(_ activity: OrchestrationThreadActivity) -> Bool {
+private func isPlanBoundaryToolActivity(_ activity: V1.OrchestrationThreadActivity) -> Bool {
   guard activity.kind == "tool.updated" || activity.kind == "tool.completed" else { return false }
   return payloadRecord(activity)?["detail"]?.stringOrNil?.hasPrefix("ExitPlanMode:") == true
 }
@@ -110,7 +110,7 @@ private func decodeQuestionAnswer(_ payload: JSONValue) -> UserInputAnswer? {
   return try? JSONDecoder().decode(UserInputAnswer.self, from: data)
 }
 
-private func toDerivedEntry(_ activity: OrchestrationThreadActivity) -> DerivedEntry {
+private func toDerivedEntry(_ activity: V1.OrchestrationThreadActivity) -> DerivedEntry {
   let payload = payloadRecord(activity)
   let commandPreview = extractToolCommand(payload)
   let changedFiles = extractChangedFiles(payload)
@@ -193,7 +193,7 @@ private func toDerivedEntry(_ activity: OrchestrationThreadActivity) -> DerivedE
   return derived
 }
 
-private func workLogTone(of activity: OrchestrationThreadActivity) -> WorkLogTone {
+private func workLogTone(of activity: V1.OrchestrationThreadActivity) -> WorkLogTone {
   if activity.kind == "task.progress" { return .thinking }
   switch activity.tone {
   case .tool: return .tool
@@ -356,7 +356,7 @@ private func collapseDerivedEntries(_ entries: [DerivedEntry]) -> [DerivedEntry]
 
 /// Quiet-timeline guarantee: the work log carries the parent's narrative plus at most one row
 /// per agent. Everything an agent does internally lives in the Agents surface.
-public func deriveWorkLogEntries(_ activities: [OrchestrationThreadActivity]) -> [WorkLogEntry] {
+public func deriveWorkLogEntries(_ activities: [V1.OrchestrationThreadActivity]) -> [WorkLogEntry] {
   let ordered = activities.stableSorted(by: compareActivitiesByOrder)
   // A launch tool and its task lifecycle describe the same run. Only hide launch rows once
   // their tool-use id has an agent row to replace them.

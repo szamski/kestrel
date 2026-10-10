@@ -4,13 +4,13 @@ import T3Contracts
 /// Port of `packages/client-runtime/src/state/threadReducer.ts`: applies one orchestration
 /// event to a thread detail value. Pure; the caller owns cursors, status and persistence.
 public enum ThreadReduceResult: Sendable, Equatable {
-  case updated(OrchestrationThread)
+  case updated(V1.OrchestrationThread)
   case deleted
   case unchanged
 }
 
 public enum ThreadReducer {
-  public static func apply(_ thread: OrchestrationThread, _ event: OrchestrationEvent) -> ThreadReduceResult {
+  public static func apply(_ thread: V1.OrchestrationThread, _ event: V1.OrchestrationEvent) -> ThreadReduceResult {
     var t = thread
     switch event {
     case .projectCreated, .projectMetaUpdated, .projectDeleted:
@@ -19,7 +19,7 @@ public enum ThreadReducer {
     case .threadCreated(let e):
       let p = e.payload
       return .updated(
-        OrchestrationThread(
+        V1.OrchestrationThread(
           id: p.threadId, projectId: p.projectId, title: p.title, modelSelection: p.modelSelection,
           runtimeMode: RuntimeMode(rawValue: p.runtimeMode.rawValue), interactionMode: p.interactionMode,
           branch: p.branch, worktreePath: p.worktreePath, linkedPullRequest: nil, pullRequests: [],
@@ -113,7 +113,7 @@ public enum ThreadReducer {
     case .threadPullRequestLinked(let e):
       let link = e.payload.link
       let others = thread.pullRequests.filter { !PullRequestKey.equal($0.key, PullRequestKey(link.host, link.repository, link.number)) }
-      return withPullRequests(thread, others + [OrchestrationThreadShellPullRequestsItem(link)], e.payload.updatedAt)
+      return withPullRequests(thread, others + [V1.OrchestrationThreadShellPullRequestsItem(link)], e.payload.updatedAt)
 
     case .threadPullRequestUnlinked(let e):
       let key = PullRequestKey(e.payload.host, e.payload.repository, e.payload.number)
@@ -122,10 +122,10 @@ public enum ThreadReducer {
     case .threadPullRequestSynced(let e):
       let key = PullRequestKey(e.payload.host, e.payload.repository, e.payload.number)
       guard thread.pullRequests.contains(where: { PullRequestKey.equal($0.key, key) }) else { return .unchanged }
-      let mapped = thread.pullRequests.map { existing -> OrchestrationThreadShellPullRequestsItem in
+      let mapped = thread.pullRequests.map { existing -> V1.OrchestrationThreadShellPullRequestsItem in
         guard PullRequestKey.equal(existing.key, key) else { return existing }
         var next = existing
-        next.snapshot = OrchestrationThreadShellPullRequestsItemSnapshot(e.payload.snapshot)
+        next.snapshot = V1.OrchestrationThreadShellPullRequestsItemSnapshot(e.payload.snapshot)
         next.stack = e.payload.stack
         return next
       }
@@ -175,7 +175,7 @@ public enum ThreadReducer {
       return .updated(t)
 
     case .threadProposedPlanUpserted(let e):
-      let plan = OrchestrationThreadProposedPlansItem(e.payload.proposedPlan)
+      let plan = V1.OrchestrationThreadProposedPlansItem(e.payload.proposedPlan)
       var plans = thread.proposedPlans.filter { $0.id != plan.id }
       plans.append(plan)
       t.proposedPlans = stableSorted(plans) { l, r in
@@ -208,7 +208,7 @@ public enum ThreadReducer {
   // MARK: Pull requests
 
   private static func withPullRequests(
-    _ thread: OrchestrationThread, _ pullRequests: [OrchestrationThreadShellPullRequestsItem], _ updatedAt: IsoDateTime
+    _ thread: V1.OrchestrationThread, _ pullRequests: [V1.OrchestrationThreadShellPullRequestsItem], _ updatedAt: IsoDateTime
   ) -> ThreadReduceResult {
     var t = thread
     t.pullRequests = pullRequests
@@ -225,7 +225,7 @@ public enum ThreadReducer {
 
   // MARK: Messages
 
-  private static func applyMessageSent(_ thread: OrchestrationThread, _ e: OrchestrationEventThreadMessageSent) -> OrchestrationThread {
+  private static func applyMessageSent(_ thread: V1.OrchestrationThread, _ e: V1.OrchestrationEventThreadMessageSent) -> V1.OrchestrationThread {
     let p = e.payload
     var t = thread
     var messages = thread.messages
@@ -241,7 +241,7 @@ public enum ThreadReducer {
       messages[index] = entry
     } else {
       messages.append(
-        OrchestrationMessage(
+        V1.OrchestrationMessage(
           id: p.messageId, role: p.role, text: p.text, attachments: p.attachments, context: p.context,
           turnId: p.turnId, streaming: p.streaming, createdAt: p.createdAt, updatedAt: p.updatedAt))
     }
@@ -252,11 +252,11 @@ public enum ThreadReducer {
     let settlesTurn = !p.streaming && !turnStillRunning
     if p.role == .assistant, let turnId = p.turnId, thread.latestTurn == nil || thread.latestTurn?.turnId == turnId {
       let previous = thread.latestTurn?.turnId == turnId ? thread.latestTurn : nil
-      let state: OrchestrationLatestTurnState =
+      let state: V1.OrchestrationLatestTurnState =
         settlesTurn
         ? (thread.latestTurn?.state == .interrupted ? .interrupted : thread.latestTurn?.state == .error ? .error : .completed)
         : .running
-      t.latestTurn = OrchestrationLatestTurn(
+      t.latestTurn = V1.OrchestrationLatestTurn(
         turnId: turnId, state: state, requestedAt: previous?.requestedAt ?? p.createdAt,
         startedAt: previous?.startedAt ?? p.createdAt,
         completedAt: settlesTurn ? p.updatedAt : previous?.completedAt, assistantMessageId: p.messageId,
@@ -279,12 +279,12 @@ public enum ThreadReducer {
 
   // MARK: Session
 
-  private static func applySessionSet(_ thread: OrchestrationThread, _ e: OrchestrationEventThreadSessionSet) -> OrchestrationThread {
+  private static func applySessionSet(_ thread: V1.OrchestrationThread, _ e: V1.OrchestrationEventThreadSessionSet) -> V1.OrchestrationThread {
     var t = thread
     let session = e.payload.session
     if session.status == .running, let active = session.activeTurnId {
       let previous = thread.latestTurn?.turnId == active ? thread.latestTurn : nil
-      t.latestTurn = OrchestrationLatestTurn(
+      t.latestTurn = V1.OrchestrationLatestTurn(
         turnId: active, state: .running, requestedAt: previous?.requestedAt ?? session.updatedAt,
         startedAt: previous?.startedAt ?? session.updatedAt, completedAt: nil,
         assistantMessageId: previous?.assistantMessageId, sourceProposedPlan: nil)
@@ -299,7 +299,7 @@ public enum ThreadReducer {
     return t
   }
 
-  private static func settledTurnState(_ status: OrchestrationSessionStatus) -> OrchestrationLatestTurnState? {
+  private static func settledTurnState(_ status: V1.OrchestrationSessionStatus) -> V1.OrchestrationLatestTurnState? {
     switch status {
     case .idle, .ready: .completed
     case .error: .error
@@ -311,13 +311,13 @@ public enum ThreadReducer {
 
   // MARK: Checkpoints
 
-  private static func turnState(for status: OrchestrationCheckpointStatus) -> OrchestrationLatestTurnState {
+  private static func turnState(for status: V1.OrchestrationCheckpointStatus) -> V1.OrchestrationLatestTurnState {
     status == .error ? .error : .completed
   }
 
-  private static func applyTurnDiff(_ thread: OrchestrationThread, _ e: OrchestrationEventThreadTurnDiffCompleted) -> ThreadReduceResult {
+  private static func applyTurnDiff(_ thread: V1.OrchestrationThread, _ e: V1.OrchestrationEventThreadTurnDiffCompleted) -> ThreadReduceResult {
     let p = e.payload
-    let checkpoint = OrchestrationCheckpointSummary(
+    let checkpoint = V1.OrchestrationCheckpointSummary(
       turnId: p.turnId, checkpointTurnCount: p.checkpointTurnCount, checkpointRef: p.checkpointRef,
       status: p.status, files: p.files, assistantMessageId: p.assistantMessageId, completedAt: p.completedAt)
     if let existing = thread.checkpoints.first(where: { $0.turnId == p.turnId }),
@@ -332,7 +332,7 @@ public enum ThreadReducer {
     // Mid-turn diff updates produce placeholder checkpoints: don't settle a turn its session still runs.
     let stillRunning = thread.session?.status == .running && thread.session?.activeTurnId == p.turnId
     if !stillRunning, thread.latestTurn == nil || thread.latestTurn?.turnId == p.turnId {
-      t.latestTurn = OrchestrationLatestTurn(
+      t.latestTurn = V1.OrchestrationLatestTurn(
         turnId: p.turnId, state: thread.latestTurn?.state == .interrupted ? .interrupted : turnState(for: p.status),
         requestedAt: thread.latestTurn?.requestedAt ?? p.completedAt,
         startedAt: thread.latestTurn?.startedAt ?? p.completedAt, completedAt: p.completedAt,
@@ -342,7 +342,7 @@ public enum ThreadReducer {
     return .updated(t)
   }
 
-  private static func applyRevert(_ thread: OrchestrationThread, turnCount: Int, occurredAt: IsoDateTime) -> OrchestrationThread {
+  private static func applyRevert(_ thread: V1.OrchestrationThread, turnCount: Int, occurredAt: IsoDateTime) -> V1.OrchestrationThread {
     var t = thread
     let checkpoints = stableSorted(thread.checkpoints.filter { $0.checkpointTurnCount <= turnCount }) { l, r in
       l.checkpointTurnCount == r.checkpointTurnCount ? 0 : (l.checkpointTurnCount < r.checkpointTurnCount ? -1 : 1)
@@ -353,7 +353,7 @@ public enum ThreadReducer {
     t.proposedPlans = thread.proposedPlans.filter { $0.turnId == nil || retainedTurnIds.contains($0.turnId!) }
     t.activities = thread.activities.filter { $0.turnId == nil || retainedTurnIds.contains($0.turnId!) }
     if let latest = checkpoints.last {
-      t.latestTurn = OrchestrationLatestTurn(
+      t.latestTurn = V1.OrchestrationLatestTurn(
         turnId: latest.turnId, state: turnState(for: latest.status), requestedAt: latest.completedAt,
         startedAt: latest.completedAt, completedAt: latest.completedAt, assistantMessageId: latest.assistantMessageId,
         sourceProposedPlan: nil)
@@ -367,8 +367,8 @@ public enum ThreadReducer {
   private static func isImported(_ id: MessageId) -> Bool { id.rawValue.hasPrefix("import:") }
 
   private static func retainMessagesAfterRevert(
-    _ messages: [OrchestrationMessage], retainedTurnIds: Set<TurnId>, turnCount: Int
-  ) -> [OrchestrationMessage] {
+    _ messages: [V1.OrchestrationMessage], retainedTurnIds: Set<V1.TurnId>, turnCount: Int
+  ) -> [V1.OrchestrationMessage] {
     var retained = Set<MessageId>()
     for message in messages {
       if message.role == .system || isImported(message.id) {
@@ -377,7 +377,7 @@ public enum ThreadReducer {
         retained.insert(message.id)
       }
     }
-    for role in [OrchestrationMessageRole.user, .assistant] {
+    for role in [V1.OrchestrationMessageRole.user, .assistant] {
       let retainedCount = messages.filter { $0.role == role && !isImported($0.id) && retained.contains($0.id) }.count
       let missing = max(0, turnCount - retainedCount)
       let fallback = messages
@@ -394,7 +394,7 @@ public enum ThreadReducer {
   // MARK: Activities
 
   /// (sequence ?? MAX, createdAt, id)
-  static func activityOrder(_ l: OrchestrationThreadActivity, _ r: OrchestrationThreadActivity) -> Int {
+  static func activityOrder(_ l: V1.OrchestrationThreadActivity, _ r: V1.OrchestrationThreadActivity) -> Int {
     let ls = l.sequence ?? Int(Int32.max) << 32, rs = r.sequence ?? Int(Int32.max) << 32
     if ls != rs { return ls < rs ? -1 : 1 }
     if l.createdAt != r.createdAt { return JS.less(l.createdAt.rawValue, r.createdAt.rawValue) ? -1 : 1 }
@@ -403,7 +403,7 @@ public enum ThreadReducer {
   }
 
   /// A resolvable context-window update has a finite, non-negative `usedTokens`.
-  static func isResolvableContextWindowActivity(_ activity: OrchestrationThreadActivity) -> Bool {
+  static func isResolvableContextWindowActivity(_ activity: V1.OrchestrationThreadActivity) -> Bool {
     guard activity.kind == "context-window.updated", case .object(let payload) = activity.payload else { return false }
     switch payload["usedTokens"] {
     case .int(let v)?: return v >= 0
@@ -412,7 +412,7 @@ public enum ThreadReducer {
     }
   }
 
-  static func appendActivity(_ activities: [OrchestrationThreadActivity], _ activity: OrchestrationThreadActivity) -> [OrchestrationThreadActivity] {
+  static func appendActivity(_ activities: [V1.OrchestrationThreadActivity], _ activity: V1.OrchestrationThreadActivity) -> [V1.OrchestrationThreadActivity] {
     // A resolvable context-window update supersedes earlier resolvable ones of the same turn.
     let supersedes = isResolvableContextWindowActivity(activity)
     // Live streams append in order: an unseen id at/after the tail of a sorted array is a plain append.
@@ -429,8 +429,8 @@ public enum ThreadReducer {
     return stableSorted(next, by: activityOrder)
   }
 
-  private static func isSorted(_ activities: [OrchestrationThreadActivity]) -> Bool {
-    var previous: OrchestrationThreadActivity?
+  private static func isSorted(_ activities: [V1.OrchestrationThreadActivity]) -> Bool {
+    var previous: V1.OrchestrationThreadActivity?
     for activity in activities {
       if let previous, activityOrder(previous, activity) > 0 { return false }
       previous = activity
@@ -492,6 +492,6 @@ extension String {
   }
 }
 
-extension OrchestrationThreadShellPullRequestsItem {
+extension V1.OrchestrationThreadShellPullRequestsItem {
   fileprivate var key: PullRequestKey { PullRequestKey(host, repository, number) }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import T3Contracts
+import T3Protocol
 
 /// Command methods of the UI-facing runtime. Each builds a typed command, dispatches it through
 /// `orchestration.dispatchCommand` on the owning environment and, for the lifecycle commands the web
@@ -8,12 +9,27 @@ import T3Contracts
 extension ClientRuntime {
   @discardableResult
   private func dispatch(
-    _ command: ClientOrchestrationCommand, on environmentId: EnvironmentId, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
-  ) async throws(CommandError) -> DispatchResult {
+    _ command: V1.ClientOrchestrationCommand, on environmentId: EnvironmentId, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
+  ) async throws(CommandError) -> V1.DispatchResult {
     guard let runtime = await registry.runtime(for: environmentId) else {
       throw .notConnected(environment: environmentId.rawValue)
     }
     return try await runtime.dispatch(command, thread: thread, optimistic: optimistic)
+  }
+
+  @discardableResult
+  private func dispatch(
+    _ command: OrchestrationV2Command, on environmentId: EnvironmentId, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
+  ) async throws(CommandError) -> Int {
+    guard let runtime = await registry.runtime(for: environmentId) else {
+      throw .notConnected(environment: environmentId.rawValue)
+    }
+    return try await runtime.dispatch(command, thread: thread, optimistic: optimistic)
+  }
+
+  /// The wire protocol of an environment's live connection; nil while it is not connected.
+  public func orchestrationProtocol(_ environmentId: EnvironmentId) async -> OrchestrationProtocol? {
+    await registry.runtime(for: environmentId)?.orchestrationProtocol
   }
 
   // MARK: Thread lifecycle
@@ -117,15 +133,30 @@ extension ClientRuntime {
   // MARK: Turns
 
   /// Sends a user message and starts a turn. `runtimeMode` and `interactionMode` default to the thread's current ones.
+  /// On a protocol-2 environment `delivery` decides what happens while a run is active: the server steers, queues or
+  /// restarts (`.auto` lets it decide).
   @discardableResult
   public func sendMessage(
     _ key: ScopedThreadKey, text: String, attachments: [UploadedAttachment] = [], runtimeMode: RuntimeMode? = nil,
     interactionMode: ProviderInteractionMode? = nil, modelSelection: ModelSelection? = nil, titleSeed: String? = nil,
-    sourceProposedPlan: ClientOrchestrationCommandThreadTurnStartSourceProposedPlan? = nil
+    sourceProposedPlan: V1.ClientOrchestrationCommandThreadTurnStartSourceProposedPlan? = nil, delivery: SendDelivery = .auto
   ) async throws(CommandError) -> MessageId {
     let shell = threadShell(key)?.shell
     let messageId = MessageId(rawValue: UUID().uuidString.lowercased())
-    let message = ClientOrchestrationCommandThreadTurnStartMessage(
+    if await orchestrationProtocol(key.environmentId) == .v2 {
+      // Protocol 2 has no modes on the message: change them first, as the web composer does.
+      if let runtimeMode, runtimeMode != shell?.runtimeMode { try await setRuntimeMode(key, runtimeMode) }
+      if let interactionMode, interactionMode.rawValue != shell?.interactionMode.rawValue { try await setInteractionMode(key, interactionMode) }
+      try await dispatch(
+        ThreadCommandV2.send(
+          key.threadId, messageId: messageId, text: text, attachments: attachments.map(\.chatAttachment), delivery: delivery, titleSeed: titleSeed,
+          modelSelection: modelSelection,
+          sourcePlan: sourceProposedPlan.map { OrchestrationV2CommandMessageDispatchSourcePlanRef(threadId: $0.threadId, planId: PlanId(rawValue: $0.planId)) },
+          meta: .fresh(clock: clock)),
+        on: key.environmentId, thread: key.threadId)
+      return messageId
+    }
+    let message = V1.ClientOrchestrationCommandThreadTurnStartMessage(
       messageId: messageId, text: text, attachments: attachments.map(\.messageAttachment))
     try await dispatch(
       ThreadCommand.startTurn(
@@ -136,23 +167,81 @@ extension ClientRuntime {
     return messageId
   }
 
-  public func interruptTurn(_ key: ScopedThreadKey, turnId: TurnId? = nil) async throws(CommandError) {
+  // MARK: Queue and rollback (protocol 2)
+
+  /// Hands a queued message to the active run (it joins the turn instead of waiting behind it).
+  public func steerQueuedMessage(_ key: ScopedThreadKey, runId: RunId, into targetRunId: RunId) async throws(CommandError) {
+    try await dispatch(
+      ThreadCommandV2.promoteQueuedToSteer(key.threadId, queuedRunId: runId, targetRunId: targetRunId, meta: .fresh(clock: clock)), on: key.environmentId,
+      thread: key.threadId)
+  }
+  /// Replaces a queued message's text; `attachments == nil` keeps its attachments.
+  public func editQueuedMessage(
+    _ key: ScopedThreadKey, runId: RunId, text: String, attachments: [UploadedAttachment]? = nil, context: OrchestrationMessageContext? = nil
+  ) async throws(CommandError) {
+    try await dispatch(
+      ThreadCommandV2.editQueued(
+        key.threadId, runId: runId, text: text, attachments: attachments?.map(\.chatAttachment), context: context, meta: .fresh(clock: clock)),
+      on: key.environmentId, thread: key.threadId)
+  }
+  /// Moves a queued message in front of `beforeRunId` (nil moves it to the end).
+  public func reorderQueuedMessage(_ key: ScopedThreadKey, runId: RunId, before beforeRunId: RunId?) async throws(CommandError) {
+    try await dispatch(
+      ThreadCommandV2.reorderQueued(key.threadId, runId: runId, before: beforeRunId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
+  }
+  public func cancelQueuedMessage(_ key: ScopedThreadKey, runId: RunId) async throws(CommandError) {
+    try await dispatch(ThreadCommandV2.cancelQueued(key.threadId, runId: runId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
+  }
+  /// Releases a queue that Stop held.
+  public func resumeQueue(_ key: ScopedThreadKey) async throws(CommandError) {
+    try await dispatch(ThreadCommandV2.resumeQueue(key.threadId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
+  }
+  /// Puts a run whose workspace preparation failed back into preparation.
+  public func retryWorkspacePreparation(_ key: ScopedThreadKey, runId: RunId) async throws(CommandError) {
+    try await dispatch(ThreadCommandV2.retryPreparedRun(key.threadId, runId: runId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
+  }
+  /// Rolls the thread back to a ready checkpoint of its projection; `restoreFiles == false` reverts only the conversation.
+  public func rollbackThread(_ key: ScopedThreadKey, to checkpoint: OrchestrationV2Checkpoint, restoreFiles: Bool = true) async throws(CommandError) {
+    try await dispatch(
+      ThreadCommandV2.rollback(key.threadId, scopeId: checkpoint.scopeId, checkpointId: checkpoint.id, restoreFiles: restoreFiles, meta: .fresh(clock: clock)),
+      on: key.environmentId, thread: key.threadId)
+  }
+  /// Answers a user-input request, with attachments per question (protocol 2).
+  public func respondToUserInput(
+    _ key: ScopedThreadKey, requestId: V1.ApprovalRequestId, answers: [String: JSONValue], attachmentsByQuestionId: [String: [UploadedAttachment]]
+  ) async throws(CommandError) {
+    let attachments = attachmentsByQuestionId.mapValues { items in
+      items.compactMap { item -> OrchestrationV2CommandRuntimeRequestRespondAttachmentsByQuestionIdValueItem? in
+        switch item.chatAttachment {
+        case .image(let image): .image(image)
+        case .file(let file): .file(file)
+        default: nil
+        }
+      }
+    }
+    try await dispatch(
+      ThreadCommandV2.respondToUserInput(
+        key.threadId, requestId: RuntimeRequestId(rawValue: requestId.rawValue), answers: answers, attachmentsByQuestionId: attachments, meta: .fresh(clock: clock)),
+      on: key.environmentId, thread: key.threadId)
+  }
+
+  public func interruptTurn(_ key: ScopedThreadKey, turnId: V1.TurnId? = nil) async throws(CommandError) {
     try await dispatch(ThreadCommand.interruptTurn(key.threadId, turnId: turnId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
   }
   public func stopSession(_ key: ScopedThreadKey) async throws(CommandError) {
     try await dispatch(ThreadCommand.stopSession(key.threadId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
   }
-  public func respondToApproval(_ key: ScopedThreadKey, requestId: ApprovalRequestId, decision: ProviderApprovalDecision) async throws(CommandError) {
+  public func respondToApproval(_ key: ScopedThreadKey, requestId: V1.ApprovalRequestId, decision: ProviderApprovalDecision) async throws(CommandError) {
     try await dispatch(
       ThreadCommand.respondToApproval(key.threadId, requestId: requestId, decision: decision, meta: .fresh(clock: clock)), on: key.environmentId,
       thread: key.threadId)
   }
-  public func respondToUserInput(_ key: ScopedThreadKey, requestId: ApprovalRequestId, answers: [String: JSONValue]) async throws(CommandError) {
+  public func respondToUserInput(_ key: ScopedThreadKey, requestId: V1.ApprovalRequestId, answers: [String: JSONValue]) async throws(CommandError) {
     try await dispatch(
       ThreadCommand.respondToUserInput(key.threadId, requestId: requestId, answers: answers, meta: .fresh(clock: clock)), on: key.environmentId,
       thread: key.threadId)
   }
-  public func dismissUserInput(_ key: ScopedThreadKey, requestId: ApprovalRequestId) async throws(CommandError) {
+  public func dismissUserInput(_ key: ScopedThreadKey, requestId: V1.ApprovalRequestId) async throws(CommandError) {
     try await dispatch(
       ThreadCommand.dismissUserInput(key.threadId, requestId: requestId, meta: .fresh(clock: clock)), on: key.environmentId, thread: key.threadId)
   }

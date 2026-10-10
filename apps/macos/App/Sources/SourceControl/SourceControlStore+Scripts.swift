@@ -24,6 +24,13 @@ struct ScriptEditorRequest: Identifiable {
 }
 
 extension ProjectScript {
+  /// A protocol-1 project shell carries its own `V1.ProjectScript` (no `runOnSettle`).
+  init(_ script: V1.ProjectScript) {
+    self.init(
+      id: script.id, name: script.name, command: script.command, icon: script.icon, runOnWorktreeCreate: script.runOnWorktreeCreate,
+      async: script.async, previewUrl: script.previewUrl, autoOpenPreview: script.autoOpenPreview)
+  }
+
   init(_ item: ServerSettingsDefaultProjectScriptsItem) {
     self.init(
       id: item.id, name: item.name, command: item.command, icon: item.icon, runOnWorktreeCreate: item.runOnWorktreeCreate, async: item.async,
@@ -39,7 +46,8 @@ private func convert<A: Encodable, B: Decodable>(_ value: A, to type: B.Type) ->
 extension SourceControlStore {
   /// The project's actions: its own list, else the environment's (`resolveProjectScripts` of the web client).
   func scripts(for project: EnvironmentProject) -> [ProjectScript] {
-    guard let settings = settings(project.environmentId) else { return project.project.scripts }
+    let projectScripts = project.project.scripts.map(ProjectScript.init)
+    guard let settings = settings(project.environmentId) else { return projectScripts }
     let id = project.projectId.rawValue
     if let override = settings.projectSettingsOverrides[id]?.defaultProjectScripts { return override.map(ProjectScript.init) }
     let defaults = settings.defaultProjectScripts.map(ProjectScript.init)
@@ -47,7 +55,7 @@ extension SourceControlStore {
     switch settings.projectScriptOverrides[id] {
     case .some(.some(let list)): return list.map(ProjectScript.init)
     case .some(.none): return defaults
-    case .none: return project.project.scripts.isEmpty ? defaults : project.project.scripts
+    case .none: return projectScripts.isEmpty ? defaults : projectScripts
     }
   }
 

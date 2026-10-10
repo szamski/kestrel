@@ -58,7 +58,7 @@ struct WorkspaceInfo {
   var project: EnvironmentProject
   var key: ScopedThreadKey
   var isDraft: Bool
-  var shell: OrchestrationThreadShell?
+  var shell: V1.OrchestrationThreadShell?
   var workspace: DraftWorkspace
   var preparingWorktree: Bool
 
@@ -305,7 +305,7 @@ final class VcsStatusModel {
   private func consume(_ session: any EnvironmentSession) async {
     while !Task.isCancelled {
       do {
-        for try await event in session.subscribe(Rpc.subscribeVcsStatus, VcsStatusInput(cwd: cwd)) {
+        for try await event in session.subscribe(Rpc.subscribeVcsStatus, VcsStatusSubscriptionInput(cwd: cwd)) {
           status = VcsStatus.applying(event, to: status)
           failure = nil
         }

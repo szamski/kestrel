@@ -86,3 +86,34 @@ public struct ProviderInstanceEnvironmentVariable: Sendable, Hashable, Codable {
     try c.encodeIfPresent(valueRedacted, forKey: .valueRedacted)
   }
 }
+
+public enum ProviderInstanceMutation: Sendable, Hashable, Codable {
+  case create(ProviderInstanceMutationCreate)
+  case upsert(ProviderInstanceMutationUpsert)
+  case remove(ProviderInstanceMutationRemove)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "operation" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "create"?: self = .create(try ProviderInstanceMutationCreate(from: decoder))
+    case "upsert"?: self = .upsert(try ProviderInstanceMutationUpsert(from: decoder))
+    case "remove"?: self = .remove(try ProviderInstanceMutationRemove(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .create(let value): try value.encode(to: encoder)
+    case .upsert(let value): try value.encode(to: encoder)
+    case .remove(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}

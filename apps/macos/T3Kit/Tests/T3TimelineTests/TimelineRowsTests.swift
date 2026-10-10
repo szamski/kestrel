@@ -324,7 +324,7 @@ private func tool(_ id: String, at: String, turn: String = "turn-1", configure: 
   }
 
   @Test func projectsDiffSummariesAndRevertCountsOntoTheAffectedRows() {
-    let summary: OrchestrationCheckpointSummary = decodeJSON(
+    let summary: V1.OrchestrationCheckpointSummary = decodeJSON(
       """
       {"turnId":"turn-1","checkpointTurnCount":2,"checkpointRef":"checkpoint-1","status":"ready",
        "files":[{"path":"src/index.ts","kind":"modified","additions":3,"deletions":1}],

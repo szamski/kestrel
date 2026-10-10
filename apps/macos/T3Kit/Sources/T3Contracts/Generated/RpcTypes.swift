@@ -65,21 +65,6 @@ public enum AgentSessionsScanFailure: Sendable, Hashable, Codable, Error {
   }
 }
 
-public struct ApprovalRequestId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
-  public var rawValue: String
-  public init(rawValue: String) { self.rawValue = rawValue }
-  public init(_ rawValue: String) { self.rawValue = rawValue }
-  public init(stringLiteral value: String) { rawValue = value }
-  public init(from decoder: any Decoder) throws {
-    rawValue = try decoder.singleValueContainer().decode(String.self)
-  }
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-  public var description: String { rawValue }
-}
-
 public enum AssetsCreateUrlFailure: Sendable, Hashable, Codable, Error {
   case assetWorkspaceContextNotFoundError(AssetWorkspaceContextNotFoundError)
   case assetWorkspaceContextResolutionError(AssetWorkspaceContextResolutionError)
@@ -143,6 +128,34 @@ public enum AssetsCreateUrlFailure: Sendable, Hashable, Codable, Error {
       var c = encoder.container(keyedBy: TagKeys.self)
       try c.encode("AssetGitHubMediaUrlValidationError", forKey: .tag)
     case .assetSigningKeyLoadError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum AssetsPersistChatAttachmentsFailure: Sendable, Hashable, Codable, Error {
+  case persistChatAttachmentsError(PersistChatAttachmentsError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "PersistChatAttachmentsError"?: self = .persistChatAttachmentsError(try PersistChatAttachmentsError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .persistChatAttachmentsError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -287,1521 +300,84 @@ public enum AttachmentsCreateUploadUrlFailure: Sendable, Hashable, Codable, Erro
   }
 }
 
-public struct ClientOrchestrationCommandProjectDelete: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var projectId: ProjectId
-  public var force: Bool?
+public struct ChatGptHandoffStateAuth: Sendable, Hashable, Codable {
+  public var state: ProviderAuthState
 
-  public init(commandId: CommandId, projectId: ProjectId, force: Bool? = nil) {
-    self.commandId = commandId
-    self.projectId = projectId
-    self.force = force
+  public init(state: ProviderAuthState) {
+    self.state = state
   }
 
   private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case projectId
-    case force
+    case phase
+    case state
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project.delete", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
-    self.force = try c.decodeIfPresent(Bool.self, forKey: .force)
+    try c.expectConstant("auth", forKey: .phase)
+    self.state = try c.decode(ProviderAuthState.self, forKey: .state)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project.delete", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(projectId, forKey: .projectId)
-    try c.encodeIfPresent(force, forKey: .force)
+    try c.encode("auth", forKey: .phase)
+    try c.encode(state, forKey: .state)
   }
 }
 
-public struct ClientOrchestrationCommandProjectMetaUpdate: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var projectId: ProjectId
-  public var title: String?
-  public var workspaceRoot: String?
-  public var defaultModelSelection: ModelSelection??
-  public var defaultThreadEnvMode: ThreadEnvMode??
-  public var autoPull: Bool?
-  public var faviconPath: String??
-  public var projectIcon: ProjectIconOverride??
-  public var scripts: [ProjectScript]?
+public struct ChatGptHandoffStateFinished: Sendable, Hashable, Codable {
+  public var profile: ChatGptTransferredProfile
 
-  public init(commandId: CommandId, projectId: ProjectId, title: String? = nil, workspaceRoot: String? = nil, defaultModelSelection: ModelSelection?? = nil, defaultThreadEnvMode: ThreadEnvMode?? = nil, autoPull: Bool? = nil, faviconPath: String?? = nil, projectIcon: ProjectIconOverride?? = nil, scripts: [ProjectScript]? = nil) {
-    self.commandId = commandId
-    self.projectId = projectId
-    self.title = title
-    self.workspaceRoot = workspaceRoot
-    self.defaultModelSelection = defaultModelSelection
-    self.defaultThreadEnvMode = defaultThreadEnvMode
-    self.autoPull = autoPull
-    self.faviconPath = faviconPath
-    self.projectIcon = projectIcon
-    self.scripts = scripts
+  public init(profile: ChatGptTransferredProfile) {
+    self.profile = profile
   }
 
   private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case projectId
-    case title
-    case workspaceRoot
-    case defaultModelSelection
-    case defaultThreadEnvMode
-    case autoPull
-    case faviconPath
-    case projectIcon
-    case scripts
+    case phase
+    case profile
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project.meta.update", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
-    self.title = try c.decodeIfPresent(String.self, forKey: .title)
-    self.workspaceRoot = try c.decodeIfPresent(String.self, forKey: .workspaceRoot)
-    self.defaultModelSelection = try c.decodeTriState(ModelSelection.self, forKey: .defaultModelSelection)
-    self.defaultThreadEnvMode = try c.decodeTriState(ThreadEnvMode.self, forKey: .defaultThreadEnvMode)
-    self.autoPull = try c.decodeIfPresent(Bool.self, forKey: .autoPull)
-    self.faviconPath = try c.decodeTriState(String.self, forKey: .faviconPath)
-    self.projectIcon = try c.decodeTriState(ProjectIconOverride.self, forKey: .projectIcon)
-    self.scripts = try c.decodeIfPresent([ProjectScript].self, forKey: .scripts)
+    try c.expectConstant("finished", forKey: .phase)
+    self.profile = try c.decode(ChatGptTransferredProfile.self, forKey: .profile)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project.meta.update", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(projectId, forKey: .projectId)
-    try c.encodeIfPresent(title, forKey: .title)
-    try c.encodeIfPresent(workspaceRoot, forKey: .workspaceRoot)
-    try c.encodeTriState(defaultModelSelection, forKey: .defaultModelSelection)
-    try c.encodeTriState(defaultThreadEnvMode, forKey: .defaultThreadEnvMode)
-    try c.encodeIfPresent(autoPull, forKey: .autoPull)
-    try c.encodeTriState(faviconPath, forKey: .faviconPath)
-    try c.encodeTriState(projectIcon, forKey: .projectIcon)
-    try c.encodeIfPresent(scripts, forKey: .scripts)
+    try c.encode("finished", forKey: .phase)
+    try c.encode(profile, forKey: .profile)
   }
 }
 
-public struct ClientOrchestrationCommandThreadActiveReorder: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var orderKey: String
-
-  public init(commandId: CommandId, threadId: ThreadId, orderKey: String) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.orderKey = orderKey
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case orderKey
-  }
-
+public struct CheckpointId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
   public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.active.reorder", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.orderKey = try c.decode(String.self, forKey: .orderKey)
+    rawValue = try decoder.singleValueContainer().decode(String.self)
   }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.active.reorder", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(orderKey, forKey: .orderKey)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadApprovalRespond: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var requestId: ApprovalRequestId
-  public var decision: ProviderApprovalDecision
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, requestId: ApprovalRequestId, decision: ProviderApprovalDecision, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.requestId = requestId
-    self.decision = decision
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case requestId
-    case decision
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.approval.respond", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.requestId = try c.decode(ApprovalRequestId.self, forKey: .requestId)
-    self.decision = try c.decode(ProviderApprovalDecision.self, forKey: .decision)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.approval.respond", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(requestId, forKey: .requestId)
-    try c.encode(decision, forKey: .decision)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadArchive: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.archive", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.archive", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadAutoSettleSet: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var enabled: Bool
-
-  public init(commandId: CommandId, threadId: ThreadId, enabled: Bool) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.enabled = enabled
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case enabled
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.auto-settle.set", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.enabled = try c.decode(Bool.self, forKey: .enabled)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.auto-settle.set", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(enabled, forKey: .enabled)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadCheckpointRevert: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var turnCount: Int
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, turnCount: Int, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.turnCount = turnCount
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case turnCount
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.checkpoint.revert", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.turnCount = try c.decode(Int.self, forKey: .turnCount)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.checkpoint.revert", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(turnCount, forKey: .turnCount)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadConversationRevert: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var turnCount: Int
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, turnCount: Int, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.turnCount = turnCount
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case turnCount
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.conversation.revert", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.turnCount = try c.decode(Int.self, forKey: .turnCount)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.conversation.revert", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(turnCount, forKey: .turnCount)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadCreate: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var projectId: ProjectId
-  public var title: String
-  public var modelSelection: ModelSelection
-  public var runtimeMode: RuntimeMode
-  public var interactionMode: ClientOrchestrationCommandThreadCreateInteractionMode
-  public var branch: String?
-  public var worktreePath: String?
-  public var createdAt: IsoDateTime
-  public var historyImport: Bool?
-
-  public init(commandId: CommandId, threadId: ThreadId, projectId: ProjectId, title: String, modelSelection: ModelSelection, runtimeMode: RuntimeMode, interactionMode: ClientOrchestrationCommandThreadCreateInteractionMode = WireDefault.value(ClientOrchestrationCommandThreadCreateInteractionMode.self, json: "\"default\""), branch: String? = nil, worktreePath: String? = nil, createdAt: IsoDateTime, historyImport: Bool? = nil) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.projectId = projectId
-    self.title = title
-    self.modelSelection = modelSelection
-    self.runtimeMode = runtimeMode
-    self.interactionMode = interactionMode
-    self.branch = branch
-    self.worktreePath = worktreePath
-    self.createdAt = createdAt
-    self.historyImport = historyImport
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case projectId
-    case title
-    case modelSelection
-    case runtimeMode
-    case interactionMode
-    case branch
-    case worktreePath
-    case createdAt
-    case historyImport
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.create", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
-    self.title = try c.decode(String.self, forKey: .title)
-    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
-    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
-    self.interactionMode = (try c.decodeIfPresent(ClientOrchestrationCommandThreadCreateInteractionMode.self, forKey: .interactionMode)) ?? WireDefault.value(ClientOrchestrationCommandThreadCreateInteractionMode.self, json: "\"default\"")
-    self.branch = try c.decodeIfPresent(String.self, forKey: .branch)
-    self.worktreePath = try c.decodeIfPresent(String.self, forKey: .worktreePath)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-    self.historyImport = try c.decodeIfPresent(Bool.self, forKey: .historyImport)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.create", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(projectId, forKey: .projectId)
-    try c.encode(title, forKey: .title)
-    try c.encode(modelSelection, forKey: .modelSelection)
-    try c.encode(runtimeMode, forKey: .runtimeMode)
-    try c.encode(interactionMode, forKey: .interactionMode)
-    try c.encode(branch, forKey: .branch)
-    try c.encode(worktreePath, forKey: .worktreePath)
-    try c.encode(createdAt, forKey: .createdAt)
-    try c.encodeIfPresent(historyImport, forKey: .historyImport)
-  }
-}
-
-public enum ClientOrchestrationCommandThreadCreateInteractionMode: Sendable, Hashable, Codable, RawRepresentable {
-  case `default`
-  case plan
-  /// A value this build does not know; kept verbatim so it round-trips.
-  case unknown(String)
-
-  public init(rawValue: String) {
-    switch rawValue {
-    case "default": self = .`default`
-    case "plan": self = .plan
-    default: self = .unknown(rawValue)
-    }
-  }
-
-  public var rawValue: String {
-    switch self {
-    case .`default`: "default"
-    case .plan: "plan"
-    case .unknown(let value): value
-    }
-  }
-
-  public init(from decoder: any Decoder) throws {
-    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
-  }
-
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.singleValueContainer()
     try c.encode(rawValue)
   }
+  public var description: String { rawValue }
 }
 
-public struct ClientOrchestrationCommandThreadDelete: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-  }
-
+public struct CheckpointScopeId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
   public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.delete", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    rawValue = try decoder.singleValueContainer().decode(String.self)
   }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.delete", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadInteractionModeSet: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var interactionMode: ProviderInteractionMode
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, interactionMode: ProviderInteractionMode, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.interactionMode = interactionMode
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case interactionMode
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.interaction-mode.set", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.interaction-mode.set", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(interactionMode, forKey: .interactionMode)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadMetaUpdate: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var title: String?
-  public var regenerateTitle: Bool?
-  public var modelSelection: ModelSelection?
-  public var branch: String??
-  public var expectedBranch: String??
-  public var worktreePath: String??
-  public var linkedPullRequest: ThreadLinkedPullRequest??
-
-  public init(commandId: CommandId, threadId: ThreadId, title: String? = nil, regenerateTitle: Bool? = nil, modelSelection: ModelSelection? = nil, branch: String?? = nil, expectedBranch: String?? = nil, worktreePath: String?? = nil, linkedPullRequest: ThreadLinkedPullRequest?? = nil) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.title = title
-    self.regenerateTitle = regenerateTitle
-    self.modelSelection = modelSelection
-    self.branch = branch
-    self.expectedBranch = expectedBranch
-    self.worktreePath = worktreePath
-    self.linkedPullRequest = linkedPullRequest
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case title
-    case regenerateTitle
-    case modelSelection
-    case branch
-    case expectedBranch
-    case worktreePath
-    case linkedPullRequest
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.meta.update", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.title = try c.decodeIfPresent(String.self, forKey: .title)
-    self.regenerateTitle = try c.decodeIfPresent(Bool.self, forKey: .regenerateTitle)
-    self.modelSelection = try c.decodeIfPresent(ModelSelection.self, forKey: .modelSelection)
-    self.branch = try c.decodeTriState(String.self, forKey: .branch)
-    self.expectedBranch = try c.decodeTriState(String.self, forKey: .expectedBranch)
-    self.worktreePath = try c.decodeTriState(String.self, forKey: .worktreePath)
-    self.linkedPullRequest = try c.decodeTriState(ThreadLinkedPullRequest.self, forKey: .linkedPullRequest)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.meta.update", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encodeIfPresent(title, forKey: .title)
-    try c.encodeIfPresent(regenerateTitle, forKey: .regenerateTitle)
-    try c.encodeIfPresent(modelSelection, forKey: .modelSelection)
-    try c.encodeTriState(branch, forKey: .branch)
-    try c.encodeTriState(expectedBranch, forKey: .expectedBranch)
-    try c.encodeTriState(worktreePath, forKey: .worktreePath)
-    try c.encodeTriState(linkedPullRequest, forKey: .linkedPullRequest)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadPin: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var orderKey: String?
-
-  public init(commandId: CommandId, threadId: ThreadId, orderKey: String? = nil) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.orderKey = orderKey
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case orderKey
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pin", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.orderKey = try c.decodeIfPresent(String.self, forKey: .orderKey)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pin", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encodeIfPresent(orderKey, forKey: .orderKey)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadPinReorder: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var orderKey: String
-
-  public init(commandId: CommandId, threadId: ThreadId, orderKey: String) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.orderKey = orderKey
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case orderKey
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pin.reorder", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.orderKey = try c.decode(String.self, forKey: .orderKey)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pin.reorder", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(orderKey, forKey: .orderKey)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadPullRequestLink: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var host: String
-  public var repository: String
-  public var number: Int
-  public var url: String
-  public var source: ThreadPullRequestLinkSource
-
-  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int, url: String, source: ThreadPullRequestLinkSource) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.host = host
-    self.repository = repository
-    self.number = number
-    self.url = url
-    self.source = source
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case host
-    case repository
-    case number
-    case url
-    case source
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pull-request.link", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.host = try c.decode(String.self, forKey: .host)
-    self.repository = try c.decode(String.self, forKey: .repository)
-    self.number = try c.decode(Int.self, forKey: .number)
-    self.url = try c.decode(String.self, forKey: .url)
-    self.source = try c.decode(ThreadPullRequestLinkSource.self, forKey: .source)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pull-request.link", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(host, forKey: .host)
-    try c.encode(repository, forKey: .repository)
-    try c.encode(number, forKey: .number)
-    try c.encode(url, forKey: .url)
-    try c.encode(source, forKey: .source)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadPullRequestUnlink: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var host: String
-  public var repository: String
-  public var number: Int
-
-  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.host = host
-    self.repository = repository
-    self.number = number
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case host
-    case repository
-    case number
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pull-request.unlink", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.host = try c.decode(String.self, forKey: .host)
-    self.repository = try c.decode(String.self, forKey: .repository)
-    self.number = try c.decode(Int.self, forKey: .number)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pull-request.unlink", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(host, forKey: .host)
-    try c.encode(repository, forKey: .repository)
-    try c.encode(number, forKey: .number)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadRuntimeModeSet: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var runtimeMode: RuntimeMode
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, runtimeMode: RuntimeMode, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.runtimeMode = runtimeMode
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case runtimeMode
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.runtime-mode.set", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.runtime-mode.set", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(runtimeMode, forKey: .runtimeMode)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadSessionStop: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var createdAt: IsoDateTime
-  public var onlyIfSettled: Bool?
-
-  public init(commandId: CommandId, threadId: ThreadId, createdAt: IsoDateTime, onlyIfSettled: Bool? = nil) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.createdAt = createdAt
-    self.onlyIfSettled = onlyIfSettled
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case createdAt
-    case onlyIfSettled
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.session.stop", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-    self.onlyIfSettled = try c.decodeIfPresent(Bool.self, forKey: .onlyIfSettled)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.session.stop", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(createdAt, forKey: .createdAt)
-    try c.encodeIfPresent(onlyIfSettled, forKey: .onlyIfSettled)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadSettle: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.settle", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.settle", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadSnooze: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var snoozedUntil: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, snoozedUntil: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.snoozedUntil = snoozedUntil
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case snoozedUntil
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.snooze", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.snoozedUntil = try c.decode(IsoDateTime.self, forKey: .snoozedUntil)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.snooze", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(snoozedUntil, forKey: .snoozedUntil)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnInterrupt: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var turnId: TurnId?
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, turnId: TurnId? = nil, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.turnId = turnId
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case turnId
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.turn.interrupt", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.turnId = try c.decodeIfPresent(TurnId.self, forKey: .turnId)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.turn.interrupt", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encodeIfPresent(turnId, forKey: .turnId)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStart: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var message: ClientOrchestrationCommandThreadTurnStartMessage
-  public var modelSelection: ModelSelection?
-  public var titleSeed: String?
-  public var runtimeMode: RuntimeMode
-  public var interactionMode: ProviderInteractionMode
-  public var bootstrap: ClientOrchestrationCommandThreadTurnStartBootstrap?
-  public var sourceProposedPlan: ClientOrchestrationCommandThreadTurnStartSourceProposedPlan?
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, message: ClientOrchestrationCommandThreadTurnStartMessage, modelSelection: ModelSelection? = nil, titleSeed: String? = nil, runtimeMode: RuntimeMode, interactionMode: ProviderInteractionMode, bootstrap: ClientOrchestrationCommandThreadTurnStartBootstrap? = nil, sourceProposedPlan: ClientOrchestrationCommandThreadTurnStartSourceProposedPlan? = nil, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.message = message
-    self.modelSelection = modelSelection
-    self.titleSeed = titleSeed
-    self.runtimeMode = runtimeMode
-    self.interactionMode = interactionMode
-    self.bootstrap = bootstrap
-    self.sourceProposedPlan = sourceProposedPlan
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case message
-    case modelSelection
-    case titleSeed
-    case runtimeMode
-    case interactionMode
-    case bootstrap
-    case sourceProposedPlan
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.turn.start", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.message = try c.decode(ClientOrchestrationCommandThreadTurnStartMessage.self, forKey: .message)
-    self.modelSelection = try c.decodeIfPresent(ModelSelection.self, forKey: .modelSelection)
-    self.titleSeed = try c.decodeIfPresent(String.self, forKey: .titleSeed)
-    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
-    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
-    self.bootstrap = try c.decodeIfPresent(ClientOrchestrationCommandThreadTurnStartBootstrap.self, forKey: .bootstrap)
-    self.sourceProposedPlan = try c.decodeIfPresent(ClientOrchestrationCommandThreadTurnStartSourceProposedPlan.self, forKey: .sourceProposedPlan)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.turn.start", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(message, forKey: .message)
-    try c.encodeIfPresent(modelSelection, forKey: .modelSelection)
-    try c.encodeIfPresent(titleSeed, forKey: .titleSeed)
-    try c.encode(runtimeMode, forKey: .runtimeMode)
-    try c.encode(interactionMode, forKey: .interactionMode)
-    try c.encodeIfPresent(bootstrap, forKey: .bootstrap)
-    try c.encodeIfPresent(sourceProposedPlan, forKey: .sourceProposedPlan)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartBootstrap: Sendable, Hashable, Codable {
-  public var createThread: ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread?
-  public var prepareWorktree: ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree?
-  public var runSetupScript: Bool?
-
-  public init(createThread: ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread? = nil, prepareWorktree: ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree? = nil, runSetupScript: Bool? = nil) {
-    self.createThread = createThread
-    self.prepareWorktree = prepareWorktree
-    self.runSetupScript = runSetupScript
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case createThread
-    case prepareWorktree
-    case runSetupScript
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.createThread = try c.decodeIfPresent(ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread.self, forKey: .createThread)
-    self.prepareWorktree = try c.decodeIfPresent(ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree.self, forKey: .prepareWorktree)
-    self.runSetupScript = try c.decodeIfPresent(Bool.self, forKey: .runSetupScript)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encodeIfPresent(createThread, forKey: .createThread)
-    try c.encodeIfPresent(prepareWorktree, forKey: .prepareWorktree)
-    try c.encodeIfPresent(runSetupScript, forKey: .runSetupScript)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartBootstrapCreateThread: Sendable, Hashable, Codable {
-  public var projectId: ProjectId
-  public var title: String
-  public var modelSelection: ModelSelection
-  public var runtimeMode: RuntimeMode
-  public var interactionMode: ProviderInteractionMode
-  public var branch: String?
-  public var worktreePath: String?
-  public var createdAt: IsoDateTime
-
-  public init(projectId: ProjectId, title: String, modelSelection: ModelSelection, runtimeMode: RuntimeMode, interactionMode: ProviderInteractionMode, branch: String? = nil, worktreePath: String? = nil, createdAt: IsoDateTime) {
-    self.projectId = projectId
-    self.title = title
-    self.modelSelection = modelSelection
-    self.runtimeMode = runtimeMode
-    self.interactionMode = interactionMode
-    self.branch = branch
-    self.worktreePath = worktreePath
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case projectId
-    case title
-    case modelSelection
-    case runtimeMode
-    case interactionMode
-    case branch
-    case worktreePath
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
-    self.title = try c.decode(String.self, forKey: .title)
-    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
-    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
-    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
-    self.branch = try c.decodeIfPresent(String.self, forKey: .branch)
-    self.worktreePath = try c.decodeIfPresent(String.self, forKey: .worktreePath)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(projectId, forKey: .projectId)
-    try c.encode(title, forKey: .title)
-    try c.encode(modelSelection, forKey: .modelSelection)
-    try c.encode(runtimeMode, forKey: .runtimeMode)
-    try c.encode(interactionMode, forKey: .interactionMode)
-    try c.encode(branch, forKey: .branch)
-    try c.encode(worktreePath, forKey: .worktreePath)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartBootstrapPrepareWorktree: Sendable, Hashable, Codable {
-  public var projectCwd: String
-  public var baseBranch: String
-  public var branch: String?
-  public var startFromOrigin: Bool?
-  public var requireWorktree: Bool?
-
-  public init(projectCwd: String, baseBranch: String, branch: String? = nil, startFromOrigin: Bool? = nil, requireWorktree: Bool? = nil) {
-    self.projectCwd = projectCwd
-    self.baseBranch = baseBranch
-    self.branch = branch
-    self.startFromOrigin = startFromOrigin
-    self.requireWorktree = requireWorktree
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case projectCwd
-    case baseBranch
-    case branch
-    case startFromOrigin
-    case requireWorktree
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.projectCwd = try c.decode(String.self, forKey: .projectCwd)
-    self.baseBranch = try c.decode(String.self, forKey: .baseBranch)
-    self.branch = try c.decodeIfPresent(String.self, forKey: .branch)
-    self.startFromOrigin = try c.decodeIfPresent(Bool.self, forKey: .startFromOrigin)
-    self.requireWorktree = try c.decodeIfPresent(Bool.self, forKey: .requireWorktree)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(projectCwd, forKey: .projectCwd)
-    try c.encode(baseBranch, forKey: .baseBranch)
-    try c.encodeIfPresent(branch, forKey: .branch)
-    try c.encodeIfPresent(startFromOrigin, forKey: .startFromOrigin)
-    try c.encodeIfPresent(requireWorktree, forKey: .requireWorktree)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartMessage: Sendable, Hashable, Codable {
-  public var messageId: MessageId
-  public var text: String
-  public var attachments: [ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem]
-  public var context: OrchestrationMessageContext?
-
-  public init(messageId: MessageId, text: String, attachments: [ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem], context: OrchestrationMessageContext? = nil) {
-    self.messageId = messageId
-    self.text = text
-    self.attachments = attachments
-    self.context = context
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case role
-    case messageId
-    case text
-    case attachments
-    case context
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("user", forKey: .role)
-    self.messageId = try c.decode(MessageId.self, forKey: .messageId)
-    self.text = try c.decode(String.self, forKey: .text)
-    self.attachments = try c.decode([ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem].self, forKey: .attachments)
-    self.context = try c.decodeIfPresent(OrchestrationMessageContext.self, forKey: .context)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("user", forKey: .role)
-    try c.encode(messageId, forKey: .messageId)
-    try c.encode(text, forKey: .text)
-    try c.encode(attachments, forKey: .attachments)
-    try c.encodeIfPresent(context, forKey: .context)
-  }
-}
-
-public enum ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem: Sendable, Hashable, Codable {
-  case option1(ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItemOption1)
-  case chatImageAttachment(ChatImageAttachment)
-  case chatFileAttachment(ChatFileAttachment)
-  case chatUnknownAttachment(ChatUnknownAttachment)
-  case unknown(JSONValue)
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.singleValueContainer()
-    if let value = try? c.decode(ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItemOption1.self) { self = .option1(value); return }
-    if let value = try? c.decode(ChatImageAttachment.self) { self = .chatImageAttachment(value); return }
-    if let value = try? c.decode(ChatFileAttachment.self) { self = .chatFileAttachment(value); return }
-    if let value = try? c.decode(ChatUnknownAttachment.self) { self = .chatUnknownAttachment(value); return }
-    self = .unknown(try c.decode(JSONValue.self))
-  }
-
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.singleValueContainer()
-    switch self {
-    case .option1(let value): try c.encode(value)
-    case .chatImageAttachment(let value): try c.encode(value)
-    case .chatFileAttachment(let value): try c.encode(value)
-    case .chatUnknownAttachment(let value): try c.encode(value)
-    case .unknown(let value): try c.encode(value)
-    }
+    try c.encode(rawValue)
   }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItemOption1: Sendable, Hashable, Codable {
-  public var id: String?
-  public var name: String
-  public var mimeType: String
-  public var sizeBytes: Int
-  public var dataUrl: String
-  public var source: SnapShotSource?
-
-  public init(id: String? = nil, name: String, mimeType: String, sizeBytes: Int, dataUrl: String, source: SnapShotSource? = nil) {
-    self.id = id
-    self.name = name
-    self.mimeType = mimeType
-    self.sizeBytes = sizeBytes
-    self.dataUrl = dataUrl
-    self.source = source
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case id
-    case name
-    case mimeType
-    case sizeBytes
-    case dataUrl
-    case source
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("image", forKey: .type)
-    self.id = try c.decodeIfPresent(String.self, forKey: .id)
-    self.name = try c.decode(String.self, forKey: .name)
-    self.mimeType = try c.decode(String.self, forKey: .mimeType)
-    self.sizeBytes = try c.decode(Int.self, forKey: .sizeBytes)
-    self.dataUrl = try c.decode(String.self, forKey: .dataUrl)
-    self.source = try c.decodeIfPresent(SnapShotSource.self, forKey: .source)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("image", forKey: .type)
-    try c.encodeIfPresent(id, forKey: .id)
-    try c.encode(name, forKey: .name)
-    try c.encode(mimeType, forKey: .mimeType)
-    try c.encode(sizeBytes, forKey: .sizeBytes)
-    try c.encode(dataUrl, forKey: .dataUrl)
-    try c.encodeIfPresent(source, forKey: .source)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadTurnStartSourceProposedPlan: Sendable, Hashable, Codable {
-  public var threadId: ThreadId
-  public var planId: String
-
-  public init(threadId: ThreadId, planId: String) {
-    self.threadId = threadId
-    self.planId = planId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case threadId
-    case planId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.planId = try c.decode(String.self, forKey: .planId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(planId, forKey: .planId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUnarchive: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unarchive", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unarchive", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUnpin: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unpin", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unpin", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUnsettle: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case reason
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unsettle", forKey: .type)
-    try c.expectConstant("user", forKey: .reason)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unsettle", forKey: .type)
-    try c.encode("user", forKey: .reason)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUnsnooze: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-
-  public init(commandId: CommandId, threadId: ThreadId) {
-    self.commandId = commandId
-    self.threadId = threadId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case reason
-    case commandId
-    case threadId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unsnooze", forKey: .type)
-    try c.expectConstant("user", forKey: .reason)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unsnooze", forKey: .type)
-    try c.encode("user", forKey: .reason)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUserInputDismiss: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var requestId: ApprovalRequestId
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, requestId: ApprovalRequestId, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.requestId = requestId
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case requestId
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.user-input.dismiss", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.requestId = try c.decode(ApprovalRequestId.self, forKey: .requestId)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.user-input.dismiss", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(requestId, forKey: .requestId)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public struct ClientOrchestrationCommandThreadUserInputRespond: Sendable, Hashable, Codable {
-  public var commandId: CommandId
-  public var threadId: ThreadId
-  public var requestId: ApprovalRequestId
-  public var answers: [String: JSONValue]
-  public var attachmentsByQuestionId: [String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]]?
-  public var createdAt: IsoDateTime
-
-  public init(commandId: CommandId, threadId: ThreadId, requestId: ApprovalRequestId, answers: [String: JSONValue], attachmentsByQuestionId: [String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]]? = nil, createdAt: IsoDateTime) {
-    self.commandId = commandId
-    self.threadId = threadId
-    self.requestId = requestId
-    self.answers = answers
-    self.attachmentsByQuestionId = attachmentsByQuestionId
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case commandId
-    case threadId
-    case requestId
-    case answers
-    case attachmentsByQuestionId
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.user-input.respond", forKey: .type)
-    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.requestId = try c.decode(ApprovalRequestId.self, forKey: .requestId)
-    self.answers = try c.decode([String: JSONValue].self, forKey: .answers)
-    self.attachmentsByQuestionId = try c.decodeIfPresent([String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]].self, forKey: .attachmentsByQuestionId)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.user-input.respond", forKey: .type)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(requestId, forKey: .requestId)
-    try c.encode(answers, forKey: .answers)
-    try c.encodeIfPresent(attachmentsByQuestionId, forKey: .attachmentsByQuestionId)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public enum ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem: Sendable, Hashable, Codable {
-  case image(ChatImageAttachment)
-  case file(ChatFileAttachment)
-  /// A variant this build does not know; kept verbatim so it round-trips.
-  case unknown(JSONValue)
-
-  private enum TagKeys: String, CodingKey { case tag = "type" }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: TagKeys.self)
-    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
-    switch tag {
-    case "image"?: self = .image(try ChatImageAttachment(from: decoder))
-    case "file"?: self = .file(try ChatFileAttachment(from: decoder))
-    default:
-      self = .unknown(try JSONValue(from: decoder))
-    }
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    switch self {
-    case .image(let value): try value.encode(to: encoder)
-    case .file(let value): try value.encode(to: encoder)
-    case .unknown(let value): try value.encode(to: encoder)
-    }
-  }
+  public var description: String { rawValue }
 }
 
 public enum CloudInstallRelayClientFailure: Sendable, Hashable, Codable, Error {
@@ -1829,6 +405,31 @@ public enum CloudInstallRelayClientFailure: Sendable, Hashable, Codable, Error {
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
+  }
+}
+
+public struct CodexAuthCallbackStateFinished: Sendable, Hashable, Codable {
+  public var callbackUrl: String
+
+  public init(callbackUrl: String) {
+    self.callbackUrl = callbackUrl
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case phase
+    case callbackUrl
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("finished", forKey: .phase)
+    self.callbackUrl = try c.decode(String.self, forKey: .callbackUrl)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("finished", forKey: .phase)
+    try c.encode(callbackUrl, forKey: .callbackUrl)
   }
 }
 
@@ -2481,6 +1082,21 @@ public enum DeviceConfigureFailure: Sendable, Hashable, Codable, Error {
   }
 }
 
+public struct EventId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
+  public init(from decoder: any Decoder) throws {
+    rawValue = try decoder.singleValueContainer().decode(String.self)
+  }
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+  public var description: String { rawValue }
+}
+
 public struct GitActionProgressEventActionFailed: Sendable, Hashable, Codable {
   public var actionId: String
   public var cwd: String
@@ -3023,6 +1639,40 @@ public enum HttpConnectRelayConfigFailure: Sendable, Hashable, Codable, Error {
   }
 }
 
+public enum HttpOrchestrationThreadHistoryPageFailure: Sendable, Hashable, Codable, Error {
+  case environmentRequestInvalidError(EnvironmentRequestInvalidError)
+  case environmentScopeRequiredError(EnvironmentScopeRequiredError)
+  case environmentResourceNotFoundError(EnvironmentResourceNotFoundError)
+  case environmentInternalError(EnvironmentInternalError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "EnvironmentRequestInvalidError"?: self = .environmentRequestInvalidError(try EnvironmentRequestInvalidError(from: decoder))
+    case "EnvironmentScopeRequiredError"?: self = .environmentScopeRequiredError(try EnvironmentScopeRequiredError(from: decoder))
+    case "EnvironmentResourceNotFoundError"?: self = .environmentResourceNotFoundError(try EnvironmentResourceNotFoundError(from: decoder))
+    case "EnvironmentInternalError"?: self = .environmentInternalError(try EnvironmentInternalError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .environmentRequestInvalidError(let value): try value.encode(to: encoder)
+    case .environmentScopeRequiredError(let value): try value.encode(to: encoder)
+    case .environmentResourceNotFoundError(let value): try value.encode(to: encoder)
+    case .environmentInternalError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum HttpOrchestrationThreadSnapshotFailure: Sendable, Hashable, Codable, Error {
   case environmentScopeRequiredError(EnvironmentScopeRequiredError)
   case environmentResourceNotFoundError(EnvironmentResourceNotFoundError)
@@ -3091,23 +1741,8 @@ public enum HttpPullRequestsDiffFailure: Sendable, Hashable, Codable, Error {
   }
 }
 
-public struct MessageId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
-  public var rawValue: String
-  public init(rawValue: String) { self.rawValue = rawValue }
-  public init(_ rawValue: String) { self.rawValue = rawValue }
-  public init(stringLiteral value: String) { rawValue = value }
-  public init(from decoder: any Decoder) throws {
-    rawValue = try decoder.singleValueContainer().decode(String.self)
-  }
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-  public var description: String { rawValue }
-}
-
-public enum OrchestrationDispatchCommandFailure: Sendable, Hashable, Codable, Error {
-  case orchestrationDispatchCommandError(OrchestrationDispatchCommandError)
+public enum McpAppsCallToolFailure: Sendable, Hashable, Codable, Error {
+  case mcpAppRequestError(McpAppRequestError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -3118,7 +1753,7 @@ public enum OrchestrationDispatchCommandFailure: Sendable, Hashable, Codable, Er
     let c = try decoder.container(keyedBy: TagKeys.self)
     let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
     switch tag {
-    case "OrchestrationDispatchCommandError"?: self = .orchestrationDispatchCommandError(try OrchestrationDispatchCommandError(from: decoder))
+    case "McpAppRequestError"?: self = .mcpAppRequestError(try McpAppRequestError(from: decoder))
     case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
     default:
       self = .unknown(try JSONValue(from: decoder))
@@ -3127,2367 +1762,15 @@ public enum OrchestrationDispatchCommandFailure: Sendable, Hashable, Codable, Er
 
   public func encode(to encoder: any Encoder) throws {
     switch self {
-    case .orchestrationDispatchCommandError(let value): try value.encode(to: encoder)
+    case .mcpAppRequestError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
   }
 }
 
-public struct OrchestrationEventProjectCreated: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ProjectCreatedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ProjectCreatedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project.created", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ProjectCreatedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project.created", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventProjectDeleted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ProjectDeletedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ProjectDeletedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project.deleted", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ProjectDeletedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project.deleted", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventProjectMetaUpdated: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ProjectMetaUpdatedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ProjectMetaUpdatedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project.meta-updated", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ProjectMetaUpdatedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project.meta-updated", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadActivityAppended: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadActivityAppendedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadActivityAppendedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.activity-appended", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadActivityAppendedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.activity-appended", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadApprovalResponseRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadApprovalResponseRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadApprovalResponseRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.approval-response-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadApprovalResponseRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.approval-response-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadArchived: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadArchivedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadArchivedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.archived", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadArchivedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.archived", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadAutoSettleSet: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadAutoSettleSetPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadAutoSettleSetPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.auto-settle-set", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadAutoSettleSetPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.auto-settle-set", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadCheckpointRevertRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadCheckpointRevertRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadCheckpointRevertRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.checkpoint-revert-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadCheckpointRevertRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.checkpoint-revert-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadCreated: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadCreatedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadCreatedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.created", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadCreatedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.created", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadDeleted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadDeletedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadDeletedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.deleted", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadDeletedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.deleted", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadInteractionModeSet: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadInteractionModeSetPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadInteractionModeSetPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.interaction-mode-set", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadInteractionModeSetPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.interaction-mode-set", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadMessageSent: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadMessageSentPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadMessageSentPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.message-sent", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadMessageSentPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.message-sent", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadMetaUpdated: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadMetaUpdatedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadMetaUpdatedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.meta-updated", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadMetaUpdatedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.meta-updated", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadPinReordered: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadPinReorderedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadPinReorderedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pin-reordered", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadPinReorderedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pin-reordered", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadPinned: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadPinnedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadPinnedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pinned", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadPinnedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pinned", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadProposedPlanUpserted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadProposedPlanUpsertedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadProposedPlanUpsertedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.proposed-plan-upserted", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadProposedPlanUpsertedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.proposed-plan-upserted", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadPullRequestLinked: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadPullRequestLinkedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadPullRequestLinkedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pull-request-linked", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadPullRequestLinkedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pull-request-linked", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadPullRequestSynced: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadPullRequestSyncedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadPullRequestSyncedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pull-request-synced", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadPullRequestSyncedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pull-request-synced", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadPullRequestUnlinked: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadPullRequestUnlinkedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadPullRequestUnlinkedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.pull-request-unlinked", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadPullRequestUnlinkedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.pull-request-unlinked", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadReverted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadRevertedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadRevertedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.reverted", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadRevertedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.reverted", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadRuntimeModeSet: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadRuntimeModeSetPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadRuntimeModeSetPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.runtime-mode-set", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadRuntimeModeSetPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.runtime-mode-set", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadSessionSet: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadSessionSetPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadSessionSetPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.session-set", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadSessionSetPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.session-set", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadSessionStopRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadSessionStopRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadSessionStopRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.session-stop-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadSessionStopRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.session-stop-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadSettled: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadSettledPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadSettledPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.settled", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadSettledPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.settled", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadSnoozed: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadSnoozedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadSnoozedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.snoozed", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadSnoozedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.snoozed", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadTurnDiffCompleted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadTurnDiffCompletedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadTurnDiffCompletedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.turn-diff-completed", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadTurnDiffCompletedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.turn-diff-completed", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadTurnInterruptRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadTurnInterruptRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadTurnInterruptRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.turn-interrupt-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadTurnInterruptRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.turn-interrupt-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadTurnStartRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadTurnStartRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadTurnStartRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.turn-start-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadTurnStartRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.turn-start-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUnarchived: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadUnarchivedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadUnarchivedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unarchived", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadUnarchivedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unarchived", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUnpinned: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadUnpinnedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadUnpinnedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unpinned", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadUnpinnedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unpinned", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUnsettled: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadUnsettledPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadUnsettledPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unsettled", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadUnsettledPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unsettled", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUnsnoozed: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: ThreadUnsnoozedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: ThreadUnsnoozedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.unsnoozed", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(ThreadUnsnoozedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.unsnoozed", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUserInputResponseRequested: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var eventId: EventId
-  public var aggregateKind: OrchestrationAggregateKind
-  public var aggregateId: String
-  public var occurredAt: IsoDateTime
-  public var commandId: CommandId?
-  public var causationEventId: EventId?
-  public var correlationId: CommandId?
-  public var metadata: OrchestrationEventMetadata
-  public var payload: OrchestrationEventThreadUserInputResponseRequestedPayload
-
-  public init(sequence: Int, eventId: EventId, aggregateKind: OrchestrationAggregateKind, aggregateId: String, occurredAt: IsoDateTime, commandId: CommandId? = nil, causationEventId: EventId? = nil, correlationId: CommandId? = nil, metadata: OrchestrationEventMetadata, payload: OrchestrationEventThreadUserInputResponseRequestedPayload) {
-    self.sequence = sequence
-    self.eventId = eventId
-    self.aggregateKind = aggregateKind
-    self.aggregateId = aggregateId
-    self.occurredAt = occurredAt
-    self.commandId = commandId
-    self.causationEventId = causationEventId
-    self.correlationId = correlationId
-    self.metadata = metadata
-    self.payload = payload
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case sequence
-    case eventId
-    case aggregateKind
-    case aggregateId
-    case occurredAt
-    case commandId
-    case causationEventId
-    case correlationId
-    case metadata
-    case payload
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread.user-input-response-requested", forKey: .type)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.eventId = try c.decode(EventId.self, forKey: .eventId)
-    self.aggregateKind = try c.decode(OrchestrationAggregateKind.self, forKey: .aggregateKind)
-    self.aggregateId = try c.decode(String.self, forKey: .aggregateId)
-    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
-    self.commandId = try c.decodeIfPresent(CommandId.self, forKey: .commandId)
-    self.causationEventId = try c.decodeIfPresent(EventId.self, forKey: .causationEventId)
-    self.correlationId = try c.decodeIfPresent(CommandId.self, forKey: .correlationId)
-    self.metadata = try c.decode(OrchestrationEventMetadata.self, forKey: .metadata)
-    self.payload = try c.decode(OrchestrationEventThreadUserInputResponseRequestedPayload.self, forKey: .payload)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread.user-input-response-requested", forKey: .type)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(eventId, forKey: .eventId)
-    try c.encode(aggregateKind, forKey: .aggregateKind)
-    try c.encode(aggregateId, forKey: .aggregateId)
-    try c.encode(occurredAt, forKey: .occurredAt)
-    try c.encode(commandId, forKey: .commandId)
-    try c.encode(causationEventId, forKey: .causationEventId)
-    try c.encode(correlationId, forKey: .correlationId)
-    try c.encode(metadata, forKey: .metadata)
-    try c.encode(payload, forKey: .payload)
-  }
-}
-
-public struct OrchestrationEventThreadUserInputResponseRequestedPayload: Sendable, Hashable, Codable {
-  public var threadId: ThreadId
-  public var requestId: ApprovalRequestId
-  public var answers: [String: JSONValue]
-  public var attachmentsByQuestionId: [String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]]?
-  public var createdAt: IsoDateTime
-
-  public init(threadId: ThreadId, requestId: ApprovalRequestId, answers: [String: JSONValue], attachmentsByQuestionId: [String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]]? = nil, createdAt: IsoDateTime) {
-    self.threadId = threadId
-    self.requestId = requestId
-    self.answers = answers
-    self.attachmentsByQuestionId = attachmentsByQuestionId
-    self.createdAt = createdAt
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case threadId
-    case requestId
-    case answers
-    case attachmentsByQuestionId
-    case createdAt
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
-    self.requestId = try c.decode(ApprovalRequestId.self, forKey: .requestId)
-    self.answers = try c.decode([String: JSONValue].self, forKey: .answers)
-    self.attachmentsByQuestionId = try c.decodeIfPresent([String: [ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem]].self, forKey: .attachmentsByQuestionId)
-    self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode(threadId, forKey: .threadId)
-    try c.encode(requestId, forKey: .requestId)
-    try c.encode(answers, forKey: .answers)
-    try c.encodeIfPresent(attachmentsByQuestionId, forKey: .attachmentsByQuestionId)
-    try c.encode(createdAt, forKey: .createdAt)
-  }
-}
-
-public enum OrchestrationGetArchivedShellSnapshotFailure: Sendable, Hashable, Codable, Error {
-  case orchestrationGetSnapshotError(OrchestrationGetSnapshotError)
+public enum OrchestrationDispatchCommandFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationV2DispatchCommandError(OrchestrationV2DispatchCommandError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -5498,7 +1781,7 @@ public enum OrchestrationGetArchivedShellSnapshotFailure: Sendable, Hashable, Co
     let c = try decoder.container(keyedBy: TagKeys.self)
     let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
     switch tag {
-    case "OrchestrationGetSnapshotError"?: self = .orchestrationGetSnapshotError(try OrchestrationGetSnapshotError(from: decoder))
+    case "OrchestrationV2DispatchCommandError"?: self = .orchestrationV2DispatchCommandError(try OrchestrationV2DispatchCommandError(from: decoder))
     case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
     default:
       self = .unknown(try JSONValue(from: decoder))
@@ -5507,7 +1790,35 @@ public enum OrchestrationGetArchivedShellSnapshotFailure: Sendable, Hashable, Co
 
   public func encode(to encoder: any Encoder) throws {
     switch self {
-    case .orchestrationGetSnapshotError(let value): try value.encode(to: encoder)
+    case .orchestrationV2DispatchCommandError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum OrchestrationGetArchivedShellSnapshotFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationV2GetShellSnapshotError(OrchestrationV2GetShellSnapshotError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "OrchestrationV2GetShellSnapshotError"?: self = .orchestrationV2GetShellSnapshotError(try OrchestrationV2GetShellSnapshotError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .orchestrationV2GetShellSnapshotError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -5570,6 +1881,34 @@ public enum OrchestrationGetTurnDiffFailure: Sendable, Hashable, Codable, Error 
   }
 }
 
+public enum OrchestrationGetTurnItemFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationV2GetThreadProjectionError(OrchestrationV2GetThreadProjectionError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "OrchestrationV2GetThreadProjectionError"?: self = .orchestrationV2GetThreadProjectionError(try OrchestrationV2GetThreadProjectionError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .orchestrationV2GetThreadProjectionError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum OrchestrationGetWorkflowScriptFailure: Sendable, Hashable, Codable, Error {
   case orchestrationGetWorkflowScriptError(OrchestrationGetWorkflowScriptError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
@@ -5592,6 +1931,62 @@ public enum OrchestrationGetWorkflowScriptFailure: Sendable, Hashable, Codable, 
   public func encode(to encoder: any Encoder) throws {
     switch self {
     case .orchestrationGetWorkflowScriptError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum OrchestrationLaunchThreadFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationV2ThreadLaunchError(OrchestrationV2ThreadLaunchError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "OrchestrationV2ThreadLaunchError"?: self = .orchestrationV2ThreadLaunchError(try OrchestrationV2ThreadLaunchError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .orchestrationV2ThreadLaunchError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum OrchestrationSearchThreadFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationV2SearchThreadError(OrchestrationV2SearchThreadError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "OrchestrationV2SearchThreadError"?: self = .orchestrationV2SearchThreadError(try OrchestrationV2SearchThreadError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .orchestrationV2SearchThreadError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -5626,70 +2021,10 @@ public enum OrchestrationSearchThreadsFailure: Sendable, Hashable, Codable, Erro
   }
 }
 
-public struct OrchestrationShellStreamItemProjectRemoved: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var projectId: ProjectId
+public struct OrchestrationV2ArchivedShellStreamItemSnapshot: Sendable, Hashable, Codable {
+  public var snapshot: OrchestrationV2ArchivedShellSnapshot
 
-  public init(sequence: Int, projectId: ProjectId) {
-    self.sequence = sequence
-    self.projectId = projectId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case kind
-    case sequence
-    case projectId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project-removed", forKey: .kind)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project-removed", forKey: .kind)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(projectId, forKey: .projectId)
-  }
-}
-
-public struct OrchestrationShellStreamItemProjectUpserted: Sendable, Hashable, Codable {
-  public var sequence: Int
-  public var project: OrchestrationProjectShell
-
-  public init(sequence: Int, project: OrchestrationProjectShell) {
-    self.sequence = sequence
-    self.project = project
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case kind
-    case sequence
-    case project
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("project-upserted", forKey: .kind)
-    self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.project = try c.decode(OrchestrationProjectShell.self, forKey: .project)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("project-upserted", forKey: .kind)
-    try c.encode(sequence, forKey: .sequence)
-    try c.encode(project, forKey: .project)
-  }
-}
-
-public struct OrchestrationShellStreamItemSnapshot: Sendable, Hashable, Codable {
-  public var snapshot: OrchestrationShellSnapshot
-
-  public init(snapshot: OrchestrationShellSnapshot) {
+  public init(snapshot: OrchestrationV2ArchivedShellSnapshot) {
     self.snapshot = snapshot
   }
 
@@ -5701,7 +2036,7 @@ public struct OrchestrationShellStreamItemSnapshot: Sendable, Hashable, Codable 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     try c.expectConstant("snapshot", forKey: .kind)
-    self.snapshot = try c.decode(OrchestrationShellSnapshot.self, forKey: .snapshot)
+    self.snapshot = try c.decode(OrchestrationV2ArchivedShellSnapshot.self, forKey: .snapshot)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -5711,7 +2046,7 @@ public struct OrchestrationShellStreamItemSnapshot: Sendable, Hashable, Codable 
   }
 }
 
-public struct OrchestrationShellStreamItemThreadRemoved: Sendable, Hashable, Codable {
+public struct OrchestrationV2ArchivedShellStreamItemThreadRemoved: Sendable, Hashable, Codable {
   public var sequence: Int
   public var threadId: ThreadId
 
@@ -5728,24 +2063,24 @@ public struct OrchestrationShellStreamItemThreadRemoved: Sendable, Hashable, Cod
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread-removed", forKey: .kind)
+    try c.expectConstant("thread.removed", forKey: .kind)
     self.sequence = try c.decode(Int.self, forKey: .sequence)
     self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread-removed", forKey: .kind)
+    try c.encode("thread.removed", forKey: .kind)
     try c.encode(sequence, forKey: .sequence)
     try c.encode(threadId, forKey: .threadId)
   }
 }
 
-public struct OrchestrationShellStreamItemThreadUpserted: Sendable, Hashable, Codable {
+public struct OrchestrationV2ArchivedShellStreamItemThreadUpdated: Sendable, Hashable, Codable {
   public var sequence: Int
-  public var thread: OrchestrationThreadShell
+  public var thread: OrchestrationV2ThreadShell
 
-  public init(sequence: Int, thread: OrchestrationThreadShell) {
+  public init(sequence: Int, thread: OrchestrationV2ThreadShell) {
     self.sequence = sequence
     self.thread = thread
   }
@@ -5758,88 +2093,4646 @@ public struct OrchestrationShellStreamItemThreadUpserted: Sendable, Hashable, Co
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("thread-upserted", forKey: .kind)
+    try c.expectConstant("thread.updated", forKey: .kind)
     self.sequence = try c.decode(Int.self, forKey: .sequence)
-    self.thread = try c.decode(OrchestrationThreadShell.self, forKey: .thread)
+    self.thread = try c.decode(OrchestrationV2ThreadShell.self, forKey: .thread)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("thread-upserted", forKey: .kind)
+    try c.encode("thread.updated", forKey: .kind)
     try c.encode(sequence, forKey: .sequence)
     try c.encode(thread, forKey: .thread)
   }
 }
 
-public struct OrchestrationThreadStreamItemEvent: Sendable, Hashable, Codable {
-  public var event: OrchestrationEvent
+public struct OrchestrationV2CommandCheckpointRollback: Sendable, Hashable, Codable {
+  public var restoreFiles: Bool?
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var scopeId: CheckpointScopeId
+  public var checkpointId: CheckpointId
 
-  public init(event: OrchestrationEvent) {
-    self.event = event
+  public init(restoreFiles: Bool? = nil, commandId: CommandId, threadId: ThreadId, scopeId: CheckpointScopeId, checkpointId: CheckpointId) {
+    self.restoreFiles = restoreFiles
+    self.commandId = commandId
+    self.threadId = threadId
+    self.scopeId = scopeId
+    self.checkpointId = checkpointId
   }
 
   private enum CodingKeys: String, CodingKey {
-    case kind
-    case event
+    case type
+    case restoreFiles
+    case commandId
+    case threadId
+    case scopeId
+    case checkpointId
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("event", forKey: .kind)
-    self.event = try c.decode(OrchestrationEvent.self, forKey: .event)
+    try c.expectConstant("checkpoint.rollback", forKey: .type)
+    self.restoreFiles = try c.decodeIfPresent(Bool.self, forKey: .restoreFiles)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.scopeId = try c.decode(CheckpointScopeId.self, forKey: .scopeId)
+    self.checkpointId = try c.decode(CheckpointId.self, forKey: .checkpointId)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("event", forKey: .kind)
-    try c.encode(event, forKey: .event)
+    try c.encode("checkpoint.rollback", forKey: .type)
+    try c.encodeIfPresent(restoreFiles, forKey: .restoreFiles)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(scopeId, forKey: .scopeId)
+    try c.encode(checkpointId, forKey: .checkpointId)
   }
 }
 
-public struct OrchestrationThreadStreamItemSnapshot: Sendable, Hashable, Codable {
-  public var snapshot: OrchestrationThreadDetailSnapshot
+public struct OrchestrationV2CommandDelegatedTaskCompletionDeliveryAcknowledge: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var parentThreadId: ThreadId
+  public var taskId: NodeId
+  public var observedByRunId: RunId?
 
-  public init(snapshot: OrchestrationThreadDetailSnapshot) {
+  public init(commandId: CommandId, parentThreadId: ThreadId, taskId: NodeId, observedByRunId: RunId? = nil) {
+    self.commandId = commandId
+    self.parentThreadId = parentThreadId
+    self.taskId = taskId
+    self.observedByRunId = observedByRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case parentThreadId
+    case taskId
+    case observedByRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("delegated_task.completion-delivery.acknowledge", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.parentThreadId = try c.decode(ThreadId.self, forKey: .parentThreadId)
+    self.taskId = try c.decode(NodeId.self, forKey: .taskId)
+    self.observedByRunId = try c.decodeIfPresent(RunId.self, forKey: .observedByRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("delegated_task.completion-delivery.acknowledge", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(parentThreadId, forKey: .parentThreadId)
+    try c.encode(taskId, forKey: .taskId)
+    try c.encode(observedByRunId, forKey: .observedByRunId)
+  }
+}
+
+public struct OrchestrationV2CommandDelegatedTaskCompletionDeliveryDispose: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var parentThreadId: ThreadId
+  public var taskId: NodeId
+
+  public init(commandId: CommandId, parentThreadId: ThreadId, taskId: NodeId) {
+    self.commandId = commandId
+    self.parentThreadId = parentThreadId
+    self.taskId = taskId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case parentThreadId
+    case taskId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("delegated_task.completion-delivery.dispose", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.parentThreadId = try c.decode(ThreadId.self, forKey: .parentThreadId)
+    self.taskId = try c.decode(NodeId.self, forKey: .taskId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("delegated_task.completion-delivery.dispose", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(parentThreadId, forKey: .parentThreadId)
+    try c.encode(taskId, forKey: .taskId)
+  }
+}
+
+public struct OrchestrationV2CommandDelegatedTaskRequest: Sendable, Hashable, Codable {
+  public var createdBy: OrchestrationV2Actor
+  public var creationSource: OrchestrationV2CreationSource
+  public var commandId: CommandId
+  public var parentThreadId: ThreadId
+  public var parentRunId: RunId
+  public var parentNodeId: NodeId
+  public var task: String
+  public var title: String?
+  public var modelSelection: ModelSelection
+  public var runtimeMode: RuntimeMode
+  public var interactionMode: ProviderInteractionMode
+  public var completionWake: OrchestrationV2CommandDelegatedTaskRequestCompletionWake?
+  public var createdAt: IsoDateTime?
+
+  public init(createdBy: OrchestrationV2Actor, creationSource: OrchestrationV2CreationSource, commandId: CommandId, parentThreadId: ThreadId, parentRunId: RunId, parentNodeId: NodeId, task: String, title: String? = nil, modelSelection: ModelSelection, runtimeMode: RuntimeMode, interactionMode: ProviderInteractionMode, completionWake: OrchestrationV2CommandDelegatedTaskRequestCompletionWake? = nil, createdAt: IsoDateTime? = nil) {
+    self.createdBy = createdBy
+    self.creationSource = creationSource
+    self.commandId = commandId
+    self.parentThreadId = parentThreadId
+    self.parentRunId = parentRunId
+    self.parentNodeId = parentNodeId
+    self.task = task
+    self.title = title
+    self.modelSelection = modelSelection
+    self.runtimeMode = runtimeMode
+    self.interactionMode = interactionMode
+    self.completionWake = completionWake
+    self.createdAt = createdAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case createdBy
+    case creationSource
+    case commandId
+    case parentThreadId
+    case parentRunId
+    case parentNodeId
+    case task
+    case title
+    case modelSelection
+    case runtimeMode
+    case interactionMode
+    case completionWake
+    case createdAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("delegated_task.request", forKey: .type)
+    self.createdBy = try c.decode(OrchestrationV2Actor.self, forKey: .createdBy)
+    self.creationSource = try c.decode(OrchestrationV2CreationSource.self, forKey: .creationSource)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.parentThreadId = try c.decode(ThreadId.self, forKey: .parentThreadId)
+    self.parentRunId = try c.decode(RunId.self, forKey: .parentRunId)
+    self.parentNodeId = try c.decode(NodeId.self, forKey: .parentNodeId)
+    self.task = try c.decode(String.self, forKey: .task)
+    self.title = try c.decodeIfPresent(String.self, forKey: .title)
+    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
+    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
+    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
+    self.completionWake = try c.decodeIfPresent(OrchestrationV2CommandDelegatedTaskRequestCompletionWake.self, forKey: .completionWake)
+    self.createdAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .createdAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("delegated_task.request", forKey: .type)
+    try c.encode(createdBy, forKey: .createdBy)
+    try c.encode(creationSource, forKey: .creationSource)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(parentThreadId, forKey: .parentThreadId)
+    try c.encode(parentRunId, forKey: .parentRunId)
+    try c.encode(parentNodeId, forKey: .parentNodeId)
+    try c.encode(task, forKey: .task)
+    try c.encodeIfPresent(title, forKey: .title)
+    try c.encode(modelSelection, forKey: .modelSelection)
+    try c.encode(runtimeMode, forKey: .runtimeMode)
+    try c.encode(interactionMode, forKey: .interactionMode)
+    try c.encodeIfPresent(completionWake, forKey: .completionWake)
+    try c.encodeIfPresent(createdAt, forKey: .createdAt)
+  }
+}
+
+public enum OrchestrationV2CommandDelegatedTaskRequestCompletionWake: Sendable, Hashable, Codable, RawRepresentable {
+  case always
+  case settled_only
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "always": self = .always
+    case "settled_only": self = .settled_only
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .always: "always"
+    case .settled_only: "settled_only"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct OrchestrationV2CommandDelegatedTaskWakePolicy: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var parentThreadId: ThreadId
+  public var taskId: NodeId
+  public var completionWake: OrchestrationV2CommandDelegatedTaskRequestCompletionWake
+
+  public init(commandId: CommandId, parentThreadId: ThreadId, taskId: NodeId, completionWake: OrchestrationV2CommandDelegatedTaskRequestCompletionWake) {
+    self.commandId = commandId
+    self.parentThreadId = parentThreadId
+    self.taskId = taskId
+    self.completionWake = completionWake
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case parentThreadId
+    case taskId
+    case completionWake
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("delegated_task.wake-policy", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.parentThreadId = try c.decode(ThreadId.self, forKey: .parentThreadId)
+    self.taskId = try c.decode(NodeId.self, forKey: .taskId)
+    self.completionWake = try c.decode(OrchestrationV2CommandDelegatedTaskRequestCompletionWake.self, forKey: .completionWake)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("delegated_task.wake-policy", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(parentThreadId, forKey: .parentThreadId)
+    try c.encode(taskId, forKey: .taskId)
+    try c.encode(completionWake, forKey: .completionWake)
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatch: Sendable, Hashable, Codable {
+  public var notification: OrchestrationV2Notification?
+  public var createdBy: OrchestrationV2Actor
+  public var creationSource: OrchestrationV2CreationSource
+  public var scheduledTaskId: ScheduledTaskId?
+  public var senderThreadId: ThreadId?
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var messageId: MessageId
+  public var text: String
+  public var context: OrchestrationMessageContext?
+  public var attachments: [ChatAttachment]
+  public var titleSeed: String?
+  public var modelSelection: ModelSelection?
+  public var sourcePlanRef: OrchestrationV2CommandMessageDispatchSourcePlanRef?
+  public var restartContinuationOfRunId: RunId?
+  public var usageLimitContinuationOfRunId: RunId?
+  public var manualContinuationOfRunId: RunId?
+  public var usageLimitRecoveryRequestId: CommandId?
+  public var deliveryIntent: OrchestrationV2CommandMessageDispatchDeliveryIntent?
+  public var delegatedCompletion: OrchestrationV2CommandMessageDispatchDelegatedCompletion?
+  public var dispatchMode: OrchestrationV2CommandMessageDispatchDispatchMode
+
+  public init(notification: OrchestrationV2Notification? = nil, createdBy: OrchestrationV2Actor, creationSource: OrchestrationV2CreationSource, scheduledTaskId: ScheduledTaskId? = nil, senderThreadId: ThreadId? = nil, commandId: CommandId, threadId: ThreadId, messageId: MessageId, text: String, context: OrchestrationMessageContext? = nil, attachments: [ChatAttachment], titleSeed: String? = nil, modelSelection: ModelSelection? = nil, sourcePlanRef: OrchestrationV2CommandMessageDispatchSourcePlanRef? = nil, restartContinuationOfRunId: RunId? = nil, usageLimitContinuationOfRunId: RunId? = nil, manualContinuationOfRunId: RunId? = nil, usageLimitRecoveryRequestId: CommandId? = nil, deliveryIntent: OrchestrationV2CommandMessageDispatchDeliveryIntent? = nil, delegatedCompletion: OrchestrationV2CommandMessageDispatchDelegatedCompletion? = nil, dispatchMode: OrchestrationV2CommandMessageDispatchDispatchMode) {
+    self.notification = notification
+    self.createdBy = createdBy
+    self.creationSource = creationSource
+    self.scheduledTaskId = scheduledTaskId
+    self.senderThreadId = senderThreadId
+    self.commandId = commandId
+    self.threadId = threadId
+    self.messageId = messageId
+    self.text = text
+    self.context = context
+    self.attachments = attachments
+    self.titleSeed = titleSeed
+    self.modelSelection = modelSelection
+    self.sourcePlanRef = sourcePlanRef
+    self.restartContinuationOfRunId = restartContinuationOfRunId
+    self.usageLimitContinuationOfRunId = usageLimitContinuationOfRunId
+    self.manualContinuationOfRunId = manualContinuationOfRunId
+    self.usageLimitRecoveryRequestId = usageLimitRecoveryRequestId
+    self.deliveryIntent = deliveryIntent
+    self.delegatedCompletion = delegatedCompletion
+    self.dispatchMode = dispatchMode
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case notification
+    case createdBy
+    case creationSource
+    case scheduledTaskId
+    case senderThreadId
+    case commandId
+    case threadId
+    case messageId
+    case text
+    case context
+    case attachments
+    case titleSeed
+    case modelSelection
+    case sourcePlanRef
+    case restartContinuationOfRunId
+    case usageLimitContinuationOfRunId
+    case manualContinuationOfRunId
+    case usageLimitRecoveryRequestId
+    case deliveryIntent
+    case delegatedCompletion
+    case dispatchMode
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("message.dispatch", forKey: .type)
+    self.notification = try c.decodeIfPresent(OrchestrationV2Notification.self, forKey: .notification)
+    self.createdBy = try c.decode(OrchestrationV2Actor.self, forKey: .createdBy)
+    self.creationSource = try c.decode(OrchestrationV2CreationSource.self, forKey: .creationSource)
+    self.scheduledTaskId = try c.decodeIfPresent(ScheduledTaskId.self, forKey: .scheduledTaskId)
+    self.senderThreadId = try c.decodeIfPresent(ThreadId.self, forKey: .senderThreadId)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.messageId = try c.decode(MessageId.self, forKey: .messageId)
+    self.text = try c.decode(String.self, forKey: .text)
+    self.context = try c.decodeIfPresent(OrchestrationMessageContext.self, forKey: .context)
+    self.attachments = try c.decode([ChatAttachment].self, forKey: .attachments)
+    self.titleSeed = try c.decodeIfPresent(String.self, forKey: .titleSeed)
+    self.modelSelection = try c.decodeIfPresent(ModelSelection.self, forKey: .modelSelection)
+    self.sourcePlanRef = try c.decodeIfPresent(OrchestrationV2CommandMessageDispatchSourcePlanRef.self, forKey: .sourcePlanRef)
+    self.restartContinuationOfRunId = try c.decodeIfPresent(RunId.self, forKey: .restartContinuationOfRunId)
+    self.usageLimitContinuationOfRunId = try c.decodeIfPresent(RunId.self, forKey: .usageLimitContinuationOfRunId)
+    self.manualContinuationOfRunId = try c.decodeIfPresent(RunId.self, forKey: .manualContinuationOfRunId)
+    self.usageLimitRecoveryRequestId = try c.decodeIfPresent(CommandId.self, forKey: .usageLimitRecoveryRequestId)
+    self.deliveryIntent = try c.decodeIfPresent(OrchestrationV2CommandMessageDispatchDeliveryIntent.self, forKey: .deliveryIntent)
+    self.delegatedCompletion = try c.decodeIfPresent(OrchestrationV2CommandMessageDispatchDelegatedCompletion.self, forKey: .delegatedCompletion)
+    self.dispatchMode = try c.decode(OrchestrationV2CommandMessageDispatchDispatchMode.self, forKey: .dispatchMode)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("message.dispatch", forKey: .type)
+    try c.encodeIfPresent(notification, forKey: .notification)
+    try c.encode(createdBy, forKey: .createdBy)
+    try c.encode(creationSource, forKey: .creationSource)
+    try c.encodeIfPresent(scheduledTaskId, forKey: .scheduledTaskId)
+    try c.encodeIfPresent(senderThreadId, forKey: .senderThreadId)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(messageId, forKey: .messageId)
+    try c.encode(text, forKey: .text)
+    try c.encodeIfPresent(context, forKey: .context)
+    try c.encode(attachments, forKey: .attachments)
+    try c.encodeIfPresent(titleSeed, forKey: .titleSeed)
+    try c.encodeIfPresent(modelSelection, forKey: .modelSelection)
+    try c.encodeIfPresent(sourcePlanRef, forKey: .sourcePlanRef)
+    try c.encodeIfPresent(restartContinuationOfRunId, forKey: .restartContinuationOfRunId)
+    try c.encodeIfPresent(usageLimitContinuationOfRunId, forKey: .usageLimitContinuationOfRunId)
+    try c.encodeIfPresent(manualContinuationOfRunId, forKey: .manualContinuationOfRunId)
+    try c.encodeIfPresent(usageLimitRecoveryRequestId, forKey: .usageLimitRecoveryRequestId)
+    try c.encodeIfPresent(deliveryIntent, forKey: .deliveryIntent)
+    try c.encodeIfPresent(delegatedCompletion, forKey: .delegatedCompletion)
+    try c.encode(dispatchMode, forKey: .dispatchMode)
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatchDelegatedCompletion: Sendable, Hashable, Codable {
+  public var parentRunId: RunId
+  public var generation: Int
+  public var taskIds: [NodeId]
+
+  public init(parentRunId: RunId, generation: Int, taskIds: [NodeId]) {
+    self.parentRunId = parentRunId
+    self.generation = generation
+    self.taskIds = taskIds
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case parentRunId
+    case generation
+    case taskIds
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.parentRunId = try c.decode(RunId.self, forKey: .parentRunId)
+    self.generation = try c.decode(Int.self, forKey: .generation)
+    self.taskIds = try c.decode([NodeId].self, forKey: .taskIds)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(parentRunId, forKey: .parentRunId)
+    try c.encode(generation, forKey: .generation)
+    try c.encode(taskIds, forKey: .taskIds)
+  }
+}
+
+public enum OrchestrationV2CommandMessageDispatchDeliveryIntent: Sendable, Hashable, Codable, RawRepresentable {
+  case auto
+  case steer
+  case restart
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "auto": self = .auto
+    case "steer": self = .steer
+    case "restart": self = .restart
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .auto: "auto"
+    case .steer: "steer"
+    case .restart: "restart"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public enum OrchestrationV2CommandMessageDispatchDispatchMode: Sendable, Hashable, Codable {
+  case deferStart(OrchestrationV2CommandMessageDispatchDispatchModeDeferStart)
+  case steerActive(OrchestrationV2CommandMessageDispatchDispatchModeSteerActive)
+  case restartActive(OrchestrationV2CommandMessageDispatchDispatchModeRestartActive)
+  case queueAfterActive
+  case startImmediately
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "type" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "defer_start"?: self = .deferStart(try OrchestrationV2CommandMessageDispatchDispatchModeDeferStart(from: decoder))
+    case "steer_active"?: self = .steerActive(try OrchestrationV2CommandMessageDispatchDispatchModeSteerActive(from: decoder))
+    case "restart_active"?: self = .restartActive(try OrchestrationV2CommandMessageDispatchDispatchModeRestartActive(from: decoder))
+    case "queue_after_active"?: self = .queueAfterActive
+    case "start_immediately"?: self = .startImmediately
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .deferStart(let value): try value.encode(to: encoder)
+    case .steerActive(let value): try value.encode(to: encoder)
+    case .restartActive(let value): try value.encode(to: encoder)
+    case .queueAfterActive:
+      var c = encoder.container(keyedBy: TagKeys.self)
+      try c.encode("queue_after_active", forKey: .tag)
+    case .startImmediately:
+      var c = encoder.container(keyedBy: TagKeys.self)
+      try c.encode("start_immediately", forKey: .tag)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatchDispatchModeDeferStart: Sendable, Hashable, Codable {
+  public var workspaceStrategy: OrchestrationV2ThreadLaunchWorkspaceStrategy2?
+
+  public init(workspaceStrategy: OrchestrationV2ThreadLaunchWorkspaceStrategy2? = nil) {
+    self.workspaceStrategy = workspaceStrategy
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case workspaceStrategy
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("defer_start", forKey: .type)
+    self.workspaceStrategy = try c.decodeIfPresent(OrchestrationV2ThreadLaunchWorkspaceStrategy2.self, forKey: .workspaceStrategy)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("defer_start", forKey: .type)
+    try c.encodeIfPresent(workspaceStrategy, forKey: .workspaceStrategy)
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatchDispatchModeRestartActive: Sendable, Hashable, Codable {
+  public var targetRunId: RunId
+
+  public init(targetRunId: RunId) {
+    self.targetRunId = targetRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case targetRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("restart_active", forKey: .type)
+    self.targetRunId = try c.decode(RunId.self, forKey: .targetRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("restart_active", forKey: .type)
+    try c.encode(targetRunId, forKey: .targetRunId)
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatchDispatchModeSteerActive: Sendable, Hashable, Codable {
+  public var targetRunId: RunId
+
+  public init(targetRunId: RunId) {
+    self.targetRunId = targetRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case targetRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("steer_active", forKey: .type)
+    self.targetRunId = try c.decode(RunId.self, forKey: .targetRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("steer_active", forKey: .type)
+    try c.encode(targetRunId, forKey: .targetRunId)
+  }
+}
+
+public struct OrchestrationV2CommandMessageDispatchSourcePlanRef: Sendable, Hashable, Codable {
+  public var threadId: ThreadId
+  public var planId: PlanId
+
+  public init(threadId: ThreadId, planId: PlanId) {
+    self.threadId = threadId
+    self.planId = planId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case threadId
+    case planId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.planId = try c.decode(PlanId.self, forKey: .planId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(planId, forKey: .planId)
+  }
+}
+
+public struct OrchestrationV2CommandNotificationDeliveryAccept: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var messageId: MessageId
+
+  public init(commandId: CommandId, threadId: ThreadId, messageId: MessageId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.messageId = messageId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case messageId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("notification.delivery.accept", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.messageId = try c.decode(MessageId.self, forKey: .messageId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("notification.delivery.accept", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(messageId, forKey: .messageId)
+  }
+}
+
+public struct OrchestrationV2CommandPreparedRunFail: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+  public var failure: OrchestrationV2ProviderFailure
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId, failure: OrchestrationV2ProviderFailure) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+    self.failure = failure
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+    case failure
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("prepared-run.fail", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+    self.failure = try c.decode(OrchestrationV2ProviderFailure.self, forKey: .failure)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("prepared-run.fail", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+    try c.encode(failure, forKey: .failure)
+  }
+}
+
+public struct OrchestrationV2CommandPreparedRunProgress: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+  public var phase: OrchestrationV2CommandPreparedRunProgressPhase
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId, phase: OrchestrationV2CommandPreparedRunProgressPhase) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+    self.phase = phase
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+    case phase
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("prepared-run.progress", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+    self.phase = try c.decode(OrchestrationV2CommandPreparedRunProgressPhase.self, forKey: .phase)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("prepared-run.progress", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+    try c.encode(phase, forKey: .phase)
+  }
+}
+
+public enum OrchestrationV2CommandPreparedRunProgressPhase: Sendable, Hashable, Codable, RawRepresentable {
+  case worktree
+  case setup
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "worktree": self = .worktree
+    case "setup": self = .setup
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .worktree: "worktree"
+    case .setup: "setup"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct OrchestrationV2CommandPreparedRunRelease: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("prepared-run.release", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("prepared-run.release", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+  }
+}
+
+public struct OrchestrationV2CommandPreparedRunRetry: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("prepared-run.retry", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("prepared-run.retry", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+  }
+}
+
+public struct OrchestrationV2CommandProviderSessionDetach: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var providerSessionId: ProviderSessionId
+  public var reason: String?
+
+  public init(commandId: CommandId, threadId: ThreadId, providerSessionId: ProviderSessionId, reason: String? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.providerSessionId = providerSessionId
+    self.reason = reason
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case providerSessionId
+    case reason
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("provider-session.detach", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.providerSessionId = try c.decode(ProviderSessionId.self, forKey: .providerSessionId)
+    self.reason = try c.decodeIfPresent(String.self, forKey: .reason)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("provider-session.detach", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(providerSessionId, forKey: .providerSessionId)
+    try c.encodeIfPresent(reason, forKey: .reason)
+  }
+}
+
+public struct OrchestrationV2CommandProviderSwitch: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var modelSelection: ModelSelection
+
+  public init(commandId: CommandId, threadId: ThreadId, modelSelection: ModelSelection) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.modelSelection = modelSelection
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case modelSelection
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("provider.switch", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("provider.switch", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(modelSelection, forKey: .modelSelection)
+  }
+}
+
+public struct OrchestrationV2CommandQueueResume: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("queue.resume", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("queue.resume", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandQueuedMessagePromoteToSteer: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var queuedRunId: RunId
+  public var targetRunId: RunId
+
+  public init(commandId: CommandId, threadId: ThreadId, queuedRunId: RunId, targetRunId: RunId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.queuedRunId = queuedRunId
+    self.targetRunId = targetRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case queuedRunId
+    case targetRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("queued-message.promote-to-steer", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.queuedRunId = try c.decode(RunId.self, forKey: .queuedRunId)
+    self.targetRunId = try c.decode(RunId.self, forKey: .targetRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("queued-message.promote-to-steer", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(queuedRunId, forKey: .queuedRunId)
+    try c.encode(targetRunId, forKey: .targetRunId)
+  }
+}
+
+public struct OrchestrationV2CommandQueuedRunCancel: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("queued-run.cancel", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("queued-run.cancel", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+  }
+}
+
+public struct OrchestrationV2CommandQueuedRunEdit: Sendable, Hashable, Codable {
+  public var context: OrchestrationMessageContext?
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+  public var text: String
+  public var attachments: [ChatAttachment]?
+
+  public init(context: OrchestrationMessageContext? = nil, commandId: CommandId, threadId: ThreadId, runId: RunId, text: String, attachments: [ChatAttachment]? = nil) {
+    self.context = context
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+    self.text = text
+    self.attachments = attachments
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case context
+    case commandId
+    case threadId
+    case runId
+    case text
+    case attachments
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("queued-run.edit", forKey: .type)
+    self.context = try c.decodeIfPresent(OrchestrationMessageContext.self, forKey: .context)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+    self.text = try c.decode(String.self, forKey: .text)
+    self.attachments = try c.decodeIfPresent([ChatAttachment].self, forKey: .attachments)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("queued-run.edit", forKey: .type)
+    try c.encodeIfPresent(context, forKey: .context)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+    try c.encode(text, forKey: .text)
+    try c.encodeIfPresent(attachments, forKey: .attachments)
+  }
+}
+
+public struct OrchestrationV2CommandQueuedRunReorder: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+  public var beforeRunId: RunId?
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId, beforeRunId: RunId? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+    self.beforeRunId = beforeRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+    case beforeRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("queued-run.reorder", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+    self.beforeRunId = try c.decodeIfPresent(RunId.self, forKey: .beforeRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("queued-run.reorder", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+    try c.encode(beforeRunId, forKey: .beforeRunId)
+  }
+}
+
+public struct OrchestrationV2CommandRunInterrupt: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runId: RunId
+  public var reason: String?
+  public var holdQueue: Bool?
+
+  public init(commandId: CommandId, threadId: ThreadId, runId: RunId, reason: String? = nil, holdQueue: Bool? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runId = runId
+    self.reason = reason
+    self.holdQueue = holdQueue
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runId
+    case reason
+    case holdQueue
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run.interrupt", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+    self.reason = try c.decodeIfPresent(String.self, forKey: .reason)
+    self.holdQueue = try c.decodeIfPresent(Bool.self, forKey: .holdQueue)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run.interrupt", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runId, forKey: .runId)
+    try c.encodeIfPresent(reason, forKey: .reason)
+    try c.encodeIfPresent(holdQueue, forKey: .holdQueue)
+  }
+}
+
+public struct OrchestrationV2CommandRuntimeRequestRespond: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var requestId: RuntimeRequestId
+  public var decision: ProviderApprovalDecision?
+  public var answers: [String: JSONValue]?
+  public var attachmentsByQuestionId: [String: [OrchestrationV2CommandRuntimeRequestRespondAttachmentsByQuestionIdValueItem]]?
+
+  public init(commandId: CommandId, threadId: ThreadId, requestId: RuntimeRequestId, decision: ProviderApprovalDecision? = nil, answers: [String: JSONValue]? = nil, attachmentsByQuestionId: [String: [OrchestrationV2CommandRuntimeRequestRespondAttachmentsByQuestionIdValueItem]]? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.requestId = requestId
+    self.decision = decision
+    self.answers = answers
+    self.attachmentsByQuestionId = attachmentsByQuestionId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case requestId
+    case decision
+    case answers
+    case attachmentsByQuestionId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("runtime-request.respond", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.requestId = try c.decode(RuntimeRequestId.self, forKey: .requestId)
+    self.decision = try c.decodeIfPresent(ProviderApprovalDecision.self, forKey: .decision)
+    self.answers = try c.decodeIfPresent([String: JSONValue].self, forKey: .answers)
+    self.attachmentsByQuestionId = try c.decodeIfPresent([String: [OrchestrationV2CommandRuntimeRequestRespondAttachmentsByQuestionIdValueItem]].self, forKey: .attachmentsByQuestionId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("runtime-request.respond", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(requestId, forKey: .requestId)
+    try c.encodeIfPresent(decision, forKey: .decision)
+    try c.encodeIfPresent(answers, forKey: .answers)
+    try c.encodeIfPresent(attachmentsByQuestionId, forKey: .attachmentsByQuestionId)
+  }
+}
+
+public enum OrchestrationV2CommandRuntimeRequestRespondAttachmentsByQuestionIdValueItem: Sendable, Hashable, Codable {
+  case image(ChatImageAttachment)
+  case file(ChatFileAttachment)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "type" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "image"?: self = .image(try ChatImageAttachment(from: decoder))
+    case "file"?: self = .file(try ChatFileAttachment(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .image(let value): try value.encode(to: encoder)
+    case .file(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public struct OrchestrationV2CommandThreadActiveReorder: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var orderKey: String
+
+  public init(commandId: CommandId, threadId: ThreadId, orderKey: String) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.orderKey = orderKey
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case orderKey
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.active.reorder", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.orderKey = try c.decode(String.self, forKey: .orderKey)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.active.reorder", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(orderKey, forKey: .orderKey)
+  }
+}
+
+public struct OrchestrationV2CommandThreadArchive: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.archive", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.archive", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadAutoSettle: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var snapshotAt: IsoDateTime
+  public var settledAt: IsoDateTime?
+
+  public init(commandId: CommandId, threadId: ThreadId, snapshotAt: IsoDateTime, settledAt: IsoDateTime? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.snapshotAt = snapshotAt
+    self.settledAt = settledAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case snapshotAt
+    case settledAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.auto-settle", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.snapshotAt = try c.decode(IsoDateTime.self, forKey: .snapshotAt)
+    self.settledAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .settledAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.auto-settle", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(snapshotAt, forKey: .snapshotAt)
+    try c.encodeIfPresent(settledAt, forKey: .settledAt)
+  }
+}
+
+public struct OrchestrationV2CommandThreadAutoSettleSet: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var enabled: Bool
+
+  public init(commandId: CommandId, threadId: ThreadId, enabled: Bool) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.enabled = enabled
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case enabled
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.auto-settle.set", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.enabled = try c.decode(Bool.self, forKey: .enabled)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.auto-settle.set", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(enabled, forKey: .enabled)
+  }
+}
+
+public struct OrchestrationV2CommandThreadCreate: Sendable, Hashable, Codable {
+  public var createdBy: OrchestrationV2Actor
+  public var creationSource: OrchestrationV2CreationSource
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var projectId: ProjectId
+  public var title: String
+  public var modelSelection: ModelSelection
+  public var runtimeMode: RuntimeMode
+  public var interactionMode: ProviderInteractionMode
+  public var branch: String?
+  public var worktreePath: String?
+  public var importedNativeThread: OrchestrationV2CommandThreadCreateImportedNativeThread?
+
+  public init(createdBy: OrchestrationV2Actor, creationSource: OrchestrationV2CreationSource, commandId: CommandId, threadId: ThreadId, projectId: ProjectId, title: String, modelSelection: ModelSelection, runtimeMode: RuntimeMode, interactionMode: ProviderInteractionMode, branch: String? = nil, worktreePath: String? = nil, importedNativeThread: OrchestrationV2CommandThreadCreateImportedNativeThread? = nil) {
+    self.createdBy = createdBy
+    self.creationSource = creationSource
+    self.commandId = commandId
+    self.threadId = threadId
+    self.projectId = projectId
+    self.title = title
+    self.modelSelection = modelSelection
+    self.runtimeMode = runtimeMode
+    self.interactionMode = interactionMode
+    self.branch = branch
+    self.worktreePath = worktreePath
+    self.importedNativeThread = importedNativeThread
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case createdBy
+    case creationSource
+    case commandId
+    case threadId
+    case projectId
+    case title
+    case modelSelection
+    case runtimeMode
+    case interactionMode
+    case branch
+    case worktreePath
+    case importedNativeThread
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.create", forKey: .type)
+    self.createdBy = try c.decode(OrchestrationV2Actor.self, forKey: .createdBy)
+    self.creationSource = try c.decode(OrchestrationV2CreationSource.self, forKey: .creationSource)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.title = try c.decode(String.self, forKey: .title)
+    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
+    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
+    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
+    self.branch = try c.decodeIfPresent(String.self, forKey: .branch)
+    self.worktreePath = try c.decodeIfPresent(String.self, forKey: .worktreePath)
+    self.importedNativeThread = try c.decodeIfPresent(OrchestrationV2CommandThreadCreateImportedNativeThread.self, forKey: .importedNativeThread)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.create", forKey: .type)
+    try c.encode(createdBy, forKey: .createdBy)
+    try c.encode(creationSource, forKey: .creationSource)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encode(title, forKey: .title)
+    try c.encode(modelSelection, forKey: .modelSelection)
+    try c.encode(runtimeMode, forKey: .runtimeMode)
+    try c.encode(interactionMode, forKey: .interactionMode)
+    try c.encode(branch, forKey: .branch)
+    try c.encode(worktreePath, forKey: .worktreePath)
+    try c.encodeIfPresent(importedNativeThread, forKey: .importedNativeThread)
+  }
+}
+
+public struct OrchestrationV2CommandThreadCreateImportedNativeThread: Sendable, Hashable, Codable {
+  public var ref: OrchestrationV2CommandThreadCreateImportedNativeThreadRef
+  public var metadata: OrchestrationV2ProviderThreadNativeMetadata?
+
+  public init(ref: OrchestrationV2CommandThreadCreateImportedNativeThreadRef, metadata: OrchestrationV2ProviderThreadNativeMetadata? = nil) {
+    self.ref = ref
+    self.metadata = metadata
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case ref
+    case metadata
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.ref = try c.decode(OrchestrationV2CommandThreadCreateImportedNativeThreadRef.self, forKey: .ref)
+    self.metadata = try c.decodeIfPresent(OrchestrationV2ProviderThreadNativeMetadata.self, forKey: .metadata)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(ref, forKey: .ref)
+    try c.encodeIfPresent(metadata, forKey: .metadata)
+  }
+}
+
+public struct OrchestrationV2CommandThreadCreateImportedNativeThreadRef: Sendable, Hashable, Codable {
+  public var driver: ProviderDriverKind
+  public var nativeId: String
+
+  public init(driver: ProviderDriverKind, nativeId: String) {
+    self.driver = driver
+    self.nativeId = nativeId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case strength
+    case driver
+    case nativeId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("strong", forKey: .strength)
+    self.driver = try c.decode(ProviderDriverKind.self, forKey: .driver)
+    self.nativeId = try c.decode(String.self, forKey: .nativeId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("strong", forKey: .strength)
+    try c.encode(driver, forKey: .driver)
+    try c.encode(nativeId, forKey: .nativeId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadCreatedRecord: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var parentThreadId: ThreadId
+  public var parentRunId: RunId
+  public var parentNodeId: NodeId
+  public var targetThreadId: ThreadId
+  public var targetRunId: RunId?
+
+  public init(commandId: CommandId, parentThreadId: ThreadId, parentRunId: RunId, parentNodeId: NodeId, targetThreadId: ThreadId, targetRunId: RunId? = nil) {
+    self.commandId = commandId
+    self.parentThreadId = parentThreadId
+    self.parentRunId = parentRunId
+    self.parentNodeId = parentNodeId
+    self.targetThreadId = targetThreadId
+    self.targetRunId = targetRunId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case parentThreadId
+    case parentRunId
+    case parentNodeId
+    case targetThreadId
+    case targetRunId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.created.record", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.parentThreadId = try c.decode(ThreadId.self, forKey: .parentThreadId)
+    self.parentRunId = try c.decode(RunId.self, forKey: .parentRunId)
+    self.parentNodeId = try c.decode(NodeId.self, forKey: .parentNodeId)
+    self.targetThreadId = try c.decode(ThreadId.self, forKey: .targetThreadId)
+    self.targetRunId = try c.decodeIfPresent(RunId.self, forKey: .targetRunId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.created.record", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(parentThreadId, forKey: .parentThreadId)
+    try c.encode(parentRunId, forKey: .parentRunId)
+    try c.encode(parentNodeId, forKey: .parentNodeId)
+    try c.encode(targetThreadId, forKey: .targetThreadId)
+    try c.encode(targetRunId, forKey: .targetRunId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadDelete: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.delete", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.delete", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadFork: Sendable, Hashable, Codable {
+  public var createdBy: OrchestrationV2Actor
+  public var creationSource: OrchestrationV2CreationSource
+  public var commandId: CommandId
+  public var sourceThreadId: ThreadId
+  public var targetThreadId: ThreadId
+  public var sourcePoint: OrchestrationV2ThreadForkSourcePoint
+  public var title: String?
+  public var createdAt: IsoDateTime?
+
+  public init(createdBy: OrchestrationV2Actor, creationSource: OrchestrationV2CreationSource, commandId: CommandId, sourceThreadId: ThreadId, targetThreadId: ThreadId, sourcePoint: OrchestrationV2ThreadForkSourcePoint, title: String? = nil, createdAt: IsoDateTime? = nil) {
+    self.createdBy = createdBy
+    self.creationSource = creationSource
+    self.commandId = commandId
+    self.sourceThreadId = sourceThreadId
+    self.targetThreadId = targetThreadId
+    self.sourcePoint = sourcePoint
+    self.title = title
+    self.createdAt = createdAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case createdBy
+    case creationSource
+    case commandId
+    case sourceThreadId
+    case targetThreadId
+    case sourcePoint
+    case title
+    case createdAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.fork", forKey: .type)
+    self.createdBy = try c.decode(OrchestrationV2Actor.self, forKey: .createdBy)
+    self.creationSource = try c.decode(OrchestrationV2CreationSource.self, forKey: .creationSource)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.sourceThreadId = try c.decode(ThreadId.self, forKey: .sourceThreadId)
+    self.targetThreadId = try c.decode(ThreadId.self, forKey: .targetThreadId)
+    self.sourcePoint = try c.decode(OrchestrationV2ThreadForkSourcePoint.self, forKey: .sourcePoint)
+    self.title = try c.decodeIfPresent(String.self, forKey: .title)
+    self.createdAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .createdAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.fork", forKey: .type)
+    try c.encode(createdBy, forKey: .createdBy)
+    try c.encode(creationSource, forKey: .creationSource)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(sourceThreadId, forKey: .sourceThreadId)
+    try c.encode(targetThreadId, forKey: .targetThreadId)
+    try c.encode(sourcePoint, forKey: .sourcePoint)
+    try c.encodeIfPresent(title, forKey: .title)
+    try c.encodeIfPresent(createdAt, forKey: .createdAt)
+  }
+}
+
+public struct OrchestrationV2CommandThreadInteractionModeSet: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var interactionMode: ProviderInteractionMode
+
+  public init(commandId: CommandId, threadId: ThreadId, interactionMode: ProviderInteractionMode) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.interactionMode = interactionMode
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case interactionMode
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.interaction-mode.set", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.interactionMode = try c.decode(ProviderInteractionMode.self, forKey: .interactionMode)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.interaction-mode.set", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(interactionMode, forKey: .interactionMode)
+  }
+}
+
+public struct OrchestrationV2CommandThreadMarkUnread: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.mark-unread", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.mark-unread", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadMergeBack: Sendable, Hashable, Codable {
+  public var createdBy: OrchestrationV2Actor
+  public var creationSource: OrchestrationV2CreationSource
+  public var commandId: CommandId
+  public var sourceThreadId: ThreadId
+  public var targetThreadId: ThreadId
+  public var sourcePoint: OrchestrationV2ThreadForkSourcePoint
+  public var createdAt: IsoDateTime?
+
+  public init(createdBy: OrchestrationV2Actor, creationSource: OrchestrationV2CreationSource, commandId: CommandId, sourceThreadId: ThreadId, targetThreadId: ThreadId, sourcePoint: OrchestrationV2ThreadForkSourcePoint, createdAt: IsoDateTime? = nil) {
+    self.createdBy = createdBy
+    self.creationSource = creationSource
+    self.commandId = commandId
+    self.sourceThreadId = sourceThreadId
+    self.targetThreadId = targetThreadId
+    self.sourcePoint = sourcePoint
+    self.createdAt = createdAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case createdBy
+    case creationSource
+    case commandId
+    case sourceThreadId
+    case targetThreadId
+    case sourcePoint
+    case createdAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.merge_back", forKey: .type)
+    self.createdBy = try c.decode(OrchestrationV2Actor.self, forKey: .createdBy)
+    self.creationSource = try c.decode(OrchestrationV2CreationSource.self, forKey: .creationSource)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.sourceThreadId = try c.decode(ThreadId.self, forKey: .sourceThreadId)
+    self.targetThreadId = try c.decode(ThreadId.self, forKey: .targetThreadId)
+    self.sourcePoint = try c.decode(OrchestrationV2ThreadForkSourcePoint.self, forKey: .sourcePoint)
+    self.createdAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .createdAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.merge_back", forKey: .type)
+    try c.encode(createdBy, forKey: .createdBy)
+    try c.encode(creationSource, forKey: .creationSource)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(sourceThreadId, forKey: .sourceThreadId)
+    try c.encode(targetThreadId, forKey: .targetThreadId)
+    try c.encode(sourcePoint, forKey: .sourcePoint)
+    try c.encodeIfPresent(createdAt, forKey: .createdAt)
+  }
+}
+
+public struct OrchestrationV2CommandThreadMetadataUpdate: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var title: String?
+  public var regenerateTitle: Bool?
+  public var branch: String??
+  public var worktreePath: String??
+  public var expectedWorktreePath: String??
+  public var expectedEmpty: Bool?
+  public var limitRecovery: OrchestrationV2LimitRecoveryUpdate??
+  public var linkedPullRequest: ThreadLinkedPullRequest??
+
+  public init(commandId: CommandId, threadId: ThreadId, title: String? = nil, regenerateTitle: Bool? = nil, branch: String?? = nil, worktreePath: String?? = nil, expectedWorktreePath: String?? = nil, expectedEmpty: Bool? = nil, limitRecovery: OrchestrationV2LimitRecoveryUpdate?? = nil, linkedPullRequest: ThreadLinkedPullRequest?? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.title = title
+    self.regenerateTitle = regenerateTitle
+    self.branch = branch
+    self.worktreePath = worktreePath
+    self.expectedWorktreePath = expectedWorktreePath
+    self.expectedEmpty = expectedEmpty
+    self.limitRecovery = limitRecovery
+    self.linkedPullRequest = linkedPullRequest
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case title
+    case regenerateTitle
+    case branch
+    case worktreePath
+    case expectedWorktreePath
+    case expectedEmpty
+    case limitRecovery
+    case linkedPullRequest
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.metadata.update", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.title = try c.decodeIfPresent(String.self, forKey: .title)
+    self.regenerateTitle = try c.decodeIfPresent(Bool.self, forKey: .regenerateTitle)
+    self.branch = try c.decodeTriState(String.self, forKey: .branch)
+    self.worktreePath = try c.decodeTriState(String.self, forKey: .worktreePath)
+    self.expectedWorktreePath = try c.decodeTriState(String.self, forKey: .expectedWorktreePath)
+    self.expectedEmpty = try c.decodeIfPresent(Bool.self, forKey: .expectedEmpty)
+    self.limitRecovery = try c.decodeTriState(OrchestrationV2LimitRecoveryUpdate.self, forKey: .limitRecovery)
+    self.linkedPullRequest = try c.decodeTriState(ThreadLinkedPullRequest.self, forKey: .linkedPullRequest)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.metadata.update", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(title, forKey: .title)
+    try c.encodeIfPresent(regenerateTitle, forKey: .regenerateTitle)
+    try c.encodeTriState(branch, forKey: .branch)
+    try c.encodeTriState(worktreePath, forKey: .worktreePath)
+    try c.encodeTriState(expectedWorktreePath, forKey: .expectedWorktreePath)
+    try c.encodeIfPresent(expectedEmpty, forKey: .expectedEmpty)
+    try c.encodeTriState(limitRecovery, forKey: .limitRecovery)
+    try c.encodeTriState(linkedPullRequest, forKey: .linkedPullRequest)
+  }
+}
+
+public struct OrchestrationV2CommandThreadModelSelectionSet: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var modelSelection: ModelSelection
+
+  public init(commandId: CommandId, threadId: ThreadId, modelSelection: ModelSelection) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.modelSelection = modelSelection
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case modelSelection
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.model-selection.set", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.modelSelection = try c.decode(ModelSelection.self, forKey: .modelSelection)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.model-selection.set", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(modelSelection, forKey: .modelSelection)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPin: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var orderKey: String?
+
+  public init(commandId: CommandId, threadId: ThreadId, orderKey: String? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.orderKey = orderKey
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case orderKey
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pin", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.orderKey = try c.decodeIfPresent(String.self, forKey: .orderKey)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pin", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(orderKey, forKey: .orderKey)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPinReorder: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var orderKey: String
+
+  public init(commandId: CommandId, threadId: ThreadId, orderKey: String) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.orderKey = orderKey
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case orderKey
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pin.reorder", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.orderKey = try c.decode(String.self, forKey: .orderKey)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pin.reorder", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(orderKey, forKey: .orderKey)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestLink: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var host: String
+  public var repository: String
+  public var number: Int
+  public var url: String
+  public var source: ThreadPullRequestLinkSource
+
+  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int, url: String, source: ThreadPullRequestLinkSource) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.host = host
+    self.repository = repository
+    self.number = number
+    self.url = url
+    self.source = source
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case host
+    case repository
+    case number
+    case url
+    case source
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pull-request.link", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.host = try c.decode(String.self, forKey: .host)
+    self.repository = try c.decode(String.self, forKey: .repository)
+    self.number = try c.decode(Int.self, forKey: .number)
+    self.url = try c.decode(String.self, forKey: .url)
+    self.source = try c.decode(ThreadPullRequestLinkSource.self, forKey: .source)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pull-request.link", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(host, forKey: .host)
+    try c.encode(repository, forKey: .repository)
+    try c.encode(number, forKey: .number)
+    try c.encode(url, forKey: .url)
+    try c.encode(source, forKey: .source)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestLinkSync: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var host: String
+  public var repository: String
+  public var number: Int
+  public var snapshot: ThreadPullRequestSnapshot
+  public var stack: ThreadPullRequestStack?
+
+  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int, snapshot: ThreadPullRequestSnapshot, stack: ThreadPullRequestStack? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.host = host
+    self.repository = repository
+    self.number = number
     self.snapshot = snapshot
+    self.stack = stack
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case host
+    case repository
+    case number
+    case snapshot
+    case stack
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pull-request-link.sync", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.host = try c.decode(String.self, forKey: .host)
+    self.repository = try c.decode(String.self, forKey: .repository)
+    self.number = try c.decode(Int.self, forKey: .number)
+    self.snapshot = try c.decode(ThreadPullRequestSnapshot.self, forKey: .snapshot)
+    self.stack = try c.decodeIfPresent(ThreadPullRequestStack.self, forKey: .stack)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pull-request-link.sync", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(host, forKey: .host)
+    try c.encode(repository, forKey: .repository)
+    try c.encode(number, forKey: .number)
+    try c.encode(snapshot, forKey: .snapshot)
+    try c.encode(stack, forKey: .stack)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestSync: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var projectId: ProjectId
+  public var snapshotSequence: Int
+  public var expected: OrchestrationV2CommandThreadPullRequestSyncExpected
+  public var branchPullRequest: ThreadLinkedPullRequest?
+  public var linkedPullRequest: ThreadLinkedPullRequest?
+
+  public init(commandId: CommandId, threadId: ThreadId, projectId: ProjectId, snapshotSequence: Int, expected: OrchestrationV2CommandThreadPullRequestSyncExpected, branchPullRequest: ThreadLinkedPullRequest? = nil, linkedPullRequest: ThreadLinkedPullRequest? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.projectId = projectId
+    self.snapshotSequence = snapshotSequence
+    self.expected = expected
+    self.branchPullRequest = branchPullRequest
+    self.linkedPullRequest = linkedPullRequest
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case projectId
+    case snapshotSequence
+    case expected
+    case branchPullRequest
+    case linkedPullRequest
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pull-request.sync", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.snapshotSequence = try c.decode(Int.self, forKey: .snapshotSequence)
+    self.expected = try c.decode(OrchestrationV2CommandThreadPullRequestSyncExpected.self, forKey: .expected)
+    self.branchPullRequest = try c.decodeIfPresent(ThreadLinkedPullRequest.self, forKey: .branchPullRequest)
+    self.linkedPullRequest = try c.decodeIfPresent(ThreadLinkedPullRequest.self, forKey: .linkedPullRequest)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pull-request.sync", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encode(snapshotSequence, forKey: .snapshotSequence)
+    try c.encode(expected, forKey: .expected)
+    try c.encode(branchPullRequest, forKey: .branchPullRequest)
+    try c.encodeIfPresent(linkedPullRequest, forKey: .linkedPullRequest)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestSyncExpected: Sendable, Hashable, Codable {
+  public var workspaceRoot: String
+  public var branch: String?
+  public var worktreePath: String?
+  public var linkedPullRequest: ThreadLinkedPullRequest?
+  public var branchPullRequest: ThreadLinkedPullRequest?
+
+  public init(workspaceRoot: String, branch: String? = nil, worktreePath: String? = nil, linkedPullRequest: ThreadLinkedPullRequest? = nil, branchPullRequest: ThreadLinkedPullRequest? = nil) {
+    self.workspaceRoot = workspaceRoot
+    self.branch = branch
+    self.worktreePath = worktreePath
+    self.linkedPullRequest = linkedPullRequest
+    self.branchPullRequest = branchPullRequest
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case workspaceRoot
+    case branch
+    case worktreePath
+    case linkedPullRequest
+    case branchPullRequest
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.workspaceRoot = try c.decode(String.self, forKey: .workspaceRoot)
+    self.branch = try c.decodeIfPresent(String.self, forKey: .branch)
+    self.worktreePath = try c.decodeIfPresent(String.self, forKey: .worktreePath)
+    self.linkedPullRequest = try c.decodeIfPresent(ThreadLinkedPullRequest.self, forKey: .linkedPullRequest)
+    self.branchPullRequest = try c.decodeIfPresent(ThreadLinkedPullRequest.self, forKey: .branchPullRequest)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(workspaceRoot, forKey: .workspaceRoot)
+    try c.encode(branch, forKey: .branch)
+    try c.encode(worktreePath, forKey: .worktreePath)
+    try c.encode(linkedPullRequest, forKey: .linkedPullRequest)
+    try c.encode(branchPullRequest, forKey: .branchPullRequest)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestUnlink: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var host: String
+  public var repository: String
+  public var number: Int
+
+  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.host = host
+    self.repository = repository
+    self.number = number
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case host
+    case repository
+    case number
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pull-request.unlink", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.host = try c.decode(String.self, forKey: .host)
+    self.repository = try c.decode(String.self, forKey: .repository)
+    self.number = try c.decode(Int.self, forKey: .number)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pull-request.unlink", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(host, forKey: .host)
+    try c.encode(repository, forKey: .repository)
+    try c.encode(number, forKey: .number)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestWatch: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var host: String
+  public var repository: String
+  public var number: Int
+  public var watching: Bool
+  public var link: OrchestrationV2CommandThreadPullRequestWatchLink?
+
+  public init(commandId: CommandId, threadId: ThreadId, host: String, repository: String, number: Int, watching: Bool, link: OrchestrationV2CommandThreadPullRequestWatchLink? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.host = host
+    self.repository = repository
+    self.number = number
+    self.watching = watching
+    self.link = link
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case host
+    case repository
+    case number
+    case watching
+    case link
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.pull-request.watch", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.host = try c.decode(String.self, forKey: .host)
+    self.repository = try c.decode(String.self, forKey: .repository)
+    self.number = try c.decode(Int.self, forKey: .number)
+    self.watching = try c.decode(Bool.self, forKey: .watching)
+    self.link = try c.decodeIfPresent(OrchestrationV2CommandThreadPullRequestWatchLink.self, forKey: .link)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.pull-request.watch", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(host, forKey: .host)
+    try c.encode(repository, forKey: .repository)
+    try c.encode(number, forKey: .number)
+    try c.encode(watching, forKey: .watching)
+    try c.encodeIfPresent(link, forKey: .link)
+  }
+}
+
+public struct OrchestrationV2CommandThreadPullRequestWatchLink: Sendable, Hashable, Codable {
+  public var url: String
+  public var source: ThreadPullRequestLinkSource
+
+  public init(url: String, source: ThreadPullRequestLinkSource) {
+    self.url = url
+    self.source = source
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case url
+    case source
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.url = try c.decode(String.self, forKey: .url)
+    self.source = try c.decode(ThreadPullRequestLinkSource.self, forKey: .source)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(url, forKey: .url)
+    try c.encode(source, forKey: .source)
+  }
+}
+
+public struct OrchestrationV2CommandThreadRuntimeModeSet: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var runtimeMode: RuntimeMode
+
+  public init(commandId: CommandId, threadId: ThreadId, runtimeMode: RuntimeMode) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.runtimeMode = runtimeMode
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case runtimeMode
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.runtime-mode.set", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runtimeMode = try c.decode(RuntimeMode.self, forKey: .runtimeMode)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.runtime-mode.set", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(runtimeMode, forKey: .runtimeMode)
+  }
+}
+
+public struct OrchestrationV2CommandThreadSettle: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var settledAt: IsoDateTime?
+
+  public init(commandId: CommandId, threadId: ThreadId, settledAt: IsoDateTime? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.settledAt = settledAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case settledAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.settle", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.settledAt = try c.decodeIfPresent(IsoDateTime.self, forKey: .settledAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.settle", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(settledAt, forKey: .settledAt)
+  }
+}
+
+public struct OrchestrationV2CommandThreadSnooze: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var snoozedUntil: IsoDateTime
+
+  public init(commandId: CommandId, threadId: ThreadId, snoozedUntil: IsoDateTime) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.snoozedUntil = snoozedUntil
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case snoozedUntil
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.snooze", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.snoozedUntil = try c.decode(IsoDateTime.self, forKey: .snoozedUntil)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.snooze", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(snoozedUntil, forKey: .snoozedUntil)
+  }
+}
+
+public struct OrchestrationV2CommandThreadTitleRegenerationComplete: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var requestId: CommandId
+  public var title: String?
+
+  public init(commandId: CommandId, threadId: ThreadId, requestId: CommandId, title: String? = nil) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.requestId = requestId
+    self.title = title
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case requestId
+    case title
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.title.regeneration.complete", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.requestId = try c.decode(CommandId.self, forKey: .requestId)
+    self.title = try c.decodeIfPresent(String.self, forKey: .title)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.title.regeneration.complete", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(requestId, forKey: .requestId)
+    try c.encodeIfPresent(title, forKey: .title)
+  }
+}
+
+public struct OrchestrationV2CommandThreadUnarchive: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.unarchive", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.unarchive", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadUnpin: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.unpin", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.unpin", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadUnsettle: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case reason
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.unsettle", forKey: .type)
+    try c.expectConstant("user", forKey: .reason)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.unsettle", forKey: .type)
+    try c.encode("user", forKey: .reason)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadUnsnooze: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+
+  public init(commandId: CommandId, threadId: ThreadId) {
+    self.commandId = commandId
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case reason
+    case commandId
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.unsnooze", forKey: .type)
+    try c.expectConstant("user", forKey: .reason)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.unsnooze", forKey: .type)
+    try c.encode("user", forKey: .reason)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadUserInputDismiss: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var requestId: RuntimeRequestId
+
+  public init(commandId: CommandId, threadId: ThreadId, requestId: RuntimeRequestId) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.requestId = requestId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case requestId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.user-input.dismiss", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.requestId = try c.decode(RuntimeRequestId.self, forKey: .requestId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.user-input.dismiss", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(requestId, forKey: .requestId)
+  }
+}
+
+public struct OrchestrationV2CommandThreadVisit: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var threadId: ThreadId
+  public var visitedAt: IsoDateTime
+
+  public init(commandId: CommandId, threadId: ThreadId, visitedAt: IsoDateTime) {
+    self.commandId = commandId
+    self.threadId = threadId
+    self.visitedAt = visitedAt
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case threadId
+    case visitedAt
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.visit", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.visitedAt = try c.decode(IsoDateTime.self, forKey: .visitedAt)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.visit", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(visitedAt, forKey: .visitedAt)
+  }
+}
+
+public struct OrchestrationV2DomainEventCheckpointCaptured: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2Checkpoint
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2Checkpoint) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("checkpoint.captured", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2Checkpoint.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("checkpoint.captured", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventCheckpointRollbackRequested: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2CheckpointRollbackRequest
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2CheckpointRollbackRequest) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("checkpoint.rollback-requested", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2CheckpointRollbackRequest.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("checkpoint.rollback-requested", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventCheckpointScopeCreated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2CheckpointScope
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2CheckpointScope) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("checkpoint-scope.created", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2CheckpointScope.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("checkpoint-scope.created", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventContextHandoffUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ContextHandoff
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ContextHandoff) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("context-handoff.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ContextHandoff.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("context-handoff.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventContextTransferCreated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ContextTransfer
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ContextTransfer) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("context-transfer.created", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ContextTransfer.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("context-transfer.created", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventContextTransferUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ContextTransfer
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ContextTransfer) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("context-transfer.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ContextTransfer.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("context-transfer.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventMessageUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ConversationMessage
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ConversationMessage) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("message.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ConversationMessage.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("message.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventNodeUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ExecutionNode
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ExecutionNode) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("node.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ExecutionNode.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("node.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventPlanUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2PlanArtifact
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2PlanArtifact) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("plan.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2PlanArtifact.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("plan.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventProviderSessionAttached: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var type: OrchestrationV2DomainEventProviderSessionAttachedType
+  public var payload: OrchestrationV2ProviderSession
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, type: OrchestrationV2DomainEventProviderSessionAttachedType, payload: OrchestrationV2ProviderSession) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.type = type
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case type
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.type = try c.decode(OrchestrationV2DomainEventProviderSessionAttachedType.self, forKey: .type)
+    self.payload = try c.decode(OrchestrationV2ProviderSession.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(type, forKey: .type)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public enum OrchestrationV2DomainEventProviderSessionAttachedType: Sendable, Hashable, Codable, RawRepresentable {
+  case providerSessionAttached
+  case providerSessionUpdated
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "provider-session.attached": self = .providerSessionAttached
+    case "provider-session.updated": self = .providerSessionUpdated
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .providerSessionAttached: "provider-session.attached"
+    case .providerSessionUpdated: "provider-session.updated"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct OrchestrationV2DomainEventProviderSessionDetached: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ProviderSessionDetached
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ProviderSessionDetached) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("provider-session.detached", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ProviderSessionDetached.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("provider-session.detached", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventProviderThreadUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ProviderThread
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ProviderThread) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("provider-thread.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ProviderThread.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("provider-thread.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventProviderTurnUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2ProviderTurn
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2ProviderTurn) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("provider-turn.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2ProviderTurn.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("provider-turn.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRunAttemptCreated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2RunAttempt
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2RunAttempt) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run-attempt.created", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2RunAttempt.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run-attempt.created", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRunAttemptUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2RunAttempt
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2RunAttempt) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run-attempt.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2RunAttempt.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run-attempt.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRunBackgroundWorkCancelled: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2RunBackgroundWorkCancelled
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2RunBackgroundWorkCancelled) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run.background-work-cancelled", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2RunBackgroundWorkCancelled.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run.background-work-cancelled", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRunCreated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2Run
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2Run) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run.created", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2Run.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run.created", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRunUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2Run
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2Run) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2Run.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventRuntimeRequestUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2RuntimeRequest
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2RuntimeRequest) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("runtime-request.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2RuntimeRequest.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("runtime-request.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventSubagentUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2Subagent
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2Subagent) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("subagent.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2Subagent.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("subagent.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventThreadArchived: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var type: OrchestrationV2DomainEventThreadArchivedType
+  public var payload: OrchestrationV2AppThread
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, type: OrchestrationV2DomainEventThreadArchivedType, payload: OrchestrationV2AppThread) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.type = type
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case type
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.type = try c.decode(OrchestrationV2DomainEventThreadArchivedType.self, forKey: .type)
+    self.payload = try c.decode(OrchestrationV2AppThread.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(type, forKey: .type)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public enum OrchestrationV2DomainEventThreadArchivedType: Sendable, Hashable, Codable, RawRepresentable {
+  case threadArchived
+  case threadUnarchived
+  case threadDeleted
+  case threadSettled
+  case threadUnsettled
+  case threadSnoozed
+  case threadUnsnoozed
+  case threadPinned
+  case threadAutoSettleSet
+  case threadUnpinned
+  case threadPinReordered
+  case threadActiveReordered
+  case threadVisited
+  case threadMarkedUnread
+  case threadMetadataUpdated
+  case threadPullRequestSynced
+  case threadRuntimeModeUpdated
+  case threadInteractionModeUpdated
+  case threadModelSelectionUpdated
+  case threadProviderSwitched
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "thread.archived": self = .threadArchived
+    case "thread.unarchived": self = .threadUnarchived
+    case "thread.deleted": self = .threadDeleted
+    case "thread.settled": self = .threadSettled
+    case "thread.unsettled": self = .threadUnsettled
+    case "thread.snoozed": self = .threadSnoozed
+    case "thread.unsnoozed": self = .threadUnsnoozed
+    case "thread.pinned": self = .threadPinned
+    case "thread.auto-settle-set": self = .threadAutoSettleSet
+    case "thread.unpinned": self = .threadUnpinned
+    case "thread.pin-reordered": self = .threadPinReordered
+    case "thread.active-reordered": self = .threadActiveReordered
+    case "thread.visited": self = .threadVisited
+    case "thread.marked-unread": self = .threadMarkedUnread
+    case "thread.metadata-updated": self = .threadMetadataUpdated
+    case "thread.pull-request-synced": self = .threadPullRequestSynced
+    case "thread.runtime-mode-updated": self = .threadRuntimeModeUpdated
+    case "thread.interaction-mode-updated": self = .threadInteractionModeUpdated
+    case "thread.model-selection-updated": self = .threadModelSelectionUpdated
+    case "thread.provider-switched": self = .threadProviderSwitched
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .threadArchived: "thread.archived"
+    case .threadUnarchived: "thread.unarchived"
+    case .threadDeleted: "thread.deleted"
+    case .threadSettled: "thread.settled"
+    case .threadUnsettled: "thread.unsettled"
+    case .threadSnoozed: "thread.snoozed"
+    case .threadUnsnoozed: "thread.unsnoozed"
+    case .threadPinned: "thread.pinned"
+    case .threadAutoSettleSet: "thread.auto-settle-set"
+    case .threadUnpinned: "thread.unpinned"
+    case .threadPinReordered: "thread.pin-reordered"
+    case .threadActiveReordered: "thread.active-reordered"
+    case .threadVisited: "thread.visited"
+    case .threadMarkedUnread: "thread.marked-unread"
+    case .threadMetadataUpdated: "thread.metadata-updated"
+    case .threadPullRequestSynced: "thread.pull-request-synced"
+    case .threadRuntimeModeUpdated: "thread.runtime-mode-updated"
+    case .threadInteractionModeUpdated: "thread.interaction-mode-updated"
+    case .threadModelSelectionUpdated: "thread.model-selection-updated"
+    case .threadProviderSwitched: "thread.provider-switched"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct OrchestrationV2DomainEventThreadCreated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2AppThread
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2AppThread) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.created", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2AppThread.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.created", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2DomainEventTurnItemUpdated: Sendable, Hashable, Codable {
+  public var id: EventId
+  public var threadId: ThreadId
+  public var runId: RunId?
+  public var nodeId: NodeId?
+  public var driver: ProviderDriverKind?
+  public var providerInstanceId: ProviderInstanceId?
+  public var rawEventId: RawEventId?
+  public var occurredAt: IsoDateTime
+  public var payload: OrchestrationV2TurnItem
+
+  public init(id: EventId, threadId: ThreadId, runId: RunId? = nil, nodeId: NodeId? = nil, driver: ProviderDriverKind? = nil, providerInstanceId: ProviderInstanceId? = nil, rawEventId: RawEventId? = nil, occurredAt: IsoDateTime, payload: OrchestrationV2TurnItem) {
+    self.id = id
+    self.threadId = threadId
+    self.runId = runId
+    self.nodeId = nodeId
+    self.driver = driver
+    self.providerInstanceId = providerInstanceId
+    self.rawEventId = rawEventId
+    self.occurredAt = occurredAt
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case id
+    case threadId
+    case runId
+    case nodeId
+    case driver
+    case providerInstanceId
+    case rawEventId
+    case occurredAt
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("turn-item.updated", forKey: .type)
+    self.id = try c.decode(EventId.self, forKey: .id)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.runId = try c.decodeIfPresent(RunId.self, forKey: .runId)
+    self.nodeId = try c.decodeIfPresent(NodeId.self, forKey: .nodeId)
+    self.driver = try c.decodeIfPresent(ProviderDriverKind.self, forKey: .driver)
+    self.providerInstanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .providerInstanceId)
+    self.rawEventId = try c.decodeIfPresent(RawEventId.self, forKey: .rawEventId)
+    self.occurredAt = try c.decode(IsoDateTime.self, forKey: .occurredAt)
+    self.payload = try c.decode(OrchestrationV2TurnItem.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("turn-item.updated", forKey: .type)
+    try c.encode(id, forKey: .id)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encodeIfPresent(runId, forKey: .runId)
+    try c.encodeIfPresent(nodeId, forKey: .nodeId)
+    try c.encodeIfPresent(driver, forKey: .driver)
+    try c.encodeIfPresent(providerInstanceId, forKey: .providerInstanceId)
+    try c.encodeIfPresent(rawEventId, forKey: .rawEventId)
+    try c.encode(occurredAt, forKey: .occurredAt)
+    try c.encode(payload, forKey: .payload)
+  }
+}
+
+public struct OrchestrationV2ShellStreamItemProjectRemoved: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var projectId: ProjectId
+
+  public init(sequence: Int, projectId: ProjectId) {
+    self.sequence = sequence
+    self.projectId = projectId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case projectId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("project.removed", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("project.removed", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(projectId, forKey: .projectId)
+  }
+}
+
+public struct OrchestrationV2ShellStreamItemProjectUpdated: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var project: OrchestrationProjectShell
+
+  public init(sequence: Int, project: OrchestrationProjectShell) {
+    self.sequence = sequence
+    self.project = project
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case project
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("project.updated", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.project = try c.decode(OrchestrationProjectShell.self, forKey: .project)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("project.updated", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(project, forKey: .project)
+  }
+}
+
+public struct OrchestrationV2ShellStreamItemSnapshot: Sendable, Hashable, Codable {
+  public var snapshot: OrchestrationV2ShellSnapshot
+  public var resolvedRepositoryIdentityRoots: [String]?
+
+  public init(snapshot: OrchestrationV2ShellSnapshot, resolvedRepositoryIdentityRoots: [String]? = nil) {
+    self.snapshot = snapshot
+    self.resolvedRepositoryIdentityRoots = resolvedRepositoryIdentityRoots
   }
 
   private enum CodingKeys: String, CodingKey {
     case kind
     case snapshot
+    case resolvedRepositoryIdentityRoots
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     try c.expectConstant("snapshot", forKey: .kind)
-    self.snapshot = try c.decode(OrchestrationThreadDetailSnapshot.self, forKey: .snapshot)
+    self.snapshot = try c.decode(OrchestrationV2ShellSnapshot.self, forKey: .snapshot)
+    self.resolvedRepositoryIdentityRoots = try c.decodeIfPresent([String].self, forKey: .resolvedRepositoryIdentityRoots)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode("snapshot", forKey: .kind)
     try c.encode(snapshot, forKey: .snapshot)
+    try c.encodeIfPresent(resolvedRepositoryIdentityRoots, forKey: .resolvedRepositoryIdentityRoots)
   }
 }
 
-public enum PreviewAutomationConnectFailure: Sendable, Hashable, Codable, Error {
-  case previewAutomationRecordingTransferError(PreviewAutomationRecordingTransferError)
-  case previewAutomationRecordingDesktopUpdateRequiredError(PreviewAutomationRecordingDesktopUpdateRequiredError)
-  case previewAutomationRecordingTooLargeError(PreviewAutomationRecordingTooLargeError)
-  case previewAutomationRecordingDeadlineExpiredError(PreviewAutomationRecordingDeadlineExpiredError)
-  case previewAutomationUnavailableError(PreviewAutomationUnavailableError)
-  case previewAutomationNoAvailableHostError(PreviewAutomationNoAvailableHostError)
-  case previewAutomationUnsupportedClientError(PreviewAutomationUnsupportedClientError)
-  case previewAutomationTabNotFoundError(PreviewAutomationTabNotFoundError)
-  case previewAutomationTimeoutError(PreviewAutomationTimeoutError)
-  case previewAutomationControlInterruptedError(PreviewAutomationControlInterruptedError)
-  case previewAutomationExecutionError(PreviewAutomationExecutionError)
-  case previewAutomationInvalidSelectorError(PreviewAutomationInvalidSelectorError)
-  case previewAutomationTargetNotEditableError(PreviewAutomationTargetNotEditableError)
-  case previewAutomationResultTooLargeError(PreviewAutomationResultTooLargeError)
-  case previewAutomationClientDisconnectedError(PreviewAutomationClientDisconnectedError)
-  case previewAutomationRequestQueueClosedError(PreviewAutomationRequestQueueClosedError)
-  case previewAutomationRemoteUnavailableError(PreviewAutomationRemoteUnavailableError)
-  case previewAutomationMalformedResponseError(PreviewAutomationMalformedResponseError)
+public struct OrchestrationV2ShellStreamItemThreadRemoved: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var location: OrchestrationV2ShellStreamItemThreadUpdatedLocation
+  public var threadId: ThreadId
+
+  public init(sequence: Int, location: OrchestrationV2ShellStreamItemThreadUpdatedLocation, threadId: ThreadId) {
+    self.sequence = sequence
+    self.location = location
+    self.threadId = threadId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case location
+    case threadId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.removed", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.location = try c.decode(OrchestrationV2ShellStreamItemThreadUpdatedLocation.self, forKey: .location)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.removed", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(location, forKey: .location)
+    try c.encode(threadId, forKey: .threadId)
+  }
+}
+
+public struct OrchestrationV2ShellStreamItemThreadUpdated: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var location: OrchestrationV2ShellStreamItemThreadUpdatedLocation
+  public var thread: OrchestrationV2ThreadShell
+
+  public init(sequence: Int, location: OrchestrationV2ShellStreamItemThreadUpdatedLocation, thread: OrchestrationV2ThreadShell) {
+    self.sequence = sequence
+    self.location = location
+    self.thread = thread
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case location
+    case thread
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("thread.updated", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.location = try c.decode(OrchestrationV2ShellStreamItemThreadUpdatedLocation.self, forKey: .location)
+    self.thread = try c.decode(OrchestrationV2ThreadShell.self, forKey: .thread)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("thread.updated", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(location, forKey: .location)
+    try c.encode(thread, forKey: .thread)
+  }
+}
+
+public enum OrchestrationV2ShellStreamItemThreadUpdatedLocation: Sendable, Hashable, Codable, RawRepresentable {
+  case active
+  case archive
+  /// A value this build does not know; kept verbatim so it round-trips.
+  case unknown(String)
+
+  public init(rawValue: String) {
+    switch rawValue {
+    case "active": self = .active
+    case "archive": self = .archive
+    default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: String {
+    switch self {
+    case .active: "active"
+    case .archive: "archive"
+    case .unknown(let value): value
+    }
+  }
+
+  public init(from decoder: any Decoder) throws {
+    self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+}
+
+public struct OrchestrationV2ThreadForkSourcePointCheckpoint: Sendable, Hashable, Codable {
+  public var checkpointId: CheckpointId
+
+  public init(checkpointId: CheckpointId) {
+    self.checkpointId = checkpointId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case checkpointId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("checkpoint", forKey: .type)
+    self.checkpointId = try c.decode(CheckpointId.self, forKey: .checkpointId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("checkpoint", forKey: .type)
+    try c.encode(checkpointId, forKey: .checkpointId)
+  }
+}
+
+public struct OrchestrationV2ThreadForkSourcePointRun: Sendable, Hashable, Codable {
+  public var runId: RunId
+
+  public init(runId: RunId) {
+    self.runId = runId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case runId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("run", forKey: .type)
+    self.runId = try c.decode(RunId.self, forKey: .runId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("run", forKey: .type)
+    try c.encode(runId, forKey: .runId)
+  }
+}
+
+public struct OrchestrationV2ThreadStreamItemEvent: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var event: OrchestrationV2DomainEvent
+
+  public init(sequence: Int, event: OrchestrationV2DomainEvent) {
+    self.sequence = sequence
+    self.event = event
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case event
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("event", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.event = try c.decode(OrchestrationV2DomainEvent.self, forKey: .event)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("event", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(event, forKey: .event)
+  }
+}
+
+public struct OrchestrationV2ThreadStreamItemSnapshot: Sendable, Hashable, Codable {
+  public var snapshotSequence: Int
+  public var projection: OrchestrationV2ThreadProjection
+  public var historyCursor: String??
+  public var hasMoreHistory: Bool?
+  public var latestLocalTurnOrdinal: Int??
+  public var payloadBudgetExceeded: Bool?
+  public var turnItemsOmitLocalVisible: Bool?
+
+  public init(snapshotSequence: Int, projection: OrchestrationV2ThreadProjection, historyCursor: String?? = nil, hasMoreHistory: Bool? = nil, latestLocalTurnOrdinal: Int?? = nil, payloadBudgetExceeded: Bool? = nil, turnItemsOmitLocalVisible: Bool? = nil) {
+    self.snapshotSequence = snapshotSequence
+    self.projection = projection
+    self.historyCursor = historyCursor
+    self.hasMoreHistory = hasMoreHistory
+    self.latestLocalTurnOrdinal = latestLocalTurnOrdinal
+    self.payloadBudgetExceeded = payloadBudgetExceeded
+    self.turnItemsOmitLocalVisible = turnItemsOmitLocalVisible
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case snapshotSequence
+    case projection
+    case historyCursor
+    case hasMoreHistory
+    case latestLocalTurnOrdinal
+    case payloadBudgetExceeded
+    case turnItemsOmitLocalVisible
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("snapshot", forKey: .kind)
+    self.snapshotSequence = try c.decode(Int.self, forKey: .snapshotSequence)
+    self.projection = try c.decode(OrchestrationV2ThreadProjection.self, forKey: .projection)
+    self.historyCursor = try c.decodeTriState(String.self, forKey: .historyCursor)
+    self.hasMoreHistory = try c.decodeIfPresent(Bool.self, forKey: .hasMoreHistory)
+    self.latestLocalTurnOrdinal = try c.decodeTriState(Int.self, forKey: .latestLocalTurnOrdinal)
+    self.payloadBudgetExceeded = try c.decodeIfPresent(Bool.self, forKey: .payloadBudgetExceeded)
+    self.turnItemsOmitLocalVisible = try c.decodeIfPresent(Bool.self, forKey: .turnItemsOmitLocalVisible)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("snapshot", forKey: .kind)
+    try c.encode(snapshotSequence, forKey: .snapshotSequence)
+    try c.encode(projection, forKey: .projection)
+    try c.encodeTriState(historyCursor, forKey: .historyCursor)
+    try c.encodeIfPresent(hasMoreHistory, forKey: .hasMoreHistory)
+    try c.encodeTriState(latestLocalTurnOrdinal, forKey: .latestLocalTurnOrdinal)
+    try c.encodeIfPresent(payloadBudgetExceeded, forKey: .payloadBudgetExceeded)
+    try c.encodeIfPresent(turnItemsOmitLocalVisible, forKey: .turnItemsOmitLocalVisible)
+  }
+}
+
+public struct OrchestrationV2ThreadStreamItemUnknownEvent: Sendable, Hashable, Codable {
+  public var sequence: Int
+  public var event: OrchestrationV2ThreadStreamItemUnknownEventEvent
+
+  public init(sequence: Int, event: OrchestrationV2ThreadStreamItemUnknownEventEvent) {
+    self.sequence = sequence
+    self.event = event
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case kind
+    case sequence
+    case event
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("event", forKey: .kind)
+    self.sequence = try c.decode(Int.self, forKey: .sequence)
+    self.event = try c.decode(OrchestrationV2ThreadStreamItemUnknownEventEvent.self, forKey: .event)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("event", forKey: .kind)
+    try c.encode(sequence, forKey: .sequence)
+    try c.encode(event, forKey: .event)
+  }
+}
+
+public struct OrchestrationV2ThreadStreamItemUnknownEventEvent: Sendable, Hashable, Codable {
+  public var type: String
+  public var payload: JSONValue?
+
+  public init(type: String, payload: JSONValue? = nil) {
+    self.type = type
+    self.payload = payload
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case payload
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.type = try c.decode(String.self, forKey: .type)
+    self.payload = try c.decodeIfPresent(JSONValue.self, forKey: .payload)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(type, forKey: .type)
+    try c.encodeIfPresent(payload, forKey: .payload)
+  }
+}
+
+public struct PlanId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
+  public init(from decoder: any Decoder) throws {
+    rawValue = try decoder.singleValueContainer().decode(String.self)
+  }
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+  public var description: String { rawValue }
+}
+
+public enum PreviewClearProfileFailure: Sendable, Hashable, Codable, Error {
+  case previewClearProfileError(PreviewClearProfileError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -5850,24 +6743,7 @@ public enum PreviewAutomationConnectFailure: Sendable, Hashable, Codable, Error 
     let c = try decoder.container(keyedBy: TagKeys.self)
     let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
     switch tag {
-    case "PreviewAutomationRecordingTransferError"?: self = .previewAutomationRecordingTransferError(try PreviewAutomationRecordingTransferError(from: decoder))
-    case "PreviewAutomationRecordingDesktopUpdateRequiredError"?: self = .previewAutomationRecordingDesktopUpdateRequiredError(try PreviewAutomationRecordingDesktopUpdateRequiredError(from: decoder))
-    case "PreviewAutomationRecordingTooLargeError"?: self = .previewAutomationRecordingTooLargeError(try PreviewAutomationRecordingTooLargeError(from: decoder))
-    case "PreviewAutomationRecordingDeadlineExpiredError"?: self = .previewAutomationRecordingDeadlineExpiredError(try PreviewAutomationRecordingDeadlineExpiredError(from: decoder))
-    case "PreviewAutomationUnavailableError"?: self = .previewAutomationUnavailableError(try PreviewAutomationUnavailableError(from: decoder))
-    case "PreviewAutomationNoAvailableHostError"?: self = .previewAutomationNoAvailableHostError(try PreviewAutomationNoAvailableHostError(from: decoder))
-    case "PreviewAutomationUnsupportedClientError"?: self = .previewAutomationUnsupportedClientError(try PreviewAutomationUnsupportedClientError(from: decoder))
-    case "PreviewAutomationTabNotFoundError"?: self = .previewAutomationTabNotFoundError(try PreviewAutomationTabNotFoundError(from: decoder))
-    case "PreviewAutomationTimeoutError"?: self = .previewAutomationTimeoutError(try PreviewAutomationTimeoutError(from: decoder))
-    case "PreviewAutomationControlInterruptedError"?: self = .previewAutomationControlInterruptedError(try PreviewAutomationControlInterruptedError(from: decoder))
-    case "PreviewAutomationExecutionError"?: self = .previewAutomationExecutionError(try PreviewAutomationExecutionError(from: decoder))
-    case "PreviewAutomationInvalidSelectorError"?: self = .previewAutomationInvalidSelectorError(try PreviewAutomationInvalidSelectorError(from: decoder))
-    case "PreviewAutomationTargetNotEditableError"?: self = .previewAutomationTargetNotEditableError(try PreviewAutomationTargetNotEditableError(from: decoder))
-    case "PreviewAutomationResultTooLargeError"?: self = .previewAutomationResultTooLargeError(try PreviewAutomationResultTooLargeError(from: decoder))
-    case "PreviewAutomationClientDisconnectedError"?: self = .previewAutomationClientDisconnectedError(try PreviewAutomationClientDisconnectedError(from: decoder))
-    case "PreviewAutomationRequestQueueClosedError"?: self = .previewAutomationRequestQueueClosedError(try PreviewAutomationRequestQueueClosedError(from: decoder))
-    case "PreviewAutomationRemoteUnavailableError"?: self = .previewAutomationRemoteUnavailableError(try PreviewAutomationRemoteUnavailableError(from: decoder))
-    case "PreviewAutomationMalformedResponseError"?: self = .previewAutomationMalformedResponseError(try PreviewAutomationMalformedResponseError(from: decoder))
+    case "PreviewClearProfileError"?: self = .previewClearProfileError(try PreviewClearProfileError(from: decoder))
     case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
     default:
       self = .unknown(try JSONValue(from: decoder))
@@ -5876,82 +6752,10 @@ public enum PreviewAutomationConnectFailure: Sendable, Hashable, Codable, Error 
 
   public func encode(to encoder: any Encoder) throws {
     switch self {
-    case .previewAutomationRecordingTransferError(let value): try value.encode(to: encoder)
-    case .previewAutomationRecordingDesktopUpdateRequiredError(let value): try value.encode(to: encoder)
-    case .previewAutomationRecordingTooLargeError(let value): try value.encode(to: encoder)
-    case .previewAutomationRecordingDeadlineExpiredError(let value): try value.encode(to: encoder)
-    case .previewAutomationUnavailableError(let value): try value.encode(to: encoder)
-    case .previewAutomationNoAvailableHostError(let value): try value.encode(to: encoder)
-    case .previewAutomationUnsupportedClientError(let value): try value.encode(to: encoder)
-    case .previewAutomationTabNotFoundError(let value): try value.encode(to: encoder)
-    case .previewAutomationTimeoutError(let value): try value.encode(to: encoder)
-    case .previewAutomationControlInterruptedError(let value): try value.encode(to: encoder)
-    case .previewAutomationExecutionError(let value): try value.encode(to: encoder)
-    case .previewAutomationInvalidSelectorError(let value): try value.encode(to: encoder)
-    case .previewAutomationTargetNotEditableError(let value): try value.encode(to: encoder)
-    case .previewAutomationResultTooLargeError(let value): try value.encode(to: encoder)
-    case .previewAutomationClientDisconnectedError(let value): try value.encode(to: encoder)
-    case .previewAutomationRequestQueueClosedError(let value): try value.encode(to: encoder)
-    case .previewAutomationRemoteUnavailableError(let value): try value.encode(to: encoder)
-    case .previewAutomationMalformedResponseError(let value): try value.encode(to: encoder)
+    case .previewClearProfileError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
-  }
-}
-
-public struct PreviewAutomationStreamEventConnected: Sendable, Hashable, Codable {
-  public var connectionId: String
-
-  public init(connectionId: String) {
-    self.connectionId = connectionId
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case connectionId
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("connected", forKey: .type)
-    self.connectionId = try c.decode(String.self, forKey: .connectionId)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("connected", forKey: .type)
-    try c.encode(connectionId, forKey: .connectionId)
-  }
-}
-
-public struct PreviewAutomationStreamEventRequest: Sendable, Hashable, Codable {
-  public var connectionId: String
-  public var request: PreviewAutomationRequest
-
-  public init(connectionId: String, request: PreviewAutomationRequest) {
-    self.connectionId = connectionId
-    self.request = request
-  }
-
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case connectionId
-    case request
-  }
-
-  public init(from decoder: any Decoder) throws {
-    let c = try decoder.container(keyedBy: CodingKeys.self)
-    try c.expectConstant("request", forKey: .type)
-    self.connectionId = try c.decode(String.self, forKey: .connectionId)
-    self.request = try c.decode(PreviewAutomationRequest.self, forKey: .request)
-  }
-
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.container(keyedBy: CodingKeys.self)
-    try c.encode("request", forKey: .type)
-    try c.encode(connectionId, forKey: .connectionId)
-    try c.encode(request, forKey: .request)
   }
 }
 
@@ -6010,8 +6814,9 @@ public struct PreviewEventFailed: Sendable, Hashable, Codable {
   public var title: String
   public var code: Int
   public var description: String
+  public var download: PreviewNavStatusLoadFailedDownload?
 
-  public init(threadId: String, tabId: String, createdAt: IsoDateTime, serverEpoch: String, revision: Int, url: String, title: String, code: Int, description: String) {
+  public init(threadId: String, tabId: String, createdAt: IsoDateTime, serverEpoch: String, revision: Int, url: String, title: String, code: Int, description: String, download: PreviewNavStatusLoadFailedDownload? = nil) {
     self.threadId = threadId
     self.tabId = tabId
     self.createdAt = createdAt
@@ -6021,6 +6826,7 @@ public struct PreviewEventFailed: Sendable, Hashable, Codable {
     self.title = title
     self.code = code
     self.description = description
+    self.download = download
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -6034,6 +6840,7 @@ public struct PreviewEventFailed: Sendable, Hashable, Codable {
     case title
     case code
     case description
+    case download
   }
 
   public init(from decoder: any Decoder) throws {
@@ -6048,6 +6855,7 @@ public struct PreviewEventFailed: Sendable, Hashable, Codable {
     self.title = try c.decode(String.self, forKey: .title)
     self.code = try c.decode(Int.self, forKey: .code)
     self.description = try c.decode(String.self, forKey: .description)
+    self.download = try c.decodeIfPresent(PreviewNavStatusLoadFailedDownload.self, forKey: .download)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -6062,6 +6870,7 @@ public struct PreviewEventFailed: Sendable, Hashable, Codable {
     try c.encode(title, forKey: .title)
     try c.encode(code, forKey: .code)
     try c.encode(description, forKey: .description)
+    try c.encodeIfPresent(download, forKey: .download)
   }
 }
 
@@ -6172,14 +6981,16 @@ public struct PreviewEventResized: Sendable, Hashable, Codable {
   public var serverEpoch: String
   public var revision: Int
   public var snapshot: PreviewSessionSnapshot
+  public var request: PreviewEventResizedRequest?
 
-  public init(threadId: String, tabId: String, createdAt: IsoDateTime, serverEpoch: String, revision: Int, snapshot: PreviewSessionSnapshot) {
+  public init(threadId: String, tabId: String, createdAt: IsoDateTime, serverEpoch: String, revision: Int, snapshot: PreviewSessionSnapshot, request: PreviewEventResizedRequest? = nil) {
     self.threadId = threadId
     self.tabId = tabId
     self.createdAt = createdAt
     self.serverEpoch = serverEpoch
     self.revision = revision
     self.snapshot = snapshot
+    self.request = request
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -6190,6 +7001,7 @@ public struct PreviewEventResized: Sendable, Hashable, Codable {
     case serverEpoch
     case revision
     case snapshot
+    case request
   }
 
   public init(from decoder: any Decoder) throws {
@@ -6201,6 +7013,7 @@ public struct PreviewEventResized: Sendable, Hashable, Codable {
     self.serverEpoch = try c.decode(String.self, forKey: .serverEpoch)
     self.revision = try c.decode(Int.self, forKey: .revision)
     self.snapshot = try c.decode(PreviewSessionSnapshot.self, forKey: .snapshot)
+    self.request = try c.decodeIfPresent(PreviewEventResizedRequest.self, forKey: .request)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -6212,12 +7025,41 @@ public struct PreviewEventResized: Sendable, Hashable, Codable {
     try c.encode(serverEpoch, forKey: .serverEpoch)
     try c.encode(revision, forKey: .revision)
     try c.encode(snapshot, forKey: .snapshot)
+    try c.encodeIfPresent(request, forKey: .request)
+  }
+}
+
+public struct PreviewEventResizedRequest: Sendable, Hashable, Codable {
+  public var hardReload: Bool?
+  public var clear: PreviewAdjustInputClear?
+
+  public init(hardReload: Bool? = nil, clear: PreviewAdjustInputClear? = nil) {
+    self.hardReload = hardReload
+    self.clear = clear
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case hardReload
+    case clear
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.hardReload = try c.decodeIfPresent(Bool.self, forKey: .hardReload)
+    self.clear = try c.decodeIfPresent(PreviewAdjustInputClear.self, forKey: .clear)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encodeIfPresent(hardReload, forKey: .hardReload)
+    try c.encodeIfPresent(clear, forKey: .clear)
   }
 }
 
 public enum PreviewOpenFailure: Sendable, Hashable, Codable, Error {
   case previewSessionLookupError(PreviewSessionLookupError)
   case previewInvalidUrlError(PreviewInvalidUrlError)
+  case previewControlRequiredError(PreviewControlRequiredError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
   /// A variant this build does not know; kept verbatim so it round-trips.
   case unknown(JSONValue)
@@ -6230,6 +7072,7 @@ public enum PreviewOpenFailure: Sendable, Hashable, Codable, Error {
     switch tag {
     case "PreviewSessionLookupError"?: self = .previewSessionLookupError(try PreviewSessionLookupError(from: decoder))
     case "PreviewInvalidUrlError"?: self = .previewInvalidUrlError(try PreviewInvalidUrlError(from: decoder))
+    case "PreviewControlRequiredError"?: self = .previewControlRequiredError(try PreviewControlRequiredError(from: decoder))
     case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
     default:
       self = .unknown(try JSONValue(from: decoder))
@@ -6240,6 +7083,7 @@ public enum PreviewOpenFailure: Sendable, Hashable, Codable, Error {
     switch self {
     case .previewSessionLookupError(let value): try value.encode(to: encoder)
     case .previewInvalidUrlError(let value): try value.encode(to: encoder)
+    case .previewControlRequiredError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -6305,22 +7149,16 @@ public struct ProjectIconOverrideEmoji: Sendable, Hashable, Codable {
 public struct ProjectIconOverrideLucide: Sendable, Hashable, Codable {
   public var name: String
   public var color: ProjectIconColor
-  public var monogramText: String?
-  public var monogram: String?
 
-  public init(name: String, color: ProjectIconColor, monogramText: String? = nil, monogram: String? = nil) {
+  public init(name: String, color: ProjectIconColor) {
     self.name = name
     self.color = color
-    self.monogramText = monogramText
-    self.monogram = monogram
   }
 
   private enum CodingKeys: String, CodingKey {
     case kind
     case name
     case color
-    case monogramText
-    case monogram
   }
 
   public init(from decoder: any Decoder) throws {
@@ -6328,8 +7166,6 @@ public struct ProjectIconOverrideLucide: Sendable, Hashable, Codable {
     try c.expectConstant("lucide", forKey: .kind)
     self.name = try c.decode(String.self, forKey: .name)
     self.color = try c.decode(ProjectIconColor.self, forKey: .color)
-    self.monogramText = try c.decodeIfPresent(String.self, forKey: .monogramText)
-    self.monogram = try c.decodeIfPresent(String.self, forKey: .monogram)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -6337,8 +7173,6 @@ public struct ProjectIconOverrideLucide: Sendable, Hashable, Codable {
     try c.encode("lucide", forKey: .kind)
     try c.encode(name, forKey: .name)
     try c.encode(color, forKey: .color)
-    try c.encodeIfPresent(monogramText, forKey: .monogramText)
-    try c.encodeIfPresent(monogram, forKey: .monogram)
   }
 }
 
@@ -6372,6 +7206,194 @@ public struct ProjectIconOverrideMonogram: Sendable, Hashable, Codable {
   }
 }
 
+public struct ProjectMutationProjectCreate: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var projectId: ProjectId
+  public var title: String
+  public var workspaceRoot: String
+  public var createWorkspaceRootIfMissing: Bool?
+  public var defaultModelSelection: ModelSelection??
+  public var scripts: [ProjectScript]?
+
+  public init(commandId: CommandId, projectId: ProjectId, title: String, workspaceRoot: String, createWorkspaceRootIfMissing: Bool? = nil, defaultModelSelection: ModelSelection?? = nil, scripts: [ProjectScript]? = nil) {
+    self.commandId = commandId
+    self.projectId = projectId
+    self.title = title
+    self.workspaceRoot = workspaceRoot
+    self.createWorkspaceRootIfMissing = createWorkspaceRootIfMissing
+    self.defaultModelSelection = defaultModelSelection
+    self.scripts = scripts
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case projectId
+    case title
+    case workspaceRoot
+    case createWorkspaceRootIfMissing
+    case defaultModelSelection
+    case scripts
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("project.create", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.title = try c.decode(String.self, forKey: .title)
+    self.workspaceRoot = try c.decode(String.self, forKey: .workspaceRoot)
+    self.createWorkspaceRootIfMissing = try c.decodeIfPresent(Bool.self, forKey: .createWorkspaceRootIfMissing)
+    self.defaultModelSelection = try c.decodeTriState(ModelSelection.self, forKey: .defaultModelSelection)
+    self.scripts = try c.decodeIfPresent([ProjectScript].self, forKey: .scripts)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("project.create", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encode(title, forKey: .title)
+    try c.encode(workspaceRoot, forKey: .workspaceRoot)
+    try c.encodeIfPresent(createWorkspaceRootIfMissing, forKey: .createWorkspaceRootIfMissing)
+    try c.encodeTriState(defaultModelSelection, forKey: .defaultModelSelection)
+    try c.encodeIfPresent(scripts, forKey: .scripts)
+  }
+}
+
+public struct ProjectMutationProjectDelete: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var projectId: ProjectId
+  public var force: Bool?
+
+  public init(commandId: CommandId, projectId: ProjectId, force: Bool? = nil) {
+    self.commandId = commandId
+    self.projectId = projectId
+    self.force = force
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case projectId
+    case force
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("project.delete", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.force = try c.decodeIfPresent(Bool.self, forKey: .force)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("project.delete", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encodeIfPresent(force, forKey: .force)
+  }
+}
+
+public struct ProjectMutationProjectUpdate: Sendable, Hashable, Codable {
+  public var commandId: CommandId
+  public var projectId: ProjectId
+  public var title: String?
+  public var workspaceRoot: String?
+  public var defaultModelSelection: ModelSelection??
+  public var autoPull: Bool?
+  public var projectIcon: ProjectIconOverride??
+  public var faviconPath: String??
+  public var defaultThreadEnvMode: ThreadEnvMode??
+  public var scripts: [ProjectScript]?
+
+  public init(commandId: CommandId, projectId: ProjectId, title: String? = nil, workspaceRoot: String? = nil, defaultModelSelection: ModelSelection?? = nil, autoPull: Bool? = nil, projectIcon: ProjectIconOverride?? = nil, faviconPath: String?? = nil, defaultThreadEnvMode: ThreadEnvMode?? = nil, scripts: [ProjectScript]? = nil) {
+    self.commandId = commandId
+    self.projectId = projectId
+    self.title = title
+    self.workspaceRoot = workspaceRoot
+    self.defaultModelSelection = defaultModelSelection
+    self.autoPull = autoPull
+    self.projectIcon = projectIcon
+    self.faviconPath = faviconPath
+    self.defaultThreadEnvMode = defaultThreadEnvMode
+    self.scripts = scripts
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case commandId
+    case projectId
+    case title
+    case workspaceRoot
+    case defaultModelSelection
+    case autoPull
+    case projectIcon
+    case faviconPath
+    case defaultThreadEnvMode
+    case scripts
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("project.update", forKey: .type)
+    self.commandId = try c.decode(CommandId.self, forKey: .commandId)
+    self.projectId = try c.decode(ProjectId.self, forKey: .projectId)
+    self.title = try c.decodeIfPresent(String.self, forKey: .title)
+    self.workspaceRoot = try c.decodeIfPresent(String.self, forKey: .workspaceRoot)
+    self.defaultModelSelection = try c.decodeTriState(ModelSelection.self, forKey: .defaultModelSelection)
+    self.autoPull = try c.decodeIfPresent(Bool.self, forKey: .autoPull)
+    self.projectIcon = try c.decodeTriState(ProjectIconOverride.self, forKey: .projectIcon)
+    self.faviconPath = try c.decodeTriState(String.self, forKey: .faviconPath)
+    self.defaultThreadEnvMode = try c.decodeTriState(ThreadEnvMode.self, forKey: .defaultThreadEnvMode)
+    self.scripts = try c.decodeIfPresent([ProjectScript].self, forKey: .scripts)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("project.update", forKey: .type)
+    try c.encode(commandId, forKey: .commandId)
+    try c.encode(projectId, forKey: .projectId)
+    try c.encodeIfPresent(title, forKey: .title)
+    try c.encodeIfPresent(workspaceRoot, forKey: .workspaceRoot)
+    try c.encodeTriState(defaultModelSelection, forKey: .defaultModelSelection)
+    try c.encodeIfPresent(autoPull, forKey: .autoPull)
+    try c.encodeTriState(projectIcon, forKey: .projectIcon)
+    try c.encodeTriState(faviconPath, forKey: .faviconPath)
+    try c.encodeTriState(defaultThreadEnvMode, forKey: .defaultThreadEnvMode)
+    try c.encodeIfPresent(scripts, forKey: .scripts)
+  }
+}
+
+public enum ProjectsEnsureScratchFailure: Sendable, Hashable, Codable, Error {
+  case orchestrationDispatchCommandError(OrchestrationDispatchCommandError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "OrchestrationDispatchCommandError"?: self = .orchestrationDispatchCommandError(try OrchestrationDispatchCommandError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .orchestrationDispatchCommandError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum ProjectsListEntriesFailure: Sendable, Hashable, Codable, Error {
   case projectListEntriesError(ProjectListEntriesError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
@@ -6394,6 +7416,34 @@ public enum ProjectsListEntriesFailure: Sendable, Hashable, Codable, Error {
   public func encode(to encoder: any Encoder) throws {
     switch self {
     case .projectListEntriesError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum ProjectsMutateFailure: Sendable, Hashable, Codable, Error {
+  case projectMutationError(ProjectMutationError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "ProjectMutationError"?: self = .projectMutationError(try ProjectMutationError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .projectMutationError(let value): try value.encode(to: encoder)
     case .environmentAuthorizationError(let value): try value.encode(to: encoder)
     case .unknown(let value): try value.encode(to: encoder)
     }
@@ -6565,6 +7615,106 @@ public struct ProviderConsumeResetCreditPayloadOption1: Sendable, Hashable, Coda
   }
 }
 
+public struct ProviderInstanceMutationCreate: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+  public var instance: ProviderInstanceConfig
+
+  public init(instanceId: ProviderInstanceId, instance: ProviderInstanceConfig) {
+    self.instanceId = instanceId
+    self.instance = instance
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case operation
+    case instanceId
+    case instance
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("create", forKey: .operation)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.instance = try c.decode(ProviderInstanceConfig.self, forKey: .instance)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("create", forKey: .operation)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(instance, forKey: .instance)
+  }
+}
+
+public struct ProviderInstanceMutationRemove: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+
+  public init(instanceId: ProviderInstanceId) {
+    self.instanceId = instanceId
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case operation
+    case instanceId
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("remove", forKey: .operation)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("remove", forKey: .operation)
+    try c.encode(instanceId, forKey: .instanceId)
+  }
+}
+
+public struct ProviderInstanceMutationUpsert: Sendable, Hashable, Codable {
+  public var instanceId: ProviderInstanceId
+  public var instance: ProviderInstanceConfig
+
+  public init(instanceId: ProviderInstanceId, instance: ProviderInstanceConfig) {
+    self.instanceId = instanceId
+    self.instance = instance
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case operation
+    case instanceId
+    case instance
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("upsert", forKey: .operation)
+    self.instanceId = try c.decode(ProviderInstanceId.self, forKey: .instanceId)
+    self.instance = try c.decode(ProviderInstanceConfig.self, forKey: .instance)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("upsert", forKey: .operation)
+    try c.encode(instanceId, forKey: .instanceId)
+    try c.encode(instance, forKey: .instance)
+  }
+}
+
+public struct ProviderSessionId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
+  public init(from decoder: any Decoder) throws {
+    rawValue = try decoder.singleValueContainer().decode(String.self)
+  }
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+  public var description: String { rawValue }
+}
+
 public enum ProviderUploadFeedbackFailure: Sendable, Hashable, Codable, Error {
   case providerUploadFeedbackError(ProviderUploadFeedbackError)
   case environmentAuthorizationError(EnvironmentAuthorizationError)
@@ -6622,6 +7772,21 @@ public enum PullRequestsListFailure: Sendable, Hashable, Codable, Error {
     case .unknown(let value): try value.encode(to: encoder)
     }
   }
+}
+
+public struct RawEventId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
+  public init(from decoder: any Decoder) throws {
+    rawValue = try decoder.singleValueContainer().decode(String.self)
+  }
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+  public var description: String { rawValue }
 }
 
 public struct RelayClientInstallProgressEventSchemaComplete: Sendable, Hashable, Codable {
@@ -6859,6 +8024,77 @@ public enum ReviewGetDiffPreviewFailure: Sendable, Hashable, Codable, Error {
   }
 }
 
+public struct RuntimeRequestId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
+  public var rawValue: String
+  public init(rawValue: String) { self.rawValue = rawValue }
+  public init(_ rawValue: String) { self.rawValue = rawValue }
+  public init(stringLiteral value: String) { rawValue = value }
+  public init(from decoder: any Decoder) throws {
+    rawValue = try decoder.singleValueContainer().decode(String.self)
+  }
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.singleValueContainer()
+    try c.encode(rawValue)
+  }
+  public var description: String { rawValue }
+}
+
+public enum ScheduledTasksListFailure: Sendable, Hashable, Codable, Error {
+  case scheduledTaskError(ScheduledTaskError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "ScheduledTaskError"?: self = .scheduledTaskError(try ScheduledTaskError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .scheduledTaskError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
+public enum SecretsAnswerRequestFailure: Sendable, Hashable, Codable, Error {
+  case secretRequestError(SecretRequestError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "SecretRequestError"?: self = .secretRequestError(try SecretRequestError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .secretRequestError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
+  }
+}
+
 public enum ServerGetConfigFailure: Sendable, Hashable, Codable, Error {
   case keybindingsConfigParseError(KeybindingsConfigError)
   case serverSettingsError(ServerSettingsError)
@@ -6977,17 +8213,20 @@ public enum ServerRefreshProvidersFailure: Sendable, Hashable, Codable, Error {
 public struct ServerRefreshProvidersPayload: Sendable, Hashable, Codable {
   public var instanceId: ProviderInstanceId?
   public var cwd: String?
+  public var fresh: Bool?
   public var refreshModels: Bool?
 
-  public init(instanceId: ProviderInstanceId? = nil, cwd: String? = nil, refreshModels: Bool? = nil) {
+  public init(instanceId: ProviderInstanceId? = nil, cwd: String? = nil, fresh: Bool? = nil, refreshModels: Bool? = nil) {
     self.instanceId = instanceId
     self.cwd = cwd
+    self.fresh = fresh
     self.refreshModels = refreshModels
   }
 
   private enum CodingKeys: String, CodingKey {
     case instanceId
     case cwd
+    case fresh
     case refreshModels
   }
 
@@ -6995,6 +8234,7 @@ public struct ServerRefreshProvidersPayload: Sendable, Hashable, Codable {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.instanceId = try c.decodeIfPresent(ProviderInstanceId.self, forKey: .instanceId)
     self.cwd = try c.decodeIfPresent(String.self, forKey: .cwd)
+    self.fresh = try c.decodeIfPresent(Bool.self, forKey: .fresh)
     self.refreshModels = try c.decodeIfPresent(Bool.self, forKey: .refreshModels)
   }
 
@@ -7002,7 +8242,36 @@ public struct ServerRefreshProvidersPayload: Sendable, Hashable, Codable {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encodeIfPresent(instanceId, forKey: .instanceId)
     try c.encodeIfPresent(cwd, forKey: .cwd)
+    try c.encodeIfPresent(fresh, forKey: .fresh)
     try c.encodeIfPresent(refreshModels, forKey: .refreshModels)
+  }
+}
+
+public enum ServerSearchAcpRegistryFailure: Sendable, Hashable, Codable, Error {
+  case acpRegistryOperationError(AcpRegistryOperationError)
+  case environmentAuthorizationError(EnvironmentAuthorizationError)
+  /// A variant this build does not know; kept verbatim so it round-trips.
+  case unknown(JSONValue)
+
+  private enum TagKeys: String, CodingKey { case tag = "_tag" }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: TagKeys.self)
+    let tag = try? c.decodeIfPresent(String.self, forKey: .tag)
+    switch tag {
+    case "AcpRegistryOperationError"?: self = .acpRegistryOperationError(try AcpRegistryOperationError(from: decoder))
+    case "EnvironmentAuthorizationError"?: self = .environmentAuthorizationError(try EnvironmentAuthorizationError(from: decoder))
+    default:
+      self = .unknown(try JSONValue(from: decoder))
+    }
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    switch self {
+    case .acpRegistryOperationError(let value): try value.encode(to: encoder)
+    case .environmentAuthorizationError(let value): try value.encode(to: encoder)
+    case .unknown(let value): try value.encode(to: encoder)
+    }
   }
 }
 
@@ -7114,23 +8383,28 @@ public enum ServerUpdateServerFailure: Sendable, Hashable, Codable, Error {
 
 public struct ServerUpdateSettingsPayload: Sendable, Hashable, Codable {
   public var patch: ServerSettingsPatch
+  public var providerInstanceMutation: ProviderInstanceMutation?
 
-  public init(patch: ServerSettingsPatch) {
+  public init(patch: ServerSettingsPatch, providerInstanceMutation: ProviderInstanceMutation? = nil) {
     self.patch = patch
+    self.providerInstanceMutation = providerInstanceMutation
   }
 
   private enum CodingKeys: String, CodingKey {
     case patch
+    case providerInstanceMutation
   }
 
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     self.patch = try c.decode(ServerSettingsPatch.self, forKey: .patch)
+    self.providerInstanceMutation = try c.decodeIfPresent(ProviderInstanceMutation.self, forKey: .providerInstanceMutation)
   }
 
   public func encode(to encoder: any Encoder) throws {
     var c = encoder.container(keyedBy: CodingKeys.self)
     try c.encode(patch, forKey: .patch)
+    try c.encodeIfPresent(providerInstanceMutation, forKey: .providerInstanceMutation)
   }
 }
 
@@ -7830,21 +9104,6 @@ public enum TerminalOpenFailure: Sendable, Hashable, Codable, Error {
     case .unknown(let value): try value.encode(to: encoder)
     }
   }
-}
-
-public struct TurnId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
-  public var rawValue: String
-  public init(rawValue: String) { self.rawValue = rawValue }
-  public init(_ rawValue: String) { self.rawValue = rawValue }
-  public init(stringLiteral value: String) { rawValue = value }
-  public init(from decoder: any Decoder) throws {
-    rawValue = try decoder.singleValueContainer().decode(String.self)
-  }
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-  public var description: String { rawValue }
 }
 
 public enum VcsInitFailure: Sendable, Hashable, Codable, Error {

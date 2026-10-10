@@ -109,10 +109,12 @@ final class DebugDriver {
         if bits.count == 2, let entry = app.runtime.environments.first(where: { $0.connection.phase == .connected }), let env = await app.runtime.runtime(for: entry.environmentId) {
           let meta = CommandMeta.fresh()
           do {
-            _ = try await env.dispatch(.projectCreate(ProjectCreateCommand(commandId: meta.commandId, projectId: ProjectId(rawValue: UUID().uuidString.lowercased()), title: bits[0], workspaceRoot: bits[1], createdAt: meta.createdAt)))
+            _ = try await env.dispatch(.projectCreate(V1.ProjectCreateCommand(commandId: meta.commandId, projectId: ProjectId(rawValue: UUID().uuidString.lowercased()), title: bits[0], workspaceRoot: bits[1], createdAt: meta.createdAt)))
             await sleep(1.5)
           } catch { say("mkproject failed: \(error)") }
         } else { say("mkproject: no connected environment or bad arg") }
+      case "proto": await protocolStatus()
+      case "send": await sendMessage(arg)
       case "scratch": await scratch()
       case "scratchops": await scratchOps()
       case "scratchclean": await scratchClean()
@@ -188,6 +190,41 @@ final class DebugDriver {
         windowNumber: window?.windowNumber ?? 0, context: nil, characters: ch, charactersIgnoringModifiers: ch, isARepeat: false, keyCode: code))
     }
     await sleep(0.15)
+  }
+
+  /// Per environment: the negotiated orchestration protocol, shell size and sync status.
+  private func protocolStatus() async {
+    for e in app.runtime.environments {
+      let version = await app.runtime.orchestrationProtocol(e.environmentId).map { "v\($0.rawValue)" } ?? "none"
+      let shell = app.runtime.shells[e.environmentId]
+      say("proto \(e.label) \(version) phase=\(e.connection.phase) shell=\(String(describing: shell?.status)) threads=\(shell?.snapshot?.threads.count ?? -1) v2=\(shell?.v2 != nil) seq=\(shell?.snapshot?.snapshotSequence ?? -1)")
+    }
+    if let detail = app.detail {
+      let p = detail.projection
+      say("detail \(detail.key) status=\(detail.state.status) v2=\(p != nil) messages=\(detail.thread?.messages.count ?? -1) runs=\(p?.runs.count ?? -1) items=\(p?.turnItems.count ?? -1) visible=\(p?.visibleTurnItems.count ?? -1) older=\(detail.hasOlderTurns) queued=\(detail.queue.queued.count)")
+    }
+  }
+
+  /// `send:<text>`: sends a message to the selected thread, then follows the turn for up to a minute (what streamed, how it ended).
+  private func sendMessage(_ text: String) async {
+    guard let key = app.selection, let detail = app.detail else { say("send: no selected thread"); return }
+    do {
+      _ = try await app.runtime.sendMessage(key, text: text)
+      say("send: accepted")
+    } catch { say("send failed: \(AppModel.describe(error))"); return }
+    var lastLength = -1
+    for _ in 0..<120 {
+      await sleep(0.5)
+      let messages = detail.thread?.messages ?? []
+      let assistant = messages.last { $0.role == .assistant }
+      let length = assistant?.text.count ?? 0
+      if length != lastLength {
+        lastLength = length
+        say("stream: messages=\(messages.count) assistant=\(length) streaming=\(assistant?.streaming ?? false) runs=\((detail.projection?.runs.map { $0.status.rawValue }) ?? [])")
+      }
+      if let run = detail.projection?.runs.last, ["completed", "failed", "interrupted", "cancelled"].contains(run.status.rawValue), messages.count >= 2 { break }
+    }
+    say("turn end: \((detail.thread?.messages.last).map { "\($0.role.rawValue): \($0.text.prefix(120))" } ?? "none")")
   }
 
   /// `clickat:<x>:<y>` in window points from the top-left of the content area (a 2x `shot` pixel / 2).

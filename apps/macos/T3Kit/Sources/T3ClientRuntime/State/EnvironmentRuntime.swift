@@ -111,20 +111,40 @@ public actor EnvironmentRuntime {
 
   // MARK: Commands
 
+  /// The protocol of the live connection; nil while not connected.
+  public nonisolated var orchestrationProtocol: OrchestrationProtocol? { supervisor.session.value?.orchestrationProtocol }
+
   /// Dispatches one orchestration command. Commands for one thread run one at a time. With `optimistic`,
-  /// the shell shows the lifecycle change at once and rolls it back if the dispatch fails.
+  /// the shell shows the lifecycle change at once and rolls it back if the dispatch fails. On a protocol-2
+  /// connection the V1-shaped command is translated into the calls that do the same (`CommandTranslation`).
   @discardableResult
   public func dispatch(
-    _ command: ClientOrchestrationCommand, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
-  ) async throws(CommandError) -> DispatchResult {
+    _ command: V1.ClientOrchestrationCommand, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
+  ) async throws(CommandError) -> V1.DispatchResult {
+    V1.DispatchResult(sequence: try await dispatch(.translated(command), thread: thread, optimistic: optimistic))
+  }
+
+  /// Dispatches one protocol-2 command (steer, queue edits, rollback by checkpoint, ...). The sequence is the
+  /// event the server committed; a protocol-1 connection refuses.
+  @discardableResult
+  public func dispatch(
+    _ command: OrchestrationV2Command, thread: ThreadId? = nil, optimistic: OptimisticAction? = nil
+  ) async throws(CommandError) -> Int {
+    try await dispatch(.native(command), thread: thread, optimistic: optimistic)
+  }
+
+  private enum Work: Sendable {
+    case translated(V1.ClientOrchestrationCommand)
+    case native(OrchestrationV2Command)
+  }
+
+  private func dispatch(_ work: Work, thread: ThreadId?, optimistic: OptimisticAction?) async throws(CommandError) -> Int {
     let key = "\(entry.environmentId.rawValue):\(thread?.rawValue ?? "*")"
-    let outcome = await serial.run(key: key) { await self.performDispatch(command, thread: thread, optimistic: optimistic) }
+    let outcome = await serial.run(key: key) { await self.performDispatch(work, thread: thread, optimistic: optimistic) }
     return try outcome.get()
   }
 
-  private func performDispatch(
-    _ command: ClientOrchestrationCommand, thread: ThreadId?, optimistic: OptimisticAction?
-  ) async -> Result<DispatchResult, CommandError> {
+  private func performDispatch(_ work: Work, thread: ThreadId?, optimistic: OptimisticAction?) async -> Result<Int, CommandError> {
     guard let session = supervisor.session.value else { return .failure(.notConnected(environment: entry.label)) }
     var updateId: Int?
     if let thread, let optimistic {
@@ -132,20 +152,82 @@ public actor EnvironmentRuntime {
       recomputeDisplay()
     }
     do {
-      let result = try await session.call(Rpc.orchestrationDispatchCommand, command)
+      let sequence = try await execute(work, session)
       if let updateId {
-        overlay.accept(updateId, sequence: result.sequence)
+        overlay.accept(updateId, sequence: sequence)
         overlay.reconcile(with: shellSync.state.value.snapshot)
         recomputeDisplay()
       }
-      return .success(result)
+      return .success(sequence)
     } catch {
       if let updateId {
         overlay.remove(updateId)
         recomputeDisplay()
       }
-      return .failure(CommandError.map(error))
+      return .failure(error)
     }
+  }
+
+  private func execute(_ work: Work, _ session: any EnvironmentSession) async throws(CommandError) -> Int {
+    switch work {
+    case .translated(let command):
+      if session.orchestrationProtocol == .v2 { return try await run(try CommandTranslation.plan(for: command), session: session) }
+      do { return try await session.call(V1.Rpc.orchestrationDispatchCommand, command).sequence } catch { throw CommandError.map(error) }
+    case .native(let command):
+      guard session.orchestrationProtocol == .v2 else { throw .rejected(message: "\(entry.label) needs a newer T3 Code for this action.") }
+      return try await run([.command(command)], session: session)
+    }
+  }
+
+  // MARK: Protocol-2 plans
+
+  /// Runs the steps in order and returns the sequence of the last committed command (0 when none reports one).
+  private func run(_ steps: [V2Step], session: any EnvironmentSession) async throws(CommandError) -> Int {
+    var sequence = 0
+    for step in steps {
+      switch step {
+      case .command(let command):
+        sequence = try await send(command, session)
+      case .launch(let input):
+        do { _ = try await session.call(Rpc.orchestrationLaunchThread, input) } catch { throw CommandError.map(error) }
+      case .project(let mutation):
+        do { _ = try await session.call(Rpc.projectsMutate, mutation) } catch { throw CommandError.map(error) }
+      case .interrupt(let threadId, let runId, let meta):
+        guard let target = runId ?? interruptTarget(threadId) else { continue }
+        sequence = try await send(ThreadCommandV2.interrupt(threadId, runId: target, meta: meta), session)
+      case .rollback(let threadId, let turnCount, let restoreFiles, let meta):
+        let projection = try await projection(threadId, session)
+        // The checkpoint taken after run ordinal `turnCount` (0: the state before any run).
+        let checkpoint = projection.checkpoints.last { candidate in
+          turnCount == 0 ? candidate.ordinalWithinScope == 0 && candidate.appRunOrdinal == nil : candidate.appRunOrdinal == turnCount
+        }
+        guard let checkpoint, checkpoint.status == .ready else { throw .rejected(message: "That checkpoint is no longer available.") }
+        sequence = try await send(
+          ThreadCommandV2.rollback(threadId, scopeId: checkpoint.scopeId, checkpointId: checkpoint.id, restoreFiles: restoreFiles, meta: meta), session)
+      case .detachSessions(let threadId, let meta):
+        for providerSession in try await projection(threadId, session).providerSessions {
+          let id = CommandId(rawValue: "\(meta.commandId.rawValue):detach:\(providerSession.id.rawValue)")
+          sequence = try await send(
+            ThreadCommandV2.detachProviderSession(threadId, sessionId: providerSession.id, meta: CommandMeta(commandId: id, createdAt: meta.createdAt)), session)
+        }
+      }
+    }
+    return sequence
+  }
+
+  private func send(_ command: OrchestrationV2Command, _ session: any EnvironmentSession) async throws(CommandError) -> Int {
+    do { return try await session.call(Rpc.orchestrationDispatchCommand, command).sequence } catch { throw CommandError.map(error) }
+  }
+
+  private func projection(_ threadId: ThreadId, _ session: any EnvironmentSession) async throws(CommandError) -> OrchestrationV2ThreadProjection {
+    do { return try await session.call(Rpc.orchestrationGetThreadProjection, OrchestrationV2GetThreadProjectionInput(threadId: threadId)) } catch { throw CommandError.map(error) }
+  }
+
+  /// Stop's target: the active run, or the latest run while its background work (a subagent, a monitor) still runs.
+  private func interruptTarget(_ threadId: ThreadId) -> RunId? {
+    guard let thread = shellSync.state.value.v2?.threads.first(where: { $0.id == threadId }) else { return nil }
+    if let active = thread.activeRunId { return active }
+    return ShellPresentation.backgroundWorkHoldsCompletion(thread.pendingBackgroundTasks) ? thread.latestRunId : nil
   }
 
   // MARK: Settings
@@ -212,7 +294,7 @@ public actor EnvironmentRuntime {
   public func searchThreads(query: String) async -> [OrchestrationThreadSearchMatch] {
     guard let session = supervisor.session.value, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return [] }
     do {
-      return try await session.call(Rpc.orchestrationSearchThreads, OrchestrationSearchThreadsInput(query: query)).matches
+      return try await session.call(V1.Rpc.orchestrationSearchThreads, OrchestrationSearchThreadsInput(query: query)).matches
     } catch {
       return []  // search failures contribute no content matches; local title search stays the fallback
     }

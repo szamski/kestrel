@@ -47,11 +47,19 @@ struct SidebarView: View {
     }
   }
 
+  /// A sidebar `List` paints its selection with the system accent color and ignores `.tint`; a chosen theme paints it itself.
+  @ViewBuilder private func selectionBackground(_ row: SidebarRow) -> some View {
+    if AppTheme.shared.paintsChrome, app.selection == row.thread.key {
+      RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.accent).padding(.horizontal, 4)
+    }
+  }
+
   @ViewBuilder private func section(_ title: String, rows: [SidebarRow], now: Date) -> some View {
     if !rows.isEmpty {
       Section(title) {
         ForEach(rows) { row in
           ThreadRowView(row: row, now: now).tag(row.thread.key)
+            .listRowBackground(selectionBackground(row))
             .contextMenu { ThreadContextMenu(row: row) }
         }
       }
@@ -65,6 +73,7 @@ struct SidebarView: View {
     Section {
       ForEach(rows) { row in
         ThreadRowView(row: row, now: now).tag(row.thread.key)
+          .listRowBackground(selectionBackground(row))
           .contextMenu { ThreadContextMenu(row: row) }
       }
       if expanded { extra() }

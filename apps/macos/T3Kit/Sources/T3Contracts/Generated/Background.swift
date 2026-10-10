@@ -728,18 +728,3 @@ public struct RpcClientId: RawRepresentable, Hashable, Codable, Sendable, Custom
   }
   public var description: String { String(rawValue) }
 }
-
-public struct ThreadId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
-  public var rawValue: String
-  public init(rawValue: String) { self.rawValue = rawValue }
-  public init(_ rawValue: String) { self.rawValue = rawValue }
-  public init(stringLiteral value: String) { rawValue = value }
-  public init(from decoder: any Decoder) throws {
-    rawValue = try decoder.singleValueContainer().decode(String.self)
-  }
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-  public var description: String { rawValue }
-}

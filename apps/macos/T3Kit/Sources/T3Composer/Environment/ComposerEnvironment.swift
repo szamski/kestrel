@@ -102,7 +102,7 @@ public struct ContextWindowSnapshot: Sendable, Hashable {
   }
 
   /// The newest `context-window.updated` activity with a usable `usedTokens`.
-  public static func latest(in activities: [OrchestrationThreadActivity]) -> ContextWindowSnapshot? {
+  public static func latest(in activities: [V1.OrchestrationThreadActivity]) -> ContextWindowSnapshot? {
     for activity in activities.reversed() where activity.kind == "context-window.updated" {
       func number(_ key: String) -> Double? {
         switch activity.payload[key] {
@@ -183,7 +183,7 @@ public struct ComposerThreadSnapshot: Sendable {
   }
 
   /// Derives everything from the thread read model with the same helpers the timeline uses.
-  public init(thread: OrchestrationThread, unavailableReason: String? = nil, isRewinding: Bool = false) {
+  public init(thread: V1.OrchestrationThread, unavailableReason: String? = nil, isRewinding: Bool = false) {
     func phase(_ value: SessionPhase) -> QueuedMessages.Phase { QueuedMessages.Phase(rawValue: value.rawValue) ?? .ready }
     let phase = phase(derivePhase(thread.session))
     let pending = derivePendingPrompts(thread.activities)
@@ -220,8 +220,8 @@ public struct ComposerThreadSnapshot: Sendable {
 /// One attachment on the wire once its upload settled (or its bytes as a data URL for servers
 /// without uploads).
 public enum ComposerWireAttachment: Sendable, Hashable {
-  case uploaded(ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem)
-  case userInput(ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem)
+  case uploaded(V1.ClientOrchestrationCommandThreadTurnStartMessageAttachmentsItem)
+  case userInput(V1.ClientOrchestrationCommandThreadUserInputRespondAttachmentsByQuestionIdValueItem)
 }
 
 /// A file the composer wants stored on the environment before a send.
@@ -286,12 +286,12 @@ public protocol ComposerEnvironment: Sendable {
 
   /// Sends `thread.turn.start`. The implementation also applies the thread-level side effects the
   /// web composer performs around a send (title seeding, model / mode persistence).
-  func sendTurn(_ command: ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws
-  func interruptTurn(_ command: ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws
-  func respondToApproval(_ command: ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws
-  func respondToUserInput(_ command: ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws
+  func sendTurn(_ command: V1.ClientOrchestrationCommandThreadTurnStart, target: ComposerTarget, titleSeed: String?, isFirstMessage: Bool) async throws
+  func interruptTurn(_ command: V1.ClientOrchestrationCommandThreadTurnInterrupt, target: ComposerTarget) async throws
+  func respondToApproval(_ command: V1.ClientOrchestrationCommandThreadApprovalRespond, target: ComposerTarget) async throws
+  func respondToUserInput(_ command: V1.ClientOrchestrationCommandThreadUserInputRespond, target: ComposerTarget) async throws
   /// Closes an async question without messaging the agent.
-  func dismissUserInput(requestId: ApprovalRequestId, target: ComposerTarget) async throws
+  func dismissUserInput(requestId: V1.ApprovalRequestId, target: ComposerTarget) async throws
 
   // MARK: Client settings
 

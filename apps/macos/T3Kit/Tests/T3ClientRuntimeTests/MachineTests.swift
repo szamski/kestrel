@@ -5,14 +5,14 @@ import T3Contracts
 
 /// Rules of the pure state machines that the differential oracle cannot see (cursors, windows, epochs).
 @Suite struct ThreadDetailMachineTests {
-  static func scenario() throws -> (snapshot: OrchestrationThreadDetailSnapshot, events: [OrchestrationEvent]) {
+  static func scenario() throws -> (snapshot: V1.OrchestrationThreadDetailSnapshot, events: [V1.OrchestrationEvent]) {
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
     return (
-      try decode(OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!),
-      try (scenario["events"] as! [Any]).map { try decode(OrchestrationEvent.self, $0) })
+      try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!),
+      try (scenario["events"] as! [Any]).map { try decode(V1.OrchestrationEvent.self, $0) })
   }
 
-  static func item(_ event: OrchestrationEvent) -> OrchestrationThreadStreamItem { .event(.init(event: event)) }
+  static func item(_ event: V1.OrchestrationEvent) -> V1.OrchestrationThreadStreamItem { .event(.init(event: event)) }
 
   static func config(pagination: Bool = true, marker: Bool = true) -> ServerConfig {
     var config = Fixtures.serverConfig(markers: marker)
@@ -21,24 +21,24 @@ import T3Contracts
   }
 
   /// A machine that loaded `snapshot` as a windowed thread (more history above).
-  static func windowed(_ snapshot: OrchestrationThreadDetailSnapshot) -> ThreadDetailMachine {
+  static func windowed(_ snapshot: V1.OrchestrationThreadDetailSnapshot) -> ThreadDetailMachine {
     var machine = ThreadDetailMachine()
     _ = machine.beginSubscription(config: config())
     var windowedSnapshot = snapshot
-    windowedSnapshot.page = OrchestrationThreadDetailPage(beforeCursor: "cursor-1", hasMore: true, snapshotSequence: snapshot.snapshotSequence, threadSequence: nil)
+    windowedSnapshot.page = V1.OrchestrationThreadDetailPage(beforeCursor: "cursor-1", hasMore: true, snapshotSequence: snapshot.snapshotSequence, threadSequence: nil)
     machine.apply(.snapshot(.init(snapshot: windowedSnapshot)))
     return machine
   }
 
-  static func olderPage(of snapshot: OrchestrationThreadDetailSnapshot, sequence: Int, threadSequence: Int?) -> OrchestrationThreadDetailSnapshot {
+  static func olderPage(of snapshot: V1.OrchestrationThreadDetailSnapshot, sequence: Int, threadSequence: Int?) -> V1.OrchestrationThreadDetailSnapshot {
     var older = snapshot
     older.snapshotSequence = sequence
     older.thread.messages = [
-      OrchestrationMessage(id: "older-1", role: .user, text: "earlier", turnId: nil, streaming: false, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z"),
+      V1.OrchestrationMessage(id: "older-1", role: .user, text: "earlier", turnId: nil, streaming: false, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z"),
       snapshot.thread.messages[0],  // overlap: must not render twice
     ]
     older.thread.activities = []
-    older.page = OrchestrationThreadDetailPage(beforeCursor: nil, hasMore: false, snapshotSequence: sequence, threadSequence: threadSequence)
+    older.page = V1.OrchestrationThreadDetailPage(beforeCursor: nil, hasMore: false, snapshotSequence: sequence, threadSequence: threadSequence)
     return older
   }
 
@@ -105,7 +105,7 @@ import T3Contracts
     let request = try #require(started)
       if rewrite == "revert" {
         let all = try #require(try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic")["events"] as? [Any])
-        let revert = try #require(all.compactMap { try? decode(OrchestrationEvent.self, $0) }.first { $0.isThreadReverted })
+        let revert = try #require(all.compactMap { try? decode(V1.OrchestrationEvent.self, $0) }.first { $0.isThreadReverted })
         machine.apply(Self.item(revert))
       } else {
         machine.apply(.snapshot(.init(snapshot: snapshot)))
@@ -129,7 +129,7 @@ import T3Contracts
 
     // A windowed cache must not resume against a server that cannot page: reload fully.
     var cached = snapshot
-    cached.page = OrchestrationThreadDetailPage(beforeCursor: "c", hasMore: true, snapshotSequence: snapshot.snapshotSequence, threadSequence: nil)
+    cached.page = V1.OrchestrationThreadDetailPage(beforeCursor: "c", hasMore: true, snapshotSequence: snapshot.snapshotSequence, threadSequence: nil)
     var resumed = ThreadDetailMachine(cached: cached)
     #expect(resumed.state.page?.hasMore == true && resumed.state.status == .cached)
     let resumePlan = resumed.beginSubscription(config: Self.config(pagination: false))
@@ -250,7 +250,7 @@ import T3Contracts
 }
 
 @Suite struct OptimisticOverlayTests {
-  func thread() -> OrchestrationThreadShell {
+  func thread() -> V1.OrchestrationThreadShell {
     var shell = Data2.shell().threads[0]
     shell.settledOverride = nil; shell.settledAt = nil; shell.session = nil
     shell.hasPendingApprovals = false; shell.hasPendingUserInput = false; shell.latestUserMessageAt = nil
@@ -271,7 +271,7 @@ import T3Contracts
     #expect(optionalValue(settled.snoozedUntil) == nil)
     // Guarded like the server: a blocked or running thread is not settled optimistically...
     var running = thread()
-    running.session = OrchestrationSession(threadId: running.id, status: .running, runtimeMode: .fullAccess, updatedAt: now)
+    running.session = V1.OrchestrationSession(threadId: running.id, status: .running, runtimeMode: .fullAccess, updatedAt: now)
     #expect(OptimisticAction.settle.apply(running, now: now, accepted: false) == running)
     // ...unless the server already accepted the command.
     #expect(OptimisticAction.settle.apply(running, now: now, accepted: true).settledOverride == .settled)
@@ -337,7 +337,7 @@ import T3Contracts
 
   @Test func unreadIsACompletionNewerThanTheLastVisit() {
     var shell = Data2.shell().threads[0]
-    shell.latestTurn = OrchestrationLatestTurn(
+    shell.latestTurn = V1.OrchestrationLatestTurn(
       turnId: "t", state: .completed, requestedAt: "2026-10-08T11:00:00.000Z", completedAt: "2026-10-08T12:00:00.000Z")
     #expect(!ThreadList.hasUnseenCompletion(shell, lastVisitedAt: nil), "never visited counts as read")
     #expect(ThreadList.hasUnseenCompletion(shell, lastVisitedAt: "2026-10-08T11:59:59.999Z"))

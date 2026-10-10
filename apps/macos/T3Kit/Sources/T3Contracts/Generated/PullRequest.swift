@@ -3,21 +3,6 @@
 
 import Foundation
 
-public struct ProjectId: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible, ExpressibleByStringLiteral {
-  public var rawValue: String
-  public init(rawValue: String) { self.rawValue = rawValue }
-  public init(_ rawValue: String) { self.rawValue = rawValue }
-  public init(stringLiteral value: String) { rawValue = value }
-  public init(from decoder: any Decoder) throws {
-    rawValue = try decoder.singleValueContainer().decode(String.self)
-  }
-  public func encode(to encoder: any Encoder) throws {
-    var c = encoder.singleValueContainer()
-    try c.encode(rawValue)
-  }
-  public var description: String { rawValue }
-}
-
 public enum PullRequestAction: Sendable, Hashable, Codable, RawRepresentable {
   case merge
   case ready
@@ -152,16 +137,18 @@ public struct PullRequestActivity: Sendable, Hashable, Codable {
   public var comments: [PullRequestComment]
   public var commentCount: Int
   public var commentsTruncated: Bool
+  public var reviewThreadsTruncated: Bool?
   public var reviewThreads: [PullRequestReviewThread]
   public var commits: [PullRequestCommit]
   public var reactions: [PullRequestReaction]?
 
-  public init(author: PullRequestActor?? = nil, reviewers: [PullRequestActor]? = nil, comments: [PullRequestComment], commentCount: Int, commentsTruncated: Bool, reviewThreads: [PullRequestReviewThread], commits: [PullRequestCommit], reactions: [PullRequestReaction]? = nil) {
+  public init(author: PullRequestActor?? = nil, reviewers: [PullRequestActor]? = nil, comments: [PullRequestComment], commentCount: Int, commentsTruncated: Bool, reviewThreadsTruncated: Bool? = nil, reviewThreads: [PullRequestReviewThread], commits: [PullRequestCommit], reactions: [PullRequestReaction]? = nil) {
     self.author = author
     self.reviewers = reviewers
     self.comments = comments
     self.commentCount = commentCount
     self.commentsTruncated = commentsTruncated
+    self.reviewThreadsTruncated = reviewThreadsTruncated
     self.reviewThreads = reviewThreads
     self.commits = commits
     self.reactions = reactions
@@ -173,6 +160,7 @@ public struct PullRequestActivity: Sendable, Hashable, Codable {
     case comments
     case commentCount
     case commentsTruncated
+    case reviewThreadsTruncated
     case reviewThreads
     case commits
     case reactions
@@ -185,6 +173,7 @@ public struct PullRequestActivity: Sendable, Hashable, Codable {
     self.comments = try c.decode([PullRequestComment].self, forKey: .comments)
     self.commentCount = try c.decode(Int.self, forKey: .commentCount)
     self.commentsTruncated = try c.decode(Bool.self, forKey: .commentsTruncated)
+    self.reviewThreadsTruncated = try c.decodeIfPresent(Bool.self, forKey: .reviewThreadsTruncated)
     self.reviewThreads = try c.decode([PullRequestReviewThread].self, forKey: .reviewThreads)
     self.commits = try c.decode([PullRequestCommit].self, forKey: .commits)
     self.reactions = try c.decodeIfPresent([PullRequestReaction].self, forKey: .reactions)
@@ -197,6 +186,7 @@ public struct PullRequestActivity: Sendable, Hashable, Codable {
     try c.encode(comments, forKey: .comments)
     try c.encode(commentCount, forKey: .commentCount)
     try c.encode(commentsTruncated, forKey: .commentsTruncated)
+    try c.encodeIfPresent(reviewThreadsTruncated, forKey: .reviewThreadsTruncated)
     try c.encode(reviewThreads, forKey: .reviewThreads)
     try c.encode(commits, forKey: .commits)
     try c.encodeIfPresent(reactions, forKey: .reactions)
@@ -367,12 +357,14 @@ public struct PullRequestCheck: Sendable, Hashable, Codable {
   public var status: PullRequestCheckStatus
   public var description: String?
   public var url: String?
+  public var required: Bool?
 
-  public init(name: String, status: PullRequestCheckStatus, description: String? = nil, url: String? = nil) {
+  public init(name: String, status: PullRequestCheckStatus, description: String? = nil, url: String? = nil, required: Bool? = nil) {
     self.name = name
     self.status = status
     self.description = description
     self.url = url
+    self.required = required
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -380,6 +372,7 @@ public struct PullRequestCheck: Sendable, Hashable, Codable {
     case status
     case description
     case url
+    case required
   }
 
   public init(from decoder: any Decoder) throws {
@@ -388,6 +381,7 @@ public struct PullRequestCheck: Sendable, Hashable, Codable {
     self.status = try c.decode(PullRequestCheckStatus.self, forKey: .status)
     self.description = try c.decodeIfPresent(String.self, forKey: .description)
     self.url = try c.decodeIfPresent(String.self, forKey: .url)
+    self.required = try c.decodeIfPresent(Bool.self, forKey: .required)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -396,6 +390,7 @@ public struct PullRequestCheck: Sendable, Hashable, Codable {
     try c.encode(status, forKey: .status)
     try c.encode(description, forKey: .description)
     try c.encode(url, forKey: .url)
+    try c.encodeIfPresent(required, forKey: .required)
   }
 }
 
@@ -446,6 +441,33 @@ public enum PullRequestCheckStatus: Sendable, Hashable, Codable, RawRepresentabl
   }
 }
 
+public struct PullRequestChecks: Sendable, Hashable, Codable {
+  public var state: PullRequestState
+  public var checks: [PullRequestCheck]
+
+  public init(state: PullRequestState, checks: [PullRequestCheck]) {
+    self.state = state
+    self.checks = checks
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case state
+    case checks
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    self.state = try c.decode(PullRequestState.self, forKey: .state)
+    self.checks = try c.decode([PullRequestCheck].self, forKey: .checks)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode(state, forKey: .state)
+    try c.encode(checks, forKey: .checks)
+  }
+}
+
 public enum PullRequestChecksState: Sendable, Hashable, Codable, RawRepresentable {
   case passing
   case failing
@@ -487,17 +509,19 @@ public struct PullRequestComment: Sendable, Hashable, Codable {
   public var author: PullRequestActor?
   public var body: String
   public var createdAt: IsoDateTime
+  public var editedAt: IsoDateTime??
   public var url: String?
   public var path: String?
   public var reviewState: String?
   public var reactions: [PullRequestReaction]?
 
-  public init(id: String, kind: PullRequestCommentKind, author: PullRequestActor? = nil, body: String, createdAt: IsoDateTime, url: String? = nil, path: String? = nil, reviewState: String? = nil, reactions: [PullRequestReaction]? = nil) {
+  public init(id: String, kind: PullRequestCommentKind, author: PullRequestActor? = nil, body: String, createdAt: IsoDateTime, editedAt: IsoDateTime?? = nil, url: String? = nil, path: String? = nil, reviewState: String? = nil, reactions: [PullRequestReaction]? = nil) {
     self.id = id
     self.kind = kind
     self.author = author
     self.body = body
     self.createdAt = createdAt
+    self.editedAt = editedAt
     self.url = url
     self.path = path
     self.reviewState = reviewState
@@ -510,6 +534,7 @@ public struct PullRequestComment: Sendable, Hashable, Codable {
     case author
     case body
     case createdAt
+    case editedAt
     case url
     case path
     case reviewState
@@ -523,6 +548,7 @@ public struct PullRequestComment: Sendable, Hashable, Codable {
     self.author = try c.decodeIfPresent(PullRequestActor.self, forKey: .author)
     self.body = try c.decode(String.self, forKey: .body)
     self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
+    self.editedAt = try c.decodeTriState(IsoDateTime.self, forKey: .editedAt)
     self.url = try c.decodeIfPresent(String.self, forKey: .url)
     self.path = try c.decodeIfPresent(String.self, forKey: .path)
     self.reviewState = try c.decodeIfPresent(String.self, forKey: .reviewState)
@@ -536,6 +562,7 @@ public struct PullRequestComment: Sendable, Hashable, Codable {
     try c.encode(author, forKey: .author)
     try c.encode(body, forKey: .body)
     try c.encode(createdAt, forKey: .createdAt)
+    try c.encodeTriState(editedAt, forKey: .editedAt)
     try c.encode(url, forKey: .url)
     try c.encode(path, forKey: .path)
     try c.encode(reviewState, forKey: .reviewState)
@@ -792,6 +819,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
   public var changedFiles: Int
   public var headBranch: String
   public var headRepositoryNameWithOwner: String??
+  public var headSha: String?
   public var baseBranch: String
   public var createdAt: IsoDateTime
   public var updatedAt: IsoDateTime
@@ -809,7 +837,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
   public var autoMergeMethod: PullRequestMergeMethod?
   public var workflowApprovalsRequired: Int?
 
-  public init(provider: SourceControlProviderKind, capabilities: PullRequestCapabilities, viewerPermissions: PullRequestViewerPermissions, projectId: ProjectId, projectTitle: String, workspaceRoot: String, repository: String, number: Int, title: String, body: String, url: String, author: PullRequestActor? = nil, state: PullRequestState, isDraft: Bool, mergeability: PullRequestMergeability, additions: Int, deletions: Int, changedFiles: Int, headBranch: String, headRepositoryNameWithOwner: String?? = nil, baseBranch: String, createdAt: IsoDateTime, updatedAt: IsoDateTime, observedAt: Double? = nil, mergedAt: IsoDateTime? = nil, closedAt: IsoDateTime? = nil, reviewers: [PullRequestActor], labels: [PullRequestLabel], checks: [PullRequestCheck], mergeCapabilities: PullRequestMergeCapabilities, viewer: String? = nil, baseComparison: PullRequestBaseComparison? = nil, behindBy: Int? = nil, autoMergeEnabled: Bool? = nil, autoMergeMethod: PullRequestMergeMethod? = nil, workflowApprovalsRequired: Int? = nil) {
+  public init(provider: SourceControlProviderKind, capabilities: PullRequestCapabilities, viewerPermissions: PullRequestViewerPermissions, projectId: ProjectId, projectTitle: String, workspaceRoot: String, repository: String, number: Int, title: String, body: String, url: String, author: PullRequestActor? = nil, state: PullRequestState, isDraft: Bool, mergeability: PullRequestMergeability, additions: Int, deletions: Int, changedFiles: Int, headBranch: String, headRepositoryNameWithOwner: String?? = nil, headSha: String? = nil, baseBranch: String, createdAt: IsoDateTime, updatedAt: IsoDateTime, observedAt: Double? = nil, mergedAt: IsoDateTime? = nil, closedAt: IsoDateTime? = nil, reviewers: [PullRequestActor], labels: [PullRequestLabel], checks: [PullRequestCheck], mergeCapabilities: PullRequestMergeCapabilities, viewer: String? = nil, baseComparison: PullRequestBaseComparison? = nil, behindBy: Int? = nil, autoMergeEnabled: Bool? = nil, autoMergeMethod: PullRequestMergeMethod? = nil, workflowApprovalsRequired: Int? = nil) {
     self.provider = provider
     self.capabilities = capabilities
     self.viewerPermissions = viewerPermissions
@@ -830,6 +858,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
     self.changedFiles = changedFiles
     self.headBranch = headBranch
     self.headRepositoryNameWithOwner = headRepositoryNameWithOwner
+    self.headSha = headSha
     self.baseBranch = baseBranch
     self.createdAt = createdAt
     self.updatedAt = updatedAt
@@ -869,6 +898,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
     case changedFiles
     case headBranch
     case headRepositoryNameWithOwner
+    case headSha
     case baseBranch
     case createdAt
     case updatedAt
@@ -909,6 +939,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
     self.changedFiles = try c.decode(Int.self, forKey: .changedFiles)
     self.headBranch = try c.decode(String.self, forKey: .headBranch)
     self.headRepositoryNameWithOwner = try c.decodeTriState(String.self, forKey: .headRepositoryNameWithOwner)
+    self.headSha = try c.decodeIfPresent(String.self, forKey: .headSha)
     self.baseBranch = try c.decode(String.self, forKey: .baseBranch)
     self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
     self.updatedAt = try c.decode(IsoDateTime.self, forKey: .updatedAt)
@@ -949,6 +980,7 @@ public struct PullRequestDetail: Sendable, Hashable, Codable {
     try c.encode(changedFiles, forKey: .changedFiles)
     try c.encode(headBranch, forKey: .headBranch)
     try c.encodeTriState(headRepositoryNameWithOwner, forKey: .headRepositoryNameWithOwner)
+    try c.encodeIfPresent(headSha, forKey: .headSha)
     try c.encode(baseBranch, forKey: .baseBranch)
     try c.encode(createdAt, forKey: .createdAt)
     try c.encode(updatedAt, forKey: .updatedAt)
@@ -2302,11 +2334,13 @@ public struct PullRequestOmittedFileStat: Sendable, Hashable, Codable {
 public struct PullRequestOperationError: Sendable, Hashable, Codable, Error {
   public var operation: String
   public var detail: String
+  public var reason: String?
   public var cause: JSONValue?
 
-  public init(operation: String, detail: String, cause: JSONValue? = nil) {
+  public init(operation: String, detail: String, reason: String? = nil, cause: JSONValue? = nil) {
     self.operation = operation
     self.detail = detail
+    self.reason = reason
     self.cause = cause
   }
 
@@ -2314,6 +2348,7 @@ public struct PullRequestOperationError: Sendable, Hashable, Codable, Error {
     case _tag
     case operation
     case detail
+    case reason
     case cause
   }
 
@@ -2322,6 +2357,7 @@ public struct PullRequestOperationError: Sendable, Hashable, Codable, Error {
     try c.expectConstant("PullRequestOperationError", forKey: ._tag)
     self.operation = try c.decode(String.self, forKey: .operation)
     self.detail = try c.decode(String.self, forKey: .detail)
+    self.reason = try c.decodeIfPresent(String.self, forKey: .reason)
     self.cause = try c.decodeIfPresent(JSONValue.self, forKey: .cause)
   }
 
@@ -2330,6 +2366,7 @@ public struct PullRequestOperationError: Sendable, Hashable, Codable, Error {
     try c.encode("PullRequestOperationError", forKey: ._tag)
     try c.encode(operation, forKey: .operation)
     try c.encode(detail, forKey: .detail)
+    try c.encodeIfPresent(reason, forKey: .reason)
     try c.encodeIfPresent(cause, forKey: .cause)
   }
 }
@@ -3638,8 +3675,9 @@ public struct PullRequestSummary: Sendable, Hashable, Codable {
   public var reviewDecision: PullRequestReviewDecision??
   public var checksState: PullRequestChecksState??
   public var mergeability: PullRequestMergeability?
+  public var stack: PullRequestStackMembership??
 
-  public init(provider: SourceControlProviderKind, projectId: ProjectId, repository: String, number: Int, title: String, url: String, state: PullRequestState, isDraft: Bool? = nil, headBranch: String, baseBranch: String, closedAt: IsoDateTime?? = nil, mergedAt: IsoDateTime?? = nil, updatedAt: IsoDateTime, observedAt: Double? = nil, author: PullRequestActor?? = nil, additions: Int? = nil, deletions: Int? = nil, changedFiles: Int? = nil, reviewDecision: PullRequestReviewDecision?? = nil, checksState: PullRequestChecksState?? = nil, mergeability: PullRequestMergeability? = nil) {
+  public init(provider: SourceControlProviderKind, projectId: ProjectId, repository: String, number: Int, title: String, url: String, state: PullRequestState, isDraft: Bool? = nil, headBranch: String, baseBranch: String, closedAt: IsoDateTime?? = nil, mergedAt: IsoDateTime?? = nil, updatedAt: IsoDateTime, observedAt: Double? = nil, author: PullRequestActor?? = nil, additions: Int? = nil, deletions: Int? = nil, changedFiles: Int? = nil, reviewDecision: PullRequestReviewDecision?? = nil, checksState: PullRequestChecksState?? = nil, mergeability: PullRequestMergeability? = nil, stack: PullRequestStackMembership?? = nil) {
     self.provider = provider
     self.projectId = projectId
     self.repository = repository
@@ -3661,6 +3699,7 @@ public struct PullRequestSummary: Sendable, Hashable, Codable {
     self.reviewDecision = reviewDecision
     self.checksState = checksState
     self.mergeability = mergeability
+    self.stack = stack
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -3685,6 +3724,7 @@ public struct PullRequestSummary: Sendable, Hashable, Codable {
     case reviewDecision
     case checksState
     case mergeability
+    case stack
   }
 
   public init(from decoder: any Decoder) throws {
@@ -3710,6 +3750,7 @@ public struct PullRequestSummary: Sendable, Hashable, Codable {
     self.reviewDecision = try c.decodeTriState(PullRequestReviewDecision.self, forKey: .reviewDecision)
     self.checksState = try c.decodeTriState(PullRequestChecksState.self, forKey: .checksState)
     self.mergeability = try c.decodeIfPresent(PullRequestMergeability.self, forKey: .mergeability)
+    self.stack = try c.decodeTriState(PullRequestStackMembership.self, forKey: .stack)
   }
 
   public func encode(to encoder: any Encoder) throws {
@@ -3735,6 +3776,7 @@ public struct PullRequestSummary: Sendable, Hashable, Codable {
     try c.encodeTriState(reviewDecision, forKey: .reviewDecision)
     try c.encodeTriState(checksState, forKey: .checksState)
     try c.encodeIfPresent(mergeability, forKey: .mergeability)
+    try c.encodeTriState(stack, forKey: .stack)
   }
 }
 
@@ -3743,14 +3785,16 @@ public struct PullRequestThreadComment: Sendable, Hashable, Codable {
   public var author: PullRequestActor?
   public var body: String
   public var createdAt: IsoDateTime
+  public var editedAt: IsoDateTime??
   public var url: String?
   public var reactions: [PullRequestReaction]?
 
-  public init(id: String, author: PullRequestActor? = nil, body: String, createdAt: IsoDateTime, url: String? = nil, reactions: [PullRequestReaction]? = nil) {
+  public init(id: String, author: PullRequestActor? = nil, body: String, createdAt: IsoDateTime, editedAt: IsoDateTime?? = nil, url: String? = nil, reactions: [PullRequestReaction]? = nil) {
     self.id = id
     self.author = author
     self.body = body
     self.createdAt = createdAt
+    self.editedAt = editedAt
     self.url = url
     self.reactions = reactions
   }
@@ -3760,6 +3804,7 @@ public struct PullRequestThreadComment: Sendable, Hashable, Codable {
     case author
     case body
     case createdAt
+    case editedAt
     case url
     case reactions
   }
@@ -3770,6 +3815,7 @@ public struct PullRequestThreadComment: Sendable, Hashable, Codable {
     self.author = try c.decodeIfPresent(PullRequestActor.self, forKey: .author)
     self.body = try c.decode(String.self, forKey: .body)
     self.createdAt = try c.decode(IsoDateTime.self, forKey: .createdAt)
+    self.editedAt = try c.decodeTriState(IsoDateTime.self, forKey: .editedAt)
     self.url = try c.decodeIfPresent(String.self, forKey: .url)
     self.reactions = try c.decodeIfPresent([PullRequestReaction].self, forKey: .reactions)
   }
@@ -3780,6 +3826,7 @@ public struct PullRequestThreadComment: Sendable, Hashable, Codable {
     try c.encode(author, forKey: .author)
     try c.encode(body, forKey: .body)
     try c.encode(createdAt, forKey: .createdAt)
+    try c.encodeTriState(editedAt, forKey: .editedAt)
     try c.encode(url, forKey: .url)
     try c.encodeIfPresent(reactions, forKey: .reactions)
   }

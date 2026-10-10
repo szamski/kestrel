@@ -7,7 +7,7 @@ import T3Protocol
 
 /// The UI-facing runtime end to end over a fake server: sidebar sections, optimistic commands, thread detail, unread.
 @Suite(.timeLimit(.minutes(1))) @MainActor struct ClientRuntimeTests {
-  func makeRuntime(server: FakeServer, shell: OrchestrationShellSnapshot = Data2.shell(), thread: OrchestrationThreadDetailSnapshot? = nil) async throws -> ClientRuntime {
+  func makeRuntime(server: FakeServer, shell: V1.OrchestrationShellSnapshot = Data2.shell(), thread: V1.OrchestrationThreadDetailSnapshot? = nil) async throws -> ClientRuntime {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent("t3-client-\(UUID().uuidString)")
     let config = Fixtures.serverConfig()
     try EnvironmentCatalogFile(directory: directory).save([
@@ -40,7 +40,7 @@ import T3Protocol
     shell.threads[0].archivedAt = nil
     let runtime = try await makeRuntime(server: server, shell: shell)
     let subscribe = await server.waitForRequest("orchestration.subscribeShell")
-    try server.chunk(subscribe, items: [OrchestrationShellStreamItem.synchronized])
+    try server.chunk(subscribe, items: [V1.OrchestrationShellStreamItem.synchronized])
 
     await until { runtime.sidebar.rows.count > 0 && runtime.environments.first?.connection.phase == .connected }
     #expect(runtime.environments.first?.label == "Box")
@@ -63,11 +63,11 @@ import T3Protocol
     let server = FakeServer()
     var shell = Data2.shell()
     shell.threads[0].settledOverride = nil
-    shell.threads[0].latestTurn = OrchestrationLatestTurn(
+    shell.threads[0].latestTurn = V1.OrchestrationLatestTurn(
       turnId: "t", state: .completed, requestedAt: "2026-10-08T11:00:00.000Z", completedAt: "2026-10-08T12:00:00.000Z")
     let runtime = try await makeRuntime(server: server, shell: shell)
     let subscribe = await server.waitForRequest("orchestration.subscribeShell")
-    try server.chunk(subscribe, items: [OrchestrationShellStreamItem.synchronized])
+    try server.chunk(subscribe, items: [V1.OrchestrationShellStreamItem.synchronized])
     await until { runtime.sidebar.rows.count > 0 }
     let key = ScopedThreadKey(environmentId: runtime.environments[0].environmentId, threadId: shell.threads[0].id)
     func row() -> SidebarRow? { runtime.sidebar.rows.first { $0.thread.shell.id == key.threadId } }
@@ -84,7 +84,7 @@ import T3Protocol
   @Test func openThreadSharesTheLiveStreamAndMergesTheShellMetadata() async throws {
     let server = FakeServer()
     let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
-    let snapshot = try decode(OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
     var shell = Data2.shell()
     var threadShell = shell.threads[0]
     threadShell.id = snapshot.thread.id
@@ -94,7 +94,7 @@ import T3Protocol
     let key = ScopedThreadKey(environmentId: Fixtures.serverConfig().environment.environmentId, threadId: snapshot.thread.id)
     let detail = await runtime.openThread(key)
     let request = await server.waitForRequest("orchestration.subscribeThread")
-    try server.chunk(request, items: [OrchestrationThreadStreamItem.synchronized])
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.synchronized])
     await until { detail.state.status == .live && detail.thread?.title == "Shell title wins" }
     #expect(detail.thread?.messages.isEmpty == false, "messages come from the detail, metadata from the shell")
     await detail.close()
@@ -105,7 +105,7 @@ import T3Protocol
     let server = FakeServer()
     let runtime = try await makeRuntime(server: server)
     let subscribe = await server.waitForRequest("orchestration.subscribeShell")
-    try server.chunk(subscribe, items: [OrchestrationShellStreamItem.synchronized])
+    try server.chunk(subscribe, items: [V1.OrchestrationShellStreamItem.synchronized])
     await until { runtime.hasShellData }
     let id = runtime.environments[0].environmentId
     await runtime.removeEnvironment(id)

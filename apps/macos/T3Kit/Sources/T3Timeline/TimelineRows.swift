@@ -5,7 +5,7 @@ import T3Contracts
 
 /// A message or an ordinary work entry that can sit inside an activity group.
 public enum ActivityEntry: Sendable, Hashable, Identifiable {
-  case message(OrchestrationMessage)
+  case message(V1.OrchestrationMessage)
   case work(WorkLogEntry)
 
   public var id: String {
@@ -32,7 +32,7 @@ public struct QueuedMessagePlaceholder: Sendable, Hashable, Identifiable {
 public struct ActivityGroupRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
-  public var turnId: TurnId
+  public var turnId: V1.TurnId
   public var groupId: String
   public var entries: [ActivityEntry]
   public var expanded: Bool
@@ -60,7 +60,7 @@ public struct WorkLiveRow: Sendable, Hashable {
 public struct WorkToggleRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
-  public var turnId: TurnId?
+  public var turnId: V1.TurnId?
   public var groupId: String
   public var hiddenCount: Int
   public var expanded: Bool
@@ -75,7 +75,7 @@ public struct WorkToggleRow: Sendable, Hashable {
 public struct TurnFoldRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
-  public var turnId: TurnId
+  public var turnId: V1.TurnId
   public var label: String
   public var expanded: Bool
 }
@@ -89,19 +89,19 @@ public struct ContextCompactionRow: Sendable, Hashable {
 public struct MessageRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
-  public var message: OrchestrationMessage
+  public var message: V1.OrchestrationMessage
   public var durationStart: String
   public var showAssistantMeta: Bool
   public var showAssistantCopyButton: Bool
   public var assistantCopyStreaming: Bool
-  public var assistantTurnDiffSummary: OrchestrationCheckpointSummary?
+  public var assistantTurnDiffSummary: V1.OrchestrationCheckpointSummary?
   public var revertTurnCount: Int?
 }
 
 public struct AssistantMetaRow: Sendable, Hashable {
   public var id: String
   public var createdAt: String
-  public var message: OrchestrationMessage
+  public var message: V1.OrchestrationMessage
   public var showAssistantCopyButton: Bool
   public var assistantCopyStreaming: Bool
 }
@@ -189,14 +189,14 @@ public enum TimelineRow: Sendable, Hashable, Identifiable {
 public struct TimelineRowsInput: Sendable {
   public var timelineEntries: [TimelineEntry]
   public var latestTurn: LatestTurnTiming?
-  public var runningTurnId: TurnId?
+  public var runningTurnId: V1.TurnId?
   /// Turn folds ("Worked for ...") the reader opened.
-  public var expandedTurnIds: Set<TurnId>
+  public var expandedTurnIds: Set<V1.TurnId>
   /// Work groups the reader opened.
   public var expandedWorkGroupIds: Set<String>
   public var isWorking: Bool
   public var activeTurnStartedAt: String?
-  public var turnDiffSummaries: [OrchestrationCheckpointSummary]
+  public var turnDiffSummaries: [V1.OrchestrationCheckpointSummary]
   public var supportsConversationRollback: Bool
   /// Task ids of subagents still working, used by the active tool indicator.
   public var liveAgentTaskIds: Set<String>?
@@ -208,12 +208,12 @@ public struct TimelineRowsInput: Sendable {
   public init(
     timelineEntries: [TimelineEntry],
     latestTurn: LatestTurnTiming? = nil,
-    runningTurnId: TurnId? = nil,
-    expandedTurnIds: Set<TurnId> = [],
+    runningTurnId: V1.TurnId? = nil,
+    expandedTurnIds: Set<V1.TurnId> = [],
     expandedWorkGroupIds: Set<String> = [],
     isWorking: Bool,
     activeTurnStartedAt: String?,
-    turnDiffSummaries: [OrchestrationCheckpointSummary] = [],
+    turnDiffSummaries: [V1.OrchestrationCheckpointSummary] = [],
     supportsConversationRollback: Bool = false,
     liveAgentTaskIds: Set<String>? = nil,
     worktreeSetup: WorktreeSetupSnapshot? = nil,

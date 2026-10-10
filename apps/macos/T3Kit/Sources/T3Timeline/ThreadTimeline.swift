@@ -9,7 +9,7 @@ public struct TimelineContext: Sendable {
   public var isWorking: Bool?
   /// When the host started sending the current message, before the server acknowledged it.
   public var sendStartedAt: String?
-  public var expandedTurnIds: Set<TurnId>
+  public var expandedTurnIds: Set<V1.TurnId>
   public var expandedWorkGroupIds: Set<String>
   public var supportsConversationRollback: Bool
   /// Subagents still working. `nil` derives them from the activity log like the web agent panel.
@@ -20,7 +20,7 @@ public struct TimelineContext: Sendable {
   public init(
     isWorking: Bool? = nil,
     sendStartedAt: String? = nil,
-    expandedTurnIds: Set<TurnId> = [],
+    expandedTurnIds: Set<V1.TurnId> = [],
     expandedWorkGroupIds: Set<String> = [],
     supportsConversationRollback: Bool = false,
     liveAgentTaskIds: Set<String>? = nil,
@@ -54,7 +54,7 @@ public struct ThreadTimeline: Sendable {
   public var phase: SessionPhase
   public var isWorking: Bool
   public var activeTurnStartedAt: String?
-  public var runningTurnId: TurnId?
+  public var runningTurnId: V1.TurnId?
   public var activePlan: ActivePlanState?
   /// The plan awaiting a decision; only offered once the latest turn has settled.
   public var activeProposedPlan: LatestProposedPlanState?
@@ -67,12 +67,12 @@ public struct ThreadTimeline: Sendable {
 /// (`PerformanceTests`); use `ThreadTimelineDeriver` to skip the work-log part (about 11 ms)
 /// while only messages change, and derive off the main actor.
 public func deriveThreadTimeline(
-  messages: [OrchestrationMessage],
+  messages: [V1.OrchestrationMessage],
   proposedPlans: [ProposedPlan],
-  activities: [OrchestrationThreadActivity],
-  checkpoints: [OrchestrationCheckpointSummary],
-  latestTurn: OrchestrationLatestTurn?,
-  session: OrchestrationSession?,
+  activities: [V1.OrchestrationThreadActivity],
+  checkpoints: [V1.OrchestrationCheckpointSummary],
+  latestTurn: V1.OrchestrationLatestTurn?,
+  session: V1.OrchestrationSession?,
   context: TimelineContext = TimelineContext(),
   workEntries precomputed: [WorkLogEntry]? = nil
 ) -> ThreadTimeline {
@@ -121,7 +121,7 @@ public func deriveThreadTimeline(
   )
 }
 
-public func deriveThreadTimeline(_ thread: OrchestrationThread, context: TimelineContext = TimelineContext()) -> ThreadTimeline {
+public func deriveThreadTimeline(_ thread: V1.OrchestrationThread, context: TimelineContext = TimelineContext()) -> ThreadTimeline {
   deriveThreadTimeline(
     messages: thread.messages,
     proposedPlans: thread.proposedPlans.map(ProposedPlan.init),
@@ -136,12 +136,12 @@ public func deriveThreadTimeline(_ thread: OrchestrationThread, context: Timelin
 /// Keeps the work-log derivation (about two thirds of the cost) between updates that leave the
 /// activity log alone, which is every streamed message delta. Hold one per open thread.
 public struct ThreadTimelineDeriver: Sendable {
-  private var activities: [OrchestrationThreadActivity]?
+  private var activities: [V1.OrchestrationThreadActivity]?
   private var workEntries: [WorkLogEntry] = []
 
   public init() {}
 
-  public mutating func derive(_ thread: OrchestrationThread, context: TimelineContext = TimelineContext()) -> ThreadTimeline {
+  public mutating func derive(_ thread: V1.OrchestrationThread, context: TimelineContext = TimelineContext()) -> ThreadTimeline {
     if activities != thread.activities {
       workEntries = deriveWorkLogEntries(thread.activities)
       activities = thread.activities

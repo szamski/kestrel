@@ -229,6 +229,7 @@ public enum AssetResource: Sendable, Hashable, Codable {
   case mediaFile(AssetResourceMediaFile)
   case draftWorkspaceFile(AssetResourceDraftWorkspaceFile)
   case attachment(AssetResourceAttachment)
+  case toolOutputImage(AssetResourceToolOutputImage)
   case projectFavicon(AssetResourceProjectFavicon)
   case nativeAppIcon(AssetResourceNativeAppIcon)
   case githubMedia(AssetResourceGithubMedia)
@@ -245,6 +246,7 @@ public enum AssetResource: Sendable, Hashable, Codable {
     case "media-file"?: self = .mediaFile(try AssetResourceMediaFile(from: decoder))
     case "draft-workspace-file"?: self = .draftWorkspaceFile(try AssetResourceDraftWorkspaceFile(from: decoder))
     case "attachment"?: self = .attachment(try AssetResourceAttachment(from: decoder))
+    case "tool-output-image"?: self = .toolOutputImage(try AssetResourceToolOutputImage(from: decoder))
     case "project-favicon"?: self = .projectFavicon(try AssetResourceProjectFavicon(from: decoder))
     case "native-app-icon"?: self = .nativeAppIcon(try AssetResourceNativeAppIcon(from: decoder))
     case "github-media"?: self = .githubMedia(try AssetResourceGithubMedia(from: decoder))
@@ -259,6 +261,7 @@ public enum AssetResource: Sendable, Hashable, Codable {
     case .mediaFile(let value): try value.encode(to: encoder)
     case .draftWorkspaceFile(let value): try value.encode(to: encoder)
     case .attachment(let value): try value.encode(to: encoder)
+    case .toolOutputImage(let value): try value.encode(to: encoder)
     case .projectFavicon(let value): try value.encode(to: encoder)
     case .nativeAppIcon(let value): try value.encode(to: encoder)
     case .githubMedia(let value): try value.encode(to: encoder)
@@ -481,6 +484,41 @@ public struct AssetResourceProjectFavicon: Sendable, Hashable, Codable {
     try c.encode("project-favicon", forKey: ._tag)
     try c.encode(cwd, forKey: .cwd)
     try c.encodeIfPresent(path, forKey: .path)
+  }
+}
+
+public struct AssetResourceToolOutputImage: Sendable, Hashable, Codable {
+  public var threadId: ThreadId
+  public var itemId: TurnItemId
+  public var index: Int
+
+  public init(threadId: ThreadId, itemId: TurnItemId, index: Int) {
+    self.threadId = threadId
+    self.itemId = itemId
+    self.index = index
+  }
+
+  private enum CodingKeys: String, CodingKey {
+    case _tag
+    case threadId
+    case itemId
+    case index
+  }
+
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    try c.expectConstant("tool-output-image", forKey: ._tag)
+    self.threadId = try c.decode(ThreadId.self, forKey: .threadId)
+    self.itemId = try c.decode(TurnItemId.self, forKey: .itemId)
+    self.index = try c.decode(Int.self, forKey: .index)
+  }
+
+  public func encode(to encoder: any Encoder) throws {
+    var c = encoder.container(keyedBy: CodingKeys.self)
+    try c.encode("tool-output-image", forKey: ._tag)
+    try c.encode(threadId, forKey: .threadId)
+    try c.encode(itemId, forKey: .itemId)
+    try c.encode(index, forKey: .index)
   }
 }
 

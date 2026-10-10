@@ -44,7 +44,7 @@ public struct SidebarModel: Sendable, Equatable {
         isUnread: ThreadList.hasUnseenCompletion(shell, lastVisitedAt: lastVisited),
         isWoke: ThreadList.isWoke(shell, wokeAt: wokeAt, lastVisitedAt: lastVisited), wokeAt: wokeAt,
         snoozeWakeLabel: item.snoozed ? optionalValue(shell.snoozedUntil).map { ThreadSettled.snoozeWakeLabel($0, now: input.now) } : nil,
-        canSnooze: ThreadSettled.canSnooze(shell, now: input.now))
+        canSnooze: !item.thread.startPending && ThreadSettled.canSnooze(shell, now: input.now))
     }
     return model
   }
@@ -64,11 +64,11 @@ public struct SidebarFilter: Sendable, Equatable {
   public init() {}
 }
 
-extension OrchestrationThread {
+extension V1.OrchestrationThread {
   /// `mergeEnvironmentThread`: shell and detail subscriptions are independent, so a cached detail can
   /// briefly outlive a newer shell. The shell is authoritative for metadata (branch, worktree, lifecycle
   /// stamps, session); the detail contributes messages, activities, plans and checkpoints.
-  public func merged(with shell: OrchestrationThreadShell) -> OrchestrationThread {
+  public func merged(with shell: V1.OrchestrationThreadShell) -> V1.OrchestrationThread {
     var t = self
     t.projectId = shell.projectId
     t.title = shell.title

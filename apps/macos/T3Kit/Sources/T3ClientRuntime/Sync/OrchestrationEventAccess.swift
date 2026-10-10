@@ -1,6 +1,6 @@
 import T3Contracts
 
-extension OrchestrationEvent {
+extension V1.OrchestrationEvent {
   /// Global event sequence; nil for a variant this build does not know.
   public var sequence: Int? {
     switch self {

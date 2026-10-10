@@ -73,6 +73,7 @@ final class StubSession: EnvironmentSession {
   enum Probe: Sendable { case ok, fail, hang }
   let id: Int
   let initialConfig: ServerConfig
+  let orchestrationProtocol: OrchestrationProtocol = .v1
   private let closedDeferred = Deferred<ConnectionAttemptError>()
   private let probeBehavior = Mutex(Probe.ok)
   let probes = Mutex(0)
