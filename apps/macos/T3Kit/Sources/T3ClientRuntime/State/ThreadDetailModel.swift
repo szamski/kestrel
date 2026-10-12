@@ -29,7 +29,14 @@ public final class ThreadDetailModel {
 
   init(key: ScopedThreadKey) { self.key = key }
 
+  /// Set by `close()`: a late re-attachment must not resurrect the model.
+  private(set) var isClosed = false
+
+  /// Follows `lease`; any earlier one (of a replaced runtime) is dropped.
   func attach(lease: ThreadLease, shells: AsyncStream<V1.OrchestrationThreadShell?>) {
+    for task in tasks { task.cancel() }
+    tasks = []
+    if let previous = self.lease { Task { await previous.release() } }
     self.lease = lease
     let stateChanges = lease.state.changes()
     tasks.append(Task { [weak self] in
@@ -85,6 +92,7 @@ public final class ThreadDetailModel {
   public func loadOlderTurns() async { await lease?.loadOlderTurns() }
 
   public func close() async {
+    isClosed = true
     for task in tasks { task.cancel() }
     tasks = []
     let lease = self.lease

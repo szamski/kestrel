@@ -52,6 +52,8 @@ public final class ClientRuntime {
   @ObservationIgnored private var perEnvironment: [EnvironmentId: [Task<Void, Never>]] = [:]
   /// Which runtime `perEnvironment` observes: pairing an environment again replaces its runtime under the same id.
   @ObservationIgnored private var observedRuntime: [EnvironmentId: ObjectIdentifier] = [:]
+  /// Open thread models, so a replaced environment runtime can hand them a lease on its successor.
+  @ObservationIgnored private var openModels: [WeakDetail] = []
   @ObservationIgnored private var connectionStates: [EnvironmentId: SupervisorConnectionState] = [:]
   @ObservationIgnored private var entries: [EnvironmentId: EnvironmentConnectionEntry] = [:]
   @ObservationIgnored private var order: [EnvironmentId] = []
@@ -199,7 +201,10 @@ public final class ClientRuntime {
     for runtime in runtimes where observedRuntime[runtime.entry.environmentId] != ObjectIdentifier(runtime) {
       let id = runtime.entry.environmentId
       perEnvironment[id]?.forEach { $0.cancel() }
+      let replaced = observedRuntime[id] != nil
       observedRuntime[id] = ObjectIdentifier(runtime)
+      // Pairing again stops the old runtime: leases taken on it never connect or load again.
+      if replaced { Task { await reattachOpenThreads(of: id, to: runtime) } }
       entries[id] = runtime.entry
       let connection = runtime.supervisor.state.changes()
       let shell = runtime.shell.changes()
@@ -336,10 +341,17 @@ public final class ClientRuntime {
   /// Opens a shared live subscription to one thread. Release it with `close()`.
   public func openThread(_ key: ScopedThreadKey) async -> ThreadDetailModel {
     let model = ThreadDetailModel(key: key)
-    guard let runtime = await registry.runtime(for: key.environmentId) else { return model }
-    let lease = await runtime.threads.acquire(key.threadId)
+    openModels.removeAll { $0.model == nil }
+    openModels.append(WeakDetail(model: model))
+    if let runtime = await registry.runtime(for: key.environmentId) { await attach(model, to: runtime) }
+    return model
+  }
+
+  private func attach(_ model: ThreadDetailModel, to runtime: EnvironmentRuntime) async {
+    let lease = await runtime.threads.acquire(model.key.threadId)
+    guard !model.isClosed else { return await lease.release() }
     let shellChanges = runtime.shell.changes()
-    let threadId = key.threadId
+    let threadId = model.key.threadId
     let shells = AsyncStream<V1.OrchestrationThreadShell?> { continuation in
       let task = Task {
         for await state in shellChanges { continuation.yield(state.snapshot?.threads.first { $0.id == threadId }) }
@@ -347,7 +359,10 @@ public final class ClientRuntime {
       continuation.onTermination = { _ in task.cancel() }
     }
     model.attach(lease: lease, shells: shells)
-    return model
+  }
+
+  private func reattachOpenThreads(of environmentId: EnvironmentId, to runtime: EnvironmentRuntime) async {
+    for model in openModels.compactMap(\.model) where model.key.environmentId == environmentId { await attach(model, to: runtime) }
   }
 
   /// The thread shell for a key, from the displayed (optimistic) shell.
@@ -386,3 +401,5 @@ public final class ClientRuntime {
     await clientState.update { $0.markVisited(key.description, at: wokeAt) }
   }
 }
+
+private struct WeakDetail { weak var model: ThreadDetailModel? }

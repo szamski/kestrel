@@ -507,11 +507,17 @@ final class DebugDriver {
     guard let detail = app.detail else { return }
     var guardCount = 0
     while detail.hasOlderTurns, guardCount < 100 {
+      let before = detail.history, visible = detail.projection?.visibleTurnItems.count ?? 0
       await detail.loadOlderTurns()
       guardCount += 1
+      await sleep(0.3)
+      let after = detail.history
+      say("page \(guardCount) cursor=\(before.historyCursor?.suffix(12) ?? "nil") -> \(after.historyCursor?.suffix(12) ?? "nil") more=\(after.hasMoreHistory) loading=\(before.loading)/\(after.loading) status=\(detail.state.status) error=\(after.error ?? "-") visible \(visible) -> \(detail.projection?.visibleTurnItems.count ?? 0)")
+      // A page that neither advanced the cursor nor added rows will not do so on retry.
+      if after.historyCursor == before.historyCursor { break }
       await sleep(0.2)
     }
-    say("loaded all: pages=\(guardCount) messages=\(detail.thread?.messages.count ?? 0) activities=\(detail.thread?.activities.count ?? 0)")
+    say("loaded all: pages=\(guardCount) older=\(detail.hasOlderTurns) rows=\(detail.projection?.visibleTurnItems.count ?? 0) messages=\(detail.thread?.messages.count ?? 0) activities=\(detail.thread?.activities.count ?? 0)")
     await sleep(2)
   }
 

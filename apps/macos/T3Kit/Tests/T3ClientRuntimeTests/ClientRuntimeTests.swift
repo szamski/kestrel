@@ -115,6 +115,8 @@ import T3Protocol
 
   /// The app starts the saved local environment before its server is up, then registers the same environment
   /// again; the model has to follow the replacement runtime, not the stopped one (it stayed in backoff forever).
+  /// A thread opened meanwhile (the restored selection) follows too: on the stopped runtime it stayed `cached` and
+  /// every "load earlier" failed with "Environment is not connected".
   @Test func registeringAnEnvironmentAgainMakesTheModelFollowTheReplacementRuntime() async throws {
     let config = Fixtures.serverConfig()
     let descriptor = try JSONSerialization.data(withJSONObject: [
@@ -130,18 +132,25 @@ import T3Protocol
     let clientState = ClientStateStore(directory: directory)
     let server = FakeServer()
     let launches = Mutex(0)
+    let scenario = try Oracle.load(Oracle.directory(raw: false), "scenarios", "thread-synthetic-live")
+    let snapshot = try decode(V1.OrchestrationThreadDetailSnapshot.self, scenario["snapshot"]!)
     let registry = EnvironmentRegistry(
       catalog: EnvironmentCatalogFile(directory: directory), credentials: InMemoryCredentialStore(), cache: try SQLiteSnapshotCache(path: nil),
-      clientState: clientState, loader: FakeLoader(shell: Data2.shell()), clock: ManualClock(), keepRunningThreadsMounted: false,
+      clientState: clientState, loader: FakeLoader(shell: Data2.shell(), thread: snapshot), clock: ManualClock(), keepRunningThreadsMounted: false,
       httpSession: StubProtocol.session(),
       makeDriver: { _, _ in launches.withLock { $0 += 1; return $0 } == 1 ? FakeServerDriver([]) : FakeServerDriver([server]) })
     let runtime = ClientRuntime(registry: registry, clientState: clientState, clock: ManualClock(), reportsActivity: false)
     await runtime.start()
     await until { runtime.environments.first?.connection.phase == .backoff }
+    let detail = await runtime.openThread(ScopedThreadKey(environmentId: config.environment.environmentId, threadId: snapshot.thread.id))
 
     try await runtime.addLocalEnvironment(baseURL: base, bootstrapToken: "boot", label: "This Mac", clientLabel: "Kestrel")
     await until { runtime.environments.first?.connection.phase == .connected }
     #expect(runtime.environments.count == 1 && runtime.environments[0].label == "This Mac")
+    let request = await server.waitForRequest("orchestration.subscribeThread")
+    try server.chunk(request, items: [V1.OrchestrationThreadStreamItem.synchronized])
+    await until { detail.state.status == .live }
+    await detail.close()
     await runtime.stop()
   }
 }
