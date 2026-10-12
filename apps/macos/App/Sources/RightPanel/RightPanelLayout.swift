@@ -42,7 +42,8 @@ struct RightPanelLayout<Content: View, Panel: View>: View {
           }
           .frame(width: maximized ? proxy.size.width : shown + Self.handleWidth, height: proxy.size.height)
           .background(Palette.canvas)
-          .overlay(alignment: .leading) { Divider().opacity(maximized ? 0 : 1) }
+          // Not `Divider()`: in an overlay it is horizontal, a line across the panel at mid-height.
+          .overlay(alignment: .leading) { Rectangle().fill(.separator).frame(width: 1).opacity(maximized ? 0 : 1) }
         }
       }
       .frame(width: proxy.size.width, height: proxy.size.height, alignment: .trailing)

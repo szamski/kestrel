@@ -56,8 +56,8 @@ struct RightPanelView: View {
         ContentUnavailableView("Nothing open", systemImage: "sidebar.right")
       }
     }
-    // Fill the panel whatever the surface: one without a flexible child would hug the top (the Files tab did).
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    // Fill the panel whatever the surface, keeping the tab bar at the top when the content does not expand.
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     .confirmationDialog(
       "Save changes to \(closing?.title ?? "this file")?", isPresented: Binding(get: { closing != nil }, set: { if !$0 { closing = nil } }), presenting: closing
     ) { surface in
