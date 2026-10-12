@@ -46,7 +46,7 @@ enum SettingsPage: String, CaseIterable, Identifiable {
   /// Device-local pages never touch a server, so they ignore the scope selection and hide the scope bar.
   var hidesScopeBar: Bool {
     switch self {
-    case .appearance, .snapShot, .connections, .diagnostics, .licenses: true
+    case .appearance, .snapShot, .connections, .licenses: true
     default: false
     }
   }
@@ -156,6 +156,12 @@ enum SettingsRegistry {
     item("quit-confirmation", "Quit shortcut", .general, "confirmation app exit direct hold double click press twice"),
     item("text-generation-model", "Text generation model", .general, "generated thread titles source control content default provider", scope: .projectDefaults),
     item("diagnostics", "Diagnostics", .general, "logs traces processes resource history failures spans cpu memory"),
+    item("diagnostics-resources", "Resource monitor", .diagnostics, "cpu memory io read write throughput processes footprint speed limit thermal power host"),
+    item("diagnostics-timeline", "Resource timeline", .diagnostics, "history chart cpu memory io read write period 5m 15m 30m 1h"),
+    item("diagnostics-process-tree", "Live process tree", .diagnostics, "processes kill signal sigint sigkill terminate pid"),
+    item("diagnostics-processes", "Live processes", .diagnostics, "child processes descendants server pid kill signal"),
+    item("diagnostics-trace", "Trace diagnostics", .diagnostics, "spans failures slow spans logs warnings errors trace id open logs folder"),
+    item("diagnostics-observability", "OpenTelemetry export", .diagnostics, "otlp otel traces metrics logs url endpoint collector observability"),
     item("open-source-licenses", "Open source licenses", .general),
     item("legacy-plan-mode", "Plan mode (legacy)", .general, "build plan composer old"),
     item("legacy-context-window-indicator", "Context window indicator (legacy)", .general, "composer meter usage tokens circle old"),

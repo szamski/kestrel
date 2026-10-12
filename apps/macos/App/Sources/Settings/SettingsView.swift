@@ -90,6 +90,7 @@ private struct Detail: View {
       case .sourceControl: SourceControlPage()
       case .storage: StoragePage()
       case .archived: ArchivedPage()
+      case .diagnostics: DiagnosticsPage()
       case .licenses: LicensesPage()
       default: Placeholder(text: "\(model.page.title) settings arrive in a later stage.", title: model.page.title)
       }
