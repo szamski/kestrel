@@ -83,7 +83,7 @@ private struct Detail: View {
       switch model.page {
       case .general: GeneralPage()
       case .appearance: AppearancePage()
-      case .connections: Form { LocalServerSettings(); ConnectSettings() }.formStyle(.grouped)
+      case .connections: ConnectionsPage()
       case .providers: ProvidersPage()
       case .projects: ProjectsPage()
       case .keybindings: KeybindingsPage()

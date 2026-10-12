@@ -57,16 +57,3 @@ struct LocalServerRow: View {
     }
   }
 }
-
-/// Settings › Connections.
-struct LocalServerSettings: View {
-  @Environment(AppModel.self) private var app
-
-  var body: some View {
-    Section("Connections") {
-      Toggle("Run local server", isOn: Binding(get: { app.runsLocalServer }, set: { app.setRunsLocalServer($0) }))
-      Text("Starts a T3 Code server on this Mac so threads work without an external server. Environments you add yourself are not affected.")
-        .font(.caption).foregroundStyle(.secondary)
-    }
-  }
-}

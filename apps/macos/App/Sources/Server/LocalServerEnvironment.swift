@@ -24,7 +24,10 @@ enum LocalServerEnvironment {
     // PATH: the login shell's first, then what the app was given.
     let path = ((shell["PATH"] ?? "").split(separator: ":") + (env["PATH"] ?? "").split(separator: ":")).map(String.init)
     var seen = Set<String>()
-    env["PATH"] = path.filter { !$0.isEmpty && seen.insert($0).inserted }.joined(separator: ":")
+    var directories = path.filter { !$0.isEmpty && seen.insert($0).inserted }
+    // Tailscale Serve (Settings › Connections) has the server run `tailscale`, which the Tailscale app only ships inside its bundle.
+    if FileManager.default.fileExists(atPath: TailscaleCLI.appDirectory), !directories.contains(TailscaleCLI.appDirectory) { directories.append(TailscaleCLI.appDirectory) }
+    env["PATH"] = directories.joined(separator: ":")
     for (name, value) in shell where name != "PATH" && (env[name] ?? "").isEmpty { env[name] = value }
     for name in stripped { env[name] = nil }
     return env

@@ -77,6 +77,8 @@ struct EnvironmentsPopover: View {
 struct EnvironmentRow: View {
   @Environment(AppModel.self) private var app
   let status: EnvironmentStatus
+  /// Asks for removal where the app-level confirmation is not in view (the Settings window); nil uses the app's own.
+  var onRemove: ((EnvironmentStatus) -> Void)?
 
   var body: some View {
     HStack(alignment: .top, spacing: 8) {
@@ -100,14 +102,17 @@ struct EnvironmentRow: View {
       )
       .labelsHidden().toggleStyle(.switch).controlSize(.small)
       Button(role: .destructive) {
+        if let onRemove { return onRemove(status) }
         app.confirm(
-          "Remove \u{201C}\(status.label)\u{201D}?", message: "Its saved credential and cached threads are removed from this Mac. The server keeps its data.",
+          "Remove \u{201C}\(status.label)\u{201D}?", message: EnvironmentRow.removalMessage,
           confirmTitle: "Remove"
         ) { await app.runtime.removeEnvironment(status.environmentId) }
       } label: { Label("Remove", systemImage: "trash") }
       .labelStyle(.iconOnly).buttonStyle(.borderless).help("Remove environment")
     }
   }
+
+  static let removalMessage = "Its saved credential and cached threads are removed from this Mac. The server keeps its data."
 
   private var detail: String {
     guard status.enabled else { return "Disabled" }

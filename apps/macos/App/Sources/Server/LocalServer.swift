@@ -21,6 +21,8 @@ final class LocalServer {
   }
 
   private(set) var state: State = .off
+  /// Bind address and Tailscale Serve of the next launch; `setExposure` restarts a running server.
+  private(set) var exposure = LocalServerExposure.load()
 
   /// Called once the server answers: exchange the bootstrap token and register the environment. Set by `AppModel`.
   @ObservationIgnored var register: (@MainActor (_ baseURL: URL, _ bootstrapToken: String) async throws -> Void)?
@@ -75,6 +77,14 @@ final class LocalServer {
     }
   }
 
+  /// Saves how far the server reaches and relaunches it when it runs (or has failed) so the change takes effect.
+  func setExposure(_ next: LocalServerExposure) {
+    guard next != exposure else { return }
+    exposure = next
+    next.save()
+    if supervisor != nil { restart() }
+  }
+
   func showLog() {
     if FileManager.default.fileExists(atPath: logURL.path) { NSWorkspace.shared.activateFileViewerSelecting([logURL]) } else {
       NSWorkspace.shared.open(logURL.deletingLastPathComponent())
@@ -110,7 +120,7 @@ final class LocalServer {
       let token = LocalServerSupport.randomToken()
       let child: ServerChild
       do {
-        child = try ServerChild.spawn(launch: launch, environment: environment, port: port, token: token, log: logURL)
+        child = try ServerChild.spawn(launch: launch, environment: environment, port: port, token: token, exposure: exposure, log: logURL)
       } catch {
         return await finish(.failed("Could not start the server: \(error.localizedDescription)"))
       }
@@ -165,8 +175,10 @@ final class ServerChild: @unchecked Sendable {
     pid = process.processIdentifier
   }
 
-  static func spawn(launch: LocalServerLaunch, environment: [String: String], port: Int, token: String, log: URL) throws -> ServerChild {
-    let bootstrap = try LocalServerSupport.bootstrapJSON(port: port, home: launch.home, token: token)
+  static func spawn(
+    launch: LocalServerLaunch, environment: [String: String], port: Int, token: String, exposure: LocalServerExposure, log: URL
+  ) throws -> ServerChild {
+    let bootstrap = try LocalServerSupport.bootstrapJSON(port: port, home: launch.home, token: token, exposure: exposure)
     let logHandle = try LocalServerSupport.openLog(log)
     defer { try? logHandle.close() }
     let process = Process()

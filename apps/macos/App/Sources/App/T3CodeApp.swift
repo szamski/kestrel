@@ -42,7 +42,7 @@ struct T3CodeApp: App {
     .windowToolbarStyle(.unified)
     .commands { AppCommands(app: app, commands: commands) }
 
-    Settings { SettingsView(model: SettingsModel(runtime: app.runtime)).themed() }
+    Settings { SettingsView(model: SettingsModel(runtime: app.runtime)).environment(app).themed() }
   }
 }
 
