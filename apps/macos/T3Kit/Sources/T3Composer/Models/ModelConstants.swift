@@ -5,12 +5,18 @@ import Foundation
 public enum ModelConstants {
   public static let defaultModel = "gpt-6-astra"
   public static let antigravityDefaultModel = "antigravity-default"
+  /// Lets Muse pick the account's default model. Never sent to Muse.
+  public static let museDefaultModel = "default"
 
   public static let defaultModelByProvider: [String: String] = [
     "codex": defaultModel,
     "claudeAgent": "claude-fable-5-1",
     "cursor": "auto",
     "grok": "grok-build",
+    "muse": museDefaultModel,
+    "acpRegistry": "default",
+    // "default" defers to the user's own Pi settings.json model selection.
+    "pi": "default",
     "opencode": "openai/gpt-5",
     "antigravity": antigravityDefaultModel,
   ]
@@ -32,7 +38,7 @@ public enum ModelConstants {
 
   public static let providerDisplayNames: [String: String] = [
     "antigravity": "Antigravity", "codex": "Codex", "claudeAgent": "Claude", "cursor": "Cursor", "grok": "Grok",
-    "opencode": "OpenCode",
+    "muse": "Muse Code", "acpRegistry": "ACP Registry", "pi": "Pi", "opencode": "OpenCode",
   ]
 
   public static let maxInputChars = 120_000

@@ -83,9 +83,13 @@ struct ComposerEditorView: NSViewRepresentable {
 
     func composerTextView(_ view: ComposerTextView, handle key: ComposerCommandKey, event: NSEvent, isTaskItem: Bool) -> Bool {
       let flags = event.modifierFlags
+      let press = ComposerKeyPress(
+        keyCode: event.keyCode, characters: event.charactersIgnoringModifiers, command: flags.contains(.command), control: flags.contains(.control),
+        shift: flags.contains(.shift), option: flags.contains(.option))
       let context = ComposerKeyContext(
         shift: flags.contains(.shift), modifier: flags.contains(.command) || flags.contains(.control), option: flags.contains(.option),
-        isComposing: view.hasMarkedText(), caretOnFirstLine: view.isCaretOnVisualEdge(start: true), caretOnLastLine: view.isCaretOnVisualEdge(start: false))
+        isComposing: view.hasMarkedText(), caretOnFirstLine: view.isCaretOnVisualEdge(start: true), caretOnLastLine: view.isCaretOnVisualEdge(start: false),
+        command: key == .enter ? model.keybindingResolver?(press) : nil)
       return model.handleCommandKey(key, context: context, isTaskItem: isTaskItem)
     }
 

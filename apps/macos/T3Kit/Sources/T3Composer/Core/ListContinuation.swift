@@ -40,15 +40,23 @@ public enum ComposerListContinuation {
     return nil
   }
 
+  /// `nextOrderedMarkerText`: `9.` -> `10.`, `09)` -> `10)`; a number beyond the safe integers stays.
+  /// The rich editor's native split counts the same way.
+  static func nextOrderedMarker(_ marker: String) -> String {
+    let numberText = String(marker.dropLast())
+    let delimiter = marker.suffix(1)
+    var next = numberText
+    if let number = UInt64(numberText), number <= 9_007_199_254_740_991 {
+      let text = String(number + 1)
+      next = String(repeating: "0", count: max(0, numberText.count - text.count)) + text
+    }
+    return next + delimiter
+  }
+
   private static func nextMarkerText(_ marker: Marker) -> String {
     switch marker {
     case .ordered(let indent, let numberText, let delimiter, _):
-      var next = numberText
-      if let number = UInt64(numberText), number <= 9_007_199_254_740_991 {
-        let text = String(number + 1)
-        next = String(repeating: "0", count: max(0, numberText.count - text.count)) + text
-      }
-      return "\(indent)\(next)\(delimiter) "
+      return "\(indent)\(nextOrderedMarker(numberText + delimiter)) "
     case .task(let indent, _): return "\(indent)- [ ] "
     case .bullet(let indent, let bullet, _): return "\(indent)\(bullet) "
     }

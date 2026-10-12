@@ -23,6 +23,7 @@ struct ComposerHost: View {
 private struct ComposerBar: View {
   let app: AppModel
   let target: ComposerTarget
+  @Environment(CommandCenter.self) private var commands
   @State private var model: ComposerModel
 
   init(app: AppModel, target: ComposerTarget) {
@@ -43,6 +44,7 @@ private struct ComposerBar: View {
     .task {
       // The diff panel inserts review comments through the model that is on screen.
       LiveComposers.shared.register(model, for: target.key)
+      model.keybindingResolver = { [commands] in commands.command(for: $0) }
       await model.start()
       model.requestFocus()
       // The window assigns its own initial focus after the first layout; take it back unless the user is typing elsewhere.

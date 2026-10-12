@@ -24,30 +24,23 @@ public struct ComposerModelSettings: Sendable, Hashable {
   public var planModeEnabled: Bool
   /// `providerInstances[id].config.customModels` when that array is present.
   public var instanceCustomModels: [String: [CustomModelDefinition]]
-  /// Legacy `providers[driverKind].customModels`, read only for default instances.
-  public var legacyCustomModels: [String: [CustomModelDefinition]]
   public var hiddenModels: [String: [String]]
   public var modelOrder: [String: [String]]
   /// Instances explicitly configured in `providerInstances` with their resolved `enabled` flag.
   public var instanceEnabled: [String: Bool]
-  /// Legacy per-driver `providers[driver].enabled`.
-  public var legacyProviderEnabled: [String: Bool]
   /// `driverKind:slug`-style keys of favorite models (`instanceId:slug`).
   public var favoriteModelKeys: Set<String>
 
   public init(
     planModeEnabled: Bool = false, instanceCustomModels: [String: [CustomModelDefinition]] = [:],
-    legacyCustomModels: [String: [CustomModelDefinition]] = [:], hiddenModels: [String: [String]] = [:],
-    modelOrder: [String: [String]] = [:], instanceEnabled: [String: Bool] = [:],
-    legacyProviderEnabled: [String: Bool] = [:], favoriteModelKeys: Set<String> = []
+    hiddenModels: [String: [String]] = [:], modelOrder: [String: [String]] = [:], instanceEnabled: [String: Bool] = [:],
+    favoriteModelKeys: Set<String> = []
   ) {
     self.planModeEnabled = planModeEnabled
     self.instanceCustomModels = instanceCustomModels
-    self.legacyCustomModels = legacyCustomModels
     self.hiddenModels = hiddenModels
     self.modelOrder = modelOrder
     self.instanceEnabled = instanceEnabled
-    self.legacyProviderEnabled = legacyProviderEnabled
     self.favoriteModelKeys = favoriteModelKeys
   }
 }
@@ -185,10 +178,9 @@ public enum ModelCatalog {
       var next = entry
       if let explicit = settings.instanceEnabled[entry.instanceId] {
         next.enabled = explicit
-      } else if entry.isDefault, let legacy = settings.legacyProviderEnabled[entry.driverKind] {
-        next.enabled = legacy
       } else {
         // Unconfigured default instance: only Codex and Claude run before the user configures them; other ids are stale.
+        // The legacy `settings.providers` block is ignored, like upstream.
         next.enabled = entry.isDefault && unconfiguredDefaultInstances.contains(entry.instanceId)
       }
       return next
@@ -272,8 +264,7 @@ public enum ModelCatalog {
   private static func customModels(_ settings: ComposerModelSettings, instanceId: String, driver: String) -> [CustomModelDefinition] {
     if driver == "antigravity" { return [] }
     if let explicit = settings.instanceCustomModels[instanceId] { return explicit }
-    if instanceId != driver { return [] }
-    return settings.legacyCustomModels[driver] ?? []
+    return []
   }
 
   private static func normalizeCustomEntries(_ models: [CustomModelDefinition], builtIn: Set<String>) -> [CustomModelDefinition] {

@@ -10,7 +10,15 @@ import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSyn
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadSources, oracleRoot } from "./lib.ts";
-import { chipSamples, citations, drafts, listDrafts, PASTE_TEXTS } from "./corpus.ts";
+import {
+  blockDrafts,
+  chipSamples,
+  citations,
+  drafts,
+  listDrafts,
+  literalDrafts,
+  PASTE_TEXTS,
+} from "./corpus.ts";
 import { richDocCases } from "./richDoc.ts";
 import { stateMachineCases } from "./stateMachines.ts";
 import { historyCases } from "./historyCases.ts";
@@ -103,6 +111,21 @@ for (const text of cursorTexts) {
     );
   }
   add("promptEnd", { text }, s.logic.composerStateAtPromptEnd(text));
+}
+// `literalText` (editor answers): positions are plain character offsets and no trigger opens.
+for (const text of literalDrafts(s)) {
+  for (const cursor of range(text.length + 3)) {
+    add(
+      "cursorsLiteral",
+      { text, cursor },
+      {
+        expand: s.logic.expandCollapsedComposerCursor(text, cursor, true),
+        collapse: s.logic.collapseExpandedComposerCursor(text, cursor, true),
+        clamp: s.logic.clampCollapsedComposerCursor(text, cursor, true),
+      },
+    );
+  }
+  add("promptEndLiteral", { text }, s.logic.composerStateAtPromptEnd(text, true));
 }
 for (const text of [
   "/",
@@ -682,7 +705,8 @@ for (const path of [
 }
 
 // --- rich document model ---------------------------------------------------------------------
-for (const c of await richDocCases(s, texts)) add("richDoc", c.input, c.output);
+for (const c of await richDocCases(s, [...texts, ...blockDrafts(s)], literalDrafts(s)))
+  add("richDoc", c.input, c.output);
 
 for (const c of historyCases(s)) add(c.group, c.input, c.output);
 for (const c of await modelCases(s)) add(c.group, c.input, c.output);

@@ -1,4 +1,5 @@
 import Foundation
+import T3Contracts
 
 public enum ComposerTriggerKind: String, Sendable, Hashable, Codable {
   case path
@@ -47,21 +48,29 @@ public enum ComposerLogic {
     AssistantCitations.formatForComposer(citation, comment: comment)
   }
 
-  public static func submissionIntentForEnter(
-    isMobileViewport: Bool,
-    shiftKey: Bool,
-    modifierKey: Bool,
+  /// `composerSubmissionIntentForKey` for an Enter press. `command` is what the keybinding table
+  /// resolved the key to (server rules, so user overrides apply). A key bound to anything else
+  /// (`thread.steerQueuedMessage` on ⌘⇧↩) is not a send here; unbound Enter sends unless the send
+  /// shortcut asks for ⌘/Ctrl or Shift/Option make it a newline.
+  public static func submissionIntent(
+    command: KeybindingCommand?,
+    shift: Bool,
+    option: Bool,
+    modifier: Bool,
     isDraftThread: Bool,
     isRunning: Bool = false,
+    isMobileViewport: Bool = false,
     sendShortcut: SendShortcut? = nil,
     prompt: String = ""
   ) -> ComposerSubmissionIntent? {
+    if isMobileViewport { return nil }
+    if command == .composerSendAlternate && isRunning { return .alternate }
+    if command == .composerSendBackground && isDraftThread { return .background }
+    if command == .composerSendAndNewThread && !isDraftThread { return .background }
+    if command != nil || shift || option { return nil }
     let hasLineBreak = prompt.utf16.contains { $0 == 0x0A || $0 == 0x0D }
     let requiresModifier = sendShortcut == .modEnter || (sendShortcut == .modEnterMultiline && hasLineBreak)
-    if isMobileViewport || (requiresModifier && !modifierKey) { return nil }
-    if shiftKey && !(requiresModifier && modifierKey && isRunning) { return nil }
-    if isRunning && modifierKey && (!requiresModifier || shiftKey) { return .alternate }
-    return modifierKey && isDraftThread ? .background : .foreground
+    return requiresModifier && !modifier ? nil : .foreground
   }
 
   static func clampCursor(_ text: String, _ cursor: Int) -> Int {
@@ -80,8 +89,10 @@ public enum ComposerLogic {
 
   // MARK: Cursor coordinate systems
 
-  public static func expandCollapsedCursor(_ text: String, _ cursorInput: Int) -> Int {
+  /// `literalText` (editor answers) keeps every character a position: no chip is one.
+  public static func expandCollapsedCursor(_ text: String, _ cursorInput: Int, literalText: Bool = false) -> Int {
     let collapsed = clampCursor(text, cursorInput)
+    if literalText { return collapsed }
     let segments = ComposerPromptSegments.split(text)
     if segments.isEmpty { return collapsed }
     var remaining = collapsed
@@ -102,8 +113,9 @@ public enum ComposerLogic {
     return expanded
   }
 
-  public static func clampCollapsedCursor(_ text: String, _ cursorInput: Int) -> Int {
-    clampCollapsedCursor(segments: ComposerPromptSegments.split(text), cursorInput)
+  public static func clampCollapsedCursor(_ text: String, _ cursorInput: Int, literalText: Bool = false) -> Int {
+    if literalText { return clampCursor(text, cursorInput) }
+    return clampCollapsedCursor(segments: ComposerPromptSegments.split(text), cursorInput)
   }
 
   static func clampCollapsedCursor(segments: [ComposerPromptSegment], _ cursorInput: Int) -> Int {
@@ -111,8 +123,9 @@ public enum ComposerLogic {
     return max(0, min(length, cursorInput))
   }
 
-  public static func collapseExpandedCursor(_ text: String, _ cursorInput: Int) -> Int {
+  public static func collapseExpandedCursor(_ text: String, _ cursorInput: Int, literalText: Bool = false) -> Int {
     let expanded = clampCursor(text, cursorInput)
+    if literalText { return expanded }
     let segments = ComposerPromptSegments.split(text)
     if segments.isEmpty { return expanded }
     var remaining = expanded
@@ -230,9 +243,9 @@ public enum ComposerLogic {
   }
 
   /// Caret and trigger after replacing composer text and continuing at the end.
-  public static func stateAtPromptEnd(_ text: String) -> (cursor: Int, trigger: ComposerTrigger?) {
-    let cursor = collapseExpandedCursor(text, text.jsLength)
-    return (cursor, detectTrigger(text, expandCollapsedCursor(text, cursor)))
+  public static func stateAtPromptEnd(_ text: String, literalText: Bool = false) -> (cursor: Int, trigger: ComposerTrigger?) {
+    let cursor = collapseExpandedCursor(text, text.jsLength, literalText: literalText)
+    return (cursor, literalText ? nil : detectTrigger(text, expandCollapsedCursor(text, cursor)))
   }
 
   /// `/plan` or `/default` alone in the composer.

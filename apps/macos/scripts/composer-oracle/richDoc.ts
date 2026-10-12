@@ -13,7 +13,7 @@ const esm = async (name: string) =>
     pathToFileURL(webRequire.resolve(name, { paths: [join(repoRoot, "apps/web")] })).href
   ).catch(() => import(name));
 
-export async function richDocCases(s: Sources, texts: string[]) {
+export async function richDocCases(s: Sources, texts: string[], literalTexts: string[] = []) {
   const core = await import("@tiptap/core");
   const starter = (await import("@tiptap/starter-kit")).default;
   const { Node: ProseMirrorNode } = await import("@tiptap/pm/model");
@@ -122,6 +122,33 @@ export async function richDocCases(s: Sources, texts: string[]) {
         },
       });
     }
+  }
+  // `literalText`: editor answers are verbatim lines (plain schema, no chips, no marks).
+  for (const text of literalTexts) {
+    const json = buildDocJson(text, (name: string) => ({ label: name, description: null }), {
+      styling: false,
+      literalText: true,
+    });
+    const doc = ProseMirrorNode.fromJSON(plainSchema, json);
+    doc.check();
+    const map = serializeEditorDoc(doc);
+    const collapsedLength =
+      map.runs.length === 0
+        ? 0
+        : map.runs[map.runs.length - 1].collapsedStart + map.runs[map.runs.length - 1].collapsedLen;
+    cases.push({
+      input: { text, styling: false, literalText: true },
+      output: {
+        doc: strip(doc.toJSON()),
+        value: map.value,
+        docLength: map.docLength,
+        contextIds: map.contextIds,
+        runs: map.runs.map(({ pmPos: _pmPos, ...run }: any) => run),
+        flatToCollapsed: range(map.docLength + 2).map((o) => s.richDoc.flatToCollapsed(map, o)),
+        flatToMarkdown: range(map.docLength + 2).map((o) => s.richDoc.flatToMarkdown(map, o)),
+        collapsedToFlat: range(collapsedLength + 3).map((o) => s.richDoc.collapsedToFlat(map, o)),
+      },
+    });
   }
   return cases;
 }

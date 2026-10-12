@@ -85,6 +85,9 @@ public final class ComposerModel {
   /// What the editor last reported, so a controlled update is not echoed back as an edit.
   @ObservationIgnored var lastEditorValue = ""
   @ObservationIgnored var attachmentIntakes = 0
+  /// Resolves a key press to the keybinding it triggers (server rules incl. user overrides). Set by
+  /// the app; nil leaves every key unbound, so only plain Enter sends.
+  @ObservationIgnored public var keybindingResolver: (@MainActor (ComposerKeyPress) -> KeybindingCommand?)?
 
   public init(target: ComposerTarget, services: ComposerServices) {
     self.target = target

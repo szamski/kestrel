@@ -255,7 +255,7 @@ private struct ProviderEditor: View {
 
       Section("Runtime") {
         if let driver {
-          ForEach(driver.fields) { field in
+          ForEach(driver.fields(for: row.instance.config)) { field in
             ProviderFieldRow(
               idPrefix: "provider-\(id)", field: field, config: row.instance.config,
               onChange: { config in controller.edit(id) { $0.config = config } })

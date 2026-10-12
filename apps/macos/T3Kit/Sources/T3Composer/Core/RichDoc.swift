@@ -36,30 +36,60 @@ public enum RichInline: Sendable, Hashable {
   }
 }
 
-public struct RichTaskItem: Sendable, Hashable {
-  public var checked: Bool
-  public var indent: String
-  public var markerSpace: String
-  public var contentSpace: String
-  public var content: [RichInline]
-  public var children: [RichTaskItem]
+/// One item of a bullet, ordered or task list. `prefix` keeps the exact source marker and spacing so a
+/// list round-trips byte-identically; nested lists are `children`, in order (a parent can hold lists of
+/// different kinds).
+public struct RichListItem: Sendable, Hashable {
+  public enum Prefix: Sendable, Hashable {
+    case task(checked: Bool, indent: String, markerSpace: String, contentSpace: String)
+    /// A bullet (`-`, `*`, `+`) or ordered (`3.`, `3)`) marker; `space` is what followed it.
+    case marker(indent: String, marker: String, space: String)
 
-  public init(
-    checked: Bool, indent: String = "", markerSpace: String = " ", contentSpace: String = " ",
-    content: [RichInline] = [], children: [RichTaskItem] = []
-  ) {
-    self.checked = checked
-    self.indent = indent
-    self.markerSpace = markerSpace
-    self.contentSpace = contentSpace
+    public var indent: String {
+      switch self {
+      case .task(_, let indent, _, _), .marker(let indent, _, _): indent
+      }
+    }
+  }
+
+  public var prefix: Prefix
+  public var content: [RichInline]
+  public var children: [RichList]
+
+  public init(prefix: Prefix, content: [RichInline] = [], children: [RichList] = []) {
+    self.prefix = prefix
     self.content = content
     self.children = children
   }
 }
 
+public struct RichList: Sendable, Hashable {
+  public enum Kind: Sendable, Hashable {
+    case bullet
+    /// `start` is the first marker's number (`parseInt(marker) || 1`).
+    case ordered(start: Double)
+    case task
+  }
+
+  public var kind: Kind
+  public var items: [RichListItem]
+
+  public init(kind: Kind, items: [RichListItem]) {
+    self.kind = kind
+    self.items = items
+  }
+}
+
 public enum RichBlock: Sendable, Hashable {
   case paragraph([RichInline])
-  case taskList([RichTaskItem])
+  case heading(level: Int, space: String, content: [RichInline])
+  /// One paragraph per source line, all behind the same `>` prefix.
+  case quote(prefix: String, lines: [[RichInline]])
+  /// A fence keeps its exact delimiters: `fence` is the opening run, `close` the closing newline and fence
+  /// (empty when never closed). The code is literal text, chips included as their source.
+  case codeBlock(fence: String, language: String, close: String, text: String)
+  case rule(source: String)
+  case list(RichList)
 }
 
 public struct SkillMeta: Sendable, Hashable {
@@ -108,10 +138,22 @@ public struct RichDocMap: Sendable, Hashable {
     return collapsed ? last.collapsedStart + last.collapsedLen : last.mdStart + last.mdLen
   }
 
+  /// The end of a run belongs to the next run, which is how the end of `**bold**` lands after its
+  /// markers. A fence is the exception: its close is a line of its own, so the end of the code stays
+  /// inside the block rather than jumping past the closing fence.
+  private func owns(_ run: RichRun, _ flatOffset: Int) -> Bool {
+    let end = run.flatStart + run.docLen
+    return flatOffset < end || (flatOffset == end && run.nodeName == "codeBlock")
+  }
+
   public func flatToCollapsed(_ flatOffset: Int) -> Int {
     let bounded = max(0, min(flatOffset, docLength))
-    for run in runs where bounded < run.flatStart + run.docLen {
-      if run.kind == .text || run.kind == .token { return run.collapsedStart + run.openLen + (bounded - run.flatStart) }
+    for run in runs where owns(run, bounded) {
+      if run.kind == .text || run.kind == .token {
+        // A chip's source in a fence spans its characters but one position.
+        let within = min(bounded - run.flatStart, run.collapsedLen - run.openLen - run.closeLen)
+        return run.collapsedStart + run.openLen + within
+      }
       return run.collapsedStart + (bounded - run.flatStart)
     }
     return lastRunEnd(collapsed: true)
@@ -119,7 +161,7 @@ public struct RichDocMap: Sendable, Hashable {
 
   public func flatToMarkdown(_ flatOffset: Int) -> Int {
     let bounded = max(0, min(flatOffset, docLength))
-    for run in runs where bounded < run.flatStart + run.docLen {
+    for run in runs where owns(run, bounded) {
       if run.kind == .text || run.kind == .token { return run.mdStart + run.openLen + (bounded - run.flatStart) }
       return run.mdStart + (bounded - run.flatStart)
     }
@@ -128,231 +170,18 @@ public struct RichDocMap: Sendable, Hashable {
 
   public func collapsedToFlat(_ collapsedOffset: Int) -> Int {
     for run in runs where collapsedOffset < run.collapsedStart + run.collapsedLen {
-      // Checkbox prefixes and style markers are shown, never edited: every offset inside them
-      // clamps to the adjacent document position.
+      // Block prefixes and style markers are shown, never edited: every offset inside them clamps to
+      // the adjacent document position.
       if run.kind == .prefix { return run.flatStart }
       if run.kind == .text || run.kind == .token {
         let within = collapsedOffset - run.collapsedStart
+        let contentLength = run.collapsedLen - run.openLen - run.closeLen
         if within <= run.openLen { return run.flatStart }
-        if within >= run.openLen + run.docLen { return run.flatStart + run.docLen }
+        if within >= run.openLen + contentLength { return run.flatStart + run.docLen }
         return run.flatStart + (within - run.openLen)
       }
       return run.flatStart + (collapsedOffset - run.collapsedStart)
     }
     return docLength
-  }
-}
-
-/// Pure document model of the rich composer: the Markdown stored in drafts parses into blocks of
-/// styled text and chips, and serializes back to the same canonical Markdown.
-public struct RichDoc: Sendable, Hashable {
-  public var blocks: [RichBlock]
-
-  public init(blocks: [RichBlock]) { self.blocks = blocks }
-
-  // MARK: Markdown -> document
-
-  private struct TaskPrefix {
-    var indent: String
-    var checked: Bool
-    var markerSpace: String
-    var contentSpace: String
-  }
-
-  private static func isInlineSpace(_ unit: UInt16) -> Bool { unit == 0x20 || unit == 0x09 }
-
-  /// `/^([ \t]*)-([ \t]+)\[([ xX])\]([ \t]*)/`, rejecting text right after the box.
-  private static func parseTaskPrefix(_ head: [UInt16]) -> (prefix: TaskPrefix, markerLength: Int)? {
-    let count = head.count
-    var index = 0
-    while index < count, isInlineSpace(head[index]) { index += 1 }
-    let indentEnd = index
-    guard index < count, head[index] == 0x2D else { return nil }
-    index += 1
-    let markerStart = index
-    while index < count, isInlineSpace(head[index]) { index += 1 }
-    guard index > markerStart, index + 2 < count, head[index] == 0x5B, head[index + 2] == 0x5D else { return nil }
-    let box = head[index + 1]
-    guard box == 0x20 || box == 0x78 || box == 0x58 else { return nil }
-    let markerSpace = String(decoding: head[markerStart..<index], as: UTF16.self)
-    index += 3
-    let contentStart = index
-    while index < count, isInlineSpace(head[index]) { index += 1 }
-    let contentSpace = String(decoding: head[contentStart..<index], as: UTF16.self)
-    if index < count && contentSpace.isEmpty { return nil }
-    return (
-      TaskPrefix(
-        indent: String(decoding: head[0..<indentEnd], as: UTF16.self), checked: box != 0x20,
-        markerSpace: markerSpace, contentSpace: contentSpace), index
-    )
-  }
-
-  private static func atom(for segment: ComposerPromptSegment, skillMeta: (String) -> SkillMeta) -> RichAtom {
-    switch segment {
-    case .mention(let path, let source):
-      return .mention(path: path, source: source)
-    case .skill(let name, _):
-      let meta = skillMeta(name)
-      return .skill(name: name, label: meta.label, description: meta.description)
-    case .citation(let citation, let source):
-      return .citation(citation, source: source)
-    case .contextReference(let kind, let contextId, let label, let source):
-      return .contextReference(kind: kind, contextId: contextId, label: label, source: source)
-    case .text:
-      fatalError("text is not an atom")
-    }
-  }
-
-  private struct DocLine {
-    var task: TaskPrefix?
-    var inline: [RichInline]
-  }
-
-  private final class PendingItem {
-    var prefix: TaskPrefix
-    var content: [RichInline]
-    var children: [PendingItem] = []
-    init(prefix: TaskPrefix, content: [RichInline]) {
-      self.prefix = prefix
-      self.content = content
-    }
-  }
-
-  /// One indentation level of the task-list stack. A child level shares its parent item's
-  /// `children`, so appending to it nests the item.
-  private final class Level {
-    var indent: String
-    private var own: [PendingItem] = []
-    private let owner: PendingItem?
-    init(indent: String, owner: PendingItem?) {
-      self.indent = indent
-      self.owner = owner
-    }
-    var items: [PendingItem] {
-      get { owner?.children ?? own }
-      set {
-        if let owner { owner.children = newValue } else { own = newValue }
-      }
-    }
-  }
-
-  private static func frozen(_ items: [PendingItem]) -> [RichTaskItem] {
-    items.map {
-      RichTaskItem(
-        checked: $0.prefix.checked, indent: $0.prefix.indent, markerSpace: $0.prefix.markerSpace,
-        contentSpace: $0.prefix.contentSpace, content: $0.content, children: frozen($0.children))
-    }
-  }
-
-  /// Adjacent text with equal marks is one node, like in ProseMirror.
-  static func normalized(_ inline: [RichInline]) -> [RichInline] {
-    var out: [RichInline] = []
-    for node in inline {
-      if case .text(let text, let marks) = node {
-        if text.isEmpty { continue }
-        if case .text(let previous, let previousMarks)? = out.last, previousMarks == marks {
-          out[out.count - 1] = .text(previous + text, marks: marks)
-          continue
-        }
-      }
-      out.append(node)
-    }
-    return out
-  }
-
-  /// `buildTiptapContent`: `styling: false` is the plain-text mode where formatting stays literal.
-  public init(markdown value: String, skillMeta: (String) -> SkillMeta = { SkillMeta(label: $0) }, styling: Bool = true) {
-    // Hide token source from the Markdown parser, then restore the atoms with the marks of their
-    // surrounding text. Choose a sentinel absent from the input.
-    var sentinel: UInt16 = 0xFFFC
-    var next: UInt16 = 0xE000
-    let valueUnits = Set(value.utf16)
-    while valueUnits.contains(sentinel) {
-      sentinel = next
-      next += 1
-    }
-    var atoms: [RichAtom] = []
-    var masked: [UInt16] = []
-    for segment in ComposerPromptSegments.split(value) {
-      if case .text(let text) = segment {
-        masked.append(contentsOf: text.utf16)
-      } else {
-        atoms.append(Self.atom(for: segment, skillMeta: skillMeta))
-        masked.append(sentinel)
-      }
-    }
-    var atomIndex = 0
-    var lines: [DocLine] = []
-    for lineUnits in masked.split(separator: 0x0A, omittingEmptySubsequences: false) {
-      let line = Array(lineUnits)
-      let parsed = styling ? Self.parseTaskPrefix(line) : nil
-      let content = parsed.map { Array(line[$0.markerLength...]) } ?? line
-      let contentString = String(decoding: content, as: UTF16.self)
-      let spans = styling ? RichText.parseInline(contentString) : [RichTextSpan(text: contentString, marks: [])]
-      var inline: [RichInline] = []
-      for span in spans {
-        let pieces = Array(span.text.utf16).split(separator: sentinel, omittingEmptySubsequences: false)
-        for (pieceIndex, piece) in pieces.enumerated() {
-          if pieceIndex > 0 {
-            inline.append(.atom(atoms[atomIndex], marks: Self.sortedMarks(span.marks)))
-            atomIndex += 1
-          }
-          if !piece.isEmpty { inline.append(.text(String(decoding: piece, as: UTF16.self), marks: Self.sortedMarks(span.marks))) }
-        }
-      }
-      lines.append(DocLine(task: parsed?.prefix, inline: Self.normalized(inline)))
-    }
-
-    // Pass 2: consecutive task lines group into (possibly nested) task lists by indent prefix;
-    // everything else stays a paragraph.
-    var blocks: [RichBlock] = []
-    var stack: [Level] = []
-    func flushTasks() {
-      if !stack.isEmpty {
-        blocks.append(.taskList(Self.frozen(stack[0].items)))
-        stack = []
-      }
-    }
-    for line in lines {
-      guard let task = line.task else {
-        flushTasks()
-        blocks.append(.paragraph(line.inline))
-        continue
-      }
-      let item = PendingItem(prefix: task, content: line.inline)
-      while true {
-        guard let top = stack.last else {
-          // A leading indented item with no parent flattens but keeps indent.
-          stack.append(Level(indent: item.prefix.indent, owner: nil))
-          continue
-        }
-        if top.indent == item.prefix.indent {
-          top.items.append(item)
-          break
-        }
-        if top.indent != "" && !item.prefix.indent.hasPrefix(top.indent) {
-          if stack.count > 1 {
-            stack.removeLast()
-            continue
-          }
-          top.indent = item.prefix.indent
-          top.items.append(item)
-          break
-        }
-        guard let parent = top.items.last else {
-          top.items.append(item)
-          break
-        }
-        parent.children.append(item)
-        stack.append(Level(indent: item.prefix.indent, owner: parent))
-        break
-      }
-    }
-    flushTasks()
-    self.blocks = blocks
-  }
-
-  private static func sortedMarks(_ marks: [RichTextMark]) -> [RichTextMark] {
-    marks.sorted { $0.nestingIndex < $1.nestingIndex }
   }
 }

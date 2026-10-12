@@ -28,9 +28,12 @@ public enum ComposerFooterLayout {
     isExistingThread && !isMobileViewport && timelineOverflows && isScrollCollapsed && !hasMultilinePrompt && !hasExpandedChrome
   }
 
-  /// The space the timeline reserves at its end for the composer overlay.
-  public static func timelineInset(currentInset: Double, overlayHeight: Double, isResting: Bool) -> Double {
-    isResting ? max(currentInset, overlayHeight + restingExpansionMin) : overlayHeight
+  /// The space the timeline reserves at its end for the composer overlay. While resting it keeps the
+  /// measured expanded height; the empty-expansion estimate only applies before that measurement
+  /// exists (`currentInset == 0`).
+  public static func timelineInset(currentInset: Double, overlayHeight: Double, isResting: Bool, restingOnlyHeight: Double = 0) -> Double {
+    guard isResting else { return overlayHeight }
+    return max(currentInset, overlayHeight + (currentInset == 0 ? restingExpansionMin - restingOnlyHeight : 0))
   }
 
   public static func shouldAnimateRestingTransition(hasCompletedInitialLayout: Bool, stateChanged: Bool, hasInterruptedAnimation: Bool) -> Bool {

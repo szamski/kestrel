@@ -18,10 +18,10 @@ import Testing
       let text = item.input.string("text")
       let styling = item.input.bool("styling")
       let output = item.output as! [String: Any]
-      let doc = RichDoc(markdown: text, styling: styling)
+      let doc = RichDoc(markdown: text, styling: styling, literalText: item.input["literalText"] as? Bool ?? false)
       let loaded = EditorContent.load(doc, style: style, presentation: Self.presentation)
       let storage = loaded.string
-      let roundTrip = EditorContent.doc(from: storage, styling: styling, trailingTask: loaded.trailingTask).serialize()
+      let roundTrip = EditorContent.doc(from: storage, styling: styling, trailingBlock: loaded.trailingBlock).serialize()
       #expect(roundTrip.value == output.string("value"), "value for \(text.debugDescription) styling=\(styling)")
       #expect(storage.length == output.int("docLength"), "length for \(text.debugDescription)")
       #expect(roundTrip.docLength == storage.length)

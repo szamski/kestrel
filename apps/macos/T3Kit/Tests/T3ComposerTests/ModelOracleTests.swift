@@ -93,7 +93,7 @@ private func optionsFrom(_ any: Any?) throws -> [ProviderOptionSelection]? {
       for descriptor in descriptors { if case .select(let value) = descriptor { primary = value; break } }
       let controlled = (primary?.promptInjectedValues?.count ?? 0) > 0 && ComposerSubmission.isUltrathinkPrompt(prompt)
       let display = Traits.triggerDisplay(driver: entry.driverKind, descriptors: descriptors, primaryId: primary?.id, ultrathinkPromptControlled: controlled)
-      return ["shouldRender": state.hasAnyControls, "display": ["label": display.label, "showFastModeIcon": display.showFastModeIcon]] as [String: Any]
+      return ["shouldRender": state.hasAnyControls, "display": ["label": display.label]] as [String: Any]
     }
   }
 

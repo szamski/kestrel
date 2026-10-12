@@ -60,6 +60,12 @@ extension CommandCenter {
     register(.modelPickerToggle, isAvailable: { [self] in activeComposer != nil }) { [self] in
       activeComposer?.isModelPickerOpen.toggle()
     }
+    register(
+      .threadSteerQueuedMessage,
+      isAvailable: { [self] in activeComposer.map { $0.serverQueue?.items.isEmpty == false || !$0.queuedMessages.isEmpty } == true }
+    ) { [self] in
+      activeComposer?.steerNextQueued()
+    }
     register(.composerMode, isAvailable: { [self] in activeComposer?.planModeUiEnabled == true }) { [self] in
       activeComposer?.toggleInteractionMode()
     }

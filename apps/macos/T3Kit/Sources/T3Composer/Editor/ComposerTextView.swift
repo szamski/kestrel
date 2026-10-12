@@ -60,8 +60,8 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
   public var pasteboard: NSPasteboard = .general
   public var isInteractionDisabled = false { didSet { isEditable = !isInteractionDisabled } }
 
-  /// Task attributes of an empty last paragraph, which has no character to carry them.
-  private(set) var trailingTask: TaskAttrsBox?
+  /// Block attributes of an empty last paragraph, which has no character to carry them.
+  private(set) var trailingBlock: BlockAttrs?
   private var isLoading = false
   private var lastSnapshot = EditorSnapshot.empty
   private var lastEmittedValue = ""
@@ -109,7 +109,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
   }
 
   private func applyStyleToTypingAttributes() {
-    typingAttributes = EditorContent.plainAttributes(style: composerStyle, task: nil, mask: 0)
+    typingAttributes = EditorContent.plainAttributes(style: composerStyle, block: nil, mask: 0)
   }
 
   // MARK: Loading and reading
@@ -121,12 +121,12 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
   }
 
   func currentDoc() -> RichDoc {
-    EditorContent.doc(from: textStorage ?? NSTextStorage(), styling: richTextEnabled, trailingTask: effectiveTrailingTask)
+    EditorContent.doc(from: textStorage ?? NSTextStorage(), styling: richTextEnabled, trailingBlock: effectiveTrailingBlock)
   }
 
-  private var effectiveTrailingTask: TaskAttrsBox? {
+  private var effectiveTrailingBlock: BlockAttrs? {
     let string = textStorage?.string ?? ""
-    return string.isEmpty || string.hasSuffix("\n") ? trailingTask : nil
+    return string.isEmpty || string.hasSuffix("\n") ? trailingBlock : nil
   }
 
   private func snapshot(map: RichDocMap, selection: NSRange) -> EditorSnapshot {
@@ -155,7 +155,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
       storage.setAttributedString(loaded.string)
       if !undoable { undoManager?.removeAllActions() }
     }
-    trailingTask = loaded.trailingTask
+    trailingBlock = loaded.trailingBlock
     let map = doc.serialize()
     let flat = map.collapsedToFlat(ComposerLogic.clampCollapsedCursor(markdown, cursor))
     setSelectedRange(NSRange(location: min(flat, storage.length), length: 0))
@@ -190,7 +190,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
 
   private func emitChange() {
     if hasMarkedText() { return }  // IME composition never reaches the draft until it commits
-    if let storage = textStorage, !(storage.string.isEmpty || storage.string.hasSuffix("\n")) { trailingTask = nil }
+    if let storage = textStorage, !(storage.string.isEmpty || storage.string.hasSuffix("\n")) { trailingBlock = nil }
     let next = currentSnapshot()
     guard next.value != lastEmittedValue else {
       // The text is unchanged (a selection or attribute-only change): report the selection if it moved.
@@ -221,7 +221,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     }
   }
 
-  /// Typing next to a chip must not inherit the attachment, and task paragraphs keep their style.
+  /// Typing next to a chip must not inherit the attachment, and block paragraphs keep their style.
   private func refreshTypingAttributes() {
     var attributes = typingAttributes
     attributes[.attachment] = nil
@@ -248,27 +248,27 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
   public override func keyDown(with event: NSEvent) {
     if hasMarkedText() { return super.keyDown(with: event) }
     let flags = event.modifierFlags.intersection([.command, .shift, .option, .control])
-    let isTask = paragraphTask(at: selectedRange().location) != nil && richTextEnabled
+    let isBlock = paragraphBlock(at: selectedRange().location) != nil && richTextEnabled
     switch event.keyCode {
     case 36, 76:  // Return, keypad Enter
-      if composerDelegate?.composerTextView(self, handle: .enter, event: event, isTaskItem: isTask) == true { return }
+      if composerDelegate?.composerTextView(self, handle: .enter, event: event, isTaskItem: isBlock) == true { return }
       if flags.contains(.option) && !flags.contains(.command) { return super.keyDown(with: event) }
-      if isTask, flags.isDisjoint(with: [.command, .control, .option]) {
-        insertTaskNewline()
+      if isBlock, flags.isDisjoint(with: [.command, .control, .option]) {
+        insertBlockNewline()
         return
       }
       insertNewline(nil)
       return
     case 48:  // Tab
       let key = ComposerCommandKey.tab
-      if composerDelegate?.composerTextView(self, handle: key, event: event, isTaskItem: isTask) == true { return }
+      if composerDelegate?.composerTextView(self, handle: key, event: event, isTaskItem: isBlock) == true { return }
       // The editor never inserts a tab character: Tab moves focus like a text field would.
       if flags.contains(.shift) { window?.selectPreviousKeyView(self) } else { window?.selectNextKeyView(self) }
       return
     case 53:  // Escape
-      if composerDelegate?.composerTextView(self, handle: .escape, event: event, isTaskItem: isTask) == true { return }
+      if composerDelegate?.composerTextView(self, handle: .escape, event: event, isTaskItem: isBlock) == true { return }
     case 126, 125:  // Up, Down
-      if flags.isEmpty, composerDelegate?.composerTextView(self, handle: event.keyCode == 126 ? .arrowUp : .arrowDown, event: event, isTaskItem: isTask) == true { return }
+      if flags.isEmpty, composerDelegate?.composerTextView(self, handle: event.keyCode == 126 ? .arrowUp : .arrowDown, event: event, isTaskItem: isBlock) == true { return }
     case 11 where flags == .command && richTextEnabled:  // ⌘B
       toggleMark(.bold)
       return
@@ -296,6 +296,8 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     {
       return
     }
+    // A rule line owns no text: typing on it replaces the rule (the web starts a paragraph after it).
+    if richTextEnabled, !text.isEmpty, case .rule? = paragraphBlock(at: selection.location)?.kind { setBlock(nil, inParagraphAt: selection.location) }
     super.insertText(string, replacementRange: replacementRange)
     guard richTextEnabled, !hasMarkedText(), !isLoading, text.utf16.count == 1 else { return }
     applyInputRules()
@@ -338,7 +340,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
       guard shouldChangeText(in: range, replacementString: "") else { return }
       storage.replaceCharacters(in: range, with: "")
       setSelectedRange(NSRange(location: paragraphStart, length: 0))
-      setTask(TaskAttrsBox(checked: checked), inParagraphAt: paragraphStart)
+      setBlock(.task(checked: checked), inParagraphAt: paragraphStart)
       didChangeText()
       return
     }
@@ -357,7 +359,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     let caretAfter = shifted.location + shifted.length
     setSelectedRange(NSRange(location: caretAfter, length: 0))
     // Text typed after the closed span is not marked.
-    var attributes = EditorContent.plainAttributes(style: composerStyle, task: paragraphTask(at: caretAfter), mask: 0)
+    var attributes = EditorContent.plainAttributes(style: composerStyle, block: paragraphBlock(at: caretAfter), mask: 0)
     attributes[.attachment] = nil
     typingAttributes = attributes
     didChangeText()
@@ -370,7 +372,10 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     storage.enumerateAttributes(in: range, options: []) { attributes, runRange, _ in
       var mask = (attributes[.t3Marks] as? Int) ?? 0
       mask = on ? mask | mark.bit : mask & ~mark.bit
-      storage.addAttributes(EditorContent.plainAttributes(style: composerStyle, task: nil, mask: mask).filter { $0.key != .paragraphStyle && $0.key != .foregroundColor }, range: runRange)
+      let block = attributes[.t3Block] as? BlockAttrs
+      storage.addAttributes(
+        EditorContent.plainAttributes(style: composerStyle, block: block, mask: mask).filter { $0.key != .paragraphStyle && $0.key != .foregroundColor && $0.key != .t3Block },
+        range: runRange)
       if !on && mark == .strike { storage.removeAttribute(.strikethroughStyle, range: runRange) }
       if !on && mark == .code { storage.removeAttribute(.backgroundColor, range: runRange) }
     }
@@ -384,7 +389,9 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
       var mask = (typingAttributes[.t3Marks] as? Int) ?? 0
       mask ^= mark.bit
       var attributes = typingAttributes
-      for (key, value) in EditorContent.plainAttributes(style: composerStyle, task: nil, mask: mask) where key != .paragraphStyle { attributes[key] = value }
+      for (key, value) in EditorContent.plainAttributes(style: composerStyle, block: paragraphBlock(at: selection.location), mask: mask) where key != .paragraphStyle && key != .t3Block {
+        attributes[key] = value
+      }
       if mask & RichTextMark.strike.bit == 0 { attributes[.strikethroughStyle] = nil }
       if mask & RichTextMark.code.bit == 0 { attributes[.backgroundColor] = nil }
       typingAttributes = attributes
@@ -401,65 +408,76 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     didChangeText()
   }
 
-  // MARK: Tasks
+  // MARK: Blocks
 
-  func paragraphTask(at location: Int) -> TaskAttrsBox? {
-    guard let storage = textStorage, storage.length > 0 else { return location >= (textStorage?.length ?? 0) ? effectiveTrailingTask : nil }
+  func paragraphBlock(at location: Int) -> BlockAttrs? {
+    guard let storage = textStorage, storage.length > 0 else { return location >= (textStorage?.length ?? 0) ? effectiveTrailingBlock : nil }
     let nsString = storage.string as NSString
     let paragraph = nsString.paragraphRange(for: NSRange(location: min(location, storage.length), length: 0))
-    if paragraph.location >= storage.length { return effectiveTrailingTask }
-    return storage.attribute(.t3Task, at: paragraph.location, effectiveRange: nil) as? TaskAttrsBox
+    if paragraph.location >= storage.length { return effectiveTrailingBlock }
+    return storage.attribute(.t3Block, at: paragraph.location, effectiveRange: nil) as? BlockAttrs
   }
 
-  /// Sets or clears (`nil`) the task attributes of the paragraph containing `location`.
-  func setTask(_ task: TaskAttrsBox?, inParagraphAt location: Int) {
+  /// Sets or clears (`nil`) the block attributes of the paragraph containing `location`: its paragraph
+  /// style and the fonts that follow from the block (a heading's weight, code's monospace).
+  func setBlock(_ block: BlockAttrs?, inParagraphAt location: Int) {
     guard let storage = textStorage else { return }
     let nsString = storage.string as NSString
     let clamped = min(location, storage.length)
     let range = nsString.paragraphRange(for: NSRange(location: clamped, length: 0))
-    let style = composerStyle.paragraphStyle(task: task)
+    let style = composerStyle.paragraphStyle(block: block)
     if range.length > 0 {
       storage.beginEditing()
-      if let task { storage.addAttribute(.t3Task, value: task, range: range) } else { storage.removeAttribute(.t3Task, range: range) }
+      if let block { storage.addAttribute(.t3Block, value: block, range: range) } else { storage.removeAttribute(.t3Block, range: range) }
       storage.addAttribute(.paragraphStyle, value: style, range: range)
+      storage.enumerateAttribute(.t3Marks, in: range) { value, runRange, _ in
+        storage.addAttribute(.font, value: composerStyle.font(for: (value as? Int) ?? 0, block: block), range: runRange)
+      }
       storage.endEditing()
     }
     if range.location >= storage.length || range.length == 0 {
-      trailingTask = task
+      trailingBlock = block
     }
     var attributes = typingAttributes
-    attributes[.t3Task] = task
+    attributes[.t3Block] = block
     attributes[.paragraphStyle] = style
+    attributes[.font] = composerStyle.font(for: (attributes[.t3Marks] as? Int) ?? 0, block: block)
     typingAttributes = attributes
   }
 
-  /// Enter inside a task item: an empty item lifts out of the list, otherwise a new unchecked item follows.
-  private func insertTaskNewline() {
+  /// Enter inside a block line: an empty list item or quote line lifts out of its block, otherwise the
+  /// new line continues it (a task starts unchecked, an ordered item counts on). Code keeps its blank
+  /// lines, a heading or rule is followed by plain text.
+  private func insertBlockNewline() {
     guard let storage = textStorage else { return }
     let caret = selectedRange()
     let nsString = storage.string as NSString
     let paragraph = nsString.paragraphRange(for: NSRange(location: caret.location, length: 0))
     let contentLength = paragraph.length - (nsString.substring(with: paragraph).hasSuffix("\n") ? 1 : 0)
-    guard let task = paragraphTask(at: caret.location) else { return insertNewline(nil) }
-    if contentLength == 0 {
-      setTask(nil, inParagraphAt: caret.location)
+    guard let block = paragraphBlock(at: caret.location) else { return insertNewline(nil) }
+    let liftsWhenEmpty: Bool
+    switch block.kind {
+    case .list, .quote: liftsWhenEmpty = true
+    default: liftsWhenEmpty = false
+    }
+    if contentLength == 0 && liftsWhenEmpty {
+      setBlock(nil, inParagraphAt: caret.location)
       didChangeText()
       return
     }
     super.insertNewline(nil)
-    let next = TaskAttrsBox(checked: false, indent: task.indent, markerSpace: task.markerSpace)
-    setTask(next, inParagraphAt: selectedRange().location)
+    setBlock(block.continued, inParagraphAt: selectedRange().location)
     didChangeText()
   }
 
   public override func deleteBackward(_ sender: Any?) {
     let selection = selectedRange()
-    if richTextEnabled, selection.length == 0, paragraphTask(at: selection.location) != nil, let storage = textStorage {
+    if richTextEnabled, selection.length == 0, paragraphBlock(at: selection.location) != nil, let storage = textStorage {
       let nsString = storage.string as NSString
       let paragraphStart = nsString.paragraphRange(for: NSRange(location: min(selection.location, storage.length), length: 0)).location
       if paragraphStart == selection.location {
-        // Backspace at the start of a task item lifts it out of the list instead of merging.
-        setTask(nil, inParagraphAt: selection.location)
+        // Backspace at the start of a block line lifts it out of the block instead of merging.
+        setBlock(nil, inParagraphAt: selection.location)
         didChangeText()
         return
       }
@@ -469,10 +487,10 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
 
   /// Toggles a checkbox clicked in the gutter.
   func toggleTask(atParagraphLocation location: Int) {
-    guard let task = paragraphTask(at: location), let storage = textStorage else { return }
+    guard let block = paragraphBlock(at: location), let checked = block.checked, let storage = textStorage else { return }
     let range = (storage.string as NSString).paragraphRange(for: NSRange(location: min(location, storage.length), length: 0))
     guard shouldChangeText(in: range, replacementString: nil) else { return }
-    setTask(task.with(checked: !task.checked), inParagraphAt: location)
+    setBlock(block.with(checked: !checked), inParagraphAt: location)
     didChangeText()
   }
 
@@ -564,7 +582,7 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
     // A selection that starts mid-paragraph is plain content, not a task item.
     if paragraphStart != range.location, slice.length > 0 {
       let firstEnd = (slice.string as NSString).paragraphRange(for: NSRange(location: 0, length: 0))
-      slice.removeAttribute(.t3Task, range: firstEnd)
+      slice.removeAttribute(.t3Block, range: firstEnd)
     }
     return EditorContent.doc(from: slice, styling: richTextEnabled).serialize().value
   }
@@ -609,9 +627,25 @@ public final class ComposerTextView: NSTextView, @preconcurrency NSTextLayoutMan
         }
       }
     }
-    let doc = RichDoc(markdown: text, skillMeta: skillMeta, styling: richTextEnabled)
-    let inserted = EditorContent.attributedString(for: doc, style: composerStyle, presentation: chipPresentation)
     let selection = selectedRange()
+    // A rule line owns no text: pasting onto it replaces the rule.
+    if case .rule? = paragraphBlock(at: selection.location)?.kind { setBlock(nil, inParagraphAt: selection.location) }
+    // Blocks need a line of their own: pasted mid-line or into a block line, the text stays inline.
+    let block = paragraphBlock(at: selection.location)
+    let startsPlainLine = block == nil && selection.location == (storage.string as NSString).paragraphRange(for: NSRange(location: selection.location, length: 0)).location
+    let doc = RichDoc(markdown: text, skillMeta: skillMeta, styling: richTextEnabled, blocks: startsPlainLine)
+    var inserted = EditorContent.attributedString(for: doc, style: composerStyle, presentation: chipPresentation)
+    if richTextEnabled, let block, inserted.length > 0 {
+      // The text takes on the line it lands in: all of it inside code, its first line otherwise.
+      let mutable = NSMutableAttributedString(attributedString: inserted)
+      var target = NSRange(location: 0, length: mutable.length)
+      if case .code = block.kind {} else { target = (mutable.string as NSString).paragraphRange(for: NSRange(location: 0, length: 0)) }
+      mutable.addAttributes([.t3Block: block, .paragraphStyle: composerStyle.paragraphStyle(block: block)], range: target)
+      mutable.enumerateAttribute(.t3Marks, in: target) { value, runRange, _ in
+        mutable.addAttribute(.font, value: composerStyle.font(for: (value as? Int) ?? 0, block: block), range: runRange)
+      }
+      inserted = mutable
+    }
     guard shouldChangeText(in: selection, replacementString: inserted.string) else { return }
     storage.replaceCharacters(in: selection, with: inserted)
     didChangeText()

@@ -86,25 +86,31 @@ public enum Traits {
 
   public struct Display: Sendable, Hashable {
     public var label: String
-    public var showFastModeIcon: Bool
   }
 
-  /// The trigger's text label plus whether the fast-mode bolt renders.
+  /// Context can be the primary select, so speed pairs with the first of these instead.
+  private static let reasoningIds: Set<String> = ["reasoningEffort", "reasoning", "effort", "variant", "thinking"]
+
+  /// `buildTraitsTriggerDisplay`: speed ("Fast", "Ultrafast") joins the reasoning label ("High Fast")
+  /// or stands alone; other traits stay separate segments.
   public static func triggerDisplay(driver: String, descriptors: [ProviderOptionDescriptor], primaryId: String?, ultrathinkPromptControlled: Bool) -> Display {
     var fallback: String?
-    var fastEnabled = false
+    var speed: String?
+    var reasoningIndex: Int?
     var labels: [String] = []
     for descriptor in descriptors {
       if case .boolean(let value) = descriptor, value.id == "fastMode" {
-        fastEnabled = value.currentValue == true
-        fallback = fastEnabled ? "Fast" : "Normal"
+        speed = value.currentValue == true ? "Fast" : nil
+        fallback = speed ?? "Normal"
         continue
       }
       if driver == "codex", case .select(let value) = descriptor, value.id == "serviceTier" {
         let current = ModelOptions.currentValue(descriptor)?.stringValue
-        if let tier = value.options.first(where: { $0.label == "Fast" }), current == "default" || current == tier.id {
-          fastEnabled = current == tier.id
-          fallback = value.options.first(where: { $0.id == current })?.label ?? (fastEnabled ? "Fast" : "Normal")
+        let fast = value.options.first(where: { $0.label == "Fast" })
+        let ultrafast = value.options.first(where: { $0.label == "Ultrafast" })
+        if ((fast != nil || ultrafast != nil) && current == "default") || (fast != nil && current == fast?.id) || (ultrafast != nil && current == ultrafast?.id) {
+          speed = ultrafast != nil && current == ultrafast?.id ? "Ultrafast" : fast != nil && current == fast?.id ? "Fast" : nil
+          fallback = value.options.first(where: { $0.id == current })?.label ?? "Normal"
           continue
         }
       }
@@ -116,10 +122,16 @@ public enum Traits {
       } else {
         label = ModelOptions.currentLabel(descriptor)
       }
-      if let label, !label.isEmpty { labels.append(label) }
+      guard let label, !label.isEmpty else { continue }
+      if reasoningIndex == nil, case .select = descriptor, descriptor.id.map(reasoningIds.contains) == true { reasoningIndex = labels.count }
+      labels.append(label)
     }
-    if labels.isEmpty, let fallback { return Display(label: fallback, showFastModeIcon: false) }
-    return Display(label: labels.joined(separator: " · "), showFastModeIcon: fastEnabled)
+    // Text-only fallback when fast mode is the sole trait; never a bogus "Normal" for models without it.
+    if labels.isEmpty, let fallback { return Display(label: fallback) }
+    if let speed {
+      if let reasoningIndex { labels[reasoningIndex] += " \(speed)" } else { labels.append(speed) }
+    }
+    return Display(label: labels.joined(separator: " · "))
   }
 
   public struct Change: Sendable, Hashable {

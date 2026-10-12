@@ -10,7 +10,7 @@ struct AddProviderInstanceSheet: View {
   private static let steps = ["Driver", "Identity", "Config"]
   private static let swatches = ["#2563eb", "#16a34a", "#ea580c", "#dc2626", "#7c3aed", "#0891b2"]
   /// Announced drivers that cannot be added yet.
-  private static let comingSoon = ["GitHub Copilot", "Gemini", "ACP Registry", "Pi Agent"]
+  private static let comingSoon = ["GitHub Copilot", "Gemini"]
 
   @State private var step = 0
   @State private var driverSlug = "codex"
@@ -116,10 +116,10 @@ struct AddProviderInstanceSheet: View {
 
   private var configStep: some View {
     VStack(alignment: .leading, spacing: 12) {
-      if driver.fields.isEmpty {
+      if driver.fields(for: configs[driverSlug]).isEmpty {
         Text("This driver has no required configuration. You can add the instance now.").foregroundStyle(.secondary)
       }
-      ForEach(driver.fields) { field in
+      ForEach(driver.fields(for: configs[driverSlug])) { field in
         ProviderFieldRow(idPrefix: "add-\(driverSlug)", field: field, config: configs[driverSlug], onChange: { configs[driverSlug] = $0 }, inSheet: true)
       }
     }

@@ -7,7 +7,7 @@ extension RichDoc {
   /// ProseMirror `toJSON()` shape, so the document can be compared with the TypeScript oracle.
   func oracleJSON() throws -> Any {
     func marks(_ marks: [RichTextMark]) -> [String: Any] { marks.isEmpty ? [:] : ["marks": marks.map { ["type": $0.rawValue] }] }
-    func inline(_ node: RichInline) throws -> [String: Any] {
+    func inlineJSON(_ node: RichInline) throws -> [String: Any] {
       switch node {
       case .text(let text, let m): return ["type": "text", "text": text].merging(marks(m)) { $1 }
       case .atom(let atom, let m):
@@ -25,19 +25,37 @@ extension RichDoc {
       }
     }
     func paragraph(_ content: [RichInline]) throws -> [String: Any] {
-      content.isEmpty ? ["type": "paragraph"] : ["type": "paragraph", "content": try content.map(inline)]
+      content.isEmpty ? ["type": "paragraph"] : ["type": "paragraph", "content": try content.map(inlineJSON)]
     }
-    func list(_ items: [RichTaskItem]) throws -> [String: Any] {
-      ["type": "taskList", "content": try items.map { item -> [String: Any] in
+    func listJSON(_ list: RichList) throws -> [String: Any] {
+      let items = try list.items.map { item -> [String: Any] in
         var content: [Any] = [try paragraph(item.content)]
-        if !item.children.isEmpty { content.append(try list(item.children)) }
-        return ["type": "taskItem", "attrs": ["checked": item.checked, "indent": item.indent, "markerSpace": item.markerSpace, "contentSpace": item.contentSpace], "content": content]
-      }]
+        content += try item.children.map(listJSON)
+        switch item.prefix {
+        case .task(let checked, let indent, let markerSpace, let contentSpace):
+          return ["type": "taskItem", "attrs": ["checked": checked, "indent": indent, "markerSpace": markerSpace, "contentSpace": contentSpace], "content": content]
+        case .marker(let indent, let marker, let space):
+          return ["type": "listItem", "attrs": ["indent": indent, "marker": marker, "space": space], "content": content]
+        }
+      }
+      switch list.kind {
+      case .task: return ["type": "taskList", "content": items]
+      case .bullet: return ["type": "bulletList", "content": items]
+      case .ordered(let start): return ["type": "orderedList", "attrs": ["start": start, "type": NSNull()], "content": items]
+      }
+    }
+    func withContent(_ node: [String: Any], _ inline: [RichInline]) throws -> [String: Any] {
+      inline.isEmpty ? node : node.merging(["content": try inline.map(inlineJSON)]) { $1 }
     }
     return ["type": "doc", "content": try blocks.map { block -> [String: Any] in
       switch block {
       case .paragraph(let content): try paragraph(content)
-      case .taskList(let items): try list(items)
+      case .heading(let level, let space, let content): try withContent(["type": "heading", "attrs": ["level": level, "space": space]], content)
+      case .quote(let prefix, let lines): ["type": "blockquote", "attrs": ["prefix": prefix], "content": try lines.map(paragraph)]
+      case .codeBlock(let fence, let language, let close, let text):
+        ["type": "codeBlock", "attrs": ["language": language, "fence": fence, "close": close]].merging(text.isEmpty ? [:] : ["content": [["type": "text", "text": text]]]) { $1 }
+      case .rule(let source): ["type": "horizontalRule", "attrs": ["source": source]]
+      case .list(let value): try listJSON(value)
       }
     }]
   }
@@ -68,7 +86,7 @@ extension RichDocMap {
 @Suite("Rich document oracle") struct RichDocOracleTests {
   @Test func markdownToDocumentAndBack() throws {
     try Oracle.check("richDoc") { input in
-      let doc = RichDoc(markdown: input.string("text"), styling: input.bool("styling"))
+      let doc = RichDoc(markdown: input.string("text"), styling: input.bool("styling"), literalText: input["literalText"] as? Bool ?? false)
       var out = doc.serialize().oracleJSON()
       out["doc"] = try doc.oracleJSON()
       return out

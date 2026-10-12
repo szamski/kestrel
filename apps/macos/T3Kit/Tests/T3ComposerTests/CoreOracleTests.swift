@@ -1,4 +1,6 @@
 import Foundation
+import T3Contracts
+import T3Keybindings
 import Testing
 
 @testable import T3Composer
@@ -86,6 +88,19 @@ private func tokenJSON(_ token: ComposerInlineToken) -> [String: Any] {
         "adjacentRight": ComposerLogic.isCollapsedCursorAdjacentToInlineToken(text, cursor, .right),
       ]
     }
+    try Oracle.check("cursorsLiteral") { input in
+      let text = input.string("text")
+      let cursor = input.int("cursor")
+      return [
+        "expand": ComposerLogic.expandCollapsedCursor(text, cursor, literalText: true),
+        "collapse": ComposerLogic.collapseExpandedCursor(text, cursor, literalText: true),
+        "clamp": ComposerLogic.clampCollapsedCursor(text, cursor, literalText: true),
+      ]
+    }
+    try Oracle.check("promptEndLiteral") { input in
+      let state = ComposerLogic.stateAtPromptEnd(input.string("text"), literalText: true)
+      return ["cursor": state.cursor, "trigger": triggerJSON(state.trigger)]
+    }
     try Oracle.check("promptEnd") { input in
       let state = ComposerLogic.stateAtPromptEnd(input.string("text"))
       return ["cursor": state.cursor, "trigger": triggerJSON(state.trigger)]
@@ -103,10 +118,16 @@ private func tokenJSON(_ token: ComposerInlineToken) -> [String: Any] {
 
   @Test func submitIntent() throws {
     try Oracle.check("submitIntent") { input in
-      ComposerLogic.submissionIntentForEnter(
-        isMobileViewport: input.bool("isMobileViewport"), shiftKey: input.bool("shiftKey"), modifierKey: input.bool("modifierKey"),
-        isDraftThread: input.bool("isDraftThread"), isRunning: input.bool("isRunning"),
-        sendShortcut: input.optionalString("sendShortcut").flatMap(SendShortcut.init(rawValue:)), prompt: input.string("prompt"))?.rawValue
+      // The oracle fixture keeps the flag shape (modifierKey is Command); the command comes from the default table.
+      var context: WhenContext = ["composerFocus"]
+      if input.bool("isDraftThread") { context.insert("draftThreadRoute") }
+      if input.bool("isRunning") { context.insert("turnRunning") }
+      let key = KeyDescriptor(key: "enter", meta: input.bool("modifierKey"), shift: input.bool("shiftKey"))
+      return ComposerLogic.submissionIntent(
+        command: Keybindings.resolve(key, in: KeybindingCatalog.defaults, context: context), shift: input.bool("shiftKey"), option: false,
+        modifier: input.bool("modifierKey"), isDraftThread: input.bool("isDraftThread"), isRunning: input.bool("isRunning"),
+        isMobileViewport: input.bool("isMobileViewport"), sendShortcut: input.optionalString("sendShortcut").flatMap(SendShortcut.init(rawValue:)),
+        prompt: input.string("prompt"))?.rawValue
     }
   }
 

@@ -34,6 +34,11 @@ private let renderDirectory = ProcessInfo.processInfo.environment["T3_COMPOSER_R
         fixture.model.reloadEditor(markdown: fixture.model.draft.prompt, cursor: Int.max, undoable: false)
         await fixture.settle(timeout: .seconds(1)) { fixture.services.uploads.values.allSatisfy { if case .ready = $0 { true } else { false } } }
       }
+      try await scenario("8-blocks", directory, suffix, dark, height: 330) { fixture in
+        let markdown = "# Plan\n- parse **lists**\n  - nested bullet\n3) numbered\n> a quote with `code`\n```swift\nlet x = 1\nprint(x)\n```\n---\n- [x] done"
+        fixture.type(markdown)
+        fixture.model.reloadEditor(markdown: markdown, cursor: Int.max, undoable: false)
+      }
       try await scenario("3-at-menu", directory, suffix, dark, height: 360) { fixture in
         fixture.type("Look at @src")
         fixture.model.reloadEditor(markdown: "Look at @src", cursor: Int.max, undoable: false)

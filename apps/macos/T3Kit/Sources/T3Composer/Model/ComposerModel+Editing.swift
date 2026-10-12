@@ -2,6 +2,25 @@ import Foundation
 import T3Contracts
 import T3Timeline
 
+/// A key press as the keybinding table sees it (`NSEvent` without AppKit).
+public struct ComposerKeyPress: Sendable {
+  public var keyCode: UInt16
+  public var characters: String?
+  public var command: Bool
+  public var control: Bool
+  public var shift: Bool
+  public var option: Bool
+
+  public init(keyCode: UInt16, characters: String?, command: Bool, control: Bool, shift: Bool, option: Bool) {
+    self.keyCode = keyCode
+    self.characters = characters
+    self.command = command
+    self.control = control
+    self.shift = shift
+    self.option = option
+  }
+}
+
 /// Modifier and caret facts the editor passes with a command key.
 public struct ComposerKeyContext: Sendable {
   public var shift: Bool
@@ -11,14 +30,20 @@ public struct ComposerKeyContext: Sendable {
   public var isComposing: Bool
   public var caretOnFirstLine: Bool
   public var caretOnLastLine: Bool
+  /// The keybinding the key press resolves to (server rules incl. user overrides); nil when unbound.
+  public var command: KeybindingCommand?
 
-  public init(shift: Bool = false, modifier: Bool = false, option: Bool = false, isComposing: Bool = false, caretOnFirstLine: Bool = false, caretOnLastLine: Bool = false) {
+  public init(
+    shift: Bool = false, modifier: Bool = false, option: Bool = false, isComposing: Bool = false, caretOnFirstLine: Bool = false, caretOnLastLine: Bool = false,
+    command: KeybindingCommand? = nil
+  ) {
     self.shift = shift
     self.modifier = modifier
     self.option = option
     self.isComposing = isComposing
     self.caretOnFirstLine = caretOnFirstLine
     self.caretOnLastLine = caretOnLastLine
+    self.command = command
   }
 }
 
@@ -335,13 +360,15 @@ extension ComposerModel {
       return navigatePromptHistory(key == .arrowUp ? .backward : .forward, context: context)
     }
     if key == .enter {
-      if let intent = ComposerLogic.submissionIntentForEnter(
-        isMobileViewport: false, shiftKey: context.shift, modifierKey: context.modifier, isDraftThread: target.isDraftThread, isRunning: isRunning,
-        sendShortcut: settings.sendShortcut, prompt: activeText)
+      if let intent = ComposerLogic.submissionIntent(
+        command: context.command, shift: context.shift, option: context.option, modifier: context.modifier, isDraftThread: target.isDraftThread,
+        isRunning: isRunning, sendShortcut: settings.sendShortcut, prompt: activeText)
       {
         Task { await submit(intent: intent) }
         return true
       }
+      // A key bound to another command (⌘⇧↩ steers the queue, run by the app) is not typed as a newline.
+      if context.command != nil { return true }
       // Native task splitting preserves marks and chips on both sides of the caret.
       if isTaskItem { return false }
     }

@@ -11,10 +11,16 @@ import T3Contracts
     var settings = ServerSettings()
     settings.providerInstances["codex_work"] = ServerSettingsProviderInstancesValue(driver: "codex", displayName: "Work")
     let rows = ProviderInstances.rows(settings: settings, liveInstanceIds: ["codex"])
-    #expect(rows.map(\.instanceId) == ["codex", "codex_work", "claudeAgent", "grok", "opencode", "antigravity"])
-    #expect(rows.filter(\.isDefault).count == 5 && rows.allSatisfy { !$0.isDirty })
+    #expect(rows.map(\.instanceId) == ["codex", "codex_work", "claudeAgent", "grok", "opencode", "antigravity", "muse", "pi"])
+    #expect(rows.filter(\.isDefault).count == 7 && rows.allSatisfy { !$0.isDirty })
     #expect(ProviderInstances.isEnabled(rows[0].instance) && !ProviderInstances.isEnabled(rows[3].instance), "Codex is on by default, Grok is off")
     #expect(ProviderInstances.rows(settings: settings, liveInstanceIds: ["cursor"]).map(\.instanceId).contains("cursor"))
+    // ACP Registry has no default slot: only the agents the user added are listed, and a local command shows just its executable.
+    settings.providerInstances["devin"] = ServerSettingsProviderInstancesValue(driver: "acpRegistry", config: .object(["source": .string("local")]))
+    let acp = ProviderInstances.rows(settings: settings, liveInstanceIds: []).filter { $0.driver == "acpRegistry" }
+    #expect(acp.map(\.instanceId) == ["devin"])
+    #expect(ProviderCatalog.driver("acpRegistry")?.fields(for: acp[0].instance.config).map(\.key) == ["source", "commandPath"])
+    #expect(ProviderCatalog.driver("acpRegistry")?.fields(for: nil).map(\.key) == ["source", "agentId", "commandPath", "authMethodId"])
   }
 
   @Test func editingADefaultSlotMovesItIntoTheInstanceMap() throws {

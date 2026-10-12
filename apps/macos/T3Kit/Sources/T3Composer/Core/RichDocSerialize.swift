@@ -142,43 +142,120 @@ extension RichDoc {
     }
   }
 
-  private static func walkTaskList(_ items: [RichTaskItem], into acc: inout Accumulator) {
+  /// A block marker (`- `, `> `, `## `, a rule's source) owns no document characters: every offset
+  /// inside it clamps to the start of the text after it.
+  private static func appendPrefix(_ prefix: String, into acc: inout Accumulator) {
+    acc.runs.append(
+      RichRun(
+        kind: .prefix, flatStart: acc.flat, docLen: 0, collapsedLen: prefix.jsLength, mdLen: prefix.jsLength, openLen: 0, closeLen: 0, mdStart: acc.md,
+        collapsedStart: acc.collapsed))
+    acc.value += prefix
+    acc.collapsed += prefix.jsLength
+    acc.md += prefix.jsLength
+  }
+
+  /// The literal prefix an item serializes to. Empty items keep their exact spacing.
+  private static func prefix(of item: RichListItem) -> String {
+    let empty = item.content.isEmpty
+    switch item.prefix {
+    case .task(let checked, let indent, let markerSpace, let contentSpace):
+      return "\(indent)-\(markerSpace)[\(checked ? "x" : " ")]\(contentSpace.isEmpty ? (empty ? "" : " ") : contentSpace)"
+    case .marker(let indent, let marker, let space):
+      // A bare `-` keeps its missing space only while the item is empty: once it has text, `-text`
+      // would not be a list line any more.
+      return "\(indent)\(marker.isEmpty ? "-" : marker)\(space.isEmpty ? (empty ? "" : " ") : space)"
+    }
+  }
+
+  private static func walkList(_ list: RichList, into acc: inout Accumulator) {
     var firstItem = true
-    for item in items {
+    for item in list.items {
       // Sibling items are separated by one newline in every coordinate space.
       if !firstItem { acc.pushBreak() }
       firstItem = false
-      let empty = item.content.isEmpty
-      let contentSpace = item.contentSpace.isEmpty ? (empty ? "" : " ") : item.contentSpace
-      let prefix = "\(item.indent)-\(item.markerSpace)[\(item.checked ? "x" : " ")]\(contentSpace)"
-      // The checkbox owns no document characters; every prefix offset clamps to the item text.
-      acc.runs.append(
-        RichRun(
-          kind: .prefix, flatStart: acc.flat, docLen: 0, collapsedLen: prefix.jsLength, mdLen: prefix.jsLength,
-          openLen: 0, closeLen: 0, mdStart: acc.md, collapsedStart: acc.collapsed))
-      acc.value += prefix
-      acc.collapsed += prefix.jsLength
-      acc.md += prefix.jsLength
+      appendPrefix(prefix(of: item), into: &acc)
       appendInlineRuns(item.content, into: &acc)
-      if !item.children.isEmpty {
+      for child in item.children {
         acc.pushBreak()
-        walkTaskList(item.children, into: &acc)
+        walkList(child, into: &acc)
       }
     }
+  }
+
+  /// A fence becomes runs whose open and close lengths are the delimiters, so every cursor rule that
+  /// clamps out of a style marker clamps out of a fence too. The code is literal text in the editor, but
+  /// the draft store still counts a chip's source in it as one cursor position, so the run splits at each
+  /// chip source, which spans its characters in the document and one position in the collapsed space.
+  private static func appendCodeBlock(fence: String, language: String, close closeIn: String, text: String, followed: Bool, into acc: inout Accumulator) {
+    var fence = fence.isEmpty ? "```" : fence
+    var close = closeIn
+    // Code holding a line that would close the fence, such as a pasted fence, is written inside a longer
+    // one, so the agent reads all of it as code. A parsed block never holds such a line.
+    let longest = text.split(separator: "\n", omittingEmptySubsequences: false).filter { isClosingFence(String($0), fence: fence) }.map { line in
+      line.prefix { $0 == "`" || $0 == "~" }.count
+    }.max()
+    if let longest, longest > 0 {
+      fence = String(repeating: fence.first!, count: longest + 1)
+      if !close.isEmpty { close = "\n" + fence }
+    }
+    // An unclosed fence runs to the end of the draft, so with a block after it the fence is written
+    // closed, or the next rebuild would read that block as code.
+    if close.isEmpty && followed { close = "\n" + fence }
+    let open = fence + language + (text.isEmpty ? "" : "\n")
+    let pieces: [(length: Int, collapsed: Int)] =
+      text.isEmpty
+      ? [(0, 0)]
+      : ComposerPromptSegments.split(text).map { segment in
+        if case .text(let value) = segment { return (value.jsLength, value.jsLength) }
+        return (segment.source.jsLength, 1)
+      }
+    for (index, piece) in pieces.enumerated() {
+      let openLen = index == 0 ? open.jsLength : 0
+      let closeLen = index == pieces.count - 1 ? close.jsLength : 0
+      acc.runs.append(
+        RichRun(
+          kind: .text, flatStart: acc.flat, docLen: piece.length, collapsedLen: openLen + piece.collapsed + closeLen,
+          mdLen: openLen + piece.length + closeLen, openLen: openLen, closeLen: closeLen, mdStart: acc.md, collapsedStart: acc.collapsed,
+          nodeName: "codeBlock"))
+      acc.flat += piece.length
+      acc.collapsed += openLen + piece.collapsed + closeLen
+      acc.md += openLen + piece.length + closeLen
+    }
+    acc.value += open + text + close
   }
 
   /// `serializeEditorDoc`: canonical Markdown and the run table behind the cursor conversions.
   public func serialize() -> RichDocMap {
     var acc = Accumulator()
     for (index, block) in blocks.enumerated() {
-      if index > 0 { acc.pushBreak() }
+      // The empty line a final rule keeps after it writes nothing, not even its newline.
+      if index > 0 && !isTrailingLineAfterRule(index) { acc.pushBreak() }
       switch block {
-      case .taskList(let items): Self.walkTaskList(items, into: &acc)
+      case .list(let list): Self.walkList(list, into: &acc)
+      case .codeBlock(let fence, let language, let close, let text):
+        Self.appendCodeBlock(fence: fence, language: language, close: close, text: text, followed: index < blocks.count - 1, into: &acc)
+      case .quote(let prefix, let lines):
+        // Each paragraph of a quote is one source line behind the quote's prefix.
+        for (lineIndex, inline) in lines.enumerated() {
+          if lineIndex > 0 { acc.pushBreak() }
+          Self.appendPrefix(prefix, into: &acc)
+          Self.appendInlineRuns(inline, into: &acc)
+        }
+      case .heading(let level, let space, let content):
+        Self.appendPrefix(String(repeating: "#", count: level) + space, into: &acc)
+        Self.appendInlineRuns(content, into: &acc)
+      case .rule(let source):
+        Self.appendPrefix(source.isEmpty ? "---" : source, into: &acc)
       case .paragraph(let inline): Self.appendInlineRuns(inline, into: &acc)
       }
     }
     return RichDocMap(
       value: acc.value, runs: acc.runs, docLength: acc.flat,
       contextIds: ComposerContextReferences.collectInlineContextIds(acc.value))
+  }
+
+  func isTrailingLineAfterRule(_ index: Int) -> Bool {
+    guard index == blocks.count - 1, index > 0, case .paragraph(let inline) = blocks[index], inline.isEmpty, case .rule = blocks[index - 1] else { return false }
+    return true
   }
 }

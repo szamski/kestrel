@@ -127,6 +127,116 @@ export function drafts(s: Sources): string[] {
   ];
 }
 
+/**
+ * Drafts for the rich document's block syntax: fences, quotes, headings, rules and plain lists.
+ * Only the rich document model reads them (its blocks decide the run table and the editor storage).
+ */
+export function blockDrafts(s: Sources): string[] {
+  const k = chipSamples(s);
+  return [
+    // fences
+    "```js\ncode\n```",
+    "```\n```",
+    "```",
+    "```js",
+    "```js\n",
+    "~~~\nx\n~~~",
+    "````\n```\ninner\n```\n````",
+    "```\na\n\nb\n```\ntext after",
+    "```js\nunclosed\nline",
+    "text\n```py\nx = 1\n```\nmore",
+    "```a`b\ncode",
+    " ```indented\nx\n ```",
+    "``` ts  \nx\n```  ",
+    "```\n**not bold** and - [ ] not a task\n```",
+    "```\none\n```\n```\ntwo\n```",
+    "```js\nlet a = 1;\n```\n```py\nb = 2\n```\n> quote",
+    `\`\`\`\nsee ${k.file} and ${k.mention} here\n\`\`\``,
+    `\`\`\`${k.skill}\nbody\n\`\`\``,
+    "```\r\ncode\r\n```\r\nafter",
+    "```\n\n```",
+    "``\nnot a fence\n``",
+    // quotes
+    "> quote",
+    ">quote",
+    ">",
+    "> ",
+    "> a\n> b",
+    "> a\n>  b\n> c",
+    ">\n> x",
+    "> **bold** and `code` and *it*",
+    "> - not a list\n> 1. nor this",
+    "> > nested",
+    "> a\n\n> b",
+    `> ${k.mention} hi ${k.image}`,
+    "text\n> quote\ntext",
+    "> a\r\n> b",
+    // headings
+    "# h1",
+    "###### h6",
+    "####### seven",
+    "#nospace",
+    "#1234 pr reference",
+    "#\ttab",
+    "# ",
+    "#",
+    "## **bold** head",
+    "# a\ntext\n## b",
+    `# ${k.file} and ${k.skill}`,
+    "#  two spaces  ",
+    "# closing ##",
+    // rules
+    "---",
+    "***",
+    "___",
+    "- - -",
+    "* * *",
+    "text\n---\ntext",
+    "a\n---",
+    "---\n",
+    "--",
+    "---x",
+    "- a\n---\n- b",
+    "***bold***",
+    "---\n---",
+    "- [ ] a\n---\n- [ ] b",
+    "> quote\n---\n# head",
+    // lists
+    "- a\n* b",
+    "1. a\n1) b",
+    "- a\n  1. b\n  2. c\n- d",
+    "- a\n- [ ] t\n- b",
+    "- [ ] a\n- b",
+    "10. ten\n 11. eleven",
+    "- a\n\n- b",
+    "   - three spaces",
+    "- a\n    - deep\n  - shallow\n- top",
+    "* [ ] star task\n+ [x] plus task",
+    "- [ ]x\n- [x]y",
+    "- a **bold** `c` item\n2. b ~~s~~",
+    `- ${k.file}\n- ${k.image} chip`,
+    "- a\n```\ncode\n```\n- b",
+    "- a\n# head\n- b",
+    "0. zero\n1. one",
+  ];
+}
+
+/** Drafts the editor answers with verbatim (`literalText`): Markdown and context tokens stay text. */
+export function literalDrafts(s: Sources): string[] {
+  const k = chipSamples(s);
+  return [
+    "",
+    "plain",
+    "- [X] done $my-skill ",
+    "Use @README",
+    `see ${k.file} and ${k.image}`,
+    "**bold** `code` # heading\n> quote\n```js\nx\n```",
+    "a\n\nb\n",
+    "  - [ ] task\n1. one",
+    "😀 $skill 😀",
+  ];
+}
+
 /** Lines whose list behavior matters. */
 export function listDrafts(s: Sources): string[] {
   const k = chipSamples(s);

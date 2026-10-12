@@ -89,6 +89,8 @@ final class CommandCenter {
       responder = (current as? NSView)?.superview
     }
     if activeComposer?.isModelPickerOpen == true { context.insert("modelPickerOpen") }
+    if activeComposer?.target.isDraftThread == true { context.insert("draftThreadRoute") }
+    if activeComposer?.isRunning == true { context.insert("turnRunning") }
     for (id, value) in contextProviders where value() { context.insert(id) }
     return context
   }
@@ -124,6 +126,14 @@ final class CommandCenter {
     case "arrowright": .rightArrow
     default: key.count == 1 ? KeyEquivalent(Character(key)) : nil
     }
+  }
+
+  /// The command a key press in the composer triggers; the composer decides what that means for Enter
+  /// (⌘↩ sends the alternate way while a turn runs, ⌘⇧↩ steers the queue), so user overrides apply.
+  func command(for press: ComposerKeyPress) -> KeybindingCommand? {
+    let key = KeyDescriptor(
+      keyCode: press.keyCode, characters: press.characters, meta: press.command, ctrl: press.control, shift: press.shift, alt: press.option)
+    return Keybindings.resolve(key, in: rules, context: context(in: NSApp.keyWindow))
   }
 
   // MARK: Key monitor

@@ -123,7 +123,7 @@ public struct ComposerView: View {
       .popover(isPresented: Bindable(model).isModelPickerOpen, arrowEdge: .top) { ModelPickerPanel(model: model) }
       if model.traits.hasAnyControls {
         Button { isTraitsOpen.toggle() } label: {
-          FooterLabel(symbol: model.traitsDisplay.showFastModeIcon ? "bolt.fill" : "slider.horizontal.3", text: model.traitsDisplay.label, iconOnly: isCompact)
+          FooterLabel(symbol: "slider.horizontal.3", text: model.traitsDisplay.label, iconOnly: isCompact)
         }
         .help("Model options").accessibilityLabel("Model options: \(model.traitsDisplay.label)")
         .popover(isPresented: $isTraitsOpen, arrowEdge: .top) { TraitsPanel(model: model) }

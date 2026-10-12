@@ -77,7 +77,22 @@ public struct ProviderDriver: Sendable, Equatable, Identifiable {
   public var fields: [ProviderField]
   public var modelPlaceholder: String
   public var presets: [DescriptorPreset]
+  /// Drivers without one (ACP Registry: each instance is an agent the user adds) list only their configured instances.
+  public var hasDefaultInstance = true
   public var id: String { slug }
+
+  /// The fields the form shows for `config`. A local ACP command has no registry identity or sign-in.
+  public func fields(for config: JSONValue?) -> [ProviderField] {
+    guard slug == "acpRegistry", ProviderConfig.string(config, "source") == "local" else { return fields }
+    return fields.filter { $0.key == "source" || $0.key == "commandPath" }.map { field in
+      guard field.key == "commandPath" else { return field }
+      var local = field
+      local.label = "Executable"
+      local.help = "Executable name or path on this environment."
+      local.placeholder = "e.g. dsh"
+      return local
+    }
+  }
 }
 
 public enum ProviderCatalog {
@@ -180,6 +195,36 @@ public enum ProviderCatalog {
           key: "binaryPath", label: "Binary path", help: "Custom ACP executable. Leave empty to select automatically.", placeholder: "Automatic", omitWhenEmpty: false),
       ],
       modelPlaceholder: "model-slug", presets: []),
+    ProviderDriver(
+      slug: "muse", label: "Muse Code", badge: "Beta",
+      fields: [
+        ProviderField(
+          key: "binaryPath", label: "Binary path", help: "Path to the Muse Code binary on this environment. Sign in with muse login on that host.",
+          placeholder: "muse")
+      ], modelPlaceholder: "model-slug", presets: []),
+    ProviderDriver(
+      slug: "pi", label: "Pi",
+      fields: [
+        binary("pi", "Path to the Pi coding agent binary."),
+        ProviderField(key: "launchArgs", label: "Launch arguments", help: "Additional CLI arguments passed to pi --mode rpc on session start."),
+      ], modelPlaceholder: "model-slug", presets: []),
+    ProviderDriver(
+      slug: "acpRegistry", label: "ACP Registry",
+      fields: [
+        ProviderField(
+          key: "source", label: "ACP source", control: .select,
+          options: [ProviderFieldOption(value: "registry", label: "ACP Registry"), ProviderFieldOption(value: "local", label: "Local command")]),
+        ProviderField(
+          key: "agentId", label: "Registry agent ID", help: "Agent identifier from the official ACP Registry, for example 'devin'.", placeholder: "devin",
+          omitWhenEmpty: false),
+        ProviderField(
+          key: "commandPath", label: "Executable override",
+          help: "Executable on this environment. For registry agents, this overrides the distribution executable while keeping its arguments and environment.",
+          placeholder: "Registry default"),
+        ProviderField(
+          key: "authMethodId", label: "Authentication method",
+          help: "Optional ACP authentication method ID. By default, the first agent-managed method is selected.", placeholder: "auto"),
+      ], modelPlaceholder: "model-slug", presets: [], hasDefaultInstance: false),
   ]
 
   public static func driver(_ slug: String) -> ProviderDriver? { drivers.first { $0.slug == slug } }
@@ -287,10 +332,12 @@ public enum ProviderInstances {
     var rows: [ProviderInstanceRow] = []
     for driver in visible {
       let slot = explicit[driver]
-      rows.append(
-        ProviderInstanceRow(
-          instanceId: driver, instance: slot ?? ProviderInstanceConfig(driver: ProviderDriverKind(driver)), driver: driver, isDefault: true,
-          isDirty: slot != nil))
+      if slot != nil || ProviderCatalog.driver(driver)?.hasDefaultInstance != false {
+        rows.append(
+          ProviderInstanceRow(
+            instanceId: driver, instance: slot ?? ProviderInstanceConfig(driver: ProviderDriverKind(driver)), driver: driver, isDefault: true,
+            isDirty: slot != nil))
+      }
       for (id, instance) in explicit.sorted(by: { $0.key < $1.key }) where instance.driver.rawValue == driver && id != driver {
         rows.append(ProviderInstanceRow(instanceId: id, instance: instance, driver: driver, isDefault: false, isDirty: false))
       }

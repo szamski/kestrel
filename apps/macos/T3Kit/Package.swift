@@ -67,7 +67,7 @@ let package = Package(
     .testTarget(name: "T3ClientRuntimeTests", dependencies: ["T3ClientRuntime"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3ConnectTests", dependencies: ["T3Connect", "T3ClientRuntime", "T3Protocol", "T3Contracts"]),
     .testTarget(name: "T3MarkdownTests", dependencies: ["T3Markdown"]),
-    .testTarget(name: "T3ComposerTests", dependencies: ["T3Composer", "T3Timeline", "T3Markdown"]),
+    .testTarget(name: "T3ComposerTests", dependencies: ["T3Composer", "T3Timeline", "T3Markdown", "T3Keybindings"]),
     .testTarget(name: "T3DiffTests", dependencies: ["T3Diff"]),
     .testTarget(name: "T3KeybindingsTests", dependencies: ["T3Keybindings"]),
     .testTarget(name: "T3ThemeTests", dependencies: ["T3Theme"], resources: [.copy("Fixtures")]),

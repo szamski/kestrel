@@ -5,35 +5,57 @@ import Foundation
 extension NSAttributedString.Key {
   /// Bit set of `RichTextMark`s on a run (the Markdown truth; fonts and underlines are just paint).
   static let t3Marks = NSAttributedString.Key("t3.composer.marks")
-  /// Task-list attributes on a whole paragraph (checkbox, indent, source spacing).
-  static let t3Task = NSAttributedString.Key("t3.composer.task")
+  /// What a whole paragraph is when it is not plain prose: a list item, heading, quote line, code line
+  /// or rule, with the source spacing its Markdown is written with.
+  static let t3Block = NSAttributedString.Key("t3.composer.block")
 }
 
-/// Task item attributes of one paragraph.
-final class TaskAttrsBox: NSObject {
-  let checked: Bool
-  let indent: String
-  let markerSpace: String
-  let contentSpace: String
+/// The block attributes of one paragraph (never a plain paragraph: those carry none).
+final class BlockAttrs: NSObject {
+  let kind: RichLine.Kind
 
-  init(checked: Bool, indent: String = "", markerSpace: String = " ", contentSpace: String = "") {
-    self.checked = checked
-    self.indent = indent
-    self.markerSpace = markerSpace
-    self.contentSpace = contentSpace
+  init(_ kind: RichLine.Kind) { self.kind = kind }
+
+  /// An unchecked-by-default task item, as the `- [ ] ` typing rule makes one.
+  static func task(checked: Bool, indent: String = "", markerSpace: String = " ", contentSpace: String = "") -> BlockAttrs {
+    BlockAttrs(.list(.task(checked: checked, indent: indent, markerSpace: markerSpace, contentSpace: contentSpace)))
   }
 
-  func with(checked: Bool) -> TaskAttrsBox { TaskAttrsBox(checked: checked, indent: indent, markerSpace: markerSpace, contentSpace: contentSpace) }
+  /// The checkbox state of a task item; nil for every other block.
+  var checked: Bool? {
+    if case .list(.task(let checked, _, _, _)) = kind { checked } else { nil }
+  }
+
+  func with(checked: Bool) -> BlockAttrs {
+    guard case .list(.task(_, let indent, let markerSpace, let contentSpace)) = kind else { return self }
+    return .task(checked: checked, indent: indent, markerSpace: markerSpace, contentSpace: contentSpace)
+  }
+
+  var isListItem: Bool {
+    if case .list = kind { true } else { false }
+  }
 
   /// Nesting depth shown as indentation: two columns per level, like the Markdown source.
-  var depth: Int { indent.utf16.reduce(0) { $0 + ($1 == 0x09 ? 2 : 1) } / 2 }
-
-  override func isEqual(_ object: Any?) -> Bool {
-    guard let other = object as? TaskAttrsBox else { return false }
-    return checked == other.checked && indent == other.indent && markerSpace == other.markerSpace && contentSpace == other.contentSpace
+  var depth: Int {
+    guard case .list(let prefix) = kind else { return 0 }
+    return prefix.indent.utf16.reduce(0) { $0 + ($1 == 0x09 ? 2 : 1) } / 2
   }
 
-  override var hash: Int { var hasher = Hasher(); hasher.combine(checked); hasher.combine(indent); return hasher.finalize() }
+  /// The attributes of the paragraph a new line after this one starts with, nil for a plain paragraph:
+  /// a task starts unchecked, an ordered item counts on, a quote keeps its prefix, code stays code.
+  var continued: BlockAttrs? {
+    switch kind {
+    case .list(.task(_, let indent, let markerSpace, _)): return .task(checked: false, indent: indent, markerSpace: markerSpace)
+    case .list(.marker(let indent, let marker, let space)):
+      return BlockAttrs(.list(.marker(indent: indent, marker: ComposerListContinuation.nextOrderedMarker(marker), space: space)))
+    case .quote, .code: return self
+    case .heading, .rule, .paragraph: return nil
+    }
+  }
+
+  override func isEqual(_ object: Any?) -> Bool { (object as? BlockAttrs)?.kind == kind }
+
+  override var hash: Int { kind.hashValue }
 }
 
 extension RichTextMark {
@@ -73,15 +95,23 @@ public struct ComposerEditorStyle: Sendable {
     self.stroke = stroke
   }
 
-  var baseFont: NSFont {
-    if let fontFamily, let font = NSFontManager.shared.font(withFamily: fontFamily, traits: [], weight: 5, size: fontSize) { return font }
-    return NSFont.systemFont(ofSize: fontSize)
-  }
+  var baseFont: NSFont { systemOrCustomFont(size: fontSize) }
 
-  /// The font for a run with the given marks.
-  func font(for marks: Int) -> NSFont {
-    var font: NSFont = marks & RichTextMark.code.bit != 0 ? NSFont.monospacedSystemFont(ofSize: fontSize * 0.92, weight: .regular) : baseFont
-    var traits: NSFontDescriptor.SymbolicTraits = []
+  /// The font for a run with the given marks inside `block`: headings are bold and larger, code is
+  /// monospaced and ignores marks.
+  func font(for marks: Int, block: BlockAttrs? = nil) -> NSFont {
+    var size = fontSize
+    var heading = false
+    switch block?.kind {
+    case .code?:
+      return NSFont.monospacedSystemFont(ofSize: fontSize * 0.92, weight: .regular)
+    case .heading(let level, _)?:
+      size = fontSize * Self.headingScale[min(level, Self.headingScale.count) - 1]
+      heading = true
+    default: break
+    }
+    var font: NSFont = marks & RichTextMark.code.bit != 0 ? NSFont.monospacedSystemFont(ofSize: size * 0.92, weight: .regular) : systemOrCustomFont(size: size)
+    var traits: NSFontDescriptor.SymbolicTraits = heading ? [.bold] : []
     if marks & RichTextMark.bold.bit != 0 { traits.insert(.bold) }
     if marks & RichTextMark.italic.bit != 0 { traits.insert(.italic) }
     if !traits.isEmpty {
@@ -91,20 +121,40 @@ public struct ComposerEditorStyle: Sendable {
     return font
   }
 
-  func paragraphStyle(task: TaskAttrsBox?) -> NSParagraphStyle {
+  private func systemOrCustomFont(size: CGFloat) -> NSFont {
+    if let fontFamily, let font = NSFontManager.shared.font(withFamily: fontFamily, traits: [], weight: 5, size: size) { return font }
+    return NSFont.systemFont(ofSize: size)
+  }
+
+  func paragraphStyle(block: BlockAttrs?) -> NSParagraphStyle {
     let style = NSMutableParagraphStyle()
     style.lineSpacing = lineSpacing
     style.paragraphSpacing = 0
-    if let task {
-      let indent = CGFloat(task.depth) * 18 + Self.taskGutter
-      style.firstLineHeadIndent = indent
-      style.headIndent = indent
-    }
+    let indent = Self.indent(of: block)
+    style.firstLineHeadIndent = indent
+    style.headIndent = indent
+    if case .code? = block?.kind { style.tailIndent = -Self.codeInset }
     return style
   }
 
-  /// Width reserved left of a task item's text for its checkbox.
-  static let taskGutter: CGFloat = 22
+  /// How far a block's text is indented: past a list's gutter and nesting, a quote's bar, a code block's padding.
+  static func indent(of block: BlockAttrs?) -> CGFloat {
+    switch block?.kind {
+    case .list?: CGFloat(block?.depth ?? 0) * 18 + listGutter
+    case .quote?: quoteIndent
+    case .code?: codeInset
+    default: 0
+    }
+  }
+
+  /// Width reserved left of a list item's text for its checkbox or marker.
+  static let listGutter: CGFloat = 22
+  /// Text indent of a quote line, which holds the quote bar.
+  static let quoteIndent: CGFloat = 14
+  /// Padding inside a code block's background.
+  static let codeInset: CGFloat = 10
+  /// Heading sizes relative to the body: `#` is the largest.
+  private static let headingScale: [CGFloat] = [1.4, 1.25, 1.12, 1.05, 1, 1]
 }
 
 // MARK: - Chip presentation

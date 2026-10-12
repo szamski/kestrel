@@ -161,6 +161,32 @@ struct EditorFixture {
     #expect(fixture.snapshot.value.hasPrefix("- [ ] first"))
   }
 
+  @Test func blockLinesKeepTheirDelimitersWhileTheyAreEdited() {
+    let source = "# Title\n1. one\n> quote\n```js\nlet a\n```\n---\nend"
+    let fixture = EditorFixture(markdown: source, cursor: 0)
+    #expect(fixture.snapshot.value == source)
+    let text = fixture.view.string as NSString
+    // Typing inside a heading, an item, a quote line and code never touches their markers.
+    for word in ["Title", "one", "quote", "let a"] {
+      fixture.view.setSelectedRange(NSRange(location: text.range(of: word).location + word.utf16.count, length: 0))
+      fixture.type("!")
+    }
+    #expect(fixture.snapshot.value == "# Title!\n1. one!\n> quote!\n```js\nlet a!\n```\n---\nend")
+    // On a rule line, typed text replaces the rule; Enter in an ordered item counts on.
+    fixture.view.setSelectedRange(NSRange(location: (fixture.view.string as NSString).range(of: "\n\n").location + 1, length: 0))
+    fixture.type("x")
+    #expect(fixture.snapshot.value.hasSuffix("```\nx\nend"))
+    fixture.view.setSelectedRange(NSRange(location: (fixture.view.string as NSString).range(of: "one!").upperBound, length: 0))
+    fixture.view.keyDown(with: Self.enterKey(window: fixture.window))
+    #expect(fixture.snapshot.value.contains("1. one!\n2. \n> quote!"))
+  }
+
+  static func enterKey(window: NSWindow) -> NSEvent {
+    NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: window.windowNumber, context: nil, characters: "\r",
+      charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36)!
+  }
+
   @Test func surroundingASelectionWrapsIt() {
     let fixture = EditorFixture(markdown: "hello world")
     fixture.view.setSelectedRange(NSRange(location: 6, length: 5))

@@ -37,11 +37,6 @@ struct OracleCatalog {
         settings.instanceEnabled[id] = (instance["enabled"] as? Bool) ?? true
         if let custom = customModels((instance["config"] as? [String: Any])?["customModels"]) { settings.instanceCustomModels[id] = custom }
       }
-      for (driver, any) in (raw["providers"] as? [String: Any]) ?? [:] {
-        let provider = any as! [String: Any]
-        if let enabled = provider["enabled"] as? Bool { settings.legacyProviderEnabled[driver] = enabled }
-        settings.legacyCustomModels[driver] = customModels(provider["customModels"]) ?? []
-      }
       for (id, any) in (raw["providerModelPreferences"] as? [String: Any]) ?? [:] {
         let preference = any as! [String: Any]
         settings.hiddenModels[id] = preference["hiddenModels"] as? [String] ?? []
