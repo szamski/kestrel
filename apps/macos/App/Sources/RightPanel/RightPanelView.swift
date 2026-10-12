@@ -42,6 +42,12 @@ struct RightPanelView: View {
         if let path = state.active?.filePath {
           FilePreviewView(app: app, key: key, path: path, store: store).id(path)
         }
+      case .pullRequests?:
+        ThreadPullRequestsPanel(app: app, key: key, store: store)
+      case .pullRequest?:
+        if let target = state.active?.pullRequestTarget {
+          PullRequestDetailView(app: app, target: target, compact: true, open: { store.openSurface(.pullRequest($0), in: key) }).id(target.id)
+        }
       case let kind?:
         ContentUnavailableView(kind.title, systemImage: kind.symbol, description: Text("This tab is not available in the native app yet."))
       case nil:

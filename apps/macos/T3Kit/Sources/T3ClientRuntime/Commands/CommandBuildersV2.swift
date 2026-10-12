@@ -86,6 +86,17 @@ public enum ThreadCommandV2 {
         commandId: meta.commandId, threadId: threadId, title: title, regenerateTitle: regenerateTitle, branch: branch, worktreePath: worktreePath,
         linkedPullRequest: linkedPullRequest))
   }
+  public static func linkPullRequest(
+    _ threadId: ThreadId, host: String, repository: String, number: Int, url: String, source: ThreadPullRequestLinkSource = .manual, meta: CommandMeta = .fresh()
+  ) -> OrchestrationV2Command {
+    .threadPullRequestLink(
+      OrchestrationV2CommandThreadPullRequestLink(
+        commandId: meta.commandId, threadId: threadId, host: host, repository: repository, number: number, url: url, source: source))
+  }
+  public static func unlinkPullRequest(_ threadId: ThreadId, host: String, repository: String, number: Int, meta: CommandMeta = .fresh()) -> OrchestrationV2Command {
+    .threadPullRequestUnlink(
+      OrchestrationV2CommandThreadPullRequestUnlink(commandId: meta.commandId, threadId: threadId, host: host, repository: repository, number: number))
+  }
   public static func setModelSelection(_ threadId: ThreadId, _ selection: ModelSelection, meta: CommandMeta = .fresh()) -> OrchestrationV2Command {
     .threadModelSelectionSet(OrchestrationV2CommandThreadModelSelectionSet(commandId: meta.commandId, threadId: threadId, modelSelection: selection))
   }

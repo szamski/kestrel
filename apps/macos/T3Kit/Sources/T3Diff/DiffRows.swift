@@ -36,7 +36,9 @@ public struct DiffSelection: Sendable, Equatable {
 }
 
 public enum DiffRows {
-  public static func build(files: [DiffFile], collapsed: Set<String>, layout: DiffLayoutMode) -> [DiffRow] {
+  /// `annotations` are inline notes (a pull request's review threads): file id, then index in `DiffFile.lines`, then one
+  /// notice row per text, shown right under that line.
+  public static func build(files: [DiffFile], collapsed: Set<String>, layout: DiffLayoutMode, annotations: [String: [Int: [String]]] = [:]) -> [DiffRow] {
     var rows: [DiffRow] = []
     rows.reserveCapacity(files.reduce(files.count) { $0 + $1.lines.count + $1.hunks.count })
     for (index, file) in files.enumerated() {
@@ -48,13 +50,34 @@ public enum DiffRows {
       }
       for (hunkIndex, hunk) in file.hunks.enumerated() {
         rows.append(DiffRow(file: index, kind: .hunk(hunkIndex)))
+        let notes = annotations[file.id] ?? [:]
         switch layout {
-        case .stacked: for line in hunk.lines { rows.append(DiffRow(file: index, kind: .line(line))) }
-        case .split: appendSplit(file, hunk, index, &rows)
+        case .stacked:
+          for line in hunk.lines {
+            rows.append(DiffRow(file: index, kind: .line(line)))
+            for text in notes[line] ?? [] { rows.append(DiffRow(file: index, kind: .notice(text))) }
+          }
+        case .split:
+          let before = rows.count
+          appendSplit(file, hunk, index, &rows)
+          if !notes.isEmpty { weaveNotes(notes, file: index, from: before, into: &rows) }
         }
       }
     }
     return rows
+  }
+
+  /// Split rows hold two line indices; the notes of both go under their row.
+  private static func weaveNotes(_ notes: [Int: [String]], file: Int, from start: Int, into rows: inout [DiffRow]) {
+    var woven = Array(rows[..<start])
+    for row in rows[start...] {
+      woven.append(row)
+      guard case .pair(let left, let right) = row.kind else { continue }
+      for index in [left, right] where index >= 0 {
+        for text in notes[index] ?? [] { woven.append(DiffRow(file: file, kind: .notice(text))) }
+      }
+    }
+    rows = woven
   }
 
   static func notice(for file: DiffFile) -> String {

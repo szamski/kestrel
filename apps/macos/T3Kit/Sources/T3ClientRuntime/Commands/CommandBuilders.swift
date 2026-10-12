@@ -69,13 +69,27 @@ public enum ThreadCommand {
   public static func setAutoSettle(_ threadId: ThreadId, enabled: Bool, meta: CommandMeta = .fresh()) -> V1.ClientOrchestrationCommand {
     .threadAutoSettleSet(V1.ClientOrchestrationCommandThreadAutoSettleSet(commandId: meta.commandId, threadId: threadId, enabled: enabled))
   }
-  /// Rename (`title`), or ask the server to regenerate the title.
+  /// Rename (`title`), or ask the server to regenerate the title. `linkedPullRequest` sets (or, with `.some(nil)`, clears)
+  /// the single legacy pull request link of servers without multi-link support.
   public static func updateMetadata(
-    _ threadId: ThreadId, title: String? = nil, regenerateTitle: Bool? = nil, modelSelection: ModelSelection? = nil, meta: CommandMeta = .fresh()
+    _ threadId: ThreadId, title: String? = nil, regenerateTitle: Bool? = nil, modelSelection: ModelSelection? = nil, linkedPullRequest: ThreadLinkedPullRequest?? = nil,
+    meta: CommandMeta = .fresh()
   ) -> V1.ClientOrchestrationCommand {
     .threadMetaUpdate(
       V1.ClientOrchestrationCommandThreadMetaUpdate(
-        commandId: meta.commandId, threadId: threadId, title: title, regenerateTitle: regenerateTitle, modelSelection: modelSelection))
+        commandId: meta.commandId, threadId: threadId, title: title, regenerateTitle: regenerateTitle, modelSelection: modelSelection,
+        linkedPullRequest: linkedPullRequest))
+  }
+  public static func linkPullRequest(
+    _ threadId: ThreadId, host: String, repository: String, number: Int, url: String, source: ThreadPullRequestLinkSource = .manual, meta: CommandMeta = .fresh()
+  ) -> V1.ClientOrchestrationCommand {
+    .threadPullRequestLink(
+      V1.ClientOrchestrationCommandThreadPullRequestLink(
+        commandId: meta.commandId, threadId: threadId, host: host, repository: repository, number: number, url: url, source: source))
+  }
+  public static func unlinkPullRequest(_ threadId: ThreadId, host: String, repository: String, number: Int, meta: CommandMeta = .fresh()) -> V1.ClientOrchestrationCommand {
+    .threadPullRequestUnlink(
+      V1.ClientOrchestrationCommandThreadPullRequestUnlink(commandId: meta.commandId, threadId: threadId, host: host, repository: repository, number: number))
   }
   public static func setRuntimeMode(_ threadId: ThreadId, _ mode: RuntimeMode, meta: CommandMeta = .fresh()) -> V1.ClientOrchestrationCommand {
     .threadRuntimeModeSet(V1.ClientOrchestrationCommandThreadRuntimeModeSet(commandId: meta.commandId, threadId: threadId, runtimeMode: mode, createdAt: meta.createdAt))

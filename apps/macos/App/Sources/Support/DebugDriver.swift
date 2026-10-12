@@ -9,8 +9,8 @@ import T3Contracts
 /// documented where they are handled. Never ships: the whole file is `#if DEBUG`.
 @MainActor
 final class DebugDriver {
-  private let app: AppModel
-  private let out: URL
+  let app: AppModel
+  let out: URL
   private var log: FileHandle?
 
   static func startIfRequested(_ app: AppModel) {
@@ -28,11 +28,11 @@ final class DebugDriver {
     log = try? FileHandle(forWritingTo: out.appending(path: "driver.log"))
   }
 
-  private func say(_ text: String) { log?.write(Data((text + "\n").utf8)) }
+  func say(_ text: String) { log?.write(Data((text + "\n").utf8)) }
 
-  private var window: NSWindow? { NSApp.windows.first { $0.isVisible && $0.title.isEmpty == false || $0.isMainWindow } ?? NSApp.windows.first { $0.isVisible } }
+  var window: NSWindow? { NSApp.windows.first { $0.isVisible && $0.title.isEmpty == false || $0.isMainWindow } ?? NSApp.windows.first { $0.isVisible } }
 
-  private func sleep(_ seconds: Double) async { try? await Task.sleep(for: .seconds(seconds)) }
+  func sleep(_ seconds: Double) async { try? await Task.sleep(for: .seconds(seconds)) }
 
   func run(_ steps: [String], quick: Bool = false) async {
     if !quick {
@@ -113,6 +113,7 @@ final class DebugDriver {
             await sleep(1.5)
           } catch { say("mkproject failed: \(error)") }
         } else { say("mkproject: no connected environment or bad arg") }
+      case "pr": await PullRequestsDebug.run(arg, app: app, say: { say($0) }, sleep: { await sleep($0) })  // pull request inbox (read-only), see PullRequestsDebug
       case "proto": await protocolStatus()
       case "send": await sendMessage(arg)
       case "scratch": await scratch()
@@ -157,7 +158,7 @@ final class DebugDriver {
           capture(settings, name: arg)
         } else { say("no settings window; windows=\(NSApp.windows.map { "\($0.title)|\($0.identifier?.rawValue ?? "-")|vis=\($0.isVisible)|\(type(of: $0))" })") }
       case "quit": RunLoop.main.perform { NSApp.terminate(nil) }; await sleep(30)
-      default: say("unknown step")
+      default: if !(await runNotificationStep(parts[0], arg)) { say("unknown step") }
       }
     }
   }

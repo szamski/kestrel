@@ -98,7 +98,13 @@ enum CommandTranslation {
               autoPull: c.autoPull, projectIcon: Transcode.optional(c.projectIcon), faviconPath: c.faviconPath, defaultThreadEnvMode: c.defaultThreadEnvMode,
               scripts: c.scripts.flatMap { Transcode.value($0) })))
       ]
-    case .threadPullRequestLink, .threadPullRequestUnlink, .unknown:
+    case .threadPullRequestLink(let c):
+      return [
+        .command(ThreadCommandV2.linkPullRequest(c.threadId, host: c.host, repository: c.repository, number: c.number, url: c.url, source: c.source, meta: meta(c.commandId)))
+      ]
+    case .threadPullRequestUnlink(let c):
+      return [.command(ThreadCommandV2.unlinkPullRequest(c.threadId, host: c.host, repository: c.repository, number: c.number, meta: meta(c.commandId)))]
+    case .unknown:
       throw .rejected(message: "This action is not available for this environment.")
     }
   }

@@ -69,6 +69,7 @@ extension CommandCenter {
     register(.composerMode, isAvailable: { [self] in activeComposer?.planModeUiEnabled == true }) { [self] in
       activeComposer?.toggleInteractionMode()
     }
+    registerPullRequestCommands()
   }
 
   // MARK: Helpers

@@ -150,9 +150,12 @@ struct FirstRunView: View {
     } description: {
       Text("Add the environment you run agents in. A pairing link from `npx t3` or another T3 Code client is all it takes.")
     } actions: {
-      Button("Add Environment\u{2026}") { app.sheet = .addEnvironment }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
+      HStack {
+        Button("Add Environment\u{2026}") { app.sheet = .addEnvironment }
+          .buttonStyle(.borderedProminent)
+        Button("Set Up Kestrel\u{2026}") { app.onboarding.present() }
+      }
+      .controlSize(.large)
     }
   }
 }

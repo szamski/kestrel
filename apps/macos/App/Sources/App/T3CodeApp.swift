@@ -26,6 +26,13 @@ struct T3CodeApp: App {
             PaletteView(app: app, commands: commands, startMode: commands.palette.mode) { commands.palette.dismiss() }
           }
         }
+        .overlay(alignment: .topTrailing) { NotificationBanners(notifications: app.notifications) }
+        .sheet(isPresented: Binding(get: { app.onboarding.isPresented }, set: { app.onboarding.isPresented = $0 })) {
+          OnboardingView().environment(app).themed()
+        }
+        .onOpenURL { url in
+          if let route = AppRouteParser.parse(url) { app.open(route) } else { app.errorMessage = "That link is not supported." }
+        }
         .task {
           delegate.model = app
           SettingsBindings.start(runtime: app.runtime)
@@ -93,6 +100,7 @@ struct AppCommands: Commands {
       CommandButton(commands: commands, command: .sidebarToggle, title: "Toggle Sidebar")
       CommandButton(commands: commands, command: .rightPanelToggle, title: "Toggle Right Panel")
       CommandButton(commands: commands, command: .diffToggle, title: "Toggle Diff")
+      Button("Show Pull Requests") { PullRequestsStore.shared.show() }
       Divider()
       CommandButton(commands: commands, command: .commandPaletteToggle, title: "Command Palette")
       CommandButton(commands: commands, command: .appearanceCycle, title: "Cycle Appearance")

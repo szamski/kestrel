@@ -38,6 +38,7 @@ struct SidebarView: View {
     .overlay { if sidebar.isEmpty { EmptySidebar(searching: !runtime.filter.searchQuery.isEmpty) } }
     .safeAreaInset(edge: .bottom, spacing: 0) {
       VStack(spacing: 0) {
+        PullRequestsSidebarEntry()
         StageBadge()
         SidebarFooter()
       }

@@ -471,7 +471,7 @@ struct PullRequestKey: Equatable {
   }
   static func equal(_ a: PullRequestKey, _ b: PullRequestKey) -> Bool { a == b }
 
-  private static func canonical(_ key: String) -> String {
+  static func canonical(_ key: String) -> String {
     var key = key
     if let m = key.firstMatch(#"^(?:ssh\.dev\.azure\.com|vs-ssh\.visualstudio\.com)/v3/([^/]+)/([^/]+)/([^/]+)$"#) {
       key = "dev.azure.com/\(m[1])/\(m[2])/_git/\(m[3])"

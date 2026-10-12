@@ -50,6 +50,12 @@ final class AppModel {
   let localServer: LocalServer
   /// T3 Connect: the cloud account, its environments and linking this Mac (Settings › Connections).
   let connect: ConnectModel
+  /// Thread notifications: sound, in-app banners, system notifications and the Dock badge (Notifications/).
+  let notifications: ThreadNotifications
+  /// First-run setup and the gate that decides when it shows (Onboarding/).
+  let onboarding: OnboardingModel
+  /// The Settings page to show next; the Settings window takes it when it appears (set by onboarding's links).
+  var settingsPageRequest: SettingsPage?
   private(set) var runsLocalServer: Bool
   /// Host to prefill in the add-environment sheet (the foreign server found on this Mac).
   var addEnvironmentHost: String?
@@ -109,10 +115,14 @@ final class AppModel {
     composer = ComposerStore(runtime: runtime, directory: Self.dataDirectory)
     sourceControl = SourceControlStore(runtime: runtime)
     localServer = LocalServer(dataDirectory: Self.dataDirectory)
+    notifications = ThreadNotifications(runtime: runtime)
+    onboarding = OnboardingModel(runtime: runtime)
     runsLocalServer = UserDefaults.standard.object(forKey: Self.runsLocalServerKey) as? Bool ?? true
     composer.environment.onThreadStarted = { [weak self] key in self?.draftStarted(key) }
     composer.environment.draftSend = { [weak self] target in try self?.sourceControl.draftSend(for: target) ?? .init() }
     sourceControl.app = self
+    notifications.app = self
+    onboarding.app = self
     localServer.register = { [weak self] url, token in try await self?.registerLocalEnvironment(baseURL: url, token: token) }
     localServer.unavailable = { [weak self] in await self?.disableLocalEnvironment() }
   }
@@ -158,6 +168,8 @@ final class AppModel {
     if runsLocalServer { localServer.start() } else { await disableLocalEnvironment() }
     restoreSelection()
     observePresence()
+    notifications.start()
+    onboarding.startGate()
     tasks.append(
       Task { [weak self] in
         while !Task.isCancelled {

@@ -91,6 +91,8 @@ struct ThreadReader: View {
       ToolbarItemGroup(placement: .primaryAction) {
         Button { panel.toggle(.diff, in: detail.key) } label: { Label("Diff", systemImage: "plusminus") }
           .help("Show or hide the diff")
+        Button { panel.toggle(.pullRequests, in: detail.key) } label: { Label("Pull requests", systemImage: "arrow.triangle.pull") }
+          .help("Pull requests linked to this thread")
         Button { panel.toggleVisibility(detail.key) } label: { Label("Panel", systemImage: "sidebar.right") }
           .help("Show or hide the right panel")
       }

@@ -107,6 +107,17 @@ struct PaletteContent {
       commandItem(.threadPin, title: row?.section == .pinned ? "Unpin thread" : "Pin thread", symbol: "pin"),
       commandItem(.threadStop, title: "Stop turn", symbol: "stop.circle", terms: ["interrupt"]),
       commandItem(.threadCopyReference, title: "Copy thread ID", symbol: "doc.on.doc", terms: ["reference"]),
+      PaletteItem(
+        id: "action:pull-requests", title: "Open pull requests", symbol: "arrow.triangle.pull", terms: ["review", "merge", "PR", "inbox"],
+        run: { finish { PullRequestsStore.shared.show() } }),
+      app.selection.flatMap { key in
+        app.runtime.threadPullRequestLinkMode(key.environmentId) == .unsupported
+          ? nil
+          : PaletteItem(
+            id: "action:link-pull-request", title: "Link pull request\u{2026}", symbol: "link", terms: ["PR", "attach"],
+            run: { finish { PullRequestsStore.shared.linkRequest = key } })
+      },
+      commandItem(.pullRequestCopyNumber, title: "Copy pull request link", symbol: "link", terms: ["PR", "number", "url"]),
       commandItem(.modelPickerToggle, title: "Choose model", symbol: "cpu", terms: ["provider"]),
       commandItem(.composerMode, title: "Toggle plan mode", symbol: "list.bullet.clipboard", terms: ["build"]),
       commandItem(.sidebarToggle, title: "Toggle sidebar", symbol: "sidebar.left"),

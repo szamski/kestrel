@@ -11,7 +11,9 @@ struct MainView: View {
       SidebarView()
         .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 440)
     } detail: {
-      if app.runtime.environments.isEmpty && app.selection == nil {
+      if PullRequestsStore.shared.isShowing {
+        PullRequestInboxView()
+      } else if app.runtime.environments.isEmpty && app.selection == nil {
         FirstRunView()
       } else {
         ReadingWindow()
@@ -19,6 +21,7 @@ struct MainView: View {
     }
     .frame(minWidth: 760, minHeight: 480)
     .environment(rightPanel)
+    .pullRequestsHost()
     #if DEBUG
     .task { DiffDebugSnapshot.runIfRequested(app: app) }
     #endif

@@ -6,6 +6,7 @@ import T3Contracts
 /// device preferences are written to `ClientSettingsStore` whatever the target is.
 struct GeneralPage: View {
   @Environment(SettingsModel.self) private var model
+  @Environment(AppModel.self) private var app
   @State private var tokenWarning = false
   @State private var backgroundSheet = false
   @State private var legacyExpanded = false
@@ -216,6 +217,7 @@ struct GeneralPage: View {
         "thread-notifications",
         "System alerts when a thread finishes, fails, or needs input or approval. Applies to this device while T3 Code is open.", \.notificationMode,
         [(.off, "Off"), (.notifications, "Notifications only"), (.sound, "Sound only"), (.notificationsAndSound, "Notifications with sound")])
+      NotificationPermissionHint(mode: client.notificationMode)
       clientToggle("in-app-notifications", "Show a toast when another thread finishes, fails, or needs input or approval while this app has focus.", \.inAppNotificationsEnabled)
       clientMenu("time-format", "System default follows your OS clock preference.", \.timestampFormat, [(.locale, "System default"), (.v12Hour, "12-hour"), (.v24Hour, "24-hour")])
       SettingRow(
@@ -395,6 +397,9 @@ struct GeneralPage: View {
     Section {
       SettingRow(id: "diagnostics", title: "Diagnostics", help: model.targets.count == 1 ? "Inspect processes, resource use, and logs on this environment." : "Inspect processes, resource use, and logs on one environment at a time.") {
         Button("View diagnostics") { model.page = .diagnostics }
+      }
+      SettingRow(id: "welcome-setup", title: "Welcome setup", help: "Connect a computer, check your agents, and import projects.") {
+        Button("Run setup") { app.onboarding.present() }
       }
       SettingRow(id: "open-source-licenses", title: "Open source licenses", help: "Notices for dependencies, assets, and optional tools used by T3 Code.") {
         Button("View licenses") { model.page = .licenses }

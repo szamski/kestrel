@@ -5,6 +5,7 @@ import T3Contracts
 /// The settings window: page list and search in the sidebar, the scope bar and the selected page in the detail.
 struct SettingsView: View {
   @State var model: SettingsModel
+  @Environment(AppModel.self) private var app
 
   var body: some View {
     NavigationSplitView {
@@ -17,6 +18,12 @@ struct SettingsView: View {
     .environment(model)
     .searchable(text: $model.query, placement: .sidebar, prompt: "Search settings")
     .frame(minWidth: 860, minHeight: 560)
+    // Links elsewhere in the app ask for a page (the window may open only afterwards, hence `initial`).
+    .onChange(of: app.settingsPageRequest, initial: true) { _, page in
+      guard let page else { return }
+      model.page = page
+      app.settingsPageRequest = nil
+    }
   }
 }
 

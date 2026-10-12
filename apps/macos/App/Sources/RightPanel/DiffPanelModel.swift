@@ -56,6 +56,10 @@ final class DiffPanelModel {
   private(set) var sectionTitle = ""
   var selection: DiffSelection?
   var commentText = ""
+  /// Inline notes under diff lines (a pull request's review threads): file id, line index, one notice row per text.
+  var annotations: [String: [Int: [String]]] = [:] {
+    didSet { if annotations != oldValue, !files.isEmpty { rebuild() } }
+  }
 
   // Layout, wrap, whitespace and the default file state are client settings (Settings › General); the toolbar toggles write
   // them back, and a change made in Settings reaches an open panel through `follow`.
@@ -154,7 +158,7 @@ final class DiffPanelModel {
   private var collapsedIds: Set<String> { Set(files.filter { collapsedPaths.contains($0.path) }.map(\.id)) }
 
   private func rebuild() {
-    rows = DiffRows.build(files: files, collapsed: collapsedIds, layout: layout)
+    rows = DiffRows.build(files: files, collapsed: collapsedIds, layout: layout, annotations: annotations)
     revision += 1
   }
 
@@ -164,6 +168,8 @@ final class DiffPanelModel {
     if selection?.fileId == fileId, collapsedPaths.contains(file.path) { selection = nil }
     rebuild()
   }
+
+  func isCollapsed(path: String) -> Bool { collapsedPaths.contains(path) }
 
   var allCollapsed: Bool { !files.isEmpty && files.allSatisfy { collapsedPaths.contains($0.path) } }
 

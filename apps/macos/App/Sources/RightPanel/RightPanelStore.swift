@@ -51,7 +51,16 @@ struct RightPanelSurface: Codable, Hashable, Identifiable, Sendable {
 
   /// The path of a file tab.
   var filePath: String? { kind == .file && id.hasPrefix(Self.filePrefix) ? String(id.dropFirst(Self.filePrefix.count)) : nil }
-  var title: String { filePath.map { FileLogic.basename($0) } ?? kind.title }
+
+  private static let pullRequestPrefix = "pull-request:"
+  /// One tab per opened pull request, `pull-request:<PullRequestTarget.id>`.
+  static func pullRequest(_ target: PullRequestTarget) -> RightPanelSurface { RightPanelSurface(id: pullRequestPrefix + target.id, kind: .pullRequest) }
+  /// The pull request of a pull request tab.
+  var pullRequestTarget: PullRequestTarget? {
+    kind == .pullRequest && id.hasPrefix(Self.pullRequestPrefix) ? PullRequestTarget(id: String(id.dropFirst(Self.pullRequestPrefix.count))) : nil
+  }
+
+  var title: String { filePath.map { FileLogic.basename($0) } ?? pullRequestTarget.map { "PR \($0.label)" } ?? kind.title }
 }
 
 /// A dialog over the thread that shows the right panel's files: the file picker or the content search.
@@ -130,6 +139,15 @@ final class RightPanelStore {
   func open(_ kind: RightPanelKind, in key: ScopedThreadKey) {
     update(key) { state in
       let surface = RightPanelSurface.singleton(kind)
+      if !state.surfaces.contains(surface) { state.surfaces.append(surface) }
+      state.isOpen = true
+      state.activeSurfaceId = surface.id
+    }
+  }
+
+  /// Opens (or activates) a resource tab (a pull request) and shows the panel.
+  func openSurface(_ surface: RightPanelSurface, in key: ScopedThreadKey) {
+    update(key) { state in
       if !state.surfaces.contains(surface) { state.surfaces.append(surface) }
       state.isOpen = true
       state.activeSurfaceId = surface.id
