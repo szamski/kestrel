@@ -136,6 +136,26 @@ final class DebugDriver {
       case "clickscreen": await clickScreen(arg)
       case "paste": paste(arg)
       case "send": say("action \(arg): \(NSApp.sendAction(Selector(arg), to: nil, from: nil))")
+      case "archivedcheck": await archivedCheck()  // creates, archives, lists, unarchives and deletes scratch threads; leaves two archived for a screenshot
+      case "archivedclean": await archivedClean()
+      case "settings":  // opens the Settings window (on the page of `-T3SettingsPage`); `shotsettings:<name>` captures it
+        NSApp.activate(ignoringOtherApps: true)
+        say("showSettingsWindow: \(NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil))")
+        await sleep(2)
+        // SwiftUI answers `showSettingsWindow:` only from a key window; the app menu's own "Settings…" item always works.
+        if !NSApp.windows.contains(where: { SettingsPage.allCases.map(\.title).contains($0.title) }),
+          let menu = NSApp.mainMenu?.items.first?.submenu, let index = menu.items.firstIndex(where: { $0.title.hasPrefix("Settings") })
+        {
+          menu.performActionForItem(at: index)
+          await sleep(2)
+        }
+      case "shotsettings":
+        let pages = SettingsPage.allCases.map(\.title)
+        if let settings = NSApp.windows.first(where: { $0.isVisible && pages.contains($0.title) }) {
+          settings.setContentSize(NSSize(width: 980, height: 760))
+          await sleep(1.5)
+          capture(settings, name: arg)
+        } else { say("no settings window; windows=\(NSApp.windows.map { "\($0.title)|\($0.identifier?.rawValue ?? "-")|vis=\($0.isVisible)|\(type(of: $0))" })") }
       case "quit": RunLoop.main.perform { NSApp.terminate(nil) }; await sleep(30)
       default: say("unknown step")
       }
@@ -383,6 +403,54 @@ final class DebugDriver {
         say("archive: removed from sidebar=\(scratchRow(key) == nil)")
       }
     } catch { say("ops error: \(AppModel.describe(error))") }
+  }
+
+  /// Settings › Archived against the scratch project only: `[archived-check]` threads are created here and removed again.
+  private func archivedCheck() async {
+    guard let group = scratchGroup, let model = app.runtime.sidebar.rows.first?.thread.shell.modelSelection else { say("archivedcheck: no scratch project or model"); return }
+    let project = group.representative
+    let runtime = app.runtime
+    for _ in 0..<300 where runtime.environments.first(where: { $0.environmentId == project.environmentId })?.connection.phase != .connected { await sleep(0.1) }
+    func listed(_ key: ScopedThreadKey) async -> Bool {
+      for _ in 0..<40 {
+        if let projects = try? await runtime.archivedProjects(environmentId: key.environmentId), projects.contains(where: { $0.threads.contains { $0.key == key } }) { return true }
+        await sleep(0.1)
+      }
+      return false
+    }
+    func gone(_ key: ScopedThreadKey) async -> Bool {
+      for _ in 0..<40 {
+        if let projects = try? await runtime.archivedProjects(environmentId: key.environmentId), !projects.contains(where: { $0.threads.contains { $0.key == key } }) { return true }
+        await sleep(0.1)
+      }
+      return false
+    }
+    do {
+      var keys: [ScopedThreadKey] = []
+      for name in ["A", "B", "C"] {
+        let id = try await runtime.createThread(environmentId: project.environmentId, projectId: project.projectId, title: "[archived-check] \(name)", modelSelection: model)
+        let key = ScopedThreadKey(environmentId: project.environmentId, threadId: id)
+        keys.append(key)
+        try await runtime.archiveThread(key)
+      }
+      say("archived listed: \(await listed(keys[0])) \(await listed(keys[1])) \(await listed(keys[2]))")
+      try await runtime.unarchiveThread(keys[0])
+      say("unarchive removes from archive: \(await gone(keys[0]))")
+      try await runtime.archiveThread(keys[0])
+      say("re-archived listed: \(await listed(keys[0]))")
+      try await runtime.deleteThread(keys[2])
+      say("delete removes from archive: \(await gone(keys[2]))")
+    } catch { say("archivedcheck error: \(AppModel.describe(error))") }
+  }
+
+  private func archivedClean() async {
+    let runtime = app.runtime
+    guard let group = scratchGroup else { return }
+    for _ in 0..<300 where runtime.environments.first(where: { $0.environmentId == group.representative.environmentId })?.connection.phase != .connected { await sleep(0.1) }
+    guard let projects = try? await runtime.archivedProjects(environmentId: group.representative.environmentId) else { return }
+    for thread in projects.filter({ $0.projectId == group.representative.projectId }).flatMap(\.threads) where thread.title.hasPrefix("[archived-check]") {
+      do { try await runtime.deleteThread(thread.key); say("deleted \(thread.title)") } catch { say("delete \(thread.title) failed: \(AppModel.describe(error))") }
+    }
   }
 
   private func scratchClean() async {

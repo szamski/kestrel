@@ -85,6 +85,12 @@ private struct Detail: View {
       case .appearance: AppearancePage()
       case .connections: Form { LocalServerSettings(); ConnectSettings() }.formStyle(.grouped)
       case .providers: ProvidersPage()
+      case .projects: ProjectsPage()
+      case .keybindings: KeybindingsPage()
+      case .sourceControl: SourceControlPage()
+      case .storage: StoragePage()
+      case .archived: ArchivedPage()
+      case .licenses: LicensesPage()
       default: Placeholder(text: "\(model.page.title) settings arrive in a later stage.", title: model.page.title)
       }
     }

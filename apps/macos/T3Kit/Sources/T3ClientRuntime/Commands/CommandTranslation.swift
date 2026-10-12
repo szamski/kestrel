@@ -89,7 +89,16 @@ enum CommandTranslation {
     case .threadCheckpointRevert(let c): return [.rollback(threadId: c.threadId, turnCount: c.turnCount, restoreFiles: true, meta: meta(c.commandId))]
     case .threadConversationRevert(let c): return [.rollback(threadId: c.threadId, turnCount: c.turnCount, restoreFiles: false, meta: meta(c.commandId))]
     case .threadSessionStop(let c): return [.detachSessions(threadId: c.threadId, meta: meta(c.commandId))]
-    case .projectMetaUpdate, .threadPullRequestLink, .threadPullRequestUnlink, .unknown:
+    case .projectMetaUpdate(let c):
+      return [
+        .project(
+          .projectUpdate(
+            ProjectMutationProjectUpdate(
+              commandId: c.commandId, projectId: c.projectId, title: c.title, workspaceRoot: c.workspaceRoot, defaultModelSelection: c.defaultModelSelection,
+              autoPull: c.autoPull, projectIcon: Transcode.optional(c.projectIcon), faviconPath: c.faviconPath, defaultThreadEnvMode: c.defaultThreadEnvMode,
+              scripts: c.scripts.flatMap { Transcode.value($0) })))
+      ]
+    case .threadPullRequestLink, .threadPullRequestUnlink, .unknown:
       throw .rejected(message: "This action is not available for this environment.")
     }
   }

@@ -90,7 +90,8 @@ extension SourceControlStore {
     let preview = draft.previewUrl.trimmingCharacters(in: .whitespacesAndNewlines)
     let script = ProjectScript(
       id: id, name: draft.name.trimmingCharacters(in: .whitespacesAndNewlines), command: draft.command, icon: draft.icon,
-      runOnWorktreeCreate: draft.runOnWorktreeCreate, async: draft.runOnWorktreeCreate && draft.waitForSetup ? false : nil,
+      runOnWorktreeCreate: draft.runOnWorktreeCreate, runOnSettle: current.first { $0.id == id }?.runOnSettle,
+      async: draft.runOnWorktreeCreate && draft.waitForSetup ? false : nil,
       previewUrl: preview.isEmpty ? nil : preview, autoOpenPreview: preview.isEmpty ? nil : draft.autoOpenPreview)
     // Only one script runs on worktree creation.
     var next = current.map { other -> ProjectScript in

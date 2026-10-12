@@ -36,6 +36,10 @@ public struct KeyDescriptor: Sendable, Equatable {
 
   private static func isLatinLetter(_ s: String) -> Bool { s.count == 1 && s.unicodeScalars.first.map { $0.value >= 97 && $0.value <= 122 } == true }
 
+  /// The key a recorded shortcut stores (`shortcutKeyFromEvent`): a Latin letter as typed, otherwise the physical
+  /// symbol or digit so Shift+1 records `1`, not `!`.
+  public var shortcutKey: String { Self.isLatinLetter(key) ? key : (code.flatMap { Self.symbolCodes[$0] } ?? key) }
+
   private var candidateKeys: Set<String> {
     var keys: Set<String> = [key]
     // The physical letter is a fallback only when the layout does not type a Latin letter itself;
@@ -57,6 +61,8 @@ public struct KeyDescriptor: Sendable, Equatable {
   private static let namedKeys: [UInt16: String] = [
     36: "enter", 76: "enter", 48: "tab", 49: " ", 51: "backspace", 53: "escape", 117: "delete",
     115: "home", 119: "end", 116: "pageup", 121: "pagedown", 123: "arrowleft", 124: "arrowright", 125: "arrowdown", 126: "arrowup",
+    122: "f1", 120: "f2", 99: "f3", 118: "f4", 96: "f5", 97: "f6", 98: "f7", 100: "f8", 101: "f9", 109: "f10", 103: "f11", 111: "f12",
+    105: "f13", 107: "f14", 113: "f15", 106: "f16", 64: "f17", 79: "f18", 80: "f19", 90: "f20",
   ]
 
   private static let codes: [UInt16: String] = [

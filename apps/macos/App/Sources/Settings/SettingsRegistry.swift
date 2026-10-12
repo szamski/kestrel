@@ -106,6 +106,7 @@ enum SettingsRegistry {
 
   static let items: [SettingsSearchItem] = [
     item("storage-worktrees", "Worktree cleanup", .storage, "disk storage delete deleted archived threads old inactive merged unchanged worktrees retention days project inherit off custom", scope: .projectDefaults),
+    item("storage-worktrees-location", "Worktree location", .storage, "worktree location folder directory path drive external disk", scope: .environmentDefaults),
     item("storage-artifacts", "Artifacts and logs", .storage, "disk storage browser screenshots captures rotated logs cleanup retention", scope: .environmentDefaults),
     item("project-defaults", "Project defaults and overrides", .general, "model workspace environments projects inheritance checkout", scope: .projectDefaults),
     item("project-overview", "Project overview", .projects, "name icon emoji image checkout remove delete"),
@@ -187,6 +188,10 @@ enum SettingsRegistry {
     item("browser-auto-show-floating-preview", "Auto-show floating preview", .integrations, "agent opens browser device simulator pop into view hide"),
     item("automatic-pull", "Automatically pull", .sourceControl, "auto pull default branch current checkout fast forward upstream", scope: .projectDefaults),
     item("pull-request-merge-method", "Default merge method", .sourceControl, "pull request merge squash rebase last selected", scope: .projectDefaults),
+    item("remove-agent-credits-on-merge", "Remove agent credits when merging", .sourceControl, "pull request github squash co-authored-by attribution claude codex generated", scope: .projectDefaults),
+    item("worktree-branch-naming", "Worktree branch naming", .sourceControl, "static semantic prefix custom prompt instructions feat fix refactor chore", scope: .projectDefaults),
+    item("github-accounts", "GitHub accounts and token", .sourceControl, "github gh account login user host enterprise ghes switch multiple accounts disable sign in token personal access token pat api key credential", scope: .environmentDefaults),
+    item("bitbucket-credentials", "Bitbucket credentials", .sourceControl, "bitbucket atlassian access token api token email credentials sign in", scope: .environmentDefaults),
     item("source-control", "Source control", .sourceControl, "version control git github gitlab forgejo gitea tea codeberg bitbucket azure devops hosting integrations credentials scan server environment", scope: .environmentDefaults),
     item("git-fetch-interval", "Git fetch interval", .sourceControl, "automatic remote branch refresh background credentials security keys seconds off", scope: .environmentDefaults),
     item("source-control-writing-style", "Source control writing style", .sourceControl, "repository conventions conventional commits custom instructions change descriptions request titles"),
@@ -201,7 +206,7 @@ enum SettingsRegistry {
     item("load-balancing", "Load balancing", .connections, "automatic machine environment resources cpu memory capacity preference weight shared projects"),
     item("github-routing", "GitHub sharing", .connections, "pull request trusted environments shared credentials permissions read actions"),
     item("archive", "Archived threads", .archived, "restore reopen deleted history projects"),
-  ]
+  ] + keybindingItems
 
   private static func normalize(_ text: String) -> String {
     let separators = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "$/")).inverted
