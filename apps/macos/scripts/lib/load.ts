@@ -6,9 +6,12 @@ import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-export const repoRoot = join(import.meta.dirname, "..", "..", "..", "..");
+// `macosRoot` is where these scripts and the Swift fixtures live. `repoRoot` is where the TypeScript
+// sources under test (web, client-runtime, contracts, node_modules) are read from: this checkout,
+// unless a frozen oracle points T3_ORACLE_SOURCE_ROOT at the pre-merge worktree (see frozen.ts).
+export const macosRoot = join(import.meta.dirname, "..", "..");
+export const repoRoot = process.env.T3_ORACLE_SOURCE_ROOT ?? join(macosRoot, "..", "..");
 export const contractsSrc = join(repoRoot, "packages", "contracts", "src");
-export const macosRoot = join(repoRoot, "apps", "macos");
 export const frozenV1Dir = join(macosRoot, "scripts", "frozen-v1");
 
 const effectDir = dirname(

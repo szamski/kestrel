@@ -43,7 +43,9 @@ export async function stateMachineCases(s: Sources): Promise<Case[]> {
   const out: Case[] = [];
   const add = (group: string, input: unknown, output: unknown) =>
     out.push({ group, input, output });
-  const queueModule = await imp("apps/web/src/queuedMessageStore.ts");
+  // The client queue is gone upstream (V2 queues on the server); these groups run against the
+  // frozen V1 copy and only guard the Swift store used with V1 servers.
+  const queueModule = await imp("apps/macos/scripts/frozen-v1/queuedMessageStore.ts");
   const store = queueModule.useQueuedMessageStore;
 
   // --- queue sequences ----------------------------------------------------------------------

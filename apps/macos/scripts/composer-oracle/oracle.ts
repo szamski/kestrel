@@ -1,11 +1,13 @@
 // Differential oracle for the Swift composer core.
 //
-//   node apps/macos/scripts/composer-oracle/oracle.ts
+//   node apps/macos/scripts/composer-oracle/oracle.ts           # regenerate the committed fixtures
+//   node apps/macos/scripts/composer-oracle/oracle.ts --check   # regenerate to a temp dir, exit 1 on any diff
 //
 // Runs the real TypeScript composer functions (apps/web/src/composer-*.ts, packages/shared) on a
 // corpus and writes `expected/<group>.json`: an array of `{ input, output }` cases. The Swift tests
 // in T3ComposerTests replay every input through T3Composer and compare the encoded outputs.
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadSources, oracleRoot } from "./lib.ts";
 import { chipSamples, citations, drafts, listDrafts, PASTE_TEXTS } from "./corpus.ts";
@@ -18,9 +20,11 @@ import { contextCases } from "./contextCases.ts";
 import { attachmentCases } from "./attachmentCases.ts";
 
 const s = await loadSources();
-const outDir = join(oracleRoot, "expected");
-rmSync(oracleRoot, { recursive: true, force: true });
-mkdirSync(outDir, { recursive: true });
+// Cases are generated into a staging dir and only copied over the fixtures once every group
+// succeeded, so a failing run never leaves the committed fixtures half-deleted.
+const check = process.argv.includes("--check");
+const committedDir = join(oracleRoot, "expected");
+const outDir = mkdtempSync(join(tmpdir(), "composer-oracle-"));
 
 const groups: Record<string, Array<{ input: unknown; output: unknown }>> = {};
 const add = (group: string, input: unknown, output: unknown) =>
@@ -194,7 +198,25 @@ for (const isMobileViewport of [false, true])
                 sendShortcut,
                 prompt,
               };
-              add("submitIntent", input, s.logic.composerSubmissionIntentForEnter(input));
+              // Upstream now resolves Enter through the keybinding table instead of flags. The fixture
+              // input keeps the old flag shape: modifierKey is Cmd on macOS, default keybindings.
+              const { shiftKey: shift, modifierKey: mod, ...rest } = input;
+              add(
+                "submitIntent",
+                input,
+                s.logic.composerSubmissionIntentForKey({
+                  ...rest,
+                  event: {
+                    key: "Enter",
+                    metaKey: mod,
+                    ctrlKey: false,
+                    altKey: false,
+                    shiftKey: shift,
+                  },
+                  keybindings: s.keybindings.DEFAULT_RESOLVED_KEYBINDINGS,
+                  platform: "MacIntel",
+                }),
+              );
             }
 
 // --- list continuation -----------------------------------------------------------------------
@@ -674,6 +696,31 @@ for (const c of await stateMachineCases(s)) add(c.group, c.input, c.output);
 for (const [group, cases] of Object.entries(groups)) {
   writeFileSync(join(outDir, `${group}.json`), JSON.stringify(cases) + "\n");
 }
+if (check) {
+  const have = new Set(readdirSync(committedDir));
+  const diffs: string[] = [];
+  for (const [group, cases] of Object.entries(groups)) {
+    const file = `${group}.json`;
+    if (!have.delete(file)) diffs.push(`new group ${group}`);
+    else if (
+      readFileSync(join(committedDir, file), "utf8") !== readFileSync(join(outDir, file), "utf8")
+    )
+      diffs.push(`changed ${group}`);
+  }
+  for (const file of have) diffs.push(`stale ${file}`);
+  rmSync(outDir, { recursive: true, force: true });
+  if (diffs.length) {
+    console.error(`composer oracle --check: fixtures differ\n${diffs.join("\n")}`);
+    process.exit(1);
+  }
+  console.log("composer oracle --check: fixtures match");
+  process.exit(0);
+}
+rmSync(committedDir, { recursive: true, force: true });
+mkdirSync(committedDir, { recursive: true });
+for (const file of readdirSync(outDir))
+  writeFileSync(join(committedDir, file), readFileSync(join(outDir, file)));
+rmSync(outDir, { recursive: true, force: true });
 const summary = Object.entries(groups)
   .map(([name, cases]) => `${name}=${cases.length}`)
   .join(" ");

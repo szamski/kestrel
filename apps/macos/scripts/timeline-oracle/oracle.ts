@@ -1,5 +1,12 @@
 // Differential oracle for the Swift timeline derivation.
 //
+// FROZEN: checks the Swift timeline derivation against orchestration protocol 1
+// (V1 servers). Upstream deleted the V1 sources this reads when it moved to V2, so
+// `../lib/frozen.ts` re-runs this script with its sources taken from a worktree of the pre-merge
+// Kestrel tip (da938cb76; not the upstream merge base de251fc29, which predates apps/macos).
+// If that worktree cannot be prepared it prints how to regenerate and exits 2.
+// Check: run it, then `git diff --exit-code` on the fixtures directory.
+//
 //   node apps/macos/scripts/timeline-oracle/oracle.ts                       # sanitized fixtures + synthetic threads
 //   node apps/macos/scripts/timeline-oracle/oracle.ts --raw [--raw-dir DIR] # private recordings, output stays in /private/tmp
 //
@@ -7,6 +14,7 @@
 // client-side context) and the projection the real TypeScript derivations produce
 // (`expected/<name>.json`). The Swift tests decode the same thread with the generated types, run
 // T3Timeline and compare the encoded projection.
+import "../lib/frozen.ts";
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {

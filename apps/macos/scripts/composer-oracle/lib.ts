@@ -23,10 +23,13 @@ registerHooks({
     if (
       (url.endsWith(".tsx") || url.endsWith(".ts")) &&
       !url.includes("/node_modules/") &&
+      !url.includes("/apps/macos/scripts/lib/") && // lib/load.ts's schema shim has its own loader
       !url.endsWith(".d.ts")
     ) {
       const source = readFileSync(fileURLToPath(url), "utf8");
+      // fileName picks the .ts/.tsx grammar: without it `<T extends string>(…) =>` parses as JSX.
       const { outputText } = ts.transpileModule(source, {
+        fileName: fileURLToPath(url),
         compilerOptions: {
           module: ts.ModuleKind.ESNext,
           target: ts.ScriptTarget.ES2022,
@@ -116,6 +119,7 @@ export async function loadSources() {
     promptHistory,
     submission,
     model,
+    keybindings,
   ] = await Promise.all([
     imp(web + "composer-logic.ts"),
     imp(web + "composer-editor-mentions.ts"),
@@ -134,6 +138,7 @@ export async function loadSources() {
     imp(web + "components/chat/composerPromptHistory.ts"),
     imp(web + "components/chat/composerSubmission.ts"),
     imp(shared + "model.ts"),
+    imp(shared + "keybindings.ts"),
   ]);
   return {
     logic,
@@ -153,6 +158,7 @@ export async function loadSources() {
     promptHistory,
     submission,
     model,
+    keybindings,
   };
 }
 export type Sources = Awaited<ReturnType<typeof loadSources>>;

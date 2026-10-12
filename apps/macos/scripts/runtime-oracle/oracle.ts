@@ -1,11 +1,19 @@
 // Differential oracle for the Swift client runtime.
 //
+// FROZEN: checks the Swift client runtime against orchestration protocol 1
+// (V1 servers). Upstream deleted the V1 sources this reads when it moved to V2, so
+// `../lib/frozen.ts` re-runs this script with its sources taken from a worktree of the pre-merge
+// Kestrel tip (da938cb76; not the upstream merge base de251fc29, which predates apps/macos).
+// If that worktree cannot be prepared it prints how to regenerate and exits 2.
+// Check: run it, then `git diff --exit-code` on the fixtures directory.
+//
 //   node apps/macos/scripts/runtime-oracle/oracle.ts                       # sanitized fixtures + synthetic streams
 //   node apps/macos/scripts/runtime-oracle/oracle.ts --raw [--raw-dir DIR] # private recordings, output stays in /private/tmp
 //
 // For every scenario this writes the input (`scenarios/<name>.json`, wire JSON) and the state the
 // real TypeScript reducers reach (`expected/<name>.json`). The Swift tests decode the same input
 // with the generated types, run the Swift reducers and compare the encoded result.
+import "../lib/frozen.ts";
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { contractsFixtures, loadSources, plain, runtimeRoot } from "./lib.ts";

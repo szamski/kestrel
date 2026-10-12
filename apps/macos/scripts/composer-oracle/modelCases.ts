@@ -261,6 +261,7 @@ export async function modelCases(s: Sources): Promise<Case[]> {
     keys,
     ordering,
     skills,
+    inlineSkills,
     skillSearch,
     slashSearch,
   ] = await Promise.all([
@@ -275,6 +276,7 @@ export async function modelCases(s: Sources): Promise<Case[]> {
     imp("apps/web/src/components/chat/modelPickerKeys.ts"),
     imp("apps/web/src/modelOrdering.ts"),
     imp("packages/client-runtime/src/providerSkills.ts"),
+    imp("packages/shared/src/inlineSkills.ts"),
     imp("apps/web/src/providerSkillSearch.ts"),
     imp("apps/web/src/components/chat/composerSlashCommandSearch.ts"),
   ]);
@@ -658,7 +660,7 @@ export async function modelCases(s: Sources): Promise<Case[]> {
     "skillHelpers",
     {},
     {
-      names: codexSkills.map((skill: any) => skills.formatProviderSkillDisplayName(skill)),
+      names: codexSkills.map((skill: any) => inlineSkills.formatProviderSkillDisplayName(skill)),
       invocable: codexSkills.map((skill: any) => skills.isProviderSkillUserInvocable(skill)),
       deduped: skills.dedupeProviderSkillsByName(codexSkills).map((skill: any) => skill.name),
       sourceKinds: codexSkills.map((skill: any) => skills.resolveProviderSkillSourceKind(skill)),
@@ -725,19 +727,15 @@ export async function modelCases(s: Sources): Promise<Case[]> {
       label: `/${command.name}`,
       description: command.description ?? command.input?.hint ?? "Run provider command",
     })),
-    ...skills
-      .getProviderSkillsForSlashMenu(codexSkills, true)
-      .map((skill: any) => ({
-        id: `skill:codex:${skill.name}`,
-        type: "skill",
-        provider: "codex",
-        skill,
-        label: `/skill:${skill.name}`,
-        description:
-          skill.shortDescription ??
-          skill.description ??
-          (skill.scope ? `${skill.scope} skill` : ""),
-      })),
+    ...skills.getProviderSkillsForSlashMenu(codexSkills, true).map((skill: any) => ({
+      id: `skill:codex:${skill.name}`,
+      type: "skill",
+      provider: "codex",
+      skill,
+      label: `/skill:${skill.name}`,
+      description:
+        skill.shortDescription ?? skill.description ?? (skill.scope ? `${skill.scope} skill` : ""),
+    })),
   ];
   for (const query of [
     "",

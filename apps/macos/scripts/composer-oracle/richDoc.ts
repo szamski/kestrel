@@ -16,12 +16,19 @@ const esm = async (name: string) =>
 export async function richDocCases(s: Sources, texts: string[]) {
   const core = await import("@tiptap/core");
   const starter = (await import("@tiptap/starter-kit")).default;
-  const { TaskList } = await import("@tiptap/extension-task-list");
   const { Node: ProseMirrorNode } = await import("@tiptap/pm/model");
   void esm;
   const { Node, getSchemaByResolvedExtensions, resolveExtensions } = core;
-  const { buildDocJson, serializeEditorDoc, ComposerCodeExtension, ComposerTaskItemExtension } =
-    s.richDoc;
+  const {
+    buildDocJson,
+    serializeEditorDoc,
+    ComposerCodeExtension,
+    ComposerCodeBlockExtension,
+    ComposerBlockExtensions,
+    ComposerListExtensions,
+    ComposerTaskListExtension,
+    ComposerTaskItemExtension,
+  } = s.richDoc;
 
   const stubAtom = (name: string, attrs: Record<string, { default: unknown }>) =>
     Node.create({ name, group: "inline", inline: true, atom: true, addAttributes: () => attrs });
@@ -56,21 +63,24 @@ export async function richDocCases(s: Sources, texts: string[]) {
     gapcursor: false,
     trailingNode: false,
   };
+  // Mirrors the extension lists of ComposerPromptEditorTiptap: rich mode has every block
+  // (fences, quotes, rules, headings, lists, tasks); plain mode has marks off and no blocks.
   const richSchema = getSchemaByResolvedExtensions(
     resolveExtensions([
       starter.configure({ ...base, code: false }),
       ComposerCodeExtension,
-      ...atoms,
-      TaskList,
+      ComposerCodeBlockExtension,
+      ...ComposerBlockExtensions,
+      ...ComposerListExtensions,
+      ComposerTaskListExtension,
       ComposerTaskItemExtension,
+      ...atoms,
     ]),
   );
   const plainSchema = getSchemaByResolvedExtensions(
     resolveExtensions([
       starter.configure({ ...base, bold: false, italic: false, strike: false, code: false }),
       ...atoms,
-      TaskList,
-      ComposerTaskItemExtension,
     ]),
   );
 
