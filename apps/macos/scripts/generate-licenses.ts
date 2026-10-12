@@ -28,6 +28,11 @@ const BUNDLE = "macos";
 /** SPDX expression and project page of every Swift package T3Kit resolves; a new pin must be added here on purpose. */
 const SWIFT_PACKAGES: Record<string, { license: string; sourceUrl: string }> = {
   "clerk-ios": { license: "MIT", sourceUrl: "https://github.com/clerk/clerk-ios" },
+  // LICENSE bundles the notices of the code Sparkle vendors (BSD-2-Clause, Zlib, MIT).
+  sparkle: {
+    license: "MIT AND BSD-2-Clause AND Zlib",
+    sourceUrl: "https://github.com/sparkle-project/Sparkle",
+  },
   nuke: { license: "MIT", sourceUrl: "https://github.com/kean/Nuke" },
   phonenumberkit: { license: "MIT", sourceUrl: "https://github.com/marmelroy/PhoneNumberKit" },
   // COPYING bundles the notices of cmark-gfm and the code it vendors.
@@ -67,12 +72,28 @@ function findCheckout(roots: string[], identity: string): string | null {
   return null;
 }
 
+type ResolvedPin = { identity: string; state: { version?: string; revision?: string } };
+
+/** T3Kit's pins plus the app project's pins (Sparkle), deduplicated by identity. */
+function resolvedPins(): ResolvedPin[] {
+  const files = [
+    NodePath.join(macos, "T3Kit/Package.resolved"),
+    NodePath.join(
+      macos,
+      "T3Code.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+    ),
+  ];
+  const pins = new Map<string, ResolvedPin>();
+  for (const file of files) {
+    const resolved = JSON.parse(read(file)) as { pins: ResolvedPin[] };
+    for (const pin of resolved.pins) if (!pins.has(pin.identity)) pins.set(pin.identity, pin);
+  }
+  return [...pins.values()];
+}
+
 function swiftPackageEntries(): ThirdPartyLicenseEntry[] {
-  const resolved = JSON.parse(read(NodePath.join(macos, "T3Kit/Package.resolved"))) as {
-    pins: { identity: string; state: { version?: string; revision?: string } }[];
-  };
   const roots = checkoutRoots();
-  return resolved.pins.map((pin) => {
+  return resolvedPins().map((pin) => {
     const known = SWIFT_PACKAGES[pin.identity];
     if (!known)
       throw new Error(
