@@ -1,4 +1,5 @@
 import AppKit
+import Darwin
 import Foundation
 import Observation
 import os
@@ -125,6 +126,11 @@ final class LocalServer {
         return await finish(.failed("Could not start the server: \(error.localizedDescription)"))
       }
       LocalServerSupport.Pidfile(pid: child.pid, marker: launch.marker, home: launch.home.path).write(pidfileURL)
+      // The server's telemetry and control channels: it learns the app's power state and process metrics, and the app learns its demand.
+      var telemetryToken: Int?
+      if let telemetryWrite = child.appEnds[ServerChannel.telemetry.childFd], let controlRead = child.appEnds[ServerChannel.telemetryControl.childFd] {
+        telemetryToken = DesktopTelemetry.shared.attach(telemetryWrite: telemetryWrite, controlRead: controlRead)
+      }
 
       let origin = URL(string: "http://127.0.0.1:\(port)")!
       let ready = await LocalServerSupport.waitUntilReady(origin: origin, while: { child.isRunning })
@@ -138,6 +144,7 @@ final class LocalServer {
         child.terminate()  // cancelled, or never became ready
         status = await child.exit.value
       }
+      if let telemetryToken { DesktopTelemetry.shared.detach(token: telemetryToken) }
       LocalServerSupport.Pidfile.remove(pidfileURL)
       if Task.isCancelled { return }
 
@@ -158,74 +165,160 @@ final class LocalServer {
   }
 }
 
+/// A pipe the server inherits at `childFd` (in addition to stdio); the app keeps the other end (`ServerChild.appEnds`).
+struct ServerChannel: Sendable {
+  let childFd: Int32
+  /// True when the app writes and the server reads; false when the server writes and the app reads.
+  let toServer: Bool
+
+  /// The desktop telemetry channel of packages/contracts/src/desktopBootstrap.ts: telemetry to the server on fd 4, its control messages on fd 5.
+  static let telemetry = ServerChannel(childFd: 4, toServer: true)
+  static let telemetryControl = ServerChannel(childFd: 5, toServer: false)
+}
+
 /// The spawned server process. Only the pid and `isRunning` are touched from other threads.
 final class ServerChild: @unchecked Sendable {
   /// Pid of the server that is running now (0 when none), for `LocalServer.killSpawned`.
   static let livePid = OSAllocatedUnfairLock<Int32>(initialState: 0)
 
   let pid: Int32
-  private let process: Process
-  var isRunning: Bool { process.isRunning }
+  private let running = OSAllocatedUnfairLock<Bool>(initialState: true)
+  var isRunning: Bool { running.withLock { $0 } }
   /// Exit status; any number of tasks may await it.
   let exit: Task<Int32, Never>
+  /// The app's end of each channel, by the server's descriptor number. The caller owns and closes them.
+  let appEnds: [Int32: Int32]
 
-  private init(process: Process, exit: Task<Int32, Never>) {
-    self.process = process
+  private init(pid: Int32, exit: Task<Int32, Never>, appEnds: [Int32: Int32]) {
+    self.pid = pid
     self.exit = exit
-    pid = process.processIdentifier
+    self.appEnds = appEnds
+  }
+
+  /// `pipe()` with both ends above the descriptors the child is remapped onto (a source below them could be overwritten by an earlier
+  /// `dup2` of the file actions) and close-on-exec, so nothing leaks into other children.
+  private static func makePipe() throws -> (read: Int32, write: Int32) {
+    var ends: [Int32] = [0, 0]
+    guard pipe(&ends) == 0 else { throw LocalServerLaunch.Failure(errorDescription: "pipe: \(String(cString: strerror(errno)))") }
+    let moved = ends.map { fcntl($0, F_DUPFD_CLOEXEC, 10) }
+    ends.forEach { Darwin.close($0) }
+    guard moved.allSatisfy({ $0 >= 0 }) else {
+      moved.filter { $0 >= 0 }.forEach { Darwin.close($0) }
+      throw LocalServerLaunch.Failure(errorDescription: "fcntl: \(String(cString: strerror(errno)))")
+    }
+    return (moved[0], moved[1])
   }
 
   static func spawn(
-    launch: LocalServerLaunch, environment: [String: String], port: Int, token: String, exposure: LocalServerExposure, log: URL
+    launch: LocalServerLaunch, environment: [String: String], port: Int, token: String, exposure: LocalServerExposure, log: URL,
+    channels: [ServerChannel] = [.telemetry, .telemetryControl]
   ) throws -> ServerChild {
-    let bootstrap = try LocalServerSupport.bootstrapJSON(port: port, home: launch.home, token: token, exposure: exposure)
+    let hasDesktopChannel = channels.contains { $0.childFd == ServerChannel.telemetry.childFd } && channels.contains { $0.childFd == ServerChannel.telemetryControl.childFd }
+    let bootstrap = try LocalServerSupport.bootstrapJSON(
+      port: port, home: launch.home, token: token, exposure: exposure,
+      desktopFds: hasDesktopChannel ? (Int(ServerChannel.telemetry.childFd), Int(ServerChannel.telemetryControl.childFd)) : nil)
     let logHandle = try LocalServerSupport.openLog(log)
     defer { try? logHandle.close() }
-    let process = Process()
     // Parent-death watchdog: the server has none of its own, so `/bin/sh` forks a watcher that polls the app's pid and
     // the server's, then `exec`s the server (same pid, so signals, `ps` and the pidfile all see the server itself).
     // When the app is gone the watcher SIGTERMs the server and SIGKILLs it after 5 s; when the server exits first the
-    // watcher ends. ponytail: polls once a second (up to 1 s late); kqueue/launchd would be exact but need a helper binary.
+    // watcher ends. The watcher drops the channel descriptors it inherited, so only the server holds them.
+    // ponytail: polls once a second (up to 1 s late); kqueue/launchd would be exact but need a helper binary.
+    let dropChannels = channels.map { "\($0.childFd)<&-" }.joined(separator: " ")
     let script = """
       app=$1; shift; srv=$$
       ( while kill -0 $app 2>/dev/null && kill -0 $srv 2>/dev/null; do sleep 1; done
         kill -0 $app 2>/dev/null && exit 0
         kill -TERM $srv 2>/dev/null
         for i in 1 2 3 4 5; do kill -0 $srv 2>/dev/null || exit 0; sleep 1; done
-        kill -KILL $srv 2>/dev/null ) </dev/null >/dev/null 2>&1 &
+        kill -KILL $srv 2>/dev/null ) </dev/null >/dev/null 2>&1 \(dropChannels) &
       exec "$@"
       """
-    process.executableURL = URL(fileURLWithPath: "/bin/sh")
-    process.arguments = ["-c", script, "kestrel-server-watchdog", String(getpid()), launch.executable.path] + launch.arguments
-    process.currentDirectoryURL = launch.workingDirectory
-    process.environment = environment
-    let stdin = Pipe()
-    process.standardInput = stdin
-    process.standardOutput = logHandle
-    process.standardError = logHandle
-    let (statuses, continuation) = AsyncStream<Int32>.makeStream()
-    process.terminationHandler = { finished in
-      livePid.withLock { if $0 == finished.processIdentifier { $0 = 0 } }
-      continuation.yield(finished.terminationStatus)
-      continuation.finish()
+    let arguments = ["/bin/sh", "-c", script, "kestrel-server-watchdog", String(getpid()), launch.executable.path] + launch.arguments
+
+    // One pipe for the bootstrap on stdin and one per channel; each has an end for the server and an end for the app.
+    var serverEnds: [Int32] = []
+    var appEnds: [Int32: Int32] = [:]
+    var remap: [(from: Int32, to: Int32)] = []
+    var spawned = false
+    let stdin = try makePipe()
+    defer {
+      if !spawned {
+        Darwin.close(stdin.write)
+        (serverEnds + appEnds.values).forEach { Darwin.close($0) }
+      }
     }
-    try process.run()
-    livePid.withLock { $0 = process.processIdentifier }
+    serverEnds.append(stdin.read)
+    // The log goes first: its descriptor number can be 4 or 5, which a later channel is mapped onto.
+    remap += [(logHandle.fileDescriptor, 1), (logHandle.fileDescriptor, 2), (stdin.read, 0)]
+    for channel in channels {
+      let pipe = try makePipe()
+      remap.append((channel.toServer ? pipe.read : pipe.write, channel.childFd))
+      serverEnds.append(channel.toServer ? pipe.read : pipe.write)
+      appEnds[channel.childFd] = channel.toServer ? pipe.write : pipe.read
+    }
+
+    // posix_spawn rather than Process: Process cannot hand the child descriptors beyond stdio. CLOEXEC_DEFAULT closes everything else.
+    var actions: posix_spawn_file_actions_t?
+    posix_spawn_file_actions_init(&actions)
+    defer { posix_spawn_file_actions_destroy(&actions) }
+    for (from, to) in remap { posix_spawn_file_actions_adddup2(&actions, from, to) }
+    posix_spawn_file_actions_addchdir_np(&actions, launch.workingDirectory.path)
+    var attributes: posix_spawnattr_t?
+    posix_spawnattr_init(&attributes)
+    defer { posix_spawnattr_destroy(&attributes) }
+    var defaultSignals = sigset_t(), noSignals = sigset_t()
+    sigfillset(&defaultSignals)  // the app ignores SIGPIPE; the server starts with every signal at its default
+    sigemptyset(&noSignals)
+    posix_spawnattr_setsigdefault(&attributes, &defaultSignals)
+    posix_spawnattr_setsigmask(&attributes, &noSignals)
+    posix_spawnattr_setflags(&attributes, Int16(POSIX_SPAWN_CLOEXEC_DEFAULT | POSIX_SPAWN_SETSIGDEF | POSIX_SPAWN_SETSIGMASK))
+
+    let argv = arguments.map { strdup($0) } + [nil]
+    let envp = environment.map { strdup("\($0.key)=\($0.value)") } + [nil]
+    defer {
+      argv.forEach { free($0) }
+      envp.forEach { free($0) }
+    }
+    var pid: pid_t = 0
+    let status = posix_spawn(&pid, "/bin/sh", &actions, &attributes, argv, envp)
+    guard status == 0 else { throw LocalServerLaunch.Failure(errorDescription: "posix_spawn: \(String(cString: strerror(status)))") }
+    spawned = true
+    let childPid = pid
+    livePid.withLock { $0 = childPid }
+    serverEnds.forEach { Darwin.close($0) }
+
     // The envelope is written and the pipe closed at once: the server reads one line from fd 0, and an open
     // idle pipe makes its read fail with EAGAIN on macOS.
-    try? stdin.fileHandleForWriting.write(contentsOf: bootstrap)
-    try? stdin.fileHandleForWriting.close()
+    var offset = 0
+    while offset < bootstrap.count {
+      let written = bootstrap[offset...].withUnsafeBytes { write(stdin.write, $0.baseAddress, $0.count) }
+      if written > 0 { offset += written } else if written < 0, errno == EINTR { continue } else { break }
+    }
+    Darwin.close(stdin.write)
+
+    let (statuses, continuation) = AsyncStream<Int32>.makeStream()
     let exit = Task<Int32, Never> {
       for await status in statuses { return status }
       return -1
     }
-    return ServerChild(process: process, exit: exit)
+    let child = ServerChild(pid: childPid, exit: exit, appEnds: appEnds)
+    // A thread of its own reaps the child: waitpid blocks until it exits.
+    Thread.detachNewThread {
+      var raw: Int32 = 0
+      while waitpid(childPid, &raw, 0) < 0, errno == EINTR {}
+      child.running.withLock { $0 = false }
+      livePid.withLock { if $0 == childPid { $0 = 0 } }
+      continuation.yield((raw & 0x7f) == 0 ? (raw >> 8) & 0xff : raw & 0x7f)  // exit code, or the signal that ended it
+      continuation.finish()
+    }
+    return child
   }
 
   /// SIGTERM now, SIGKILL after 5 s if it is still there. Only ever signals the pid this app spawned.
   func terminate() {
-    guard process.isRunning else { return }
+    guard isRunning else { return }
     kill(pid, SIGTERM)
-    DispatchQueue.global().asyncAfter(deadline: .now() + 5) { [self] in if process.isRunning { kill(pid, SIGKILL) } }
+    DispatchQueue.global().asyncAfter(deadline: .now() + 5) { [self] in if isRunning { kill(pid, SIGKILL) } }
   }
 }

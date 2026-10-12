@@ -70,6 +70,7 @@ extension CommandCenter {
       activeComposer?.toggleInteractionMode()
     }
     registerPullRequestCommands()
+    registerPreviewCommands()
   }
 
   // MARK: Helpers

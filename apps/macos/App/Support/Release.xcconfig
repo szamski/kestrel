@@ -1,3 +1,4 @@
 // T3 Connect public configuration first, so Signing.local.xcconfig can override it.
 #include "Connect.xcconfig"
+#include "Updates.xcconfig"
 #include? "Signing.local.xcconfig"

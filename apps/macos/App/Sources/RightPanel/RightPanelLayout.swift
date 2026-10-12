@@ -56,6 +56,12 @@ struct RightPanelLayout<Content: View, Panel: View>: View {
     .task(id: key) { registerCommands() }
     // Fallback until/unless the keybindings are used: the same actions as the commands.
     .toolbar {
+      if previewSupported {
+        ToolbarItem(placement: .primaryAction) {
+          Button { store.toggle(.preview, in: key) } label: { Label("Browser", systemImage: "globe") }
+            .help("Show or hide the browser: the pages your agent opens on the server")
+        }
+      }
       ToolbarItem(placement: .primaryAction) {
         Menu {
           Button("Show Files") { store.openFiles(in: key) }
@@ -68,6 +74,9 @@ struct RightPanelLayout<Content: View, Panel: View>: View {
       }
     }
   }
+
+  /// The environment hosts server browsers, so the Preview tab has pages to show.
+  private var previewSupported: Bool { app.runtime.serverConfigs[key.environmentId]?.config.environment.capabilities.serverBrowser == true }
 
   private var dialogBinding: Binding<FileDialogRequest?> {
     Binding(

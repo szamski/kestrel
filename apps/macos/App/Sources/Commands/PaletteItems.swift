@@ -123,6 +123,7 @@ struct PaletteContent {
       commandItem(.sidebarToggle, title: "Toggle sidebar", symbol: "sidebar.left"),
       commandItem(.rightPanelToggle, title: "Toggle right panel", symbol: "sidebar.right"),
       commandItem(.diffToggle, title: "Toggle diff", symbol: "plusminus", terms: ["changes", "review"]),
+      commandItem(.previewToggle, title: "Toggle browser", symbol: "globe", terms: ["preview", "web", "page"]),
       commandItem(.terminalToggle, title: "Toggle terminal", symbol: "terminal", terms: ["shell", "console"]),
       commandItem(.terminalNew, title: "New terminal", symbol: "plus.rectangle", terms: ["shell", "tab"]),
       commandItem(.terminalSplit, title: "Split terminal", symbol: "square.split.2x1"),

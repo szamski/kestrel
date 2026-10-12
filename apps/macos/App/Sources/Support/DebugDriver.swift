@@ -114,6 +114,8 @@ final class DebugDriver {
           } catch { say("mkproject failed: \(error)") }
         } else { say("mkproject: no connected environment or bad arg") }
       case "pr": await PullRequestsDebug.run(arg, app: app, say: { say($0) }, sleep: { await sleep($0) })  // pull request inbox (read-only), see PullRequestsDebug
+      case "pv": await runPreviewStep(arg)  // browser panel, see PreviewDebug
+      case "shell": await runDesktopShellStep(arg)  // desktop shell: updater, menu, app socket (DebugDriver+DesktopShell)
       case "proto": await protocolStatus()
       case "send": await sendMessage(arg)
       case "scratch": await scratch()

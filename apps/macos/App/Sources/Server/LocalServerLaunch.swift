@@ -23,6 +23,18 @@ struct LocalServerLaunch: Sendable {
     var errorDescription: String?
   }
 
+  /// The T3 home the local server uses, known without starting it (the `t3 app` socket address derives from `<home>/userdata`).
+  static func homeDirectory(dataDirectory: URL) -> URL {
+    #if DEBUG
+    dataDirectory.appending(path: "server-home", directoryHint: .isDirectory)
+    #else
+    let configured = ProcessInfo.processInfo.environment["T3CODE_HOME"]?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    return configured.isEmpty
+      ? FileManager.default.homeDirectoryForCurrentUser.appending(path: ".t3", directoryHint: .isDirectory)
+      : URL(fileURLWithPath: (configured as NSString).expandingTildeInPath)
+    #endif
+  }
+
   /// `environment` is the captured login-shell environment (its PATH finds node in Debug).
   static func resolve(environment: [String: String], dataDirectory: URL) throws -> LocalServerLaunch {
     let userHome = FileManager.default.homeDirectoryForCurrentUser
@@ -37,7 +49,7 @@ struct LocalServerLaunch: Sendable {
     }
     // cwd is the server's workspace boundary for review/diff RPCs: the home directory, as in Release (not the repo's apps/server).
     let node = try findNode(path: environment["PATH"] ?? "")
-    let home = dataDirectory.appending(path: "server-home", directoryHint: .isDirectory)
+    let home = homeDirectory(dataDirectory: dataDirectory)
     // Data safety: a Debug build must never run a server on the live install.
     guard home.standardizedFileURL.path != userHome.appending(path: ".t3").path else {
       throw Failure(errorDescription: "Refusing to run the Debug server on ~/.t3.")
@@ -50,8 +62,7 @@ struct LocalServerLaunch: Sendable {
     guard FileManager.default.isExecutableFile(atPath: executable.path) else {
       throw Failure(errorDescription: "This build has no bundled server. Run apps/macos/scripts/bundle-server.sh on the app.")
     }
-    let configured = ProcessInfo.processInfo.environment["T3CODE_HOME"]?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    let home = configured.isEmpty ? userHome.appending(path: ".t3", directoryHint: .isDirectory) : URL(fileURLWithPath: (configured as NSString).expandingTildeInPath)
+    let home = homeDirectory(dataDirectory: dataDirectory)
     return LocalServerLaunch(
       executable: executable, arguments: ["--bootstrap-fd", "0"], workingDirectory: userHome, home: home, firstPort: 3773,
       marker: executable.path)

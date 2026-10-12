@@ -8,13 +8,20 @@ enum LocalServerSupport {
   // MARK: Bootstrap
 
   /// The envelope the server reads from `--bootstrap-fd 0`: packages/contracts/src/desktopBootstrap.ts
-  /// (DesktopBackendBootstrap). Telemetry fds and OTLP endpoints are omitted; the bind host and Tailscale Serve follow `exposure`.
-  static func bootstrapJSON(port: Int, home: URL, token: String, exposure: LocalServerExposure = LocalServerExposure()) throws -> Data {
-    var data = try JSONSerialization.data(
-      withJSONObject: [
-        "mode": "desktop", "noBrowser": true, "port": port, "t3Home": home.path, "host": exposure.bindHost, "desktopBootstrapToken": token,
-        "tailscaleServeEnabled": exposure.tailscaleServe, "tailscaleServePort": exposure.tailscalePort,
-      ] as [String: Any], options: [.sortedKeys])
+  /// (DesktopBackendBootstrap). `desktopFds` names the descriptors of the telemetry channel (see `ServerChild.spawn`); OTLP endpoints
+  /// are omitted; the bind host and Tailscale Serve follow `exposure`.
+  static func bootstrapJSON(
+    port: Int, home: URL, token: String, exposure: LocalServerExposure = LocalServerExposure(), desktopFds: (telemetry: Int, control: Int)? = nil
+  ) throws -> Data {
+    var envelope: [String: Any] = [
+      "mode": "desktop", "noBrowser": true, "port": port, "t3Home": home.path, "host": exposure.bindHost, "desktopBootstrapToken": token,
+      "tailscaleServeEnabled": exposure.tailscaleServe, "tailscaleServePort": exposure.tailscalePort,
+    ]
+    if let desktopFds {
+      envelope["desktopTelemetryFd"] = desktopFds.telemetry
+      envelope["desktopTelemetryControlFd"] = desktopFds.control
+    }
+    var data = try JSONSerialization.data(withJSONObject: envelope, options: [.sortedKeys])
     data.append(0x0A)
     return data
   }

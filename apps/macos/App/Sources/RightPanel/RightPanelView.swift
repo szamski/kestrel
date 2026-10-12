@@ -42,6 +42,8 @@ struct RightPanelView: View {
         if let path = state.active?.filePath {
           FilePreviewView(app: app, key: key, path: path, store: store).id(path)
         }
+      case .preview?:
+        PreviewPanelView(app: app, key: key).id(key)
       case .pullRequests?:
         ThreadPullRequestsPanel(app: app, key: key, store: store)
       case .pullRequest?:

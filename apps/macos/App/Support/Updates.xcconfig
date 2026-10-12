@@ -1,0 +1,10 @@
+// Sparkle update configuration. Both values are public; neither is a secret. Override them in the untracked Signing.local.xcconfig
+// to try a feed locally; the release setup fills them in for shipped builds.
+//
+// Empty feed: the build has no updater. "Check for Updates…" is disabled and Settings › General says so.
+// xcconfig reads `//` as a comment, so write the scheme as `https:/$()/host/appcast.xml`.
+SPARKLE_FEED_URL =
+
+// EdDSA public key (base64) printed by Sparkle's `generate_keys`; required once a feed is set. The private key stays in the keychain of
+// whoever signs releases (`sign_update`); it is never committed.
+SPARKLE_PUBLIC_ED_KEY =

@@ -84,6 +84,10 @@ struct AppCommands: Commands {
   let commands: CommandCenter
 
   var body: some Commands {
+    CommandGroup(after: .appInfo) {
+      Button("Check for Updates\u{2026}") { UpdateController.shared.checkForUpdates() }
+        .disabled(!UpdateController.shared.isAvailable)
+    }
     CommandGroup(replacing: .newItem) {
       CommandButton(commands: commands, command: .chatNew, title: "New Thread")
       Button("New Thread in\u{2026}") { commands.palette.present(mode: .newThreadIn) }

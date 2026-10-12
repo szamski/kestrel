@@ -12,6 +12,7 @@ struct GeneralPage: View {
   @State private var legacyExpanded = false
   @AppStorage("settings.lastGroupingMode") private var lastGroupingMode = "repository"
 
+  private let updates = UpdateController.shared
   private let dc = ClientSettingsSchema()
   private let ds = ServerSettings()
 
@@ -381,8 +382,19 @@ struct GeneralPage: View {
     let build = info.object(forInfoDictionaryKey: "CFBundleVersion") as? String
     return Section("About") {
       LabeledContent("Version") { Text(build.map { "\(version) (\($0))" } ?? version).monospaced().textSelection(.enabled) }
-      LabeledContent("Update track") {
-        Picker("", selection: .constant("latest")) { Text("Stable").tag("latest") }.labelsHidden().pickerStyle(.menu).fixedSize().disabled(true)
+      LabeledContent("Update channel") {
+        Picker("", selection: Binding(get: { updates.channel }, set: { updates.channel = $0 })) {
+          ForEach(DesktopUpdateChannel.allCases) { Text($0.title).tag($0) }
+        }
+        .labelsHidden().pickerStyle(.menu).fixedSize()
+      }
+      Toggle("Check for updates automatically", isOn: Binding(get: { updates.isAvailable && updates.automaticChecks }, set: { updates.setAutomaticChecks($0) }))
+        .disabled(!updates.isAvailable)
+      LabeledContent("Updates") {
+        HStack(spacing: 10) {
+          Text(updates.state.summary).foregroundStyle(.secondary).lineLimit(2)
+          Button("Check for Updates\u{2026}") { updates.checkForUpdates() }.disabled(!updates.isAvailable)
+        }
       }
       LabeledContent("Links") {
         HStack(spacing: 12) {

@@ -18,9 +18,12 @@
 		A10000000000000000000022 /* T3Terminal in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000022 /* T3Terminal */; };
 		A10000000000000000000030 /* T3Theme in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000030 /* T3Theme */; };
 		A10000000000000000000031 /* T3Connect in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000031 /* T3Connect */; };
+		A10000000000000000000032 /* T3Preview in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000032 /* T3Preview */; };
 		B00000000000000000000001 /* Kestrel-dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* Kestrel-dev.icon */; };
 		B00000000000000000000002 /* Kestrel-prod.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* Kestrel-prod.icon */; };
+		A10000000000000000000040 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A40000000000000000000040 /* Sparkle */; };
 /* End PBXBuildFile section */
+
 
 /* Begin PBXFileReference section */
 		A20000000000000000000001 /* T3 Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "T3 Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +42,7 @@
 				Support/Debug.xcconfig,
 				Support/Info.plist,
 				Support/Release.xcconfig,
+				Support/Updates.xcconfig,
 			);
 			target = A50000000000000000000001 /* T3 Code */;
 		};
@@ -71,6 +75,8 @@
 				A10000000000000000000022 /* T3Terminal in Frameworks */,
 				A10000000000000000000030 /* T3Theme in Frameworks */,
 				A10000000000000000000031 /* T3Connect in Frameworks */,
+				A10000000000000000000032 /* T3Preview in Frameworks */,
+				A10000000000000000000040 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +143,8 @@
 				A40000000000000000000022 /* T3Terminal */,
 				A40000000000000000000030 /* T3Theme */,
 				A40000000000000000000031 /* T3Connect */,
+				A40000000000000000000032 /* T3Preview */,
+				A40000000000000000000040 /* Sparkle */,
 			);
 			productName = "T3 Code";
 			productReference = A20000000000000000000001 /* T3 Code.app */;
@@ -168,6 +176,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A40000000000000000000010 /* XCLocalSwiftPackageReference "T3Kit" */,
+				A40000000000000000000041 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A30000000000000000000003 /* Products */;
@@ -266,6 +275,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Kestrel connects to T3 Code servers on your local network.";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.szamowski.kestrel;
 				PRODUCT_NAME = "T3 Code";
@@ -295,6 +305,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Kestrel connects to T3 Code servers on your local network.";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.szamowski.kestrel;
 				PRODUCT_NAME = "T3 Code";
@@ -332,6 +343,17 @@
 			relativePath = T3Kit;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A40000000000000000000041 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		A40000000000000000000001 /* T3Contracts */ = {
@@ -377,6 +399,15 @@
 		A40000000000000000000031 /* T3Connect */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = T3Connect;
+		};
+		A40000000000000000000032 /* T3Preview */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Preview;
+		};
+		A40000000000000000000040 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A40000000000000000000041 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

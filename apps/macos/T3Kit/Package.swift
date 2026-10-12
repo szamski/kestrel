@@ -18,6 +18,7 @@ let package = Package(
     .library(name: "T3Keybindings", targets: ["T3Keybindings"]),
     .library(name: "T3Theme", targets: ["T3Theme"]),
     .library(name: "T3Connect", targets: ["T3Connect"]),
+    .library(name: "T3Preview", targets: ["T3Preview"]),
   ],
   dependencies: [
     .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.9.0"),
@@ -47,6 +48,8 @@ let package = Package(
       name: "T3Connect",
       dependencies: ["T3Contracts", "T3Protocol", "T3ClientRuntime", .product(name: "ClerkKit", package: "clerk-ios")]
     ),
+    // Server browser preview: stream wire codec, tab state over `preview.*`, page geometry, key mapping, RPC client.
+    .target(name: "T3Preview", dependencies: ["T3Contracts", "T3Protocol", "T3ClientRuntime"]),
     .target(name: "T3Composer", dependencies: ["T3Contracts", "T3Timeline", "T3Markdown"]),
     // Pure timeline derivation: messages, work log, tool presentation, plans.
     .target(name: "T3Timeline", dependencies: ["T3Contracts"]),
@@ -67,6 +70,7 @@ let package = Package(
     .testTarget(name: "T3ClientRuntimeTests", dependencies: ["T3ClientRuntime"], resources: [.copy("Fixtures")]),
     .testTarget(name: "T3ConnectTests", dependencies: ["T3Connect", "T3ClientRuntime", "T3Protocol", "T3Contracts"]),
     .testTarget(name: "T3MarkdownTests", dependencies: ["T3Markdown"]),
+    .testTarget(name: "T3PreviewTests", dependencies: ["T3Preview", "T3Contracts"]),
     .testTarget(name: "T3ComposerTests", dependencies: ["T3Composer", "T3Timeline", "T3Markdown", "T3Keybindings"]),
     .testTarget(name: "T3DiffTests", dependencies: ["T3Diff"]),
     .testTarget(name: "T3KeybindingsTests", dependencies: ["T3Keybindings"]),

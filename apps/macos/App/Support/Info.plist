@@ -20,6 +20,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>$(SPARKLE_FEED_URL)</string>
+	<key>SUPublicEDKey</key>
+	<string>$(SPARKLE_PUBLIC_ED_KEY)</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>14400</integer>
 	<key>T3ConnectClerkJWTTemplate</key>
 	<string>$(T3_CONNECT_CLERK_JWT_TEMPLATE)</string>
 	<key>T3ConnectClerkPublishableKey</key>

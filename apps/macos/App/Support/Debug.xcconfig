@@ -1,6 +1,7 @@
 // Debug build settings. Machine-specific signing lives in the untracked Signing.local.xcconfig.
 // T3 Connect public configuration first, so Signing.local.xcconfig can override it.
 #include "Connect.xcconfig"
+#include "Updates.xcconfig"
 #include? "Signing.local.xcconfig"
 
 // The Debug server runs from this checkout (apps/server/src/bin.ts); Release bundles its own (scripts/bundle-server.sh).

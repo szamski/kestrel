@@ -165,6 +165,10 @@ final class AppModel {
     started = true
     await runtime.start()
     await connect.start()
+    // The desktop shell's duties (Updates/, Telemetry/, Activation/): before the server, so it finds the channels and the socket ready.
+    DesktopTelemetry.shared.start()
+    UpdateController.shared.start()
+    DesktopActivation.shared.start(app: self)
     if runsLocalServer { localServer.start() } else { await disableLocalEnvironment() }
     restoreSelection()
     observePresence()
@@ -191,6 +195,7 @@ final class AppModel {
     await detail?.close()
     await composer.services.persistDraftsNow()
     connect.stop()
+    DesktopActivation.shared.stop()
     await runtime.stop()
     await localServer.stop()
   }
