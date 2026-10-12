@@ -248,22 +248,28 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A20000000000000000000003 /* App/Support/Debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
 				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CKWYP7CT7C;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "*/prod/Kestrel.icon";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Support/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
+				INFOPLIST_KEY_CFBundleDisplayName = Kestrel;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Kestrel connects to T3 Code servers on your local network.";
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = codes.t3.macos.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.szamowski.kestrel;
 				PRODUCT_NAME = "T3 Code";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
@@ -272,22 +278,27 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A20000000000000000000004 /* App/Support/Release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
 				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Kestrel;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/Support/T3Code.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CKWYP7CT7C;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "*/dev/Kestrel.icon";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Support/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "T3 Code";
+				INFOPLIST_KEY_CFBundleDisplayName = Kestrel;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Kestrel connects to T3 Code servers on your local network.";
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = codes.t3.macos;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.szamowski.kestrel;
 				PRODUCT_NAME = "T3 Code";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
@@ -355,13 +366,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = T3Keybindings;
 		};
-		A40000000000000000000030 /* T3Theme */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = T3Theme;
-		};
 		A40000000000000000000022 /* T3Terminal */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = T3Terminal;
+		};
+		A40000000000000000000030 /* T3Theme */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = T3Theme;
 		};
 		A40000000000000000000031 /* T3Connect */ = {
 			isa = XCSwiftPackageProductDependency;

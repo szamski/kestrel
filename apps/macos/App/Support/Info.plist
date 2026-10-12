@@ -2,9 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- ATS: users enter the address of their own T3 Code server, which is usually plain http/ws on a
-	     LAN, loopback or Tailscale host. Arbitrary loads stay on for that reason; NSAllowsLocalNetworking
-	     covers .local and unqualified hosts explicitly. Tighten once the app can classify hosts itself. -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -12,17 +9,13 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<!-- Debug only (empty in Release): where the local server runs from; see Debug.xcconfig. -->
-	<key>T3RepoRoot</key>
-	<string>$(T3_REPO_ROOT)</string>
-	<!-- T3 Connect (public identifiers, the values web and desktop read from .env); filled from Connect.xcconfig. -->
-	<key>T3ConnectClerkPublishableKey</key>
-	<string>$(T3_CONNECT_CLERK_PUBLISHABLE_KEY)</string>
 	<key>T3ConnectClerkJWTTemplate</key>
 	<string>$(T3_CONNECT_CLERK_JWT_TEMPLATE)</string>
+	<key>T3ConnectClerkPublishableKey</key>
+	<string>$(T3_CONNECT_CLERK_PUBLISHABLE_KEY)</string>
 	<key>T3ConnectRelayHost</key>
 	<string>$(T3_CONNECT_RELAY_HOST)</string>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>T3 Code connects to T3 Code servers on your local network.</string>
+	<key>T3RepoRoot</key>
+	<string>$(T3_REPO_ROOT)</string>
 </dict>
 </plist>

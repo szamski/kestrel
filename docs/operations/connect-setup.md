@@ -93,10 +93,9 @@ The native macOS client (`apps/macos`) signs in through Clerk's native SDK, whic
 `<bundle id>://callback`. Add each bundle ID to **Native applications > Allowlist for mobile SSO redirect** of the
 Clerk instance selected by the app's publishable key:
 
-| Variant     | Callback                        |
-| ----------- | ------------------------------- |
-| Development | `codes.t3.macos.dev://callback` |
-| Production  | `codes.t3.macos://callback`     |
+| Build                | Callback                           |
+| -------------------- | ---------------------------------- |
+| Kestrel (fork build) | `dev.szamowski.kestrel://callback` |
 
 Email-code sign-in needs no redirect. The client identifies to the relay as `t3-web` (the relay issues DPoP tokens to
 `t3-web` and `t3-mobile` only) and to environments as a `desktop` device. Its public configuration lives in

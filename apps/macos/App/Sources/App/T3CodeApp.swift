@@ -16,7 +16,7 @@ struct T3CodeApp: App {
   }
 
   var body: some Scene {
-    Window("T3 Code", id: "main") {
+    Window("Kestrel", id: "main") {
       MainView()
         .environment(app)
         .environment(commands)
